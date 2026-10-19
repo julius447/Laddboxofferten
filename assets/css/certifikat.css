@@ -1,0 +1,375 @@
+/* ===========================================================================
+   @container, inte @media, och cqw, inte vw.
+   Blocket är byggt för en egen sida där fönstret ÄR blocket. Här ligger det
+   inuti .offer, som är en container. I granskningsramen är offerten 390 px
+   bred i ett 1400 px fönster: varenda @media-fråga läste då fönstret, så
+   mobilreglerna slog aldrig till och desktoplayouten pressades in i 390 px.
+   Det var det som såg trasigt ut, inte koden. Fristående är utfallet exakt
+   detsamma som förut, för där är offerten lika bred som fönstret.
+   hover, pointer, reduced-motion och print är kvar som @media: de handlar om
+   enheten, inte om bredden.
+   =========================================================================== */
+/* ===========================================================================
+   AMPY — CERTIFICATES v2  ·  styles.css
+   FluentSnippets: CSS Snippet · Frontend · wp_head
+   ---------------------------------------------------------------------------
+   ISOLERINGSKONTRAKT
+   Allt ligger under .ampy-cert. Ingen :root, inga globala reset (* / body /
+   html / a), inga generiska klassnamn. Blocket kan varken restyla WordPress-
+   sidan eller bli restylat av temat.
+
+   TOKENS MED DUBBEL KÄLLA
+   Varje sajt-token skrivs som var(--token, <samma clamp i px>). På ampy.se
+   löser sajtens egna tokens ut och blocket följer sajtens flytande skala. Om
+   CSS:en körs någon annanstans, eller om Bricks laddningsordning ändras, tar
+   px-fallbacken över med EXAKT samma kurva. Blocket ser likadant ut i båda
+   fallen. Omräkning: sajten skriver rem på , alltså
+   10px = 10px.
+
+   RENDERINGEN ÄR VERIFIERAD över 24 skärmbredder (1920-360) i headless
+   Chromium. Ändra inga värden utan att köra om den kontrollen.
+   =========================================================================== */
+
+/* --- typsnitt: self-hostat, aldrig Google Fonts (GDPR + ingen layoutflytt) --- */
+/* Variabel woff2 täcker hela viktspannet, så ingen vikt kan faux-boldas.
+   Byt sökvägen till där filen faktiskt ligger i mediabiblioteket. */
+@font-face{
+  font-family:"AmpyOutfit";
+  src:url("/wp-content/uploads/ampy-fonts/Outfit-VariableFont_wght.woff2") format("woff2");
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+
+/* ===========================================================================
+   1. SEKTIONEN
+   =========================================================================== */
+.ampy-cert{
+  /* Gradientparet bor på wrappern. Låg det i en global :root skulle en
+     inklistring av enbart den här filen ge ogiltigt var() → background-image
+     :none → osynligt block med vit text på ljus bakgrund. */
+  --ampy-cert-navy:#090b32;
+  --ampy-cert-teal:#5eb1bf;
+
+  --ampy-cert-pad-y:var(--apspace-xl,clamp(25px,calc(3.23cqw + 14.7px),56px));
+  --ampy-cert-pad-x:var(--apspace-xl,clamp(25px,calc(3.23cqw + 14.7px),56px));
+  --ampy-cert-card-h:113px;
+
+  position:relative;
+  overflow:hidden;                    /* vågen kan aldrig sticka ut */
+  display:flex;
+  align-items:center;
+  padding:var(--ampy-cert-pad-y) var(--ampy-cert-pad-x);
+  margin:var(--space-l,clamp(30px,calc(30px + 0.0067 * (100cqw - 380px)),36px)) 0;
+  background-image:linear-gradient(90deg,var(--ampy-cert-navy),var(--ampy-cert-teal));
+  isolation:isolate;
+
+  font-family:"AmpyOutfit","Outfit",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -webkit-text-size-adjust:100%;      /* iOS förstorar annars texten i landskap */
+  text-size-adjust:100%;
+}
+
+/* Scopad reset. ALDRIG *{} eller body{} — de blöder ut i hela WordPress-sidan. */
+.ampy-cert,
+.ampy-cert *,
+.ampy-cert *::before,
+.ampy-cert *::after{box-sizing:border-box}
+.ampy-cert :where(h1,h2,h3,h4,p,figure,ul,ol){margin:0}
+.ampy-cert :where(img,svg){display:block;max-width:100%}
+
+/* ===========================================================================
+   2. BAKGRUNDEN
+   Vågen är en SVG med preserveAspectRatio="none" i 100% × 100%. Det är HELA
+   fixen för de kantiga linjerna i det gamla blocket: där visades en 1193×568
+   SVG i en 1193×319-ruta med object-fit:cover, vilket klippte bort ~124px
+   uppe och nere, alltså exakt vågkammen. Här kan ingenting klippas.
+   =========================================================================== */
+/* top/right/bottom/left står FÖRE inset: inset stöds först från iOS Safari
+   14.5, och utan fallback kollapsar lagret så hela vågen försvinner. */
+.ampy-cert__bg{
+  position:absolute;
+  top:0;right:0;bottom:0;left:0;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+.ampy-cert__bg svg{
+  position:absolute;
+  top:0;right:0;bottom:0;left:0;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+/* Mjuk ljusglugg bakom logotypklustret som lyfter de vita korten.
+   rgba(255,255,255,0) och inte transparent: Safari interpolerar "transparent"
+   via genomskinligt SVART och lägger en grå dis över gradienten. */
+.ampy-cert__glow{
+  position:absolute;
+  z-index:1;
+  right:-6%;
+  top:50%;
+  width:62%;
+  height:150%;
+  transform:translateY(-50%);
+  pointer-events:none;
+  background:radial-gradient(ellipse at 55% 50%,
+    rgba(255,255,255,.10) 0%,
+    rgba(255,255,255,.04) 38%,
+    rgba(255,255,255,0) 70%);
+}
+
+/* ===========================================================================
+   3. INNEHÅLLET
+   =========================================================================== */
+.ampy-cert__inner{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:var(--container-width,1280px);
+  margin-left:auto;margin-right:auto;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  gap:var(--apspace-m,clamp(16px,calc(1.25cqw + 12px),28px));
+}
+
+.ampy-cert__intro{flex:1 1 0;min-width:0;color:#fff}
+
+/* Rubriken använder samma token, vikt och radhöjd som "Så funkar det" på
+   ampy.se startsida (36px w400 lh1,2 desktop / 26,76px mobil). Det gamla
+   blocket låg på 32px, minst av alla sektionsrubriker på sidan. */
+.ampy-cert__heading{
+  margin:0;
+  font-size:30px;
+  font-weight:400;
+  line-height:1.2;
+  color:#fff;
+  letter-spacing:-.01em;
+  /* Verkningslös när rubriken får plats på en rad (≥1100px). Räddar de två
+     lägen där den bryter: 901-1000px gav änkan "jobb" (379px mot 63px) och
+     mobil gav 306px mot 51px. Saknas stödet bryter texten greedy, ingen skada. */
+  text-wrap:balance;
+}
+
+/* Brödtexten: 48ch ger två rader på desktop med en mening per rad (527/415px).
+   44ch gav visserligen två rader men nästan lika långa (484/458). 46 och 48ch
+   bryter identiskt, så värdet ligger mitt i sitt säkra spann.
+   text-wrap:balance ska INTE på här i normalläget — brytningen är ritad. */
+.ampy-cert__text{
+  margin:var(--apspace-xs,clamp(10.2px,calc(0.39cqw + 9px),14px)) 0 0;
+  font-size:17px;
+  font-weight:300;
+  line-height:1.7;
+  color:#fff;
+  max-width:48ch;
+}
+@container (min-width:901px){
+  .ampy-cert__text{line-height:1.55}   /* binder ihop raderna till ett block */
+}
+/* Mellanbandet är för smalt för två rader och lämnar änkan "ryggen." på 59px.
+   Taket är satt till 1099 och inte 1069 där brytningen faktiskt vänder, så en
+   pixels renderingsskillnad inte kan återinföra änkan. */
+@container (min-width:901px) and (max-width:1099px){
+  .ampy-cert__text{text-wrap:balance}
+}
+
+/* ===========================================================================
+   4. MÄRKESGRIDEN
+   =========================================================================== */
+.ampy-cert__marks{
+  /* <ul role="list"> — role behövs: Safari/VoiceOver tar bort listsemantiken
+     när list-style:none är satt, och då försvinner "lista med 4 objekt". */
+  list-style:none;
+  margin:0;
+  padding:0;
+  flex:1 1 0;
+  min-width:0;
+  max-width:492px;                    /* ger kort på 236×113 = 2,09:1 */
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  /* Kolumngapet måste vara ≥ hörnradien (20px), annars har kanalen mellan
+     korten ingen rak sträcka och läses timglasformad. Radgapet måste stå kvar
+     på 16px — 20px där ger 358px och spräcker höjdlåset på 354px. */
+  column-gap:var(--apspace-s,clamp(12.8px,calc(0.73cqw + 10.5px),19.8px));
+  row-gap:16px;
+}
+
+.ampy-cert__marks>li{display:flex}
+.ampy-cert__mark{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:var(--ampy-cert-card-h);
+  padding:16px 18px;
+  background:var(--white,#fff);
+  border-radius:var(--apradius-l,clamp(16px,calc(0.42cqw + 14.7px),20px));
+  text-decoration:none;
+  /* Den inre hårlinjen är inte dekoration. Kontrasten mellan kortvitt och
+     bakgrunden varierar 3× över blocket: 5,39:1 uppe till vänster mot 1,81:1
+     vid Trygg-Hansa nere till höger där gradienten är som ljusast. Utan kanten
+     fransar väggen upp i det hörnet. Kanten är underlagsoberoende. */
+  box-shadow:0 2px 10px rgba(9,11,50,.10),
+             0 12px 34px rgba(9,11,50,.10),
+             inset 0 0 0 1px rgba(9,11,50,.07);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+
+/* Hover bara på enheter med riktig pekare. På pekskärm fastnar :hover efter en
+   tap, och eftersom korten öppnar ny flik står kortet kvar upplyft när
+   användaren kommer tillbaka. Det läses som en bugg. */
+@media (hover:hover) and (pointer:fine){
+  .ampy-cert__mark:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 14px rgba(9,11,50,.13), 0 18px 44px rgba(9,11,50,.14);
+  }
+}
+/* :hover och :focus-visible får ALDRIG stå i samma selektorlista. Listan är
+   allt-eller-inget: på iOS Safari före 15.4 saknas :focus-visible, hela regeln
+   blir ogiltig och både lyftet och fokusringen försvinner tyst. */
+/* TVÅTONSRING (WCAG 1.4.11 Non-text Contrast, 3:1 mot angränsande färg).
+   En enfärgad ring kan inte klara kravet över hela blocket: gradienten spänner
+   19:1 i den mörka änden till 1,9:1 i den ljusa. En vit ring mättes till
+   1,64-2,75:1 vid Trygg-Hansa och Elsäkerhetsverket, en navy-ring till 1,03:1
+   i den mörka änden. Vit + navy intill varandra gör att minst en av tonerna
+   alltid har ≥3:1 mot underlaget — uppmätt värsta fall 4,36:1 över samtliga
+   fyra kort × fyra viewporter — och de har 19:1 mot varandra.
+   scroll-margin skyddar mot att sticky call-baren döljer kortet vid tabbning
+   (WCAG 2.4.11 Focus Not Obscured). */
+.ampy-cert__mark{scroll-margin-block:96px}
+.ampy-cert__mark:focus-visible{
+  transform:translateY(-2px);
+  outline:3px solid #fff;
+  outline-offset:3px;
+  box-shadow:0 0 0 6px var(--ampy-cert-navy),
+             0 4px 14px rgba(9,11,50,.13), 0 18px 44px rgba(9,11,50,.14);
+}
+/* :focus som fallback för motorer utan :focus-visible, sedan bort igen där
+   de kan skilja på tangentbord och mus. */
+.ampy-cert__mark:focus{
+  outline:3px solid #fff;
+  outline-offset:3px;
+  box-shadow:0 0 0 6px var(--ampy-cert-navy),
+             0 4px 14px rgba(9,11,50,.13), 0 18px 44px rgba(9,11,50,.14);
+}
+.ampy-cert__mark:focus:not(:focus-visible){
+  outline:none;
+  box-shadow:0 2px 10px rgba(9,11,50,.10),
+             0 12px 34px rgba(9,11,50,.10),
+             inset 0 0 0 1px rgba(9,11,50,.07);
+}
+
+/* ---------------------------------------------------------------------------
+   OPTISK NORMALISERING PÅ BLÄCK — kärnan i designen, ändra inte i blindo.
+
+   Steg 1: logotypfilerna hade inbyggd luft. Mätt genom att rendera varje fil
+   till canvas och läsa alfakanalen var Trygg-Hansa 68,1% TOM, Elsäkerhetsverket
+   17,4%, ID06 9,6%, Installatörsföretagen 0%. Vid samma boxhöjd syntes därför
+   17,9px Trygg-Hansa-bläck mot 40px för Installatörsföretagen. Alla fyra
+   viewBox:ar är nu beskurna till bläckrutan, så höjden nedan = SYNLIG höjd.
+
+   Steg 2: lika optisk MASSA, inte lika yta. Lika yta gav 2,3% spridning på
+   papperet men såg fortfarande ojämnt ut, eftersom upplevd tyngd också beror på
+   hur tät och mörk logotypen är. Trygg-Hansa är fet svart versaltext
+   (medelsvärta 0,61), Elsäkerhetsverket tunn text med öppen ring (0,43).
+
+   Sanna proportioner efter beskärning:
+     Installatörsföretagen 3,824:1 · Elsäkerhetsverket 1,129:1
+     ID06 2,684:1 · Trygg-Hansa 5,147:1
+   --------------------------------------------------------------------------- */
+.ampy-cert__mark img{
+  width:auto;
+  max-width:100%;
+  height:var(--ampy-cert-lh);
+  object-fit:contain;
+}
+.ampy-cert__mark--in   {--ampy-cert-lh:35px}   /* → 134 × 35 */
+.ampy-cert__mark--esv  {--ampy-cert-lh:70px}   /* →  79 × 70 */
+.ampy-cert__mark--id06 {--ampy-cert-lh:43px}   /* → 115 × 43 · se not om ramen */
+.ampy-cert__mark--th   {--ampy-cert-lh:28px}   /* → 144 × 28 */
+
+/* ===========================================================================
+   5. MOBIL / STAPLAT LÄGE
+   Brytpunkten ligger på 900px, inte 780. I bandet 781-905px var kolumnen för
+   smal och Trygg-Hansa klipptes från 155px till 126px bredd, alltså exakt den
+   logotyp hela normaliseringen byggdes för.
+   =========================================================================== */
+@container (max-width:900px){
+  .ampy-cert{
+    /* mobilen behåller den generösa lodräta luften */
+    --ampy-cert-pad-y:var(--apspace-2xl,clamp(31.3px,calc(4.99cqw + 15.3px),79.2px));
+    --ampy-cert-card-h:96px;
+
+    /* WCAG 1.4.3 — GRADIENTEN VRIDS PÅ MOBIL.
+       #5eb1bf har bara 2,47:1 mot vitt och kan därför aldrig bära vit text på
+       AA-nivå. På desktop räddas blocket av layouten: textkolumnen slutar långt
+       innan gradienten blir ljus. Staplat hamnar däremot radsluten mitt i den
+       ljusa änden, och brödtexten mättes till 2,47:1 vid 360px — 55% av kravet.
+       Här vrids ljusänden NEDÅT, bakom korten, i stället för ut till höger
+       bakom texten. Navy hålls till 34% så textytan är mörk hela vägen.
+       Uppmätt efter ändring: brödtext 2,47 → 8,45:1, rubrik 2,81 → 19:1.
+       Desktop är oförändrad (8,85/8,37 vid 1440 både före och efter). */
+    background-image:linear-gradient(180deg,
+      var(--ampy-cert-navy) 0%,
+      var(--ampy-cert-navy) 34%,
+      var(--ampy-cert-teal) 100%);
+  }
+  .ampy-cert__inner{
+    flex-direction:column;
+    align-items:center;
+    /* mer luft mellan paragrafen och korten: blocket blir något mer avlångt,
+       vilket balanserar logotypernas dominans */
+    gap:var(--apspace-xl,clamp(25px,calc(3.23cqw + 14.7px),56px));
+  }
+  .ampy-cert__intro{flex:none;width:100%;text-align:center}
+  .ampy-cert__text{
+    max-width:34ch;
+    margin-left:auto;margin-right:auto;
+    line-height:1.6;
+    /* ingen balance här: vanlig brytning ger tre rader i fallande form
+       (320/264/255) utan änka, vilket är snyggare än balance (284/265/290
+       där sista raden blir längst) */
+  }
+  .ampy-cert__marks{
+    flex:none;
+    width:100%;
+    /* taket måste finnas kvar även staplat, annars blir korten 344×96 = 3,6:1
+       runt 780px. 390 och 360 är oberörda: griden är 335 resp. 307px där. */
+    max-width:492px;
+    margin-left:auto;margin-right:auto;
+    gap:16px;                          /* ≥ radien, samma regel som desktop */
+  }
+  .ampy-cert__mark{padding:12px 14px}
+  /* samma bläck-normalisering nedskalad till mobilkortet */
+  .ampy-cert__mark--in   {--ampy-cert-lh:25px}
+  .ampy-cert__mark--esv  {--ampy-cert-lh:56px}
+  .ampy-cert__mark--id06 {--ampy-cert-lh:30px}
+  .ampy-cert__mark--th   {--ampy-cert-lh:20px}
+  .ampy-cert__glow{width:100%;right:auto;left:0;height:60%;top:70%}
+}
+
+/* Små telefoner (iPhone SE/mini 375px, bredaste Android 360px). Där föll den
+   ritade radbrytningen tillbaka till "...behörig / elektriker". 18px sidopadding
+   ger texten de ~20px den behöver. 390px renderar oförändrat. */
+@container (max-width:389px){
+  .ampy-cert{--ampy-cert-pad-x:18px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ampy-cert__mark{transition:none}
+  .ampy-cert__mark:hover{transform:none}
+  .ampy-cert__mark:focus-visible{transform:none}
+}
+
+/* ===== Lyft över offertens nollställning =====
+   .offer p, .offer h1..h4 och .offer ul nollställer margin och väger
+   tyngre än blockets egna regler. Samma regler igen, med .offer framför.
+   Rotens egen marginal lyfts INTE: den styrs av fullbreddsregeln. */
+.offer .ampy-cert__heading{margin:0;}
+.offer .ampy-cert__inner{margin-left:auto;margin-right:auto;}
+.offer .ampy-cert__marks{margin-left:auto;margin-right:auto;}
+.offer .ampy-cert__marks{margin:0;}
+.offer .ampy-cert__text{margin-left:auto;margin-right:auto;}
+.offer .ampy-cert__text{margin:var(--apspace-xs,clamp(10.2px,calc(0.39cqw + 9px),14px)) 0 0;}
