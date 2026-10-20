@@ -1,8 +1,3 @@
-/* ============================================================
-   OFFERTEN. Medvetet enbart ljus: kundvänd sida i Ampys tokens.
-   SPACINGSKALAN. Enda tillåtna värden. Allt annat är en bugg.
-   4 / 8 / 12 / 16 / 24 / 32 / 48 / 64
-   ============================================================ */
 html{scroll-behavior:smooth;}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
 /* 68 var toppradens höjd. Inget ligger längre över sidan, så ett ankare
@@ -132,9 +127,6 @@ html{scroll-behavior:smooth;}
 .o-colA,.o-colB,.o-colC{display:flex;flex-direction:column;gap:var(--rytm-sektion);min-width:0;}
 /* --g är sektionens egen lucka, publicerad så barnen kan räkna med den. */
 .o-sec{--g:var(--rytm-block);display:flex;flex-direction:column;gap:var(--g);}
-.o-sec.grupper{--g:var(--s7);}
-.o-sec.grupper .t-h3{font-size:20px;font-weight:700;}
-.o-sec.grupper > .o-sec{--g:var(--s5);}
 .o-sechead{--g:var(--s2);display:flex;flex-direction:column;gap:var(--g);}
 .o-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r3);padding:var(--s5);}
 
@@ -142,25 +134,12 @@ html{scroll-behavior:smooth;}
 .o-hero{display:flex;flex-direction:column;gap:var(--s5);}
 .intro h1 + p{margin-top:var(--s1);}
 .o-hero .intro{display:flex;flex-direction:column;gap:var(--s2);}
-.o-prodimg{background:transparent;border-radius:var(--r2);overflow:hidden;display:grid;place-items:center;}
-.o-prodimg img{width:100%;aspect-ratio:1/1;object-fit:cover;}
-.o-prodcard{display:flex;flex-direction:column;gap:var(--s4);}
-.o-prodtop{display:flex;gap:var(--s4);align-items:center;}
-.o-prodtop .o-prodimg{width:96px;flex:none;}
-.o-prodname{font-size:20px;font-weight:700;letter-spacing:-.015em;color:var(--ink);}
-.o-prodspec{font-size:13px;color:var(--muted);margin-top:var(--s0);}
 .o-calc{border-top:1px solid var(--line);padding-top:var(--s4);display:flex;flex-direction:column;gap:var(--s2);}
 .o-calcrow{display:flex;justify-content:space-between;gap:var(--s3);font-size:13px;color:var(--muted);}
 .o-calcrow.dold,.t-micro.dold{display:none;}
 .o-calcrow.ded{color:var(--teal-ink);}
 .o-calcfinal{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:var(--s3);margin-top:var(--s1);}
 .o-calcfinal > span:first-child{font-size:15px;font-weight:600;color:var(--ink);}
-
-/* bokare */
-.o-booker{display:flex;align-items:center;gap:var(--s3);background:var(--bg);border:0;border-radius:var(--r2);padding:var(--s3) var(--s4);}
-.o-booker img{width:var(--z5);height:var(--z5);border-radius:50%;object-fit:cover;flex:none;}
-.o-booker b{display:block;font-size:15px;color:var(--ink);font-weight:600;}
-.o-booker span{font-size:13px;color:var(--faint);}
 
 /* stegen med egna ikoner */
 /* processen: svarta ikoner på vit platta, siffran i rubriken, en skena som binder ihop stegen */
@@ -180,82 +159,12 @@ html{scroll-behavior:smooth;}
 .o-fold{background:var(--card);border:1px solid var(--line);border-radius:var(--r2);overflow:hidden;}
 .o-fold>summary{list-style:none;cursor:pointer;padding:var(--s3) var(--s4);display:flex;justify-content:space-between;align-items:center;gap:var(--s3);font-size:15px;font-weight:600;color:var(--ink);min-height:48px;}
 .o-fold>summary::-webkit-details-marker{display:none;}
-.o-mer{margin-left:calc(var(--z2) + var(--s3));}
-.o-mer>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:var(--s2);min-height:var(--z5);font-size:13px;font-weight:600;color:var(--teal-ink);}
-.o-mer>summary::-webkit-details-marker{display:none;}
-.o-mer>summary::after{content:"";width:7px;height:7px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:transform .18s ease;}
-.o-mer[open]>summary::after{transform:rotate(-135deg);margin-top:var(--s1);}
-.o-mer>p{margin:0;padding-bottom:var(--s3);font-size:13px;font-weight:300;color:var(--muted);line-height:1.55;}
-@media (prefers-reduced-motion: reduce){ .o-mer>summary::after{transition:none;} }
 input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-fold>summary .hint{font-weight:400;color:var(--faint);font-size:13px;}
 .o-fold>summary::after{content:"";width:8px;height:8px;border-right:1.8px solid var(--faint);border-bottom:1.8px solid var(--faint);transform:rotate(45deg);margin-top:-4px;flex:none;transition:transform .18s ease;}
 .o-fold[open]>summary::after{transform:rotate(-135deg);margin-top:var(--s1);}
 @media (prefers-reduced-motion: reduce){ .o-fold>summary::after{transition:none;} }
 .o-fold .body{padding:0 var(--s4) var(--s4);}
-/* Vid 320 px, som är WCAG 1.4.10:s testbredd, är jämförelsetabellen 327 px i
-   en spalt på 286. Utan en rullande behållare försvann 41 px av
-   Premiumkolumnen, och folden klipper med overflow:hidden. */
-.o-fold .body:has(.o-cmp){overflow-x:auto;}
-.o-cmp{min-width:327px;}
-
-/* Se allt som ingår bär samma listkomponent som paketkorten, .o-ingar.
-   Bocken var ritad med två kantlinjer: 6 x 3 px roterade 45 grader inuti en
-   16 px bricka. Glyfen blev 1,5 px hög, satt 1,5 px ovanför brickans mitt och
-   föll ihop till en fläck. En bock är en form, inte två kanter. Nu en svg. */
-
-/* paketkort */
-.o-pkgs{display:flex;flex-direction:column;gap:var(--s3);}
-
-.o-pkg{display:block;position:relative;background:var(--card);border:1.5px solid var(--kant);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:border-color .18s ease;}
-@media (prefers-reduced-motion: reduce){ .o-pkg{transition:none;} }
-.o-pkg input{position:absolute;opacity:0;width:1px;height:1px;}
-/* Remsan satt ovanpå hjältebilden. Bilden är borta, så remsan tar sin egen
-   rad överst i kortet, som AG1:s BEST VALUE. */
-.o-pkg .ribbon{display:flex;align-items:center;gap:var(--s2);background:var(--teal-ink);color:#fff;
-  padding:var(--s2) var(--s5);font-size:13px;font-weight:600;letter-spacing:.01em;line-height:1.4;}
-.o-pkg .ribbon svg{width:14px;height:14px;flex:none;color:#fff;}
-/* TVÅ DOMAR PÅ TRE KORT TAR UT VARANDRA. "Vår rekommendation" och "Bäst
-   värde" sa båda välj mig, i samma teal, och då säger ingen av dem något.
-   En remsa är en dom och bär husets teal. Den andra är ett FAKTUM och bär
-   ikonspråkets blå: Premium bär 22 kW, den högsta laddeffekt sidan säljer,
-   och är det enda paketet som gör det. Kontrollerat i bygget. Ett faktum
-   säljer det dyra paketet bättre än ett andra beröm.
-   Remsan hette "Allt ingår" till 19 okt, då ägaren döpte om den till
-   "Maximal prestanda". Bocken följde med namnet: en bock betyder ingår, och
-   under de nya orden hade den sagt fel sak. Blixten är husets egen geometri
-   och betyder effekt. */
-.o-pkg .ribbon.fakta{background:var(--steg-bla);color:var(--ink);}
-.o-pkg .ribbon.fakta svg{color:var(--ikonglyf);}
-.o-pkg .pbody{padding:var(--s5);display:flex;flex-direction:column;gap:var(--rytm-block);}
-.o-pkg .prow{display:flex;align-items:center;gap:var(--s3);}
-.o-pkg .mark{width:var(--z3);height:var(--z3);border-radius:50%;border:1.5px solid var(--kant-kontroll);background:#fff;flex:none;position:relative;}
-.o-pkg .pname{flex:1;min-width:0;}
-.o-pkg .pname b{display:block;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}
-.o-pkg .pname span{display:block;font-size:13px;color:var(--muted);margin-top:var(--s0);}
-.o-pkg .pprice{font-size:17px;font-weight:700;color:var(--ink);flex:none;}
-.o-pkg .psell{font-size:15px;font-weight:300;color:var(--body);line-height:1.6;}
-/* PUNKTLISTAN. Kortets kärna, och den enda plats där paketen går att skilja
-   åt på en halv sekund. Två nivåer, inte sex:
-     .prod  hårdvaran du får hem  -> ifylld bricka, svart text
-     resten jobbet vi utför       -> tunn grå bock, grå text
-   Hårdvaran står först och är exakt samma tre saker som brickorna längst ner
-   i kortet, för båda genereras ur src/paket.json. 13 px med Inter: x-höjden
-   är 7,10 mot Outfits 6,73 vid 15, så raden läser större än den gjorde förut. */
-.o-ingar{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--s2);}
-.o-ingar li{font-size:13px;line-height:1.5;color:var(--muted);font-weight:300;
-  display:flex;align-items:flex-start;gap:var(--s3);}
-/* Luften hör till ETIKETTRADEN, inte till övergången hårdvara-jobb.
-   Den gamla regeln, li.prod + li:not(.prod), delade listan efter första
-   produktraden. I Bas-kortet, där bara en av fyra platser är fylld, lade den
-   24 px mitt i en lista med fyra likadana rader. Och i folden Se allt som
-   ingår delade den en platt kvittolista där allt ingår lika mycket, alltså en
-   skillnad utan skillnad. Uppmätt: fold 23 px efter produktraden, Bas 24 px
-   efter rad ett. Nu 8 överallt, och 24 bara före raden om grundinstallationen. */
-.o-ingar li.rubrik{margin-top:var(--s4);}
-.o-ingar li.prod{color:var(--ink);font-weight:600;}
-.o-ingar li.prod b{font-weight:600;}
-.o-ingar li.prod b + span{font-weight:300;color:var(--muted);}
 /* EN BOCK, INTE TVÅ. Ägarorder 18 okt: varje rad bär samma symbol, den
    ifyllda brickan med svart bock. En lista med två sorters bockar läser som
    två sorters sanning, och allt i listan är lika mycket "ingår".
@@ -267,62 +176,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   border-radius:50%;background:var(--ikonplatta);display:grid;place-items:center;}
 .o-bock svg{width:10px;height:10px;display:block;}
 .o-bock path{fill:none;stroke:var(--ikonglyf);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
-/* Gruppbilden överst i kortet: allt du får hem, i en bild.
-   De tre filerna är beskurna till sitt innehåll och är alla 318 px höga, så
-   laddboxen renderar exakt lika stor i Bas, Plus och Premium. Därför styr
-   HÖJDEN och inte bredden: 128 px ger 95 / 253 / 282 px breda bilder, och
-   även den bredaste får plats i kortet vid 375 (292 px innermått). */
-.o-pkg .pbild{margin:0;background:var(--bg);border-radius:var(--r1);
-  padding:var(--s4) var(--s3);display:flex;justify-content:center;align-items:center;min-height:160px;}
-.o-pkg .pbild img{width:auto;height:auto;max-width:100%;max-height:128px;}
-
-/* Produktbrickorna sist i kortet, som AG1. Tre lika stora rutor i varje paket,
-   så en bricka i Bas är exakt lika stor som en i Premium. */
-.o-ptiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);}
-/* På desktop blev en bricka 203 px bred, vilket är en produktbild och inte en
-   miniatyr längre. AG1 håller sina runt 130. Taket gäller bara från 520. */
-@container (min-width: 520px){ .o-ptiles{grid-template-columns:repeat(3,minmax(0,140px));} }
-/* Premium bär fyra delar. Fyra i ett rutnät med tre spalter blir tre plus en
-   ensam, och fyra spalter ger 64 px brickor vid 375 där etiketterna bryter.
-   Två gånger två vid 375, fyra i bredd från 520 där de ryms.
-   Spåret är uträknat som en tredjedel, inte som en halva: då är en bricka i
-   Premium exakt lika bred som en i Plus, och rutnätet blir två tredjedelar
-   brett i stället för att fylla kortet och börja konkurrera med gruppbilden. */
-/* Fyra brickor i två rader bildar ett block på två tredjedelars bredd. Till
-   vänster i kortet läste det som en ofärdig rad; centrerat läser det som ett
-   block. Bas har en enda bricka och står kvar till vänster, för där finns
-   ingen rad att centrera. */
-.o-ptiles--4{grid-template-columns:repeat(2,minmax(0,calc((100% - var(--s3) * 2) / 3)));justify-content:center;}
-@container (min-width: 520px){ .o-ptiles--4{grid-template-columns:repeat(4,minmax(0,140px));} }
-.o-ptile{margin:0;display:flex;flex-direction:column;gap:var(--s2);min-width:0;}
-.o-ptile img{width:100%;aspect-ratio:1;object-fit:contain;display:block;
-  background:var(--bg);border-radius:var(--r1);padding:var(--s3);}
-.o-ptile figcaption{font-size:11px;line-height:1.35;color:var(--muted);text-align:center;}
-.o-ptile figcaption b{display:block;font-weight:600;color:var(--ink);}
-.o-ingar li.prod b+span::before,.o-ingar li.utan b+span::before{content:", ";}
-.o-pkg input:checked ~ .pbody .mark{border-color:var(--teal-ink);background:var(--teal-ink);}
-.o-pkg input:checked ~ .pbody .mark::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;}
-.o-pkg:has(input:checked){border-color:var(--teal-ink);}
-
-/* :focus-within tänds även av ett musklick, så varje valt kort fick en teal
-   ring utanför sin egen kant: två kanter i stället för en. :has(:focus-visible)
-   tänds bara när någon tabbar dit, vilket är vad en fokusring är till för. */
-.o-pkg:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
-
-/* jämförelse */
-.o-cmp{width:100%;border-collapse:collapse;font-size:15px;}
-.o-cmp th,.o-cmp td{padding:var(--s2) var(--s1);text-align:center;border-bottom:1px solid var(--line);}
-.o-cmp th:first-child,.o-cmp td:first-child{text-align:left;color:var(--faint);width:30%;}
-.o-cmp thead th{font-size:13px;font-weight:700;color:var(--ink);padding-bottom:var(--s3);}
-.o-cmp tbody tr:last-child td{border-bottom:0;font-weight:700;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums;}
-/* Tabellen hade teal på varje unik cell, så hela rutan skrek. Nu bär grått
-   allt vanligt och svart bär det som skiljer paketen åt. En färg mindre. */
-.o-cmp tbody td{color:var(--muted);font-weight:300;}
-.o-cmp .yes{color:var(--ink);font-weight:700;}
-.o-cmp .no{color:var(--muted);font-weight:300;}
-
-/* val, radio och kryss */
-.o-opts{display:flex;flex-direction:column;gap:var(--rytm-block);}
 
 /* Stegmarkören, så att längden slutar vara ett hot.
    Den ligger i luckan MELLAN två kapitel och ska dela den mitt itu: 24 över,
@@ -365,29 +218,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   background:none;color:var(--muted);font-size:30px;line-height:1;cursor:pointer;border-radius:var(--r1);}
 .o-modalstang:hover{background:var(--bg);color:var(--ink);}
 .o-modalstang:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
-
-/* före och efter: ett reglage som klipper den ena bilden */
-.o-fe{position:relative;border-radius:var(--r2);overflow:hidden;}
-.o-febild{position:relative;aspect-ratio:4/3;background:var(--bg);}
-.o-febild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
-  -webkit-user-drag:none;user-select:none;}
-.o-febild .fore{clip-path:inset(0 calc(100% - var(--fe) * 1%) 0 0);}
-.o-fesom{position:absolute;top:0;bottom:0;left:calc(var(--fe) * 1%);width:2px;background:#fff;
-  box-shadow:0 0 0 1px rgba(9,11,50,.14);pointer-events:none;}
-.o-fesom i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:var(--z6);height:var(--z6);color:var(--ink);
-  border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(9,11,50,.26);display:block;}
-.o-fesom i::before,.o-fesom i::after{content:"";position:absolute;top:50%;width:6px;height:6px;
-  border-top:2px solid var(--ink);border-right:2px solid var(--ink);}
-.o-fesom i::before{left:13px;transform:translateY(-50%) rotate(-135deg);}
-.o-fesom i::after{right:13px;transform:translateY(-50%) rotate(45deg);}
-.o-fechip{position:absolute;bottom:var(--s3);font-size:11px;font-weight:700;letter-spacing:.08em;
-  text-transform:uppercase;color:#fff;background:rgba(9,11,50,.62);padding:var(--s1) var(--s2);
-  border-radius:var(--r1);pointer-events:none;}
-.o-fechip.v{left:var(--s3);}
-.o-fechip.h{right:var(--s3);}
-.o-fereglage{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;
-  touch-action:pan-y;appearance:none;background:none;}
-.o-fe:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
 
 /* grannköpet */
 .o-granne{background:var(--card);border:1px solid var(--line);border-radius:var(--r3);padding:var(--s5);display:flex;flex-direction:column;gap:var(--s4);}
@@ -453,34 +283,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-grannklar{font-size:13px;font-weight:600;color:var(--teal-ink);display:flex;align-items:center;gap:var(--s2);}
 .o-btn.ghost svg{width:18px;height:18px;}
 
-/* platsvalet: två bildkort, EVifys form. Bilden bär beslutet. */
-/* Evify stackar de två valen i full bredd, en stor först och en stor efter,
-   med bilden i 3:2 och namn, pris och markör centrerade under. Två minimala
-   kort bredvid varandra gjorde bilderna oläsbara. Uppmätt hos Evify vid 375:
-   bild 333 x 222, rubrik 16,8/700, pris 16,8/600, allt centrerat. */
-.o-platsval{display:flex;flex-direction:column;gap:var(--s3);}
-.o-plats{position:relative;display:flex;flex-direction:column;background:var(--card);
-  border:1.5px solid var(--kant);border-radius:var(--r2);overflow:hidden;cursor:pointer;
-  transition:border-color .18s ease;}
-@media (prefers-reduced-motion: reduce){ .o-plats{transition:none;} }
-
-.o-plats input{position:absolute;opacity:0;width:1px;height:1px;}
-.o-plats:has(input:checked){border-color:var(--teal-ink);}
-/* Riktiga installationsfoton, inte frilagda produkter. Då ska bilden fylla
-   rutan som hos Evify, inte sväva på en platta med luft runt. */
-.o-plats figure{margin:0;aspect-ratio:3/2;background:var(--bg);display:block;overflow:hidden;}
-.o-plats figure img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
-.o-platstext{padding:var(--s4);display:flex;flex-direction:column;gap:var(--s1);align-items:center;text-align:center;}
-.o-platstext b{font-size:17px;font-weight:700;color:var(--ink);line-height:1.3;}
-.o-platstext span{font-size:17px;color:var(--muted);font-weight:600;}
-.o-platsmark{position:relative;align-self:center;margin:0 auto var(--s4);width:var(--z5);height:var(--z5);
-  border-radius:50%;border:1.5px solid var(--kant-kontroll);background:#fff;flex:none;}
-.o-plats input:checked ~ .o-platsmark{border-color:var(--teal);background:var(--teal);}
-.o-plats input:checked ~ .o-platsmark::after{content:"";position:absolute;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 12.4l4.3 4.3 8.7-9.4' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:center;background-size:70%;}
-.o-plats:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
-
 /* radkomponenten, byggd efter elbilsvaruhusets mobildesign: kryss, stor bild,
    och rubrik, väljare och pris staplade i en egen kolumn. Vit platta, en tunn ram. */
 .o-rader{display:flex;flex-direction:column;gap:var(--rytm-block);}
@@ -492,7 +294,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 @media (hover:hover){
   .o-rad:hover{border-color:var(--line-strong,#9fb0cc);}
   .o-opt:hover{border-color:var(--line-strong,#9fb0cc);}
-  .o-plats:hover{border-color:var(--line-strong,#9fb0cc);}
 }
 .o-rad:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
 .o-rad > input{position:absolute;opacity:0;width:1px;height:1px;}
@@ -510,16 +311,11 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-radtext{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);}
 .o-radnamn{font-size:17px;font-weight:700;color:var(--ink);line-height:1.3;letter-spacing:-.008em;min-height:calc(17px * 1.3 * 2);display:flex;align-items:center;}
 .o-radpris{font-size:15px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;}
-.o-rad.ingar{opacity:.62;border-style:dashed;cursor:default;}
-.o-radpris.ingarpris{font-size:13px;font-weight:600;color:var(--teal-ink);}
 .o-variant{width:100%;max-width:230px;height:var(--z6);border:1.5px solid var(--kant);border-radius:var(--r1);
   background:#fff;font-family:inherit;font-size:15px;color:var(--ink);padding:0 var(--s3);cursor:pointer;
   appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%23090b32' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right var(--s3) center;background-size:12px;padding-right:var(--s6);}
 .o-variant:focus-visible{outline:2px solid var(--teal-ink);outline-offset:1px;}
-.o-rad.ingar .o-variant{opacity:.5;}
-.o-kvittens{margin:0;font-size:13px;font-weight:300;color:var(--teal-ink);line-height:1.5;background:var(--teal-soft);border-radius:var(--r1);padding:var(--s3);}
-.o-kabelnot{font-size:13px;font-weight:300;color:var(--muted);line-height:1.55;padding-top:var(--s1);}
 
 
 .o-opt{display:flex;gap:var(--s4);align-items:center;position:relative;background:var(--card);border:1.5px solid var(--kant);border-radius:var(--r2);padding:var(--s4);cursor:pointer;min-height:96px;transition:border-color .18s ease;}
@@ -533,37 +329,17 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 /* Texten var indragen 80 px som om det fanns en bild till vänster. Det finns
    ingen bild i tidsvalen, så den indragningen centrerade texten mot ingenting. */
 .o-opt .txt{margin-left:0;flex:1;min-width:0;}
-.o-opt .o-centralbild{width:64px;height:64px;background:transparent;display:grid;place-items:center;}
-.o-opt .o-centralbild img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;}
 .o-opt figure img{width:100%;height:100%;object-fit:cover;}
 .o-opt .txt{flex:1;min-width:0;}
 .o-opt .txt b{display:block;font-size:15px;font-weight:600;color:var(--ink);}
 .o-opt .txt span{display:block;font-size:13px;color:var(--muted);margin-top:var(--s0);}
 
 .o-opt .amt{font-size:15px;font-weight:600;color:var(--muted);flex:none;font-variant-numeric:tabular-nums;}
-/* Elcentralens val bär både en bild och ett långt pris. Inne i dropdownen
-   Övriga tjänster är raden 309 px, och då blir textspalten 44: "Liten
-   central" bröt till två rader och "Hager, 12 moduler" till tre. Ingen del
-   får krympa, så priset flyttar ner på egen rad. Textspalten går från 44 till
-   165 px. Tidsvalen har ingen bild och rörs inte. */
-@container (max-width: 560px){
-  .offer .o-opt:has(.o-centralbild){
-    display:grid;grid-template-columns:var(--z3) 64px minmax(0,1fr);
-    column-gap:var(--s4);row-gap:var(--s1);align-items:center;}
-  .offer .o-opt:has(.o-centralbild) > .mark,
-  .offer .o-opt:has(.o-centralbild) > .o-centralbild{grid-row:1 / 3;}
-  .offer .o-opt:has(.o-centralbild) > .txt{grid-column:3;grid-row:1;}
-  .offer .o-opt:has(.o-centralbild) > .amt{grid-column:3;grid-row:2;}
-}
 .o-opt input:checked ~ .mark,.o-rad input:checked ~ .mark{border-color:var(--teal-ink);background:var(--teal-ink);}
 .o-opt input:checked ~ .mark::after,.o-rad input:checked ~ .mark::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;}
 .o-opt input:checked ~ .mark.sq::after,.o-rad input:checked ~ .mark.sq::after{inset:0;border:0;border-radius:inherit;transform:none;background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 12.4l4.3 4.3 8.7-9.4' fill='none' stroke='white' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:72%;}
 .o-opt:has(input:checked){border-color:var(--teal-ink);}
 .o-opt:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
-.o-opt:has(+ .o-optdesc){border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom:0;padding-bottom:var(--s3);}
-.offer .o-optdesc{font-size:13px;color:var(--muted);line-height:1.5;background:var(--card);border:1.5px solid var(--line-2);border-top:0;border-radius:0 0 var(--r2) var(--r2);
-  padding:0 var(--s4) var(--s4) calc(var(--s4) + var(--z2) + var(--s3));margin-top:calc(var(--s2) * -1);position:relative;}
-.o-opt:has(input:checked)+.o-optdesc{border-color:var(--teal);border-top:0;}
 
 /* knappar */
 .o-btn{display:flex;align-items:center;justify-content:center;gap:var(--s2);width:100%;border:0;border-radius:var(--r2);
@@ -618,7 +394,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .o-colC{grid-column:1;}
   .o-bar{display:none;}
   .t-display{font-size:30px;}
-  .o-prodtop .o-prodimg{width:150px;}
 }
 
 
@@ -637,21 +412,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .o-fold > summary::after{display:none;}
   /* prisbaren hör till skärmen och lägger sig annars över innehållet */
   .offer .o-bar{display:none !important;}
-  /* vitt på färgat blir osynligt utan bakgrundsgrafik */
-  .offer .o-btn.primary,.offer .o-cit,.offer .o-pkg .ribbon,.offer .o-ref-kort,
-  .offer .o-fechip,.offer .o-ref-knapp,.offer .ampy-cert__mark{
-    background:#fff !important;color:var(--ink) !important;border:1px solid var(--kant) !important;}
   .offer .o-cit__namn,.offer .o-cit__text{color:var(--ink) !important;}
-  /* VALET måste synas. Bakgrundsfärg skrivs inte ut, en form gör det. */
-  .offer input:checked ~ .mark::before,
-  .offer input:checked ~ .pbody .mark::before{
-    content:"";position:absolute;inset:3px;border-radius:50%;
-    border:3px solid var(--ink);box-sizing:border-box;}
-  .offer input:checked ~ .o-platsmark::before{
-    content:"";position:absolute;inset:6px;border-radius:50%;border:4px solid var(--ink);box-sizing:border-box;}
-  .offer .o-pkg:has(input:checked){outline:2px solid var(--ink);}
-  /* ingenting ska brytas mitt itu */
-  .offer .o-pkg,.offer .o-rad,.offer .o-opt,.offer .o-tjanst,.offer .o-sum{break-inside:avoid;}
   .offer .o-sec{break-inside:auto;}
 }
 
@@ -688,24 +449,12 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-panel[hidden]{display:none;}
 .offer .o-panel textarea{width:100%;min-height:80px;border:1.5px solid var(--line-2);border-radius:var(--r1);padding:var(--s3);font-family:inherit;font-size:15px;font-weight:300;color:var(--body);background:#fff;resize:vertical;line-height:1.5;}
 .offer .o-panel textarea:focus{outline:2px solid var(--teal-ink);outline-offset:1px;border-color:var(--teal);}
-.offer .o-reasons{display:flex;flex-direction:column;}
-.offer .o-reasons label{display:flex;align-items:center;gap:var(--s3);font-size:15px;padding:var(--s2) 0;cursor:pointer;min-height:44px;}
-/* accent-color låter operativsystemet rita radion, och macOS ritar en mörk
-   ring runt den fyllda punkten. Vi ritar den själva i stället, som alla andra
-   markörer på sidan. */
-.offer .o-reasons input{appearance:none;-webkit-appearance:none;margin:0;flex:none;
-  width:var(--z3);height:var(--z3);border-radius:50%;border:1.5px solid var(--kant);
-  background:#fff;cursor:pointer;display:grid;place-items:center;}
-.offer .o-reasons input:checked{border-color:var(--teal-ink);}
-.offer .o-reasons input:checked::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--teal-ink);}
-.offer .o-reasons input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
 .offer .o-priceline{display:flex;justify-content:space-between;gap:var(--s3);font-size:13px;color:var(--muted);}
 .offer .o-priceline span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink);font-weight:500;}
 .offer .o-sumnote{font-size:13px;font-weight:300;color:var(--muted);line-height:1.45;background:var(--teal-soft);border-radius:var(--r1);padding:var(--s2) var(--s3);}
 .offer .o-grannline{display:flex;justify-content:space-between;gap:var(--s3);font-size:13px;color:var(--muted);padding-top:var(--s3);border-top:1px dashed var(--line);}
 .offer .o-grannline span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;}
 .offer #moreWrap[hidden]{display:none;}
-.offer .o-optdesc:empty{display:none;}
 .offer .o-villkor{display:inline-flex;align-items:center;min-height:var(--z5);color:var(--teal-ink);font-weight:600;}
 
 /* ===== anteckningarna under ramen, utanför offerten ===== */
@@ -718,7 +467,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .nt h3{margin:0;font-size:15px;font-weight:700;color:#090b32;line-height:1.3;}
 .nt p{margin:0;font-size:13.5px;font-weight:300;color:#333;line-height:1.55;}
 .nt code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:#f0f4fb;padding:1px 4px;border-radius:4px;color:#017666;}
-.nt .src{font-size:11.5px;color:#7a819e;border-top:1px solid #eef2f9;padding-top:8px;margin-top:auto;}
 
 /* ===== De två riktiga sidorna, ur Ampy-nordic/offert-mall =====
    Acceptera och Avböj leder till sina egna sidor i produktion. Prototypen
@@ -1091,9 +839,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    elcentral" läste som en enda klump. Kapitel inne i en fold behöver samma
    luft som kapitel på sidan. */
 .offer #ovrigt > .body{padding-top:var(--s5);display:flex;flex-direction:column;gap:var(--rytm-sektion);}
-.offer .o-tjanst{display:flex;flex-direction:column;gap:var(--rytm-block);}
-.offer .o-tjansttitel{display:flex;align-items:center;gap:var(--s3);font-size:17px;font-weight:600;color:var(--ink);}
-.offer .o-tjansttitel .o-stepnr{flex:none;}
 /* Den tredje raden i ett radtext-block: en spec som varken är namn eller pris. */
 .offer .o-radspec{display:block;font-size:13px;color:var(--muted);}
 /* Intresseanmälan bär inget plustecken: krysset betyder berätta mer. */
@@ -1102,40 +847,11 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    radbilderna är frilagda produkter och ska fortsätta ligga i luft. */
 .offer .o-radbild.foto img{width:100%;height:100%;object-fit:cover;border-radius:var(--r1);}
 .offer .o-sumrow.grp{font-weight:600;color:var(--ink);padding-top:var(--s2);}
-
-/* ===========================================================================
-   PUNKTLISTANS TRE VARIANTER. Bara granskningsramen växlar; offert.html visar
-   lv1. Mätt på tre tal: rader per kort, upprepningar, och rader till första
-   skillnaden mot grannpaketet.
-     lv1 Parallell  samma fyra platser i alla tre kort, det som skiljer är
-                    VÄRDET på raden. Lika långa listor går att jämföra rad för
-                    rad, och en tom plats är den starkaste anledningen att
-                    välja nästa paket. Tre av fyra uppmätta prissidor håller
-                    listorna lika långa (Slack 10/10/10/10, Figma 3/3/3/3).
-     lv2 Delta      Notions mönster, "Allt i Bas, och dessutom". Kortast, men
-                    toppkortet blir tunnast, vilket är fel kort att göra tunt.
-     lv3 Som i dag  allt i varje kort: 24 rader varav 12 upprepningar.
-   =========================================================================== */
-.offer .lv{display:none;}
-.offer .lv1{display:flex;}
-.offer.lista-2 .lv1,.offer.lista-3 .lv1{display:none;}
-.offer.lista-2 .lv2{display:flex;}
-.offer.lista-3 .lv3{display:flex;}
 /* Platsen som paketet INTE fyller. Samma bricka, annan fyllning och ett
    streck i stället för en bock: frånvaro ska inte bära samma tecken som
    närvaro, men den ska bära samma form. */
 .offer .o-bock--utan{background:var(--line);}
 .offer .o-bock--utan path{stroke:var(--kant);stroke-width:1.9;}
-/* Den tomma platsen säger VAD den är och att den går att få: "tillval".
-   En rad med bara ett streck och ett ord går att läsa som något som ingår
-   med en annan markör. Uppmätt risk, inte antagen: en granskare läste
-   Bas-kortets tre tomma rader som tre saker som ingår. */
-.offer .o-ingar li.utan{color:var(--faint);}
-.offer .o-ingar li.utan b{font-weight:400;color:var(--faint);}
-.offer .o-ingar li.utan b + span{color:var(--kant);}
-/* Etikettraden: en mening om det som är lika, utan markör att läsa som ett val. */
-.offer .o-ingar li.rubrik{display:block;color:var(--muted);font-size:13px;line-height:1.45;}
-.offer .o-ingar li.prod + li.rubrik,.offer .o-ingar li.utan + li.rubrik{margin-top:var(--s4);}
 
 /* EN STJÄRNA, EN FÄRG.
    Uppmätt 19 okt: samma symbol i tre kulörer på samma sida. Hjälten bar
@@ -1309,6 +1025,297 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    tas bort: de bar djup mot mörkt och blir smuts mot ljust. */
 .offer .ampy-cert__mark{box-shadow:none;border:1px solid var(--line-2);background:#fff;}
 .offer .ampy-cert__mark:hover{transform:none;}
+.o-prodimg{background:transparent;border-radius:var(--r2);overflow:hidden;display:grid;place-items:center;}
+.o-prodimg img{width:100%;aspect-ratio:1/1;object-fit:cover;}
+.o-prodcard{display:flex;flex-direction:column;gap:var(--s4);}
+.o-prodtop{display:flex;gap:var(--s4);align-items:center;}
+.o-prodtop .o-prodimg{width:96px;flex:none;}
+.o-prodname{font-size:20px;font-weight:700;letter-spacing:-.015em;color:var(--ink);}
+.o-prodspec{font-size:13px;color:var(--muted);margin-top:var(--s0);}
+
+/* bokare */
+.o-booker{display:flex;align-items:center;gap:var(--s3);background:var(--bg);border:0;border-radius:var(--r2);padding:var(--s3) var(--s4);}
+.o-booker img{width:var(--z5);height:var(--z5);border-radius:50%;object-fit:cover;flex:none;}
+.o-booker b{display:block;font-size:15px;color:var(--ink);font-weight:600;}
+.o-booker span{font-size:13px;color:var(--faint);}
+/* Vid 320 px, som är WCAG 1.4.10:s testbredd, är jämförelsetabellen 327 px i
+   en spalt på 286. Utan en rullande behållare försvann 41 px av
+   Premiumkolumnen, och folden klipper med overflow:hidden. */
+.o-fold .body:has(.o-cmp){overflow-x:auto;}
+.o-cmp{min-width:327px;}
+
+/* Se allt som ingår bär samma listkomponent som paketkorten, .o-ingar.
+   Bocken var ritad med två kantlinjer: 6 x 3 px roterade 45 grader inuti en
+   16 px bricka. Glyfen blev 1,5 px hög, satt 1,5 px ovanför brickans mitt och
+   föll ihop till en fläck. En bock är en form, inte två kanter. Nu en svg. */
+
+/* paketkort */
+.o-pkgs{display:flex;flex-direction:column;gap:var(--s3);}
+
+.o-pkg{display:block;position:relative;background:var(--card);border:1.5px solid var(--kant);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:border-color .18s ease;}
+@media (prefers-reduced-motion: reduce){ .o-pkg{transition:none;}}
+.o-pkg input{position:absolute;opacity:0;width:1px;height:1px;}
+.o-pkg .pbody{padding:var(--s5);display:flex;flex-direction:column;gap:var(--rytm-block);}
+.o-pkg .prow{display:flex;align-items:center;gap:var(--s3);}
+.o-pkg .mark{width:var(--z3);height:var(--z3);border-radius:50%;border:1.5px solid var(--kant-kontroll);background:#fff;flex:none;position:relative;}
+.o-pkg .pname{flex:1;min-width:0;}
+.o-pkg .pname b{display:block;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}
+.o-pkg .pname span{display:block;font-size:13px;color:var(--muted);margin-top:var(--s0);}
+.o-pkg .pprice{font-size:17px;font-weight:700;color:var(--ink);flex:none;}
+/* PUNKTLISTAN. Kortets kärna, och den enda plats där paketen går att skilja
+   åt på en halv sekund. Två nivåer, inte sex:
+     .prod  hårdvaran du får hem  -> ifylld bricka, svart text
+     resten jobbet vi utför       -> tunn grå bock, grå text
+   Hårdvaran står först och är exakt samma tre saker som brickorna längst ner
+   i kortet, för båda genereras ur src/paket.json. 13 px med Inter: x-höjden
+   är 7,10 mot Outfits 6,73 vid 15, så raden läser större än den gjorde förut. */
+.o-ingar{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--s2);}
+.o-ingar li{font-size:13px;line-height:1.5;color:var(--muted);font-weight:300;
+  display:flex;align-items:flex-start;gap:var(--s3);}
+.o-ingar li.prod{color:var(--ink);font-weight:600;}
+.o-ingar li.prod b{font-weight:600;}
+.o-ingar li.prod b + span{font-weight:300;color:var(--muted);}
+/* Gruppbilden överst i kortet: allt du får hem, i en bild.
+   De tre filerna är beskurna till sitt innehåll och är alla 318 px höga, så
+   laddboxen renderar exakt lika stor i Bas, Plus och Premium. Därför styr
+   HÖJDEN och inte bredden: 128 px ger 95 / 253 / 282 px breda bilder, och
+   även den bredaste får plats i kortet vid 375 (292 px innermått). */
+.o-pkg .pbild{margin:0;background:var(--bg);border-radius:var(--r1);
+  padding:var(--s4) var(--s3);display:flex;justify-content:center;align-items:center;min-height:160px;}
+/* RAMEN MATCHAR DUKEN. Bundlebilderna ar 760x510, alltsa 3:2. I en ram pa
+   269x128 (2,1:1) binder bredden forst och laddboxen renderas 80 px hog. Med
+   en ram i samma forhallande renderas den 112 px, alltsa lika stor i alla tre
+   korten OCH storre. Uppmatt 20 okt, se gemensamt/BUNDLEBILDER.md. */
+.o-pkg .pbild img{width:auto;height:auto;max-width:100%;max-height:180px;}
+/* "Arbete och material ingar i priset." Rasmus, head of laddbox, 20 okt:
+   det ar den vanligaste kundfragan och ska framga direkt i offerten, inte
+   ligga i en fold. Darfor star den vid talet och inte i finstilten under. */
+.offer .o-ingartext{margin:0;font-size:15px;line-height:1.45;color:var(--ink);font-weight:600;}
+.o-pkg input:checked ~ .pbody .mark{border-color:var(--teal-ink);background:var(--teal-ink);}
+.o-pkg input:checked ~ .pbody .mark::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;}
+.o-pkg:has(input:checked){border-color:var(--teal-ink);}
+
+/* :focus-within tänds även av ett musklick, så varje valt kort fick en teal
+   ring utanför sin egen kant: två kanter i stället för en. :has(:focus-visible)
+   tänds bara när någon tabbar dit, vilket är vad en fokusring är till för. */
+.o-pkg:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
+
+/* jämförelse */
+.o-cmp{width:100%;border-collapse:collapse;font-size:15px;}
+.o-cmp th,.o-cmp td{padding:var(--s2) var(--s1);text-align:center;border-bottom:1px solid var(--line);}
+.o-cmp th:first-child,.o-cmp td:first-child{text-align:left;color:var(--faint);width:30%;}
+.o-cmp thead th{font-size:13px;font-weight:700;color:var(--ink);padding-bottom:var(--s3);}
+.o-cmp tbody tr:last-child td{border-bottom:0;font-weight:700;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums;}
+/* Tabellen hade teal på varje unik cell, så hela rutan skrek. Nu bär grått
+   allt vanligt och svart bär det som skiljer paketen åt. En färg mindre. */
+.o-cmp tbody td{color:var(--muted);font-weight:300;}
+.o-cmp .yes{color:var(--ink);font-weight:700;}
+.o-cmp .no{color:var(--muted);font-weight:300;}
+
+/* val, radio och kryss */
+.o-opts{display:flex;flex-direction:column;gap:var(--rytm-block);}
+
+/* före och efter: ett reglage som klipper den ena bilden */
+.o-fe{position:relative;border-radius:var(--r2);overflow:hidden;}
+.o-febild{position:relative;aspect-ratio:4/3;background:var(--bg);}
+.o-febild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  -webkit-user-drag:none;user-select:none;}
+.o-febild .fore{clip-path:inset(0 calc(100% - var(--fe) * 1%) 0 0);}
+.o-fesom{position:absolute;top:0;bottom:0;left:calc(var(--fe) * 1%);width:2px;background:#fff;
+  box-shadow:0 0 0 1px rgba(9,11,50,.14);pointer-events:none;}
+.o-fesom i{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:var(--z6);height:var(--z6);color:var(--ink);
+  border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(9,11,50,.26);display:block;}
+.o-fesom i::before,.o-fesom i::after{content:"";position:absolute;top:50%;width:6px;height:6px;
+  border-top:2px solid var(--ink);border-right:2px solid var(--ink);}
+.o-fesom i::before{left:13px;transform:translateY(-50%) rotate(-135deg);}
+.o-fesom i::after{right:13px;transform:translateY(-50%) rotate(45deg);}
+.o-fechip{position:absolute;bottom:var(--s3);font-size:11px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:#fff;background:rgba(9,11,50,.62);padding:var(--s1) var(--s2);
+  border-radius:var(--r1);pointer-events:none;}
+.o-fechip.v{left:var(--s3);}
+.o-fechip.h{right:var(--s3);}
+.o-fereglage{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;
+  touch-action:pan-y;appearance:none;background:none;}
+.o-fe:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
+.o-opt:has(+ .o-optdesc){border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom:0;padding-bottom:var(--s3);}
+.offer .o-optdesc{font-size:13px;color:var(--muted);line-height:1.5;background:var(--card);border:1.5px solid var(--line-2);border-top:0;border-radius:0 0 var(--r2) var(--r2);
+  padding:0 var(--s4) var(--s4) calc(var(--s4) + var(--z2) + var(--s3));margin-top:calc(var(--s2) * -1);position:relative;}
+.o-opt:has(input:checked)+.o-optdesc{border-color:var(--teal);border-top:0;}
+@container (min-width: 1040px){
+  .o-prodtop .o-prodimg{width:150px;}}
+@media print{
+  /* VALET måste synas. Bakgrundsfärg skrivs inte ut, en form gör det. */
+  .offer input:checked ~ .mark::before,
+  .offer input:checked ~ .pbody .mark::before{
+    content:"";position:absolute;inset:3px;border-radius:50%;
+    border:3px solid var(--ink);box-sizing:border-box;}
+  .offer .o-pkg:has(input:checked){outline:2px solid var(--ink);}
+  /* ingenting ska brytas mitt itu */
+  .offer .o-pkg,.offer .o-rad,.offer .o-opt,.offer .o-tjanst,.offer .o-sum{break-inside:avoid;}}
+.offer .o-reasons{display:flex;flex-direction:column;}
+.offer .o-reasons label{display:flex;align-items:center;gap:var(--s3);font-size:15px;padding:var(--s2) 0;cursor:pointer;min-height:44px;}
+/* accent-color låter operativsystemet rita radion, och macOS ritar en mörk
+   ring runt den fyllda punkten. Vi ritar den själva i stället, som alla andra
+   markörer på sidan. */
+.offer .o-reasons input{appearance:none;-webkit-appearance:none;margin:0;flex:none;
+  width:var(--z3);height:var(--z3);border-radius:50%;border:1.5px solid var(--kant);
+  background:#fff;cursor:pointer;display:grid;place-items:center;}
+.offer .o-reasons input:checked{border-color:var(--teal-ink);}
+.offer .o-reasons input:checked::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--teal-ink);}
+.offer .o-reasons input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
+.offer .o-optdesc:empty{display:none;}
+.offer .o-tjanst{display:flex;flex-direction:column;gap:var(--rytm-block);}
+.offer .o-tjansttitel{display:flex;align-items:center;gap:var(--s3);font-size:17px;font-weight:600;color:var(--ink);}
+.offer .o-tjansttitel .o-stepnr{flex:none;}
+/* Luften hör till ETIKETTRADEN, inte till övergången hårdvara-jobb.
+   Den gamla regeln, li.prod + li:not(.prod), delade listan efter första
+   produktraden. I Bas-kortet, där bara en av fyra platser är fylld, lade den
+   24 px mitt i en lista med fyra likadana rader. Och i folden Se allt som
+   ingår delade den en platt kvittolista där allt ingår lika mycket, alltså en
+   skillnad utan skillnad. Uppmätt: fold 23 px efter produktraden, Bas 24 px
+   efter rad ett. Nu 8 överallt, och 24 bara före raden om grundinstallationen. */
+.o-ingar li.rubrik{margin-top:var(--s4);}
+.o-ingar li.prod b+span::before,.o-ingar li.utan b+span::before{content:", ";}
+.o-radpris.ingarpris{font-size:13px;font-weight:600;color:var(--teal-ink);}
+
+/* ===========================================================================
+   PUNKTLISTANS TRE VARIANTER. Bara granskningsramen växlar; offert.html visar
+   lv1. Mätt på tre tal: rader per kort, upprepningar, och rader till första
+   skillnaden mot grannpaketet.
+     lv1 Parallell  samma fyra platser i alla tre kort, det som skiljer är
+                    VÄRDET på raden. Lika långa listor går att jämföra rad för
+                    rad, och en tom plats är den starkaste anledningen att
+                    välja nästa paket. Tre av fyra uppmätta prissidor håller
+                    listorna lika långa (Slack 10/10/10/10, Figma 3/3/3/3).
+     lv2 Delta      Notions mönster, "Allt i Bas, och dessutom". Kortast, men
+                    toppkortet blir tunnast, vilket är fel kort att göra tunt.
+     lv3 Som i dag  allt i varje kort: 24 rader varav 12 upprepningar.
+   =========================================================================== */
+.offer .lv{display:none;}
+.offer .lv1{display:flex;}
+/* Den tomma platsen säger VAD den är och att den går att få: "tillval".
+   En rad med bara ett streck och ett ord går att läsa som något som ingår
+   med en annan markör. Uppmätt risk, inte antagen: en granskare läste
+   Bas-kortets tre tomma rader som tre saker som ingår. */
+.offer .o-ingar li.utan{color:var(--faint);}
+.offer .o-ingar li.utan b{font-weight:400;color:var(--faint);}
+.offer .o-ingar li.utan b + span{color:var(--kant);}
+/* Etikettraden: en mening om det som är lika, utan markör att läsa som ett val. */
+.offer .o-ingar li.rubrik{display:block;color:var(--muted);font-size:13px;line-height:1.45;}
+.offer .o-ingar li.prod + li.rubrik,.offer .o-ingar li.utan + li.rubrik{margin-top:var(--s4);}
+
+.o-sec.grupper{--g:var(--s7);}
+.o-sec.grupper .t-h3{font-size:20px;font-weight:700;}
+.o-sec.grupper > .o-sec{--g:var(--s5);}
+.o-mer{margin-left:calc(var(--z2) + var(--s3));}
+.o-mer>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:var(--s2);min-height:var(--z5);font-size:13px;font-weight:600;color:var(--teal-ink);}
+.o-mer>summary::-webkit-details-marker{display:none;}
+.o-mer>summary::after{content:"";width:7px;height:7px;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg);margin-top:-3px;transition:transform .18s ease;}
+.o-mer[open]>summary::after{transform:rotate(-135deg);margin-top:var(--s1);}
+.o-mer>p{margin:0;padding-bottom:var(--s3);font-size:13px;font-weight:300;color:var(--muted);line-height:1.55;}
+@media (prefers-reduced-motion: reduce){ .o-mer>summary::after{transition:none;}}
+/* Remsan satt ovanpå hjältebilden. Bilden är borta, så remsan tar sin egen
+   rad överst i kortet, som AG1:s BEST VALUE. */
+.o-pkg .ribbon{display:flex;align-items:center;gap:var(--s2);background:var(--teal-ink);color:#fff;
+  padding:var(--s2) var(--s5);font-size:13px;font-weight:600;letter-spacing:.01em;line-height:1.4;}
+.o-pkg .ribbon svg{width:14px;height:14px;flex:none;color:#fff;}
+/* TVÅ DOMAR PÅ TRE KORT TAR UT VARANDRA. "Vår rekommendation" och "Bäst
+   värde" sa båda välj mig, i samma teal, och då säger ingen av dem något.
+   En remsa är en dom och bär husets teal. Den andra är ett FAKTUM och bär
+   ikonspråkets blå: Premium bär 22 kW, den högsta laddeffekt sidan säljer,
+   och är det enda paketet som gör det. Kontrollerat i bygget. Ett faktum
+   säljer det dyra paketet bättre än ett andra beröm.
+   Remsan hette "Allt ingår" till 19 okt, då ägaren döpte om den till
+   "Maximal prestanda". Bocken följde med namnet: en bock betyder ingår, och
+   under de nya orden hade den sagt fel sak. Blixten är husets egen geometri
+   och betyder effekt. */
+.o-pkg .ribbon.fakta{background:var(--steg-bla);color:var(--ink);}
+.o-pkg .ribbon.fakta svg{color:var(--ikonglyf);}
+.o-pkg .psell{font-size:15px;font-weight:300;color:var(--body);line-height:1.6;}
+
+/* Produktbrickorna sist i kortet, som AG1. Tre lika stora rutor i varje paket,
+   så en bricka i Bas är exakt lika stor som en i Premium. */
+.o-ptiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);}
+/* På desktop blev en bricka 203 px bred, vilket är en produktbild och inte en
+   miniatyr längre. AG1 håller sina runt 130. Taket gäller bara från 520. */
+@container (min-width: 520px){ .o-ptiles{grid-template-columns:repeat(3,minmax(0,140px));}}
+/* Premium bär fyra delar. Fyra i ett rutnät med tre spalter blir tre plus en
+   ensam, och fyra spalter ger 64 px brickor vid 375 där etiketterna bryter.
+   Två gånger två vid 375, fyra i bredd från 520 där de ryms.
+   Spåret är uträknat som en tredjedel, inte som en halva: då är en bricka i
+   Premium exakt lika bred som en i Plus, och rutnätet blir två tredjedelar
+   brett i stället för att fylla kortet och börja konkurrera med gruppbilden. */
+/* Fyra brickor i två rader bildar ett block på två tredjedelars bredd. Till
+   vänster i kortet läste det som en ofärdig rad; centrerat läser det som ett
+   block. Bas har en enda bricka och står kvar till vänster, för där finns
+   ingen rad att centrera. */
+.o-ptiles--4{grid-template-columns:repeat(2,minmax(0,calc((100% - var(--s3) * 2) / 3)));justify-content:center;}
+@container (min-width: 520px){ .o-ptiles--4{grid-template-columns:repeat(4,minmax(0,140px));}}
+.o-ptile{margin:0;display:flex;flex-direction:column;gap:var(--s2);min-width:0;}
+.o-ptile img{width:100%;aspect-ratio:1;object-fit:contain;display:block;
+  background:var(--bg);border-radius:var(--r1);padding:var(--s3);}
+.o-ptile figcaption{font-size:11px;line-height:1.35;color:var(--muted);text-align:center;}
+.o-ptile figcaption b{display:block;font-weight:600;color:var(--ink);}
+
+/* platsvalet: två bildkort, EVifys form. Bilden bär beslutet. */
+/* Evify stackar de två valen i full bredd, en stor först och en stor efter,
+   med bilden i 3:2 och namn, pris och markör centrerade under. Två minimala
+   kort bredvid varandra gjorde bilderna oläsbara. Uppmätt hos Evify vid 375:
+   bild 333 x 222, rubrik 16,8/700, pris 16,8/600, allt centrerat. */
+.o-platsval{display:flex;flex-direction:column;gap:var(--s3);}
+.o-plats{position:relative;display:flex;flex-direction:column;background:var(--card);
+  border:1.5px solid var(--kant);border-radius:var(--r2);overflow:hidden;cursor:pointer;
+  transition:border-color .18s ease;}
+@media (prefers-reduced-motion: reduce){ .o-plats{transition:none;}}
+
+.o-plats input{position:absolute;opacity:0;width:1px;height:1px;}
+.o-plats:has(input:checked){border-color:var(--teal-ink);}
+/* Riktiga installationsfoton, inte frilagda produkter. Då ska bilden fylla
+   rutan som hos Evify, inte sväva på en platta med luft runt. */
+.o-plats figure{margin:0;aspect-ratio:3/2;background:var(--bg);display:block;overflow:hidden;}
+.o-plats figure img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;}
+.o-platstext{padding:var(--s4);display:flex;flex-direction:column;gap:var(--s1);align-items:center;text-align:center;}
+.o-platstext b{font-size:17px;font-weight:700;color:var(--ink);line-height:1.3;}
+.o-platstext span{font-size:17px;color:var(--muted);font-weight:600;}
+.o-platsmark{position:relative;align-self:center;margin:0 auto var(--s4);width:var(--z5);height:var(--z5);
+  border-radius:50%;border:1.5px solid var(--kant-kontroll);background:#fff;flex:none;}
+.o-plats input:checked ~ .o-platsmark{border-color:var(--teal);background:var(--teal);}
+.o-plats input:checked ~ .o-platsmark::after{content:"";position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 12.4l4.3 4.3 8.7-9.4' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:center;background-size:70%;}
+.o-plats:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
+@media (hover:hover){
+  .o-plats:hover{border-color:var(--line-strong,#9fb0cc);}}
+.o-rad.ingar{opacity:.62;border-style:dashed;cursor:default;}
+.o-rad.ingar .o-variant{opacity:.5;}
+.o-kvittens{margin:0;font-size:13px;font-weight:300;color:var(--teal-ink);line-height:1.5;background:var(--teal-soft);border-radius:var(--r1);padding:var(--s3);}
+.o-kabelnot{font-size:13px;font-weight:300;color:var(--muted);line-height:1.55;padding-top:var(--s1);}
+.o-opt .o-centralbild{width:64px;height:64px;background:transparent;display:grid;place-items:center;}
+.o-opt .o-centralbild img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;}
+/* Elcentralens val bär både en bild och ett långt pris. Inne i dropdownen
+   Övriga tjänster är raden 309 px, och då blir textspalten 44: "Liten
+   central" bröt till två rader och "Hager, 12 moduler" till tre. Ingen del
+   får krympa, så priset flyttar ner på egen rad. Textspalten går från 44 till
+   165 px. Tidsvalen har ingen bild och rörs inte. */
+@container (max-width: 560px){
+  .offer .o-opt:has(.o-centralbild){
+    display:grid;grid-template-columns:var(--z3) 64px minmax(0,1fr);
+    column-gap:var(--s4);row-gap:var(--s1);align-items:center;}
+  .offer .o-opt:has(.o-centralbild) > .mark,
+  .offer .o-opt:has(.o-centralbild) > .o-centralbild{grid-row:1 / 3;}
+  .offer .o-opt:has(.o-centralbild) > .txt{grid-column:3;grid-row:1;}
+  .offer .o-opt:has(.o-centralbild) > .amt{grid-column:3;grid-row:2;}}
+@media print{
+  /* vitt på färgat blir osynligt utan bakgrundsgrafik */
+  .offer .o-btn.primary,.offer .o-cit,.offer .o-pkg .ribbon,.offer .o-ref-kort,
+  .offer .o-fechip,.offer .o-ref-knapp,.offer .ampy-cert__mark{
+    background:#fff !important;color:var(--ink) !important;border:1px solid var(--kant) !important;}
+  .offer input:checked ~ .o-platsmark::before{
+    content:"";position:absolute;inset:6px;border-radius:50%;border:4px solid var(--ink);box-sizing:border-box;}}
+.nt .src{font-size:11.5px;color:#7a819e;border-top:1px solid #eef2f9;padding-top:8px;margin-top:auto;}
+.offer.lista-2 .lv1,.offer.lista-3 .lv1{display:none;}
+.offer.lista-2 .lv2{display:flex;}
+.offer.lista-3 .lv3{display:flex;}
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}

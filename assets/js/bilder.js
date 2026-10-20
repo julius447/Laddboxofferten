@@ -1,4 +1,4 @@
-/* genererad av src/bygg.py, redigera inte */
+/* genererad av bygg.py, redigera inte */
 var IMGS = {
   "ampy-logga": "assets/img/ampy-logga.png",
   "batteri-enershare": "assets/img/batteri-enershare.webp",
@@ -24,7 +24,6 @@ var IMGS = {
   "kabel11": "assets/img/kabel11.webp",
   "kabel22": "assets/img/kabel22.webp",
   "kabelhallare": "assets/img/kabelhallare.webp",
-  "kabelhallare-metall": "assets/img/kabelhallare-metall.webp",
   "kabeltyp1": "assets/img/kabeltyp1.webp",
   "laddkabel": "assets/img/laddkabel.webp",
   "paket-bas": "assets/img/paket-bas.webp",
