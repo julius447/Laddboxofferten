@@ -1055,33 +1055,25 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-pkg{display:block;position:relative;background:var(--card);border:1.5px solid var(--kant);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:border-color .18s ease;}
 @media (prefers-reduced-motion: reduce){ .o-pkg{transition:none;}}
 .o-pkg input{position:absolute;opacity:0;width:1px;height:1px;}
-/* RABATTBANNERN. Ligger direkt under prisraden, for det ar dar beslutet tas,
-   och den ar en BANNER och inte en rad: forsta forsoket var 13 px och
-   forsvann. Researchens eget fynd var att synligheten ar halva effekten.
+/* PAKETRABATTEN. Ett element under priset, inte en lada bredvid det.
 
-   Beloppet bar, procenten foljer med. Bergers regel om 100: over 100 laser
-   kronorna storre an procenten, och paketen ligger pa 5 740 och 9 170.
+   Den bor i prisets egen kolumn och inte i kortet, sa den arver prisets
+   hogerkant. Da far de tre korten en ren kantlinje nerfor sidan i stallet for
+   tva olika hogermarginaler, vilket ar hela skillnaden mellan en bricka som
+   ser placerad ut och en som ser pahangd ut.
 
-   Teal-wash och inte en fjarde farg: huset har en accent. Remsan overst i
-   kortet ar fortfarande domen respektive faktumet, den har ar rakningen. */
+   11 px mot prisets 17: liten nog att vara en notering, stor nog att lasa pa
+   en telefon. Tabulara siffror sa 5 och 10 star pa samma stallen. Teal-soft
+   och inte en fylld platta: en rabatt som skriker later som nagot som behover
+   overtyga. */
+.o-pkg .pcol{display:flex;flex-direction:column;align-items:flex-end;gap:var(--s1);flex:none;}
+.o-pkg .pcol .pprice{flex:none;}
 .o-pkg .o-rabatt{
-  margin:calc(var(--rytm-block) * -1 + var(--s2)) 0 0;
-  padding:var(--s3) var(--s4);
-  background:var(--teal-soft);
-  border:1px solid var(--teal-line);
-  border-radius:var(--r1);
-  display:flex;flex-direction:column;gap:var(--s0);
+  font-size:11px;font-weight:600;letter-spacing:.015em;
+  font-variant-numeric:tabular-nums;
+  color:var(--teal-ink);background:var(--teal-soft);
+  border-radius:999px;padding:2px 8px;white-space:nowrap;
 }
-.o-pkg .o-rabatt__topp{display:flex;align-items:center;gap:var(--s3);}
-.o-pkg .o-rabatt__belopp{
-  flex:1;min-width:0;font-size:20px;font-weight:700;letter-spacing:-.015em;
-  color:var(--teal-ink);line-height:1.15;
-}
-.o-pkg .o-rabatt__pct{
-  flex:none;font-size:13px;font-weight:700;color:#fff;background:var(--teal-ink);
-  border-radius:999px;padding:2px 9px;line-height:1.45;
-}
-.o-pkg .o-rabatt__mot{font-size:13px;line-height:1.4;color:var(--muted);}
 .o-pkg .pbody{padding:var(--s5);display:flex;flex-direction:column;gap:var(--rytm-block);}
 .o-pkg .prow{display:flex;align-items:center;gap:var(--s3);}
 .o-pkg .mark{width:var(--z3);height:var(--z3);border-radius:50%;border:1.5px solid var(--kant-kontroll);background:#fff;flex:none;position:relative;}
