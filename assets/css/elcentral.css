@@ -363,7 +363,11 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    antalsvaljaren flyttar ner under den. Bildrutan krymper till 72 px, samma
    tal som elcentralvalen redan anvander i smalt lage, sa de tva mallarna ser
    likadana ut dar. */
-@container (max-width: 430px){
+/* 430 px rackte for laddboxen men inte for elcentralen: dar kom krocken med
+   "Overspanningsskydd" tillbaka mellan 431 och 467 px containerbredd, 36 px
+   vid 431. Namnet ar langre dar, sa granslen maste folja det langsta namnet
+   och inte den smalaste mallen. 480 ger marginal at bada. */
+@container (max-width: 480px){
   .offer .o-rad:has(.o-radantal){
     display:grid;
     grid-template-columns:var(--z3) 72px minmax(0,1fr);

@@ -611,6 +611,12 @@
   (function(){
     var fore = [];
     function oppna(){
+      /* Bade beforeprint och matchMedia("print") fyrar i vissa webblasare, och
+         den har kordes da tva ganger. Andra varvet las e.open, som forsta
+         varvet just satt till true, sa alla foldar mindes sig sjalva som
+         oppna och stod kvar oppna efter utskriften. Mat: [0,0,0,0,0] blev
+         [1,1,1,1,1]. Minnet skrivs darfor bara nar det ar tomt. */
+      if (fore.length) return;
       fore = [].slice.call(document.querySelectorAll("details"));
       fore.forEach(function(e){ e.dataset.varOppen = e.open ? "1" : "0"; e.open = true; });
     }
