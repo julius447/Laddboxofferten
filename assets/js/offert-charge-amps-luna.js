@@ -8,8 +8,13 @@
      punktlistan och brickorna i korten. Tre konsumenter, en sanning. */
   var PKG={"0": {"namn": "Bas", "spec": "11 kW, monterad och driftsatt", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "2050": {"namn": "Plus", "spec": "11 kW med lastbalansering", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific One</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "4620": {"namn": "Premium", "spec": "22 kW med Perific Max", "kw": 22, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>22 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific Max</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Laddkabel 22 kW</b><span>5 meter</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Uppgraderad installation till 22 kW, större kabel och säkring</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}};
   var INGAR={"0": [], "2050": ["perific", "kabelhallare"], "4620": ["kw22", "perific", "kabel11", "kabel22", "kabelhallare"]};
+  var PKGVARIANT={"2050": {"perific": "Perific One"}, "4620": {"perific": "Perific Max"}};
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
-  var CEN={"5990":"Byte av elcentral, liten","9900":"Byte av elcentral, mellan","12900":"Byte av elcentral, stor"};
+  /* De AGARLASTA talen, beslut C4 19 okt, samma som offerter/elcentral/
+     paket.json. Laddboxsidan bar tidigare 9 900 och 12 900 ur Rasmus
+     prislista, alltsa 90 kr och 2 000 kr fran vad elcentralofferten
+     sager om samma produkt. Tva Ampy-ytor far inte saga olika. */
+  var CEN={"5990":"Byte av elcentral, liten","9990":"Byte av elcentral, medel","14900":"Byte av elcentral, stor"};
 
   /* kundens egna kryss minns, så ett paketbyte aldrig raderar dem tyst */
   var kundval={};
@@ -76,7 +81,12 @@
     if(rad22){
       var kort22 = rad22.closest(".o-rad");
       kort22.hidden = !har22;
-      if(!har22 && rad22.checked){ rad22.checked = false; kundval["kabel22"] = false; }
+      /* Bocka UR rutan, men glom inte kundens val. Forut nollades ocksa
+         kundval, sa den som bockade av 22 kW och pa igen fick kabeln tyst
+         borttagen ur summan medan langdvalet lag kvar i dropdownen.
+         kabel11 sparade redan sitt kundval, sa samma fil hade tva olika
+         angerregler for samma sorts val. */
+      if(!har22 && rad22.checked){ rad22.checked = false; }
     }
 
     /* TRE LÅSNINGSORSAKER, INTE EN.
@@ -136,6 +146,29 @@
          så en Premiumkund inte kunde välja 10 meter alls. */
       var s=r.querySelector(".o-variant");
       if(s) s.disabled = ute || (med && !arLangd(s));
+
+      /* EN LAST RAD MASTE VISA DET PAKETET FAKTISKT BAR.
+         Lases raden som "ingar" och paketet namnger en variant, stall
+         dropdownen pa den och byt bilden med. Utan det sa Premium-raden
+         "Perific One" medan kortet och priset bar Max. */
+      if(med && s && !arLangd(s)){
+        var vill=(PKGVARIANT[pkg]||{})[g];
+        if(vill){
+          for(var vi=0; vi<s.options.length; vi++){
+            if(s.options[vi].text.indexOf(vill)===0 || vill.indexOf(s.options[vi].text)===0){
+              if(s.selectedIndex!==vi){
+                s.selectedIndex=vi;
+                var nyck=s.getAttribute("data-bild");
+                if(nyck){
+                  var bld=r.querySelector(".o-radbild img"), nn=nyck.split(",")[vi];
+                  if(bld && IMGS[nn]){ bld.src=IMGS[nn]; bld.alt=vill; }
+                }
+              }
+              break;
+            }
+          }
+        }
+      }
 
       var pr=r.querySelector(".o-radpris");
       if(med){ pr.textContent="Ingår i "+p.namn; pr.classList.add("ingarpris"); }
