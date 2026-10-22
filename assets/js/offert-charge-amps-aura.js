@@ -76,7 +76,25 @@
        ett tillagg kunden betalar for utan att fa nagot. Vacks valet bort
        slacks kabeln ocksa, annars ligger den kvar i summan osynlig. */
     var kw22ruta = document.querySelector('input.add[data-grupp="kw22"]');
-    var har22 = (kw22ruta && kw22ruta.checked) || (p && p.kw === 22);
+    /* LAS DET SETTLADE TILLSTANDET, INTE DET SOM ANDRAS LANGRE NER.
+       har22 las har, pa rad 77. Pa rad 149 kryssar kundval-aterstallningen i
+       rutan igen om kunden en gang valt 22 kW, alltsa EFTER att den har raden
+       redan bestamt att kabeln ska gommas. Resultatet var ett tillstand dar
+       uppgraderingen lag i ordern utan kabel, och en total som hoppade 1 650 kr
+       vid nasta klick pa vad som helst:
+         Bas, 22 kW, kabel, Premium, Bas  ger 5 400 kr
+         sedan ett RFID-pack for 175 kr    ger 7 225 kr
+       Kunden ser priset stiga 1 825 for en vara som kostar 175.
+       kundval ar kundens AVSIKT och den ar redan skriven nar render korer, sa
+       den ar ratt kalla har. Bockar kunden UR rutan satter lyssnaren
+       kundval.kw22 = false fore render, sa angringen funkar.
+       Och disabled fick INTE lasas har heller: pa vagen Premium -> Bas star
+       rutan kvar som disabled fran forra renderingen, sa ett villkor pa
+       disabled gav exakt samma inaktuella svar som checked gjorde. Enda
+       kallan som alltid ar aktuell nar render borjar ar kundval, for den
+       skrivs av lyssnaren innan render anropas. */
+    var kw22Pa = !!(kw22ruta && (kw22ruta.checked || kundval["kw22"]));
+    var har22 = kw22Pa || (p && p.kw === 22);
     var rad22 = document.querySelector('input.add[data-grupp="kabel22"]');
     if(rad22){
       var kort22 = rad22.closest(".o-rad");
@@ -134,11 +152,20 @@
         ute=true; uteText="Ersatt av 22 kW";
       }
 
+      /* EN GOMD RAD AR INGET VAL KUNDEN KAN GORA.
+         Rad 87 bockar ur 22 kW-kabeln nar 22 kW slacks. Fem rader senare
+         kryssade den har loopen i den igen, for kundval sa att kunden en gang
+         valt den. Tva minnen for samma val, och de var oense: raden lag gomd
+         medan summeringen debiterade 1 650 kr for den. Uppmatt: Bas, 22 kW
+         pa, kabel pa, 22 kW av gav 6 100 kr i stallet for 4 450.
+         kundval nollas INTE, sa slar kunden pa 22 kW igen kommer kabeln
+         tillbaka. Den ar bara inte med sa lange den inte syns. */
+      var dold=r.hidden;
       var last=med||ute;
       r.classList.toggle("ingar",med);
       r.classList.toggle("utesluten",ute);
       i.disabled=last;
-      if(last){ i.checked=false; }
+      if(last||dold){ i.checked=false; }
       else if(kundval[g]){ i.checked=true; }
 
       /* LÄNGDEN FÅR ALDRIG LÅSAS. Ägaren: längd 5 eller 10 meter ska vara
@@ -208,6 +235,7 @@
        dropdown: den ser ut att gora nagot. */
     rader().forEach(function(r){
       var i=r.querySelector("input.add");
+      if(r.hidden) return;
       if(!i.disabled || !r.classList.contains("ingar")) return;
       var sel=r.querySelector(".o-variant");
       if(!sel || sel.disabled || sel.selectedIndex===0) return;
@@ -223,6 +251,10 @@
 
     rader().forEach(function(r){
       var i=r.querySelector("input.add");
+      /* Samma invariant pa summans sida: det kunden inte ser betalar hon inte
+         for. Tva sparrar for samma regel ar medvetet, for den ena ar
+         tillstandet och den andra ar pengarna. */
+      if(r.hidden) return;
       r.classList.toggle("vald", i.checked && !i.disabled);
       if(i.disabled) return;
       if(r.querySelector("input.add").hasAttribute("data-intresse")){
@@ -323,19 +355,42 @@
      sak och betala for alla fyra. Kryssar man i en slacks de andra. */
   var LASTBALANS = ["sense","equalizer","tibber","perific"];
 
+  /* EN PLATS DAR ETT VAL BLIR ETT VAL.
+
+     Tre lyssnare gjorde var sin halva av samma sak, och de tva halvorna som
+     saknades kostade kunden pengar:
+
+     1. Kryssrutan skrev kundval OCH korde utestangningen. Hel.
+     2. Antalsvaljaren skrev kundval men korde aldrig utestangningen. Ofarlig,
+        for ingen antalsrad ar en lastbalansering.
+     3. Variantdropdownen skrev kundvariant men ALDRIG kundval, och korde
+        aldrig utestangningen.
+
+     Foljderna av (3), bada uppmatta:
+     - Kryssa i Zaptec Sense, byt sedan Perific-raden till Perific One: bada
+       ligger i ordern. 3 050 kr for tva enheter som gor samma sak, pa alla
+       sju. Perific ar den enda lastbalanseringen med dropdown, och den
+       dyraste.
+     - Valj Perific One i dropdownen, byt till Plus, byt tillbaka: valet ar
+       borta ur summan men raden star kvar med "Perific One" och "+1 950 kr".
+       Inget sager att det forsvann.
+
+     Nu finns handlingen pa ETT stalle och alla tre vagarna gar genom den. */
+  function valjRad(i){
+    if(!i || i.disabled) return;
+    var g = i.getAttribute("data-grupp");
+    kundval[g] = i.checked;
+    if(i.checked && LASTBALANS.indexOf(g) >= 0){
+      LASTBALANS.forEach(function(annan){
+        if(annan === g) return;
+        var ruta = document.querySelector('input.add[data-grupp="'+annan+'"]');
+        if(ruta && ruta.checked && !ruta.disabled){ ruta.checked = false; kundval[annan] = false; }
+      });
+    }
+  }
+
   document.querySelectorAll("input.add").forEach(function(i){
-    i.addEventListener("change",function(){
-      var g = this.getAttribute("data-grupp");
-      if(!this.disabled) kundval[g] = this.checked;
-      if(this.checked && LASTBALANS.indexOf(g) >= 0){
-        LASTBALANS.forEach(function(annan){
-          if(annan === g) return;
-          var ruta = document.querySelector('input.add[data-grupp="'+annan+'"]');
-          if(ruta && ruta.checked && !ruta.disabled){ ruta.checked = false; kundval[annan] = false; }
-        });
-      }
-      render();
-    });
+    i.addEventListener("change",function(){ valjRad(this); render(); });
   });
 
 
@@ -343,7 +398,7 @@
   document.querySelectorAll("[data-antal]").forEach(function(sel){
     sel.addEventListener("change",function(){
       var r=this.closest(".o-rad"), i=r.querySelector("input.add");
-      if(!i.disabled){ i.checked=true; kundval[i.getAttribute("data-grupp")]=true; }
+      if(!i.disabled){ i.checked=true; valjRad(i); }
       var pr=r.querySelector(".o-radpris");
       if(pr && !i.disabled) pr.textContent="+"+kr(radVarde(r));
       render();
@@ -355,6 +410,7 @@
     s.addEventListener("change",function(){
       var i=this.closest(".o-rad").querySelector("input.add");
       i.checked=true;
+      valjRad(i);
       /* Minnet skrivs HAR, fore render(). Lag skrivningen i en egen lyssnare
          kordes render forst, och aterstallningen slog da tillbaka kundens
          just gjorda val. Samma falla som kundval en gang hade. */
@@ -410,6 +466,18 @@
     if(!s) return;
     document.querySelector(".offer").classList.add("visarSkarm");
     s.hidden=false; s.classList.add("syns");
+
+    /* EN SKARMLASARE MASTE FA VETA ATT KOPET GICK IGENOM.
+       Uppmatt med riktigt Enter pa Acceptera offert: fokus hamnade pa body,
+       for regeln .offer.visarSkarm > *:not(.o-skarm) slacker knappen som hade
+       fokus. Skarmen hade varken role, aria-live eller tabindex, sa en blind
+       kund horde ingenting efter ett kop pa tiotusentals kronor och hade en
+       enda fokuserbar sak kvar pa sidan: telefonnumret.
+       tabindex -1 plus focus() flyttar lasmarkoren in i skarmen, och da laser
+       uppläsaren rubriken och det som star under den. */
+    s.setAttribute("tabindex", "-1");
+    if (!s.getAttribute("role")) s.setAttribute("role", "status");
+    try { s.focus({preventScroll:true}); } catch(e) { try { s.focus(); } catch(e2){} }
     var sc=document.getElementById("scroller")||document.scrollingElement;
     if(sc) sc.scrollTop=0; else window.scrollTo(0,0);
   }
@@ -495,4 +563,29 @@
   render(); fit();
   if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){setTimeout(function(){fit();measure();},60);});}
   setTimeout(function(){fit();measure();},600);
+
+  /* UTSKRIFTEN. En stangd <details> tar inte med sitt innehall pa papperet,
+     oavsett vad CSS sager om barnet, for ::details-content bar
+     content-visibility:hidden. Villkoren och kostnaderna som kan tillkomma
+     saknades darfor i den utskrivna offerten. Foldarna oppnas har och
+     aterstalls efterat, sa skarmen ser likadan ut som forut. */
+  (function(){
+    var fore = [];
+    function oppna(){
+      fore = [].slice.call(document.querySelectorAll("details"));
+      fore.forEach(function(e){ e.dataset.varOppen = e.open ? "1" : "0"; e.open = true; });
+    }
+    function aterstall(){
+      fore.forEach(function(e){ e.open = e.dataset.varOppen === "1"; delete e.dataset.varOppen; });
+      fore = [];
+    }
+    window.addEventListener("beforeprint", oppna);
+    window.addEventListener("afterprint", aterstall);
+    if (window.matchMedia) {
+      var mq = window.matchMedia("print");
+      var lyssna = mq.addEventListener ? mq.addEventListener.bind(mq, "change") : null;
+      if (lyssna) lyssna(function(e){ e.matches ? oppna() : aterstall(); });
+    }
+  })();
+
 })();

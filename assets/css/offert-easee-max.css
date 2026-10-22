@@ -337,6 +337,33 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    for just nu ar den valdigt ful". En kompakt sifferruta slar en lista med
    fasta klumpar som "4 stycken, 6 stycken", for kunden vill ha SITT antal. */
 .o-radantal{margin-left:auto;flex:none;}
+
+/* ANTALSVALJAREN LAG OVANPA RADNAMNET PA SMALA SKARMAR.
+   Uppmatt pa alla sju modellerna: vid 360 tackte .o-radantal 49 px av
+   "Spotlights", som lastes "Spotl", 12 px av Plejd TRM-01 och 6 px av
+   DIM-01. Vid 375 trettiofyra px, vid 390 nitton. Pa elcentralen holl
+   krocken i sig anda till 414 ("Overspanningsskydd" 66 px) och gav dessutom
+   8 px sidledes scroll vid 360.
+
+   Raknat pa 360: rutan ar 328 bred, mark 24, bild 104, antalsvaljaren 66,
+   tre mellanrum a 16, kvar at namnet 18 px. Namnet behover 83. Det gar inte
+   att losa genom att krympa nagon del, for ingen del har 65 px att ge.
+
+   Alltsa OMLAGGNING, inte nerskalning: namnet far hela textspalten och
+   antalsvaljaren flyttar ner under den. Bildrutan krymper till 72 px, samma
+   tal som elcentralvalen redan anvander i smalt lage, sa de tva mallarna ser
+   likadana ut dar. */
+@container (max-width: 430px){
+  .offer .o-rad:has(.o-radantal){
+    display:grid;
+    grid-template-columns:var(--z3) 72px minmax(0,1fr);
+    column-gap:var(--s4);row-gap:var(--s2);align-items:center;}
+  .offer .o-rad:has(.o-radantal) > .mark,
+  .offer .o-rad:has(.o-radantal) > .o-radbild{grid-row:1 / 3;}
+  .offer .o-rad:has(.o-radantal) > .o-radbild{width:72px;height:72px;}
+  .offer .o-rad:has(.o-radantal) > .o-radtext{grid-column:3;grid-row:1;}
+  .offer .o-rad:has(.o-radantal) > .o-radantal{grid-column:3;grid-row:2;margin-left:0;}
+}
 .o-radantal select{
   /* SAMMA RUTA SOM .o-variant, inklusive pilen. appearance:none tar bort
      webblasarens egen pil, och utan en egen i stallet laser rutan som ett
@@ -447,7 +474,19 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    omöjliga att skilja åt: man kunde inte se vad kunden hade valt.
    ============================================================ */
 @media print{
-  /* allt som binder kunden ska med på papperet */
+  /* ALLT SOM BINDER KUNDEN SKA MED PA PAPPERET, OCH REGELN NEDAN RACKTE INTE.
+     Uppmatt i en riktig utskrifts-PDF: villkoren, kostnaderna som kan
+     tillkomma, "245 kr per meter", "Markror" och "Haltagning" saknades helt,
+     och sida 9 visade tre tomma rubriker. display:block pa .body ar sant men
+     verkningslost, for en STANGD <details> doljer sitt innehall genom
+     ::details-content med content-visibility:hidden, och det biter ingen
+     display-regel pa barnet. Summan gick med. Det som binder kunden gjorde
+     det inte.
+     Skriptet oppnar dessutom varje fold vid beforeprint och stanger dem igen
+     efterat, sa papperet blir ratt aven i en webblasare utan
+     ::details-content. */
+  .offer .o-fold::details-content{content-visibility:visible !important;
+    block-size:auto !important;}
   .offer .o-fold > .body{display:block !important;}
   .offer .o-fold > summary::after{display:none;}
   /* prisbaren hör till skärmen och lägger sig annars över innehållet */

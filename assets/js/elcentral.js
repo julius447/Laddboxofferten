@@ -270,6 +270,18 @@
     offer.classList.add("visarSkarm");
     sk.hidden = false;
     sk.classList.add("syns");
+    /* EN SKARMLASARE MASTE FA VETA ATT KOPET GICK IGENOM.
+       Uppmatt med riktigt Enter pa Acceptera offert: fokus hamnade pa body,
+       for regeln .offer.visarSkarm > *:not(.o-skarm) slacker knappen som hade
+       fokus. Skarmen hade varken role, aria-live eller tabindex, sa en blind
+       kund horde ingenting efter ett kop pa tiotusentals kronor och hade en
+       enda fokuserbar sak kvar pa sidan: telefonnumret.
+       tabindex -1 plus focus() flyttar lasmarkoren in i skarmen, och da laser
+       uppläsaren rubriken och det som star under den. */
+    sk.setAttribute("tabindex", "-1");
+    if (!sk.getAttribute("role")) sk.setAttribute("role", "status");
+    try { sk.focus({preventScroll:true}); } catch(e) { try { sk.focus(); } catch(e2){} }
+
     /* Laddboxofferten slar upp #scroller, som ar granskningsramens element.
        Elcentralen har ingen ram och inget #scroller. document.scrollingElement
        racker, och ett id som inte finns hade stoppats av byggets orakel anda. */
@@ -553,6 +565,31 @@
 
   rakna();
   rekommendera();
+
+  /* UTSKRIFTEN. En stangd <details> tar inte med sitt innehall pa papperet,
+     oavsett vad CSS sager om barnet, for ::details-content bar
+     content-visibility:hidden. Villkoren och kostnaderna som kan tillkomma
+     saknades darfor i den utskrivna offerten. Foldarna oppnas har och
+     aterstalls efterat, sa skarmen ser likadan ut som forut. */
+  (function(){
+    var fore = [];
+    function oppna(){
+      fore = [].slice.call(document.querySelectorAll("details"));
+      fore.forEach(function(e){ e.dataset.varOppen = e.open ? "1" : "0"; e.open = true; });
+    }
+    function aterstall(){
+      fore.forEach(function(e){ e.open = e.dataset.varOppen === "1"; delete e.dataset.varOppen; });
+      fore = [];
+    }
+    window.addEventListener("beforeprint", oppna);
+    window.addEventListener("afterprint", aterstall);
+    if (window.matchMedia) {
+      var mq = window.matchMedia("print");
+      var lyssna = mq.addEventListener ? mq.addEventListener.bind(mq, "change") : null;
+      if (lyssna) lyssna(function(e){ e.matches ? oppna() : aterstall(); });
+    }
+  })();
+
 })();
 
   /* grann.js i gemensamt behover kunna rakna om summan. */
