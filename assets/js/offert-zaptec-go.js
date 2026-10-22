@@ -151,6 +151,16 @@
          Lases raden som "ingar" och paketet namnger en variant, stall
          dropdownen pa den och byt bilden med. Utan det sa Premium-raden
          "Perific One" medan kortet och priset bar Max. */
+      if(s && !arLangd(s) && !med && !ute && kundvariant[g] !== undefined
+         && s.selectedIndex !== kundvariant[g]){
+        /* Raden ar fri igen: tillbaka till kundens eget val. */
+        s.selectedIndex = kundvariant[g];
+        var nk=s.getAttribute("data-bild");
+        if(nk){
+          var bd=r.querySelector(".o-radbild img"), n2=nk.split(",")[s.selectedIndex];
+          if(bd && IMGS[n2]) bd.src=IMGS[n2];
+        }
+      }
       if(med && s && !arLangd(s)){
         var vill=(PKGVARIANT[pkg]||{})[g];
         if(vill){
@@ -345,6 +355,10 @@
     s.addEventListener("change",function(){
       var i=this.closest(".o-rad").querySelector("input.add");
       i.checked=true;
+      /* Minnet skrivs HAR, fore render(). Lag skrivningen i en egen lyssnare
+         kordes render forst, och aterstallningen slog da tillbaka kundens
+         just gjorda val. Samma falla som kundval en gang hade. */
+      if(!arLangd(this)) kundvariant[this.getAttribute("data-grupp")]=this.selectedIndex;
       var nycklar=this.getAttribute("data-bild");
       if(nycklar){
         var bild=this.closest(".o-rad").querySelector(".o-radbild img");
@@ -411,6 +425,15 @@
   });
   /* Chips-faltet ligger i gemensamt/block/grann.js: markupen ar delad,
      sa koden ska vara det ocksa. */
+  /* KUNDENS EGET VARIANTVAL, skilt fran paketets.
+     Nar ett paket laser en rad satts varianten till det paketet bar. Lamnas
+     bara det kvar nar kunden gar tillbaka till Bas har paketet tyst andrat
+     ett val kunden sjalv gjort. Samma skal som kundval finns for kryssen. */
+  var kundvariant = {};
+  document.querySelectorAll(".o-variant").forEach(function(s){
+    if(!arLangd(s)) kundvariant[s.getAttribute("data-grupp")] = s.selectedIndex;
+  });
+
   window.__render = render;
 
   /* informationsrutorna */
