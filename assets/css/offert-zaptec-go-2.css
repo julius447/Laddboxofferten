@@ -1398,7 +1398,14 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-rad.utesluten .o-radbild{filter:grayscale(1);}
 .o-kvittens{margin:0;font-size:13px;font-weight:300;color:var(--teal-ink);line-height:1.5;background:var(--teal-soft);border-radius:var(--r1);padding:var(--s3);}
 .o-kabelnot{font-size:13px;font-weight:300;color:var(--muted);line-height:1.55;padding-top:var(--s1);}
-.o-opt .o-centralbild{width:64px;height:64px;background:transparent;display:grid;place-items:center;}
+/* EN KALLA FOR BILDRUTANS BREDD.
+   Rutan var 104 px bred medan rutnatets bildkolumn stod kvar pa 64, sa
+   elcentralen lag 40 px in over sin egen text: "Hager, 12 moduler med
+   jordfelsbrytare" gick under bilden. Tva tal for samma matt pa tva stallen
+   driver alltid isar. Nu laser bada --centralbild, och da gar det inte. */
+.offer .o-opt:has(.o-centralbild){--centralbild:104px;}
+.o-opt .o-centralbild{width:var(--centralbild);height:var(--centralbild);
+  background:transparent;display:grid;place-items:center;}
 .o-opt .o-centralbild img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;}
 /* Elcentralens val bär både en bild och ett långt pris. Inne i dropdownen
    Övriga tjänster är raden 309 px, och då blir textspalten 44: "Liten
@@ -1407,7 +1414,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    165 px. Tidsvalen har ingen bild och rörs inte. */
 @container (max-width: 560px){
   .offer .o-opt:has(.o-centralbild){
-    display:grid;grid-template-columns:var(--z3) 64px minmax(0,1fr);
+    --centralbild:72px;
+    display:grid;grid-template-columns:var(--z3) var(--centralbild) minmax(0,1fr);
     column-gap:var(--s4);row-gap:var(--s1);align-items:center;}
   .offer .o-opt:has(.o-centralbild) > .mark,
   .offer .o-opt:has(.o-centralbild) > .o-centralbild{grid-row:1 / 3;}

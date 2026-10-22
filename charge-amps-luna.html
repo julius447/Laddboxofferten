@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="assets/css/testimonials.css">
 <link rel="stylesheet" href="assets/css/certifikat.css">
 <style>html,body{margin:0;padding:0}</style>
-<noscript><style>.o-utanjs{display:block !important;}.o-skarm{display:none !important;}.offer .o-calc,.offer .o-sum,.offer .o-bar,.offer #incList,.offer .o-skarm{display:none !important;}.offer .o-pkgs,.offer .o-platsval,.offer .o-rader,.offer .o-opts{pointer-events:none;opacity:.6;}.offer .o-pkgs input,.offer .o-platsval input,.offer .o-rader input,.offer .o-opts input{display:none !important;}</style></noscript>
+<noscript><style>.o-utanjs{display:block !important;}.o-skarm{display:none !important;}.offer .o-calc,.offer .o-sum,.offer .o-bar,.offer #incList,.offer .o-skarm{display:none !important;}.offer .o-pkgs,.offer .o-platsval,.offer .o-rader,.offer .o-opts{pointer-events:none;opacity:.6;}.offer .o-pkgs input,.offer .o-platsval input,.offer .o-rader input,.offer .o-opts input{display:none !important;}.offer input,.offer select,.offer textarea,.offer button{display:none !important;}</style></noscript>
 </head>
 <body>
 <div class="offer" id="offer">
@@ -52,7 +52,7 @@
                   <div class="o-calcrow ded"><span>Grön teknik, 50 procent</span><span class="kr" id="calcDed">−5 450 kr</span></div>
                   <div class="o-calcrow dold" id="calcCenRad"><span id="calcCenNamn">Byte av elcentral</span><span class="kr" id="calcCen">0 kr</span></div>
                   <div class="o-calcfinal"><span>Ditt pris</span><span class="t-price kr" id="calcNet">5 450 kr</span></div>
-                  <p class="t-micro dold" id="calcCenNot" style="color:var(--faint);">Elcentralbytet är inte grön teknik, det är ROT. Priset ovan är före ROT: avdraget räknas på arbetskostnaden och dras på fakturan.</p>
+                  <p class="t-micro dold" id="calcCenNot" style="color:var(--faint);">Övriga tjänster du valt ger ROT i stället för grön teknik. Priserna är inklusive moms och efter avdrag.</p>
                   <p class="o-ingartext">Arbete och material ingår i priset.</p>
                   <p class="t-micro" style="color:var(--faint);">inkl. moms, avdraget dras direkt på fakturan</p>
                 </div>
@@ -251,13 +251,13 @@
                   
                   
                   <label class="o-rad">
-                    <input type="checkbox" class="add" data-grupp="perific" data-name="Perific lastbalansering" value="1950">
+                    <input type="checkbox" class="add" data-grupp="perific" data-name="Perific lastbalansering" value="2650">
                     <span class="mark sq"></span>
-                    <figure class="o-radbild"><img src="assets/img/perific-one.webp" alt="Perific One lastbalansering" width="340" height="340" loading="lazy" decoding="async"></figure>
+                    <figure class="o-radbild"><img src="assets/img/perific-max.webp" alt="Perific Max lastbalansering" width="340" height="340" loading="lazy" decoding="async"></figure>
                     <span class="o-radtext">
                       <span class="o-radnamn">Perific lastbalansering</span>
-                      <select class="o-variant" data-grupp="perific" data-bild="perific-one,perific-max" aria-label="Välj variant av perific lastbalansering"><option value="1950">Perific One</option><option value="2650">Perific Max</option></select>
-                      <span class="o-radpris kr" data-grupp="perific">+1 950 kr</span>
+                      <select class="o-variant" data-grupp="perific" data-bild="perific-max,perific-one" aria-label="Välj variant av perific lastbalansering"><option value="2650">Perific Max</option><option value="2650">Perific One</option></select>
+                      <span class="o-radpris kr" data-grupp="perific">+2 650 kr</span>
                     </span>
                   </label>
                   
@@ -367,7 +367,7 @@
             <!-- 10 VILLKOR -->
             <section class="o-sec" id="villkor">
               <details class="o-fold" id="ovrigt">
-                <summary>Övriga tjänster <span class="hint">fasta priser</span></summary>
+                <summary>Övriga tjänster</summary>
                 <div class="body">
 
                   <section class="o-tjanst">
@@ -390,9 +390,9 @@
                     <label class="o-opt"><input type="radio" name="central" value="5990"><span class="mark"></span>
                       <figure class="o-centralbild"><img src="assets/img/hager-liten.webp" alt="" width="340" height="340" loading="lazy" decoding="async"></figure><span class="txt"><b>Liten central</b><span>Hager, 12 moduler med jordfelsbrytare</span></span><span class="amt kr">5 990 kr</span></label>
                     <label class="o-opt"><input type="radio" name="central" value="9990"><span class="mark"></span>
-                      <figure class="o-centralbild"><img src="assets/img/hager-mellan.webp" alt="" width="340" height="340" loading="lazy" decoding="async"></figure><span class="txt"><b>Mellan central</b><span>Hager, 24 moduler med jordfelsbrytare</span></span><span class="amt kr">9 900 kr</span></label>
+                      <figure class="o-centralbild"><img src="assets/img/hager-mellan.webp" alt="" width="340" height="340" loading="lazy" decoding="async"></figure><span class="txt"><b>Mellan central</b><span>Hager, 24 moduler med jordfelsbrytare</span></span><span class="amt kr">9 990 kr</span></label>
                     <label class="o-opt"><input type="radio" name="central" value="14900"><span class="mark"></span>
-                      <figure class="o-centralbild"><img src="assets/img/hager-stor.webp" alt="" width="340" height="340" loading="lazy" decoding="async"></figure><span class="txt"><b>Stor central</b><span>Hager, 48 moduler med jordfelsbrytare</span></span><span class="amt kr">12 900 kr</span></label>
+                      <figure class="o-centralbild"><img src="assets/img/hager-stor.webp" alt="" width="340" height="340" loading="lazy" decoding="async"></figure><span class="txt"><b>Stor central</b><span>Hager, 48 moduler med jordfelsbrytare</span></span><span class="amt kr">14 900 kr</span></label>
                   </div>
                   </section>
 
@@ -443,7 +443,6 @@
                         <figure class="o-radbild"><img src="assets/img/spotlight.webp" alt="Vit infälld downlight i tak" width="340" height="340" loading="lazy" decoding="async"></figure>
                         <span class="o-radtext">
                           <span class="o-radnamn">Spotlights</span>
-                          <span class="o-radspec">vit infälld downlight, material och installation ingår</span>
                           <span class="o-radpris kr" data-grupp="spotlight">+800 kr</span>
                         </span>
                         <span class="o-radantal"><select data-antal="spotlight" aria-label="Antal spotlights"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option></select></span>
