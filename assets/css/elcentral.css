@@ -286,6 +286,21 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 /* radkomponenten, byggd efter elbilsvaruhusets mobildesign: kryss, stor bild,
    och rubrik, väljare och pris staplade i en egen kolumn. Vit platta, en tunn ram. */
 .o-rader{display:flex;flex-direction:column;gap:var(--rytm-block);}
+/* HIDDEN MASTE VINNA OVER DISPLAY.
+
+   Webblasarens egen regel ar [hidden]{display:none}, men den har lagst
+   tankbara specificitet och slas av VARJE forfattarregel som satter display.
+   .o-rad{display:flex} gjorde alltsa att JS:ens kort.hidden=true inte dolde
+   nagonting: raden var 176 px hog och gick att klicka.
+
+   Foljden pa den har sidan: en Bas- eller Pluskund kunde valja laddkabel
+   22 kW utan att ha uppgraderat installationen, alltsa en kabel som inte
+   laddar snabbare i en 11 kW-installation. Uppmatt i webblasaren:
+   hidden=true, display=flex, offsetHeight=176.
+
+   Regeln galler varje element i offerten som gar att gomma, inte bara raden,
+   for samma falla finns i varje block som satter display. */
+[hidden]{display:none !important;}
 .o-rad{display:flex;align-items:center;gap:var(--s4);background:var(--card);
   border:1.5px solid var(--kant);border-radius:var(--r2);padding:var(--s4);
   min-height:176px;cursor:pointer;position:relative;transition:border-color .18s ease;}
@@ -323,11 +338,21 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    fasta klumpar som "4 stycken, 6 stycken", for kunden vill ha SITT antal. */
 .o-radantal{margin-left:auto;flex:none;}
 .o-radantal select{
+  /* SAMMA RUTA SOM .o-variant, inklusive pilen. appearance:none tar bort
+     webblasarens egen pil, och utan en egen i stallet laser rutan som ett
+     textfalt. Det ar det agaren menat med att dropdownen ar ful: den SER inte
+     ut som en dropdown. Pilen ar samma svg som .o-variant pa rad 327, sa alla
+     dropdowns i bada mallarna ar en och samma ruta. */
   font:inherit;font-size:15px;font-weight:600;color:var(--ink);
-  font-variant-numeric:tabular-nums;text-align:center;
-  width:4.5ch;min-height:44px;padding:0 var(--s1);
-  background:#fff;border:1.5px solid var(--kant-kontroll);border-radius:var(--r1);
+  font-variant-numeric:tabular-nums;text-align:left;
+  width:auto;min-width:5.5ch;min-height:44px;
+  padding:0 var(--s6) 0 var(--s3);
+  background:#fff;border:1.5px solid var(--kant);border-radius:var(--r1);
   appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%23090b32' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right var(--s3) center;
+  background-size:12px;
 }
 .o-radantal select:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
 .o-rad.ingar .o-radantal select,.o-rad.utesluten .o-radantal select{opacity:.5;}
@@ -1638,14 +1663,9 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 /* --- ANTAL PA EN TILLAGGSRAD --------------------------------------------- */
 /* Faltet ligger inne i etiketten, sa ett tryck i siffran skulle annars kryssa
    ur hela raden. pointer-events pa sjalva inputen plus stopPropagation i JS. */
-.offer .o-radantal{margin-left:auto;flex:none;}
-.offer .o-radantal select{
-  font:inherit;font-size:15px;font-weight:600;color:var(--ink);
-  font-variant-numeric:tabular-nums;text-align:center;
-  width:4ch;min-height:44px;padding:0 var(--s1);
-  background:var(--yta);border:1px solid var(--kant-kontroll);border-radius:var(--r1);
-}
-.offer .o-radantal select:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
+/* Elcentralens egen antalsvaljare ar borttagen. Den bar den odefinierade
+   variabeln --yta och tog bort pilen som systemet nu ger alla dropdowns.
+   EN ruta i bada mallarna, definierad pa ETT stalle. */
 
 /* --- HUVUDSAKRINGEN ------------------------------------------------------ */
 .offer .o-huvudsakring{

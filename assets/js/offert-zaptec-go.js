@@ -113,10 +113,15 @@
       var ute=false, uteText="";
 
       if(!med && lbIPaket && LB.indexOf(g)>=0){
-        ute=true; uteText="Ingår redan: "+radNamn(hittaRad(lbIPaket));
+        /* KORT TEXT, INTE PRODUKTNAMNET.
+           "Ingår redan: Perific lastbalansering" bryter radens layout: namnet
+           ar langre an kolumnen och klipps mitt i ordet. Agaren: "da gar
+           designen sonder... Vi vill bara morka ner dem." Tva ord racker, och
+           raden ar redan nedtonad, sa skalet syns pa formen ocksa. */
+        ute=true; uteText="Ingår redan";
       }
       if(g===kabelErsatt){
-        ute=true; uteText="Ersatt av 22 kW-kabeln";
+        ute=true; uteText="Ersatt av 22 kW";
       }
 
       var last=med||ute;
