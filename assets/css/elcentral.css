@@ -313,6 +313,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-rad:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
 .o-rad > input{position:absolute;opacity:0;width:1px;height:1px;}
 .o-radbild{margin:0;width:104px;height:104px;flex:none;background:transparent;display:grid;place-items:center;}
+/* EN VIT PRODUKT PA EN VIT RUTA SYNS INTE.
+   SAJ HS3 ar en hog vit skap fotograferad rakt framifran utan skuggning:
+   uppmatt 1,65 procent black pa duken, varav 28 procent halvtransparent. I
+   raden lastes den som en tom ruta bredvid tva riktiga produktfoton.
+   Produkten ar inte andrad, bakgrunden ar. De tre batterierna ar dessutom en
+   egen sort, intresseanmalan och inte kopbart tillagg, sa plattan markerar
+   dem som en grupp. Samma platta som ikonrutorna redan anvander. */
+.o-rad:has(input[data-intresse]) .o-radbild{
+  background:var(--bg);border:1px solid var(--line);border-radius:var(--r2);
+  padding:var(--s2);box-sizing:border-box;}
 .o-radikon{width:104px;height:104px;flex:none;border-radius:var(--r2);background:var(--ikonplatta);
   display:block;overflow:hidden;color:var(--ikonglyf);}
 .o-radikon svg{width:100%;height:100%;display:block;}
@@ -1738,6 +1748,14 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    hittas pa, och ett tillagg som inte kan prissattas far inte se ut som
    om det gar att kopa. */
 .offer .o-radpris.saknas{color:var(--faint);font-weight:500;font-variant-numeric:normal;}
+
+/* HJALTEBILDEN BEHOVER HOJD NU NAR CENTRALERNA AR LIGGANDE HOGA DUKAR.
+   De tre kapslingarna ar 1x13, 2x13 och 4x13 moduler, alltsa lika breda och
+   olika hoga, och bilderna ar normaliserade pa BREDD sa att den dyraste inte
+   langre ser minst ut. I en kvadratisk ruta blev foljden att hjaltebilden
+   renderade 36 px bred i en 96-ruta. Rutan ar portratt nu, som valen. */
+.offer .o-prodimg{aspect-ratio:300 / 790;height:auto;max-height:220px;}
+.offer .o-prodimg img{width:100%;height:100%;object-fit:contain;}
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}

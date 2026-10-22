@@ -313,6 +313,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-rad:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
 .o-rad > input{position:absolute;opacity:0;width:1px;height:1px;}
 .o-radbild{margin:0;width:104px;height:104px;flex:none;background:transparent;display:grid;place-items:center;}
+/* EN VIT PRODUKT PA EN VIT RUTA SYNS INTE.
+   SAJ HS3 ar en hog vit skap fotograferad rakt framifran utan skuggning:
+   uppmatt 1,65 procent black pa duken, varav 28 procent halvtransparent. I
+   raden lastes den som en tom ruta bredvid tva riktiga produktfoton.
+   Produkten ar inte andrad, bakgrunden ar. De tre batterierna ar dessutom en
+   egen sort, intresseanmalan och inte kopbart tillagg, sa plattan markerar
+   dem som en grupp. Samma platta som ikonrutorna redan anvander. */
+.o-rad:has(input[data-intresse]) .o-radbild{
+  background:var(--bg);border:1px solid var(--line);border-radius:var(--r2);
+  padding:var(--s2);box-sizing:border-box;}
 .o-radikon{width:104px;height:104px;flex:none;border-radius:var(--r2);background:var(--ikonplatta);
   display:block;overflow:hidden;color:var(--ikonglyf);}
 .o-radikon svg{width:100%;height:100%;display:block;}
@@ -1424,6 +1434,20 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 @media (hover:hover){
   .o-plats:hover{border-color:var(--line-strong,#9fb0cc);}}
 .o-rad.ingar{opacity:.62;border-style:dashed;cursor:default;}
+/* EN RAD SOM INGAR AR VALD AT KUNDEN, OCH MARKOREN SKA SAGA DET.
+   Rutan stod TOM bredvid texten "Ingar i Premium". En tom ruta betyder
+   oklickad overallt annars pa sidan, sa de tva sa emot varandra i samma rad.
+   Den riktiga inputen ar och forblir urkryssad, for raden far inte raknas en
+   gang till i summan. Det ar bara markoren som visar sanningen. */
+.o-rad.ingar > .mark{border-color:var(--teal-ink);background:var(--teal-ink);}
+.o-rad.ingar > .mark.sq::after{content:"";position:absolute;inset:0;border:0;
+  border-radius:inherit;background-repeat:no-repeat;background-position:center;
+  background-size:72%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 12.4l4.3 4.3 8.7-9.4' fill='none' stroke='white' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");}
+/* UTESLUTEN ar inte samma sak som oklickad heller: kunden kan inte fa den.
+   Ett streck, inte en bock och inte en tom ruta. */
+.o-rad.utesluten > .mark::after{content:"";position:absolute;left:25%;right:25%;
+  top:50%;height:1.5px;background:var(--kant-kontroll);border-radius:1px;}
 .o-rad.ingar .o-variant{opacity:.5;}
 /* Langdvalet ar aktivt aven i ett last paket, sa det far inte se slackt ut.
    Agaren: langd 5 eller 10 meter valbar OAVSETT paket. */
@@ -1442,8 +1466,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    elcentralen lag 40 px in over sin egen text: "Hager, 12 moduler med
    jordfelsbrytare" gick under bilden. Tva tal for samma matt pa tva stallen
    driver alltid isar. Nu laser bada --centralbild, och da gar det inte. */
-.offer .o-opt:has(.o-centralbild){--centralbild:104px;}
-.o-opt .o-centralbild{width:var(--centralbild);height:var(--centralbild);
+.offer .o-opt:has(.o-centralbild){--centralbild:72px;--centralhojd:168px;}
+.o-opt .o-centralbild{width:var(--centralbild);height:var(--centralhojd);
   background:transparent;display:grid;place-items:center;}
 .o-opt .o-centralbild img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;}
 /* Elcentralens val bär både en bild och ett långt pris. Inne i dropdownen
@@ -1453,7 +1477,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    165 px. Tidsvalen har ingen bild och rörs inte. */
 @container (max-width: 560px){
   .offer .o-opt:has(.o-centralbild){
-    --centralbild:72px;
+    --centralbild:60px;--centralhojd:140px;
     display:grid;grid-template-columns:var(--z3) var(--centralbild) minmax(0,1fr);
     column-gap:var(--s4);row-gap:var(--s1);align-items:center;}
   .offer .o-opt:has(.o-centralbild) > .mark,

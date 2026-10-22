@@ -6,7 +6,7 @@
 
   /* PKG genereras av src/bygg.py ur src/paket.json, samma källa som
      punktlistan och brickorna i korten. Tre konsumenter, en sanning. */
-  var PKG={"0": {"namn": "Bas", "spec": "11 kW, monterad och driftsatt", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "2050": {"namn": "Plus", "spec": "11 kW med lastbalansering", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific One</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "4620": {"namn": "Premium", "spec": "22 kW med Perific Max", "kw": 22, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>22 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific Max</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Laddkabel 22 kW</b><span>5 meter</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Uppgraderad installation till 22 kW, större kabel och säkring</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}};
+  var PKG={"0": {"namn": "Bas", "spec": "11 kW, monterad och driftsatt", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "2050": {"namn": "Plus", "spec": "11 kW med lastbalansering", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific One</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "4620": {"namn": "Premium", "spec": "22 kW med Perific Max", "kw": 22, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>22 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific Max</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Laddkabel 22 kW</b><span>5 meter</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Uppgraderad installation till 22 kW, större kabel och säkring</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel för den uppgraderade installationen</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}};
   var INGAR={"0": [], "2050": ["perific", "kabelhallare"], "4620": ["kw22", "perific", "kabel11", "kabel22", "kabelhallare"]};
   var PKGVARIANT={"2050": {"perific": "Perific One"}, "4620": {"perific": "Perific Max"}};
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
@@ -26,8 +26,18 @@
     var a=r.querySelector("[data-antal]");
     return a ? +a.value : 1;
   }
+  /* Uppgraderingen till Zaptec Go 2 kostar OLIKA MYCKET i olika paket, for
+     paketen ar rabatterade och uppgraderingen ar en del som rabatten biter
+     pa. Ett fast tal gav Go-sidan 5 910 / 7 200 / 10 630 dar Go 2-sidan sa
+     5 900 / 7 120 / 10 480. Kartan kommer ur bada modellernas egna
+     paketpriser, sa de tva vagarna kan inte dra isar. */
+  var GO2={"0": 1450, "2050": 1380, "4620": 1310};
   function radVarde(r){
     var i=r.querySelector("input.add");
+    if(i.getAttribute("data-grupp")==="go2"){
+      var n=GO2[val("pkg")];
+      if(n!==undefined) return n;
+    }
     var styck=i.getAttribute("data-styck");
     if(styck) return (+styck) * radAntal(r);
     var s=r.querySelector(".o-variant");
@@ -105,6 +115,18 @@
          kabel11 sparade redan sitt kundval, sa samma fil hade tva olika
          angerregler for samma sorts val. */
       if(!har22 && rad22.checked){ rad22.checked = false; }
+    }
+
+    /* FRONTKAPAN HOR TILL ZAPTEC GO, INTE TILL GO 2.
+       Agarnotering 22 okt, och provet T22 bevakar att raden inte ens FINNS pa
+       de andra sex modellerna. Men pa Go-sidan gar kunden over till Go 2 med
+       uppgraderingsraden, och da lag kapan kvar valbar: hjalten sa Zaptec
+       Go 2 medan kunden kunde kopa en kapa till en Zaptec Go for 300 kr.
+       Samma grind som 22 kW-kabeln, och darmed samma invariant: en gomd rad
+       varken raknas eller aterstalls ur minnet. */
+    var kapruta = document.querySelector('input.add[data-grupp="frontkapa"]');
+    if(kapruta){
+      kapruta.closest(".o-rad").hidden = go2;
     }
 
     /* TRE LÅSNINGSORSAKER, INTE EN.
@@ -338,12 +360,29 @@
   /* Elcentralbytet är ett tillval utan "nej tack"-ruta. Klickar man på det
      kort man redan valt släpper valet, så man kan ångra sig utan att leta
      efter en avbrytknapp. */
+  /* ANGRAN MASTE FINNAS FOR TANGENTBORDET OCKSA.
+     Forut lag den i en click-lyssnare som styrdes av dataset.var, och den
+     flaggan sattes bara av ett musklick. Flyttade kunden sig i gruppen med
+     piltangenterna fyrade change men aldrig click, sa flaggan var aldrig
+     satt, och nasta mellanslag avmarkerade ingenting. Uppmatt: valt = 5990
+     fore och efter, priset stod still. Ett val pa mellan 5 990 och 14 900 kr
+     som musen kan angra men inte tangentbordet.
+
+     Nu haller en variabel reda pa vad som var valt INNAN handlingen, och den
+     skrivs av bade pekare, tangent och change. Click fyrar for bada
+     inmatningssatten, sa angran blir densamma. */
+  var centralFore = null;
+  function sattCentralFore(e){ centralFore = e.checked ? e.value : null; }
   document.querySelectorAll('input[name="central"]').forEach(function(i){
-    i.addEventListener("click",function(e){
-      if(this.dataset.var==="1"){ this.checked=false; this.dataset.var=""; render(); }
-      else { document.querySelectorAll('input[name="central"]').forEach(function(x){x.dataset.var="";});
-             this.dataset.var="1"; }
+    i.addEventListener("pointerdown", function(){ sattCentralFore(this); });
+    i.addEventListener("keydown", function(e){
+      if(e.key === " " || e.key === "Spacebar" || e.key === "Enter") sattCentralFore(this);
     });
+    i.addEventListener("click", function(){
+      if(centralFore === this.value){ this.checked = false; centralFore = null; render(); }
+      else { centralFore = this.value; }
+    });
+    i.addEventListener("change", function(){ centralFore = this.value; });
   });
   /* Ordningen är hela poängen. Tidigare satt render() som lyssnare FÖRE den här,
      så den hann läsa ett inaktuellt kundval och kryssa i rutan igen innan minnet
