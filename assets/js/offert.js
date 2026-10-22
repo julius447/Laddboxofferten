@@ -6,26 +6,55 @@
 
   /* PKG genereras av src/bygg.py ur src/paket.json, samma källa som
      punktlistan och brickorna i korten. Tre konsumenter, en sanning. */
-  var PKG={"0": {"namn": "Bas", "spec": "11 kW, monterad och driftsatt", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Go</b><span>11 kW</span></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "1290": {"namn": "Plus", "spec": "11 kW med lastbalansering", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Go</b><span>11 kW</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Sense</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Kabelhållare</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "4720": {"namn": "Premium", "spec": "22 kW med Perific Max", "kw": 22, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Go</b><span>22 kW</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific Max</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Laddkabel</b><span>5 meter</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Kabelhållare</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Uppgraderad installation till 22 kW, större kabel och säkring</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}};
-  var INGAR={"0": [], "1290": ["sense", "kabelhallare"], "4720": ["kw22", "perific", "kabel11", "kabel22", "kabeltyp1", "kabelhallare"]};
+  var PKG={"0": {"namn": "Bas", "spec": "11 kW, monterad och driftsatt", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Go</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "1290": {"namn": "Plus", "spec": "11 kW med lastbalansering", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Go</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Sense</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "4720": {"namn": "Premium", "spec": "22 kW med Perific Max", "kw": 22, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Go</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>22 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific Max</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Laddkabel 22 kW</b><span>5 meter</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Uppgraderad installation till 22 kW, större kabel och säkring</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}};
+  var INGAR={"0": [], "1290": ["sense", "kabelhallare"], "4720": ["kw22", "perific", "kabel11", "kabel22", "kabelhallare"]};
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
   var CEN={"5990":"Byte av elcentral, liten","9900":"Byte av elcentral, mellan","12900":"Byte av elcentral, stor"};
 
   /* kundens egna kryss minns, så ett paketbyte aldrig raderar dem tyst */
   var kundval={};
   function rader(){ return [].slice.call(document.querySelectorAll(".o-rad")); }
+  /* ANTAL GANGER STYCKPRIS. Spotlights saldes forut i fasta klumpar,
+     "4 stycken" for 3 200, "6 stycken" for 4 800. Kunden vill ha SITT antal,
+     inte vart. Agaren ville ha elcentralens sifferruta overallt. */
+  function radAntal(r){
+    var a=r.querySelector("[data-antal]");
+    return a ? +a.value : 1;
+  }
   function radVarde(r){
-    var s=r.querySelector(".o-variant");
     var i=r.querySelector("input.add");
+    var styck=i.getAttribute("data-styck");
+    if(styck) return (+styck) * radAntal(r);
+    var s=r.querySelector(".o-variant");
     return s ? +s.value : +i.value;
   }
   function radNamn(r){
+    var i=r.querySelector("input.add");
+    var n=i.getAttribute("data-name");
+    if(i.getAttribute("data-styck")){
+      var an=radAntal(r);
+      return n+", "+an+" "+(an===1?"styck":"stycken");
+    }
     var s=r.querySelector(".o-variant");
-    var n=r.querySelector("input.add").getAttribute("data-name");
     return s ? n+", "+s.options[s.selectedIndex].text : n;
   }
 
   function toppAbs(e){var y=0;while(e){y+=e.offsetTop;e=e.offsetParent;}return y;}
+
+
+  /* En variant ar en LANGD om alla dess val slutar pa "meter". Langdvalet
+     overlever en paketlasning, allt annat lases med raden. */
+  function arLangd(sel){
+    var ok=true;
+    Array.prototype.forEach.call(sel.options,function(o){
+      if(!/meter\s*$/.test(o.textContent.trim())) ok=false;
+    });
+    return ok && sel.options.length>0;
+  }
+  function hittaRad(grupp){
+    var i=document.querySelector('input.add[data-grupp="'+grupp+'"]');
+    return i?i.closest(".o-rad"):null;
+  }
 
   function render(){
     var pkg=val("pkg"), tid=val("tid"), cen=val("central"), plats=val("plats");
@@ -46,18 +75,62 @@
       if(!har22 && rad22.checked){ rad22.checked = false; kundval["kabel22"] = false; }
     }
 
-    /* det som ingår i paketet låses och kan inte dubbelköpas */
+    /* TRE LÅSNINGSORSAKER, INTE EN.
+
+       Förut fanns bara "ingår i paketet", och det var roten till två fel.
+
+       1. INGAR     kunden får den, den är betald i paketet.
+       2. UTESLUTEN kunden får den INTE och kan inte köpa den, för något hon
+                    redan har ersätter den.
+       3. fri       valbar.
+
+       DEFEKTEN SOM RÄTTAS: utestängningen av lastbalanseringar kördes BARA
+       när kunden själv klickade i en ruta. Ingick en i paketet, som Zaptec
+       Sense i Plus, låstes bara den raden medan Perific, Tibber och Easee
+       Equalizer lämnades fria. En Plus-kund kunde alltså kryssa i tre till
+       och betala för FYRA enheter som gör exakt samma sak.
+
+       Och de två tillstånden får inte dela text. "Ingår i Premium" på
+       11 kW-kabeln påstod att kunden får två kablar. Den ska säga att den är
+       ersatt. */
     var ingar=INGAR[pkg]||[];
+    var LB=["sense","equalizer","tibber","perific"];
+
+    /* vilken lastbalansering paketet redan bär, om någon */
+    var lbIPaket=null;
+    LB.forEach(function(g){ if(ingar.indexOf(g)>=0) lbIPaket=g; });
+
+    /* 22 kW-paket: 11 kW-kabeln är ersatt, inte inkluderad */
+    var kabelErsatt = har22 ? "kabel11" : null;
+
     rader().forEach(function(r){
       var i=r.querySelector("input.add"), g=i.getAttribute("data-grupp");
-      var med=ingar.indexOf(g)>=0;
+      var med=ingar.indexOf(g)>=0 && g!==kabelErsatt;
+      var ute=false, uteText="";
+
+      if(!med && lbIPaket && LB.indexOf(g)>=0){
+        ute=true; uteText="Ingår redan: "+radNamn(hittaRad(lbIPaket));
+      }
+      if(g===kabelErsatt){
+        ute=true; uteText="Ersatt av 22 kW-kabeln";
+      }
+
+      var last=med||ute;
       r.classList.toggle("ingar",med);
-      i.disabled=med;
-      if(med){ i.checked=false; }
+      r.classList.toggle("utesluten",ute);
+      i.disabled=last;
+      if(last){ i.checked=false; }
       else if(kundval[g]){ i.checked=true; }
-      var s=r.querySelector(".o-variant"); if(s) s.disabled=med;
+
+      /* LÄNGDEN FÅR ALDRIG LÅSAS. Ägaren: längd 5 eller 10 meter ska vara
+         valbar oavsett paket. Förut låstes varianten tillsammans med raden,
+         så en Premiumkund inte kunde välja 10 meter alls. */
+      var s=r.querySelector(".o-variant");
+      if(s) s.disabled = ute || (med && !arLangd(s));
+
       var pr=r.querySelector(".o-radpris");
       if(med){ pr.textContent="Ingår i "+p.namn; pr.classList.add("ingarpris"); }
+      else if(ute){ pr.textContent=uteText; pr.classList.add("ingarpris"); }
       else { pr.classList.remove("ingarpris"); }
     });
 
@@ -75,6 +148,27 @@
        Ett batteri går inte att prissätta utan att se taket och förbrukningen,
        och en offert ska inte bära ett tal som inte är räknat. */
     var intresse=[];
+    /* MELLANSKILLNADEN. En kabel som INGAR i paketet ar betald i 5-meters-
+       utforande. Valjer kunden 10 meter far hon inte kabeln gratis, men hon
+       ska inte heller betala hela 10-meterspriset: hon betalar SKILLNADEN.
+       Agaren: langden ska vara valbar oavsett paket. Utan det har blocket var
+       dropdownen valbar men andrade ingenting, vilket ar varre an en last
+       dropdown: den ser ut att gora nagot. */
+    rader().forEach(function(r){
+      var i=r.querySelector("input.add");
+      if(!i.disabled || !r.classList.contains("ingar")) return;
+      var sel=r.querySelector(".o-variant");
+      if(!sel || sel.disabled || sel.selectedIndex===0) return;
+      var delta=(+sel.value) - (+sel.options[0].value);
+      if(delta>0){
+        sum+=delta; rotSum+=0;
+        /* Nyckeln heter "pris", inte "v". Alla andra rader anvander pris, och
+           summeringen laser pris. Med v: skrev sidan "pris saknas" bredvid en
+           rad som hade ett helt korrekt tal i totalen. */
+        valda.push({namn:radNamn(r)+" i stället för "+sel.options[0].text.trim(), pris:delta});
+      }
+    });
+
     rader().forEach(function(r){
       var i=r.querySelector("input.add");
       r.classList.toggle("vald", i.checked && !i.disabled);
@@ -115,7 +209,13 @@
        måste hela rotSum med, annars visar baren ett brutto som är för lågt. */
     var gtBas = mitt - rotSum;
     $("calcGross").textContent = kr(gtBas*2);
-    $("calcDed").textContent = "minus " + kr(gtBas);
+    /* MINUSTECKEN, inte ordet "minus". Agaren vande tre ganger och landade i:
+     "Vi gor sa har. Kor gront. Andra minus till minustecken."
+     Tecknet ar U+2212 MINUS SIGN, inte bindestreck och inte tankstreck:
+     bindestrecket ar for kort bredvid siffror och tankstrecket ar ett
+     AI-tell. Markupen bar samma tecken, annars blinkar ordet forbi innan
+     forsta render. */
+    $("calcDed").textContent = "\u2212" + kr(gtBas);
     $("calcCenRad").classList.toggle("dold", !rotSum);
     $("calcCenNot").classList.toggle("dold", !rotSum);
     if (rotSum){
@@ -182,6 +282,18 @@
           if(ruta && ruta.checked && !ruta.disabled){ ruta.checked = false; kundval[annan] = false; }
         });
       }
+      render();
+    });
+  });
+
+
+  /* andrar man antalet ar det ett val, sa rutan kryssas i */
+  document.querySelectorAll("[data-antal]").forEach(function(sel){
+    sel.addEventListener("change",function(){
+      var r=this.closest(".o-rad"), i=r.querySelector("input.add");
+      if(!i.disabled){ i.checked=true; kundval[i.getAttribute("data-grupp")]=true; }
+      var pr=r.querySelector(".o-radpris");
+      if(pr && !i.disabled) pr.textContent="+"+kr(radVarde(r));
       render();
     });
   });
@@ -255,34 +367,10 @@
     h.textContent="Frågan är mottagen.";
     this.disabled=true; ta.readOnly=true;
   });
-  /* grannrabatten: kopiera länk, bjud in med mejl */
-  (function(){
-    var kop=document.getElementById("refKopiera"),
-        mej=document.getElementById("refMejl"),
-        skick=document.getElementById("refSkicka"),
-        lista=document.getElementById("refLista");
-    if(!kop) return;
-    kop.addEventListener("click",function(){
-      var f=document.getElementById("refLank");
-      f.select();
-      try{ navigator.clipboard.writeText(f.value); }catch(e){}
-      var fore=this.textContent; this.textContent="Kopierad";
-      var k=this; setTimeout(function(){ k.textContent=fore; },1800);
-    });
-    function giltig(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v); }
-    skick.addEventListener("click",function(){
-      var v=mej.value.trim();
-      if(!giltig(v)){ mej.focus(); mej.setAttribute("aria-invalid","true"); return; }
-      mej.removeAttribute("aria-invalid");
-      if(lista.children.length>=6) return;
-      var li=document.createElement("li");
-      li.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg><span>Inbjudan skickad till '+v.replace(/[<>&]/g,"")+'</span>';
-      lista.appendChild(li);
-      mej.value="";
-      if(lista.children.length>=6){ skick.disabled=true; mej.disabled=true; }
-      render();
-    });
-  })();
+  /* Chips-faltet ligger i gemensamt/block/grann.js: markupen ar delad,
+     sa koden ska vara det ocksa. */
+  window.__render = render;
+
   /* informationsrutorna */
   document.querySelectorAll(".o-info").forEach(function(b){
     b.addEventListener("click",function(e){

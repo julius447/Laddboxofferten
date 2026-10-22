@@ -1,0 +1,117 @@
+/* ============ PRESENTATIONSRAM ============ */
+:root{
+  color-scheme: light;
+  --ground:#eef2f9; --surface:#ffffff; --surface-2:#e5ecf7;
+  --ink:#090b32; --body:#333333; --muted:#565e82; --faint:#7a819e;
+  --line:#dbe3f0; --line-soft:#e8eef8;
+  --teal:#00a991; --teal-ink:#017666; --teal-soft:#e4f6f2;
+  --shadow:0 1px 2px rgba(15,18,60,.05), 0 18px 48px -28px rgba(9,11,50,.5);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --ground:#06091e; --surface:#0e1230; --surface-2:#151a3d;
+    --ink:#eef2ff; --body:#c7cde6; --muted:#9aa3c4; --faint:#7f88ab;
+    --line:#232953; --line-soft:#1a1f46;
+    --teal:#2fd1b6; --teal-ink:#6fe4cd; --teal-soft:#0e2f2d;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 18px 48px -28px rgba(0,0,0,1);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --ground:#06091e; --surface:#0e1230; --surface-2:#151a3d;
+  --ink:#eef2ff; --body:#c7cde6; --muted:#9aa3c4; --faint:#7f88ab;
+  --line:#232953; --line-soft:#1a1f46;
+  --teal:#2fd1b6; --teal-ink:#6fe4cd; --teal-soft:#0e2f2d;
+  --shadow:0 1px 2px rgba(0,0,0,.5), 0 18px 48px -28px rgba(0,0,0,1);
+}
+body{background:var(--ground);color:var(--body);font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-weight:300;font-size:1.0625rem;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:72rem;margin-inline:auto;padding-inline:20px;padding-block:0 80px;}
+h1,h2,h3{color:var(--ink);font-weight:700;line-height:1.14;margin:0;text-wrap:balance;}
+h1{font-size:clamp(2.1rem,5.4vw,3.1rem);font-weight:900;letter-spacing:-.025em;}
+h2{font-size:clamp(1.35rem,3vw,1.8rem);letter-spacing:-.015em;}
+p{margin:0;}
+strong{font-weight:600;color:var(--ink);}
+.eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-ink);}
+.lede{font-size:clamp(1.05rem,2.2vw,1.25rem);line-height:1.5;color:var(--muted);max-width:42rem;}
+header.top{padding-block:64px 28px;}
+.switch{display:inline-flex;gap:3px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px;margin-top:26px;}
+.switch button{appearance:none;border:0;background:transparent;font-family:inherit;font-size:.875rem;font-weight:500;color:var(--muted);padding:7px 15px;border-radius:999px;cursor:pointer;}
+.switch button[aria-pressed="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(9,11,50,.12);}
+.switch button:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
+/* Scenen scrollar i sidled i stället för att ramen skalas ner. En ram som
+   skalas ljuger om renderingen, och getBoundingClientRect ljuger för allt
+   inuti den som mäter sig själv. Splide mäter sig själv. */
+.stagewrap{padding-block:28px 0;display:flex;justify-content:center;overflow-x:auto;}
+.stage{position:relative;}
+.frame{background:#fff;border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:var(--shadow);transform-origin:top center;}
+.frame .scroller{overflow-y:auto;overflow-x:hidden;height:100%;scrollbar-width:thin;}
+.meta{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:20px;font-size:.875rem;color:var(--muted);}
+.meta b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}
+section.notes{padding-block:64px 0;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-top:26px;}
+.ncard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:9px;}
+.ncard .n{font-size:.75rem;font-weight:700;color:var(--teal);letter-spacing:.08em;}
+.ncard h3{font-size:1.0625rem;font-weight:600;}
+.ncard p{font-size:.9375rem;color:var(--muted);line-height:1.5;}
+.ncard .src{font-size:.8125rem;color:var(--faint);border-top:1px solid var(--line-soft);padding-top:9px;margin-top:auto;}
+.measure{max-width:42rem;}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-top:18px;}
+table.doc{border-collapse:collapse;width:100%;font-size:.9375rem;}
+table.doc th,table.doc td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top;}
+table.doc th{font-weight:600;color:var(--ink);font-size:.8125rem;letter-spacing:.04em;text-transform:uppercase;background:var(--surface-2);white-space:nowrap;}
+table.doc tbody tr:last-child td{border-bottom:0;}
+
+
+/* ============ TYPSNITTSJÄMFÖRELSEN ============
+   Sitter bara i granskningsramen, aldrig i offerten. */
+.typ{margin-top:72px;display:flex;flex-direction:column;gap:28px;}
+.typ-topp{max-width:60ch;display:flex;flex-direction:column;gap:12px;}
+.typ-topp h2{font-size:clamp(26px,3.2vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.15;color:var(--ink);}
+.typ-ingress{font-size:1rem;font-weight:300;color:var(--muted);line-height:1.65;}
+.typ-nu{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:20px;}
+.typ-nu h3{font-size:1.0625rem;font-weight:700;color:var(--ink);}
+.typ-nugrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;}
+.typ-nugrid > div > b{display:block;font-size:.8125rem;font-weight:700;color:var(--ink);letter-spacing:.02em;margin-bottom:4px;}
+.typ-nugrid p{font-size:.875rem;font-weight:300;color:var(--muted);line-height:1.6;}
+.typ-flagga{color:#b4421f;font-weight:700;}
+.typ-gap{font-size:.875rem;font-weight:300;color:var(--muted);line-height:1.7;border-top:1px solid var(--line);padding-top:18px;}
+.typ-gap b{color:var(--ink);font-weight:600;}
+
+.typ-kort{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;}
+.typ-huvud{padding:24px 28px;border-bottom:1px solid var(--line);background:var(--ground);display:flex;flex-direction:column;gap:10px;}
+.typ-huvud > div{display:flex;align-items:center;gap:12px;}
+.typ-huvud h3{font-size:1.375rem;font-weight:800;letter-spacing:-.02em;color:var(--ink);}
+.typ-huvud p{font-size:.875rem;font-weight:300;color:var(--muted);line-height:1.65;max-width:70ch;}
+.typ-mark{font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  background:var(--surface-2);border-radius:999px;padding:4px 10px;}
+.typ-mark.nu{color:#8a5a00;background:#fdf1d6;}
+
+.typ-prov{padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;}
+.typ-block{display:flex;flex-direction:column;gap:10px;min-width:0;}
+.typ-etikett{font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);}
+.typ-rad{display:flex;align-items:baseline;gap:10px;min-width:0;}
+.typ-rad > i{font-style:normal;font-size:.625rem;font-weight:600;color:var(--faint);flex:none;width:52px;
+  font-variant-numeric:tabular-nums;letter-spacing:.04em;}
+.typ-rad > span{min-width:0;color:var(--ink);}
+.typ-brod{font-weight:300;color:#333;}
+.typ-siffra{font-variant-numeric:tabular-nums;color:var(--ink);letter-spacing:-.02em;}
+.typ-vikter{display:flex;flex-wrap:wrap;gap:14px;}
+.typ-vikter span{font-size:1.25rem;color:var(--ink);}
+.typ-vikter span i{display:block;font-style:normal;font-size:.625rem;font-weight:600;color:var(--faint);letter-spacing:.04em;}
+.typ-vikter span.sakn{opacity:.45;}
+.typ-vikter span.sakn i{color:#b4421f;}
+.typ-saknas{font-size:.75rem;font-weight:400;color:#b4421f;line-height:1.6;background:#fdeee9;border-radius:10px;padding:10px 12px;}
+
+.typ-matt{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:16px;}
+.typ-matt h3{font-size:1.0625rem;font-weight:700;color:var(--ink);}
+.typ-tabellskal{overflow-x:auto;}
+.typ-tabell{width:100%;border-collapse:collapse;font-size:.875rem;min-width:520px;}
+.typ-tabell th,.typ-tabell td{padding:10px 12px;text-align:right;border-bottom:1px solid var(--line);
+  font-variant-numeric:tabular-nums;white-space:nowrap;}
+.typ-tabell th:first-child,.typ-tabell td:first-child{text-align:left;font-weight:600;color:var(--ink);}
+.typ-tabell thead th{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.02em;}
+.typ-tabell tbody td{color:var(--muted);font-weight:300;}
+.typ-tabell td.bast{color:var(--ink);font-weight:700;}
+.typ-fot{font-size:.8125rem;font-weight:300;color:var(--faint);line-height:1.65;max-width:70ch;}
+.typ-ref{font-variant-numeric:tabular-nums;font-weight:600;color:var(--muted);}

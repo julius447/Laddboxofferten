@@ -39,5 +39,13 @@ var IMGS = {
   "vagg-stor": "assets/img/vagg-stor.webp",
   "zaptec-go": "assets/img/zaptec-go.webp",
   "zaptec-go-2": "assets/img/zaptec-go-2.webp",
-  "zaptec-sense": "assets/img/zaptec-sense.webp"
+  "zaptec-sense": "assets/img/zaptec-sense.webp",
+  "plejd-trm01": "assets/img/plejd-trm01.webp",
+  "plejd-dim01": "assets/img/plejd-dim01.webp",
+  "charge-amps-aura": "assets/img/charge-amps-aura.webp",
+  "charge-amps-luna": "assets/img/charge-amps-luna.webp",
+  "easee-charge-max": "assets/img/easee-charge-max.webp",
+  "easee-charge-up": "assets/img/easee-charge-up.webp",
+  "nexblue-edge-2": "assets/img/nexblue-edge-2.webp",
+  "perific-one": "assets/img/perific-one.webp"
 };
