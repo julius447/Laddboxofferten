@@ -117,7 +117,7 @@
                 <label class="o-pkg" data-pkg="bas">
                   <input type="radio" name="pkg" value="0" checked>
                   <div class="pbody">
-                    <figure class="pbild"><img src="assets/img/paket-bas.webp" alt="Allt som ingår i paketet Bas" width="830" height="510"></figure>
+                    <figure class="pbild"><img src="assets/img/paket-bas-charge-amps-aura.webp" alt="Allt som ingår i paketet Bas" width="830" height="510"></figure>
                     <div class="prow">
                       <span class="mark"></span>
                       <span class="pname"><b>Bas</b></span>
@@ -131,7 +131,7 @@
                   <input type="radio" name="pkg" value="1590">
                   <span class="ribbon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.6 1.1 6.5-5.8-3.05-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95Z"/></svg> Vår rekommendation</span>
                   <div class="pbody">
-                    <figure class="pbild"><img src="assets/img/paket-plus.webp" alt="Allt som ingår i paketet Plus" width="830" height="510"></figure>
+                    <figure class="pbild"><img src="assets/img/paket-plus-charge-amps-aura.webp" alt="Allt som ingår i paketet Plus" width="830" height="510"></figure>
                     <div class="prow">
                       <span class="mark"></span>
                       <span class="pname"><b>Plus</b></span>
@@ -146,7 +146,7 @@
                   <input type="radio" name="pkg" value="3710">
                   <span class="ribbon fakta" data-fakta="maximal-prestanda"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 2 5 13.5h5L9.5 22 19 10.5h-5L14.5 2Z"/></svg> Maximal prestanda</span>
                   <div class="pbody">
-                    <figure class="pbild"><img src="assets/img/paket-premium.webp" alt="Allt som ingår i paketet Premium" width="830" height="510"></figure>
+                    <figure class="pbild"><img src="assets/img/paket-premium-charge-amps-aura.webp" alt="Allt som ingår i paketet Premium" width="830" height="510"></figure>
                     <div class="prow">
                       <span class="mark"></span>
                       <span class="pname"><b>Premium</b></span>
@@ -203,7 +203,7 @@
 
               <div class="o-sec" style="--g:var(--s3);">
                 <p class="o-steg">Steg 3 av 6</p>
-                <div class="o-sechead"><h2 id="rub-upp22" class="t-h2">Uppgraderad installation<button type="button" class="o-info" data-info="upp22" aria-label="Mer om uppgraderad installation"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="6.6" r="1.9"/><rect x="10.1" y="10" width="3.8" height="8.4" rx="1.9"/></svg></button></h2><p class="t-small" style="color:var(--muted);">Större kabel och säkring fram till laddboxen. Väljer du den laddar du upp till 22 kW, och då följer laddkabeln med upp i nästa steg.</p></div>
+                <div class="o-sechead"><h2 id="rub-upp22" class="t-h2">Uppgraderad installation<button type="button" class="o-info" data-info="upp22" aria-label="Mer om uppgraderad installation"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="6.6" r="1.9"/><rect x="10.1" y="10" width="3.8" height="8.4" rx="1.9"/></svg></button></h2></div>
                 <div class="o-rader">
 <label class="o-rad">
                     <input type="checkbox" class="add" data-grupp="kw22" data-name="Uppgradering till 22 kW" value="950">
@@ -755,6 +755,25 @@
           <button class="go" id="barGo">Summering <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
         </div>
 
+        <dialog class="o-modal" id="modalUpp22">
+          <h3>Uppgraderad installation, 22 kW</h3>
+          <p>Standardinstallationen är 11 kW på trefas 16 A, vilket är det de flesta villor har i dag. Uppgraderingen byter till grövre kabel och 32 A-säkring fram till laddboxen.</p>
+          <h4>Det du behöver veta först</h4>
+          <ul>
+            <li><b>De flesta elbilar kan inte ta emot 22 kW.</b> Bilens egen ombordladdare sätter taket, och på nästan alla nyare modeller ligger det på 11 kW. Laddar du en sådan bil i en 22 kW-installation laddar den ändå 11 kW.</li>
+            <li>Bland de bilar som klarar 22 kW finns Renault Zoe, äldre Tesla Model S och X, Audi e-tron GT med tillval och vissa Porsche Taycan. Vet du inte vad din bil klarar står det i instruktionsboken under ombordladdare.</li>
+            <li>32 A kan ge en högre årlig nätavgift än 16 A. Det beror på ditt nätbolag och din huvudsäkring, så vi kontrollerar det innan vi börjar.</li>
+          </ul>
+          <h4>När den är värd pengarna ändå</h4>
+          <ul>
+            <li>Du vet att nästa bil klarar 22 kW, och vill inte betala för att gräva eller dra om kabeln en gång till.</li>
+            <li>Två bilar ska dela på laddboxen, eller en laddbox ska kunna bli två.</li>
+            <li>Du vill ha marginalen kvar i huset även om du inte använder den i dag.</li>
+          </ul>
+          <p class="o-modalnot">Väljer du uppgraderad installation följer laddkabeln med: en 22 kW-kabel är grövre och kostar mer än en 11 kW-kabel, och en 11 kW-kabel går inte att välja till en 22 kW-installation.</p>
+          <form method="dialog"><button class="o-modalknapp">Stäng</button></form>
+        </dialog>
+
         <dialog class="o-modal" id="modalKabel">
           <form method="dialog"><button class="o-modalstang" aria-label="Stäng">&times;</button></form>
           <h3>Välj rätt laddkabel</h3>
@@ -785,12 +804,8 @@
             <li><b>Perific Max</b> passar alla elmätare och kan dessutom styra laddningen efter din egen solelproduktion.</li>
           </ul>
           <p class="o-modalnot">Zaptec Sense kräver RJ12 eller RJ45 på elmätaren, Perific One RJ12 eller HAN-port. Är du osäker kryssar du i Perific Max, som passar alla. Vi kontrollerar det ändå innan installationen.</p>
-          <h4>Uppgradering till 22 kW</h4>
-          <p>Större kabel och säkring fram till laddboxen. Ger möjlighet till snabbare laddning för de bilar som klarar det, och framtidssäkrar installationen.</p>
           <h4>Frontkåpa</h4>
           <p>Laddboxen levereras svart. Vill du ha en annan färg byter du frontkåpan. Svart kostar ingenting extra.</p>
-          <h4>Laddstolpe</h4>
-          <p>Står fritt på gården eller uppfarten när det inte finns en vägg på rätt plats. Monteras på ett fundament som gjuts i marken. Två boxar betyder att två bilar kan ladda från samma stolpe.</p>
           <h4>RFID-taggar</h4>
           <p>En bricka du håller mot laddboxen för att starta laddningen. Praktiskt om flera ska kunna ladda utan appen.</p>
           <h4>Extra arbetstimme på plats</h4>
