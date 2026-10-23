@@ -1355,6 +1355,30 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 @media (prefers-reduced-motion:no-preference){ .o-chip{animation:chipIn .16s ease-out;} }
 @keyframes chipIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
 
+/* Kvittoraden i acceptskarmen. Ett tal, inte ett kort: skarmen ar en
+   bekraftelse och inte en andra offert. */
+#skarmAccept .oa__kvitto{display:flex;flex-direction:column;gap:4px;margin:14px auto 0;
+  max-width:440px;padding:12px 16px;background:#fff;border:1px solid #d5d9e4;border-radius:10px;}
+#skarmAccept .oa__kvitto-rad{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  font-size:15px;font-weight:600;color:#0b1030;}
+#skarmAccept .oa__kvitto-rad b{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;}
+#skarmAccept .oa__kvitto-not{font-size:12px;font-weight:400;color:#5b6480;}
+@media print{ #skarmAccept .oa__kvitto{break-inside:avoid;} }
+
+/* NOSCRIPT RACKER INTE. Det slar till nar JavaScript ar AVSTANGT, inte nar
+   skriptet inte laddar: en annonsblockerare, ett tappat paket, en gammal
+   cache. Uppmatt i det laget: Plus valt och Zaptec Chill ikryssad, och alla
+   tre prisytorna visade 4 450 kr, alltsa Baspriset, med kundens egna bockar
+   bredvid. Samma klass av fel som en gang visade ett pris 5 050 kr for lagt.
+   Prisytorna visas darfor forst nar skriptet SJALVT har sagt att det kor. */
+/* Bannern galler bada fallen nu, sa den visas aven nar skriptet inte kom
+   igang. Skriptet satter js-redo synkront sist i body, alltsa fore forsta
+   malningen, sa den blinkar inte forbi i det normala fallet. */
+.offer:not(.js-redo) .o-utanjs{display:block;}
+.offer:not(.js-redo) .o-calc,
+.offer:not(.js-redo) .o-sum,
+.offer:not(.js-redo) .o-bar{display:none;}
+
 .o-sec.grupper{--g:var(--s7);}
 .o-sec.grupper .t-h3{font-size:20px;font-weight:700;}
 .o-sec.grupper > .o-sec{--g:var(--s5);}
@@ -1437,7 +1461,18 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-plats:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
 @media (hover:hover){
   .o-plats:hover{border-color:var(--line-strong,#9fb0cc);}}
-.o-rad.ingar{opacity:.62;border-style:dashed;cursor:default;}
+/* LASNINGEN FAR INTE LIGGA I OPACITY, FOR DEN TAR TEXTEN MED SIG.
+   Uppmatt: .ingar pa opacity .62 drog --muted fran 6,33:1 till 2,75:1 och
+   .utesluten pa .46 till 2,04:1. Fyra sorters text under 4,5:1 i rader som
+   bar bade produktnamn och pris. Formen sager redan "last" pa tre satt,
+   streckad kant, dampad bild och en markor som skiljer bock fran streck, sa
+   dampningen flyttas dit och texten far egna tokens som klarar kravet.
+   --muted ar 6,33:1 mot kortet och tydligt svagare an --ink 19:1, alltsa
+   bade lasbart och synligt nedtonat. */
+.o-rad.ingar{border-style:dashed;cursor:default;background:var(--bg);}
+.o-rad.ingar .o-radbild,.o-rad.ingar .o-radikon{opacity:.55;}
+.o-rad.ingar .o-radnamn,.o-rad.ingar .o-radspec,
+.o-rad.ingar .o-radpris,.o-rad.ingar .o-radantal{color:var(--muted);}
 /* EN RAD SOM INGAR AR VALD AT KUNDEN, OCH MARKOREN SKA SAGA DET.
    Rutan stod TOM bredvid texten "Ingar i Premium". En tom ruta betyder
    oklickad overallt annars pa sidan, sa de tva sa emot varandra i samma rad.
@@ -1460,8 +1495,11 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 /* UTESLUTEN ar inte samma sak som INGAR och far inte se likadant ut.
    Ingar = du far den. Utesluten = du far den inte och kan inte kopa den.
    Samma yta pa bada hade latit sidan pasta att kunden far tva laddkablar. */
-.o-rad.utesluten{opacity:.46;cursor:default;}
-.o-rad.utesluten .o-radpris.ingarpris{color:var(--kant-kontroll);font-weight:500;}
+.o-rad.utesluten{cursor:default;background:var(--bg);}
+.o-rad.utesluten .o-radnamn,.o-rad.utesluten .o-radspec,
+.o-rad.utesluten .o-radantal{color:var(--muted);}
+.o-rad.utesluten .o-radbild{opacity:.5;}
+.o-rad.utesluten .o-radpris.ingarpris{color:var(--muted);font-weight:500;}
 .o-rad.utesluten .o-radbild{filter:grayscale(1);}
 .o-kvittens{margin:0;font-size:13px;font-weight:300;color:var(--teal-ink);line-height:1.5;background:var(--teal-soft);border-radius:var(--r1);padding:var(--s3);}
 .o-kabelnot{font-size:13px;font-weight:300;color:var(--muted);line-height:1.55;padding-top:var(--s1);}
@@ -1489,6 +1527,11 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .o-opt:has(.o-centralbild) > .txt{grid-column:3;grid-row:1;}
   .offer .o-opt:has(.o-centralbild) > .amt{grid-column:3;grid-row:2;}}
 @media print{
+  /* Gavokortets varde ar vit text pa gron platta och ordbilden ar inverterad
+     till vitt. Utan bakgrundsgrafik blir bada osynliga pa papperet: kunden
+     laser "Rekommendera och fa" och sedan ingenting. */
+  .offer .o-ref-varde{color:var(--ink) !important;}
+  .offer .o-ref-logga img{filter:none !important;}
   /* vitt på färgat blir osynligt utan bakgrundsgrafik */
   .offer .o-btn.primary,.offer .o-cit,.offer .o-pkg .ribbon,.offer .o-ref-kort,
   .offer .o-fechip,.offer .o-ref-knapp,.offer .ampy-cert__mark{

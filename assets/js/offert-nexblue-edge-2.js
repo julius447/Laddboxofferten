@@ -72,6 +72,9 @@
   }
 
   function render(){
+    /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
+    var _o=document.querySelector('.offer'); if(_o) _o.classList.add('js-redo');
+
     var pkg=val("pkg"), tid=val("tid"), cen=val("central"), plats=val("plats");
     /* Go 2-uppgraderingen finns BARA pa Zaptec Go-mallen. Pa de andra sex
        ar raden borttagen ur markupen, inte gomd, sa uppslaget maste tala att
@@ -294,12 +297,23 @@
 
     $("prodName").textContent = go2 ? "Zaptec Go 2" : "NexBlue Edge 2";
     $("heroImg").src = go2 ? IMGS["zaptec-go-2"] : IMGS["nexblue-edge-2"];
-    $("prodSpec").textContent = p.spec;
+    /* HJALTEN SA 11 kW MEDAN ORDERN BAR 22.
+       Kryssade kunden i uppgraderingen stod det fortfarande "11 kW, monterad
+       och driftsatt" i hjalten, "11 kW laddeffekt" i innehallslistan och
+       "Personskyddsautomat 16 A" bland jobben, med "Uppgradering till 22 kW
+       950 kr" i summeringen tva skarmar ner. Samma skarm sa tva saker, och
+       elektrikern som laser listan far 16 A dar kunden kopt 32.
+       Allt tre foljer har22 nu, alltsa bade paketets effekt och kryssrutan. */
+    $("prodSpec").textContent = har22 ? p.spec.replace("11 kW", "22 kW") : p.spec;
 
     /* Markupen är genererad i bygget, inte här: listan i kortet och listan
        här ska aldrig kunna säga olika saker. Enda skillnaden är namnet när
        kunden har kryssat i Go 2. */
     var nyLista = go2 ? p.inc.replace("<b>Zaptec Go</b>","<b>Zaptec Go 2</b>") : p.inc;
+    if (har22 && p.kw !== 22){
+      nyLista = nyLista.replace("<b>11 kW</b>", "<b>22 kW</b>")
+                       .replace("Personskyddsautomat 16 A", "Personskyddsautomat 32 A");
+    }
     if ($("incList").innerHTML !== nyLista){
       /* Listan ligger OVANFÖR paketkorten. Byter man paket med folden öppen
          ändras dess höjd med upp till 106 px, och allt kunden tittar på
@@ -514,6 +528,34 @@
        enda fokuserbar sak kvar pa sidan: telefonnumret.
        tabindex -1 plus focus() flyttar lasmarkoren in i skarmen, och da laser
        uppläsaren rubriken och det som star under den. */
+    /* KVITTOT. Samma tal som summeringen just visade, last ur DOM:en i
+       stallet for omrraknat, sa de inte kan dra isar. Och steg 2 ska inte
+       saga "ni kommer overens om en tid" till nagon som betalat 2 500 kr for
+       Express. */
+    if (id === "skarmAccept"){
+      var kv = document.getElementById("oaKvitto");
+      if (kv){
+        var tot = document.getElementById("sumTotal");
+        var pkgEl = document.querySelector('input[name="pkg"]:checked');
+        var p2 = pkgEl ? PKG[pkgEl.value] : null;
+        document.getElementById("oaTotal").textContent = tot ? tot.textContent : "";
+        document.getElementById("oaPaket").textContent =
+          (p2 ? "Paket " + p2.namn : "Din order") +
+          (document.querySelector('input.add[data-grupp="kw22"]:checked') ? ", 22 kW" : "");
+        kv.hidden = false;
+      }
+      /* Avbojspanelen nollas: ett ikryssat skal bakom en acceptskarm ar ett
+         svar sidan aldrig fick, och det skulle folja med in i CRM:et. */
+      document.querySelectorAll('input[name="skal"]:checked').forEach(function(e){ e.checked = false; });
+      var fritext = document.getElementById("avbojText");
+      if (fritext) fritext.value = "";
+      var tidEl = document.querySelector('input[name="tid"]:checked');
+      var tidNamn = tidEl ? TID[tidEl.value] : null;
+      var steg2 = s.querySelector('.oa__steps li:nth-child(2) small');
+      if (steg2 && tidNamn && tidEl.value !== "0"){
+        steg2.textContent = "Du har valt " + tidNamn + ". Vi hör av oss för att boka tid.";
+      }
+    }
     s.setAttribute("tabindex", "-1");
     if (!s.getAttribute("role")) s.setAttribute("role", "status");
     try { s.focus({preventScroll:true}); } catch(e) { try { s.focus(); } catch(e2){} }

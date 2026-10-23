@@ -18,9 +18,7 @@
 <body>
 <div class="offer" id="offer">
 
-  <p class="o-utanjs">Den här offerten räknar ditt pris i webbläsaren, och JavaScript är avstängt
-    just nu. Därför kan varken din summering eller ditt pris visas, och dina val registreras inte.
-    Slå på JavaScript och ladda om sidan, eller ring oss på
+  <p class="o-utanjs">Den här offerten räknar ditt pris i webbläsaren, och räknaren kunde inte startas. Därför kan varken din summering eller ditt pris visas, och dina val registreras inte. Ladda om sidan, slå på JavaScript om det är avstängt, eller ring oss på
     <a href="tel:+46102657979">010-265 79 79</a> så går vi igenom offerten tillsammans.</p>
 
   <header class="o-top">
@@ -467,6 +465,15 @@
       </div>
       <h1 class="oa__title">Din offert är nu accepterad!</h1>
       <span class="oa__ref">Offert <span data-oa="offert.referens">#2026-0641</span></span>
+      <!-- SKARMEN BEKRAFTADE INGENTING. Uppmatt: en konfigurerad order pa
+           11 845 kr, och noll forekomster av "kr" pa hela skarmen. Kunden
+           tryckte acceptera pa ett belopp och fick tillbaka en bock utan tal.
+           Rutan fylls av skriptet vid accept, ur samma varden som
+           summeringen, sa de kan inte dra isar. -->
+      <p class="oa__kvitto" id="oaKvitto" hidden>
+        <span class="oa__kvitto-rad"><span id="oaPaket">Paket</span><b class="kr" id="oaTotal"></b></span>
+        <span class="oa__kvitto-not">inkl. moms, efter avdrag</span>
+      </p>
     </section>
 
     <!-- 2 · what happens next -->

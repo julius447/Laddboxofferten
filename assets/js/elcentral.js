@@ -93,6 +93,9 @@
   }
 
   function rakna(){
+    /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
+    var _o=document.querySelector('.offer'); if(_o) _o.classList.add('js-redo');
+
     var nyckel = valdStorlek();
     var p = PKG[nyckel];
     var bas = parseInt(nyckel, 10);
@@ -539,29 +542,16 @@
       hsHandelse("huvudsakring_intresse", { val: e.target.getAttribute("data-grupp") });
   });
 
-  /* ---- GRANNRABATTEN. Samma mekanik som laddboxofferten. ---------------- */
-  (function(){
-    if (!kop) return;
-    kop.addEventListener("click", function(){
-      f.select();
-      try { navigator.clipboard.writeText(f.value); } catch (e) {}
-      var fore = this.textContent; this.textContent = "Kopierad";
-      var k = this; setTimeout(function(){ k.textContent = fore; }, 1800);
-    });
-    function giltig(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v); }
-    skick.addEventListener("click", function(){
-      var v = mej.value.trim();
-      if (!giltig(v)) { mej.focus(); mej.setAttribute("aria-invalid", "true"); return; }
-      mej.removeAttribute("aria-invalid");
-      if (lista.children.length >= 6) return;
-      var li = document.createElement("li");
-      li.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5 9.5 17.5 19.5 7"/></svg><span>Inbjudan skickad till ' + v.replace(/[<>&]/g, "") + "</span>";
-      lista.appendChild(li);
-      mej.value = "";
-      if (lista.children.length >= 6) { skick.disabled = true; mej.disabled = true; }
-      rakna();
-    });
-  })();
+  /* GRANNRABATTEN LIGGER I DET DELADE BLOCKET, INTE HAR.
+     Den har kopian hade fyra odeklarerade variabler: kop, f, skick, mej och
+     lista. Raden `if (!kop) return;` kastade ReferenceError vid laddning, och
+     felet propagerade ut genom bada IIFE:erna, sa rakna() pa raden under
+     kordes ALDRIG. Foljden, uppmatt pa den byggda sidan: hjalten stod pa
+     "5 990 till 12 900 kr", ROT-raden pa literalen [GAP], summeringen pa noll
+     rader och hjaltebilden visade Medel fast Liten var ikryssad.
+     Forsta klicket lakte allt, for change-lyssnaren hann registreras fore
+     kraschen, och darfor overlevde felet.
+     gemensamt/block/grann.js gor redan jobbet och laddas via META js_efter. */
 
   rakna();
   rekommendera();
@@ -596,7 +586,10 @@
     }
   })();
 
-})();
+  /* grann.js i gemensamt behover kunna rakna om summan.
+     Raden lag UTANFOR IIFE:n, dar rakna inte finns, sa typeof gav "undefined"
+     och window.__render sattes aldrig. Grannrabatten nadde darfor aldrig
+     summeringen: uppmatt, granne inbjuden och summan ororlig. */
+  window.__render = rakna;
 
-  /* grann.js i gemensamt behover kunna rakna om summan. */
-  if (typeof rakna === "function") window.__render = rakna;
+})();

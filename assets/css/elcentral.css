@@ -1355,6 +1355,30 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 @media (prefers-reduced-motion:no-preference){ .o-chip{animation:chipIn .16s ease-out;} }
 @keyframes chipIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
 
+/* Kvittoraden i acceptskarmen. Ett tal, inte ett kort: skarmen ar en
+   bekraftelse och inte en andra offert. */
+#skarmAccept .oa__kvitto{display:flex;flex-direction:column;gap:4px;margin:14px auto 0;
+  max-width:440px;padding:12px 16px;background:#fff;border:1px solid #d5d9e4;border-radius:10px;}
+#skarmAccept .oa__kvitto-rad{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  font-size:15px;font-weight:600;color:#0b1030;}
+#skarmAccept .oa__kvitto-rad b{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;}
+#skarmAccept .oa__kvitto-not{font-size:12px;font-weight:400;color:#5b6480;}
+@media print{ #skarmAccept .oa__kvitto{break-inside:avoid;} }
+
+/* NOSCRIPT RACKER INTE. Det slar till nar JavaScript ar AVSTANGT, inte nar
+   skriptet inte laddar: en annonsblockerare, ett tappat paket, en gammal
+   cache. Uppmatt i det laget: Plus valt och Zaptec Chill ikryssad, och alla
+   tre prisytorna visade 4 450 kr, alltsa Baspriset, med kundens egna bockar
+   bredvid. Samma klass av fel som en gang visade ett pris 5 050 kr for lagt.
+   Prisytorna visas darfor forst nar skriptet SJALVT har sagt att det kor. */
+/* Bannern galler bada fallen nu, sa den visas aven nar skriptet inte kom
+   igang. Skriptet satter js-redo synkront sist i body, alltsa fore forsta
+   malningen, sa den blinkar inte forbi i det normala fallet. */
+.offer:not(.js-redo) .o-utanjs{display:block;}
+.offer:not(.js-redo) .o-calc,
+.offer:not(.js-redo) .o-sum,
+.offer:not(.js-redo) .o-bar{display:none;}
+
 /* ===========================================================================
    ELCENTRALMALLEN. Allt harifran och ner ar nytt for elcentralen. Tokens,
    typskala, spacingrytm, kort, folds, prisbar och summering kommer ur
