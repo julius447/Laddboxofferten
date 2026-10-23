@@ -122,24 +122,21 @@
       var bild = $("heroImg");
       if (bild && p.bildsrc) { bild.src = p.bildsrc; bild.alt = "Hager elcentral, " + p.spec; }
     }
-    $("calcGross").textContent = kr(bas);
     $("calcFinalEtikett").textContent = (summa > bas) ? "Ditt pris, med dina val" : "Ditt pris";
 
-    /* DE TVA AVDRAGEN, raknade var for sig.
-       ROT ar 30 procent av ARBETSKOSTNADEN, och arbetskostnaden ar 80 procent
-       av priset pa agarbesked 19 okt. Alltsa 24 procent av elcentraldelen.
-       Gron teknik ar 50 procent rakt av, men BARA pa laddpunkten, som ligger
-       under Ovriga tjanster. Att lagga ihop dem till en procentsats skulle ge
-       fel tal sa fort kunden valjer bada, och det ar exakt den sortens fel
-       kunden sedan star for mot Skatteverket. */
-    var rotAvdrag = Math.round(potter.rot * ARBETSANDEL * 0.30);
-    var gtAvdrag = Math.round(potter.gt * 0.50);
-    var netto = summa - rotAvdrag - gtAvdrag;
+    /* INGET AVDRAG RAKNAS HAR LANGRE.
+       Agarbesked 22 okt: "Elcentral och installation for 5 990 ar inklusive
+       moms efter ROT-avdrag. Det ar bara det vi SKA visa."
+       Talen i paket.json och i katalogen ar alltsa NETTO, precis som pa
+       laddboxsidorna. Den har mallen drog ROT en gang till ovanpa det, sa
+       samma lilla central kostade 5 990 kr pa laddboxsidan och 4 552 har.
+       Motorn summerar nu och ingenting annat.
 
-    var rotRad = $("calcRotRad");
-    rotRad.classList.remove("dold");
-    $("calcRot").textContent = "minus " + kr(rotAvdrag);
-    $("calcRotNot").hidden = false;
+       Det gamla bruttot gick inte heller att rakna: det byggde pa
+       ARBETSANDEL 0,8, som star som oppet [GAP] i paket.json med Felix som
+       agare. Ett harlett tal ur en ogissad andel ar en gissning med
+       decimaler. */
+    var netto = summa;
 
     /* Summeringen */
     var rows = "";
@@ -162,17 +159,18 @@
     $("sumRows").innerHTML = rows;
     $("calcNet").textContent = kr(netto);
     $("sumTotal").textContent = kr(netto);
-    $("sumBrutto").textContent = kr(summa);
     $("barTotal").textContent = kr(netto);
-    $("barBrutto").textContent = kr(summa);
 
     /* Potterna namnges bara nar bada finns. En rad om tva avdrag pa en sida
        med bara ett avdrag ar brus. */
+    /* Potterna namnges nar bada finns. Inga belopp: avdragen ar redan dragna
+       i talen, och ett tal till hade varit ett pastaende om hur mycket just
+       den har kunden far tillbaka, vilket beror pa hennes eget utrymme. */
     var potRad = $("sumPotter");
     if (potter.gt > 0) {
       potRad.hidden = false;
-      potRad.textContent = "Två avdrag: " + kr(rotAvdrag) + " är ROT på elcentralen, "
-        + kr(gtAvdrag) + " är grön teknik på laddpunkten. De räknas var för sig.";
+      potRad.textContent = "Två avdrag: elcentralen är ROT, laddpunkten är grön teknik. "
+        + "Priserna är inklusive moms och efter avdrag.";
     } else {
       potRad.hidden = true;
     }

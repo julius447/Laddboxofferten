@@ -45,11 +45,20 @@
               <div class="o-prodspec" id="prodSpec">Hager, monterad och driftsatt</div>
             </div>
           </div>
+          <!-- AGARBESKED 22 OKT, ORDAGRANT:
+               "Elcentral och installation for 5 990 ar inklusive moms efter
+               ROT-avdrag. Det ar bara det vi SKA visa."
+               Darfor ar ROT-raden och det harledda bruttot borta. Talen i
+               katalogen och i paket.json ar NETTO, precis som pa
+               laddboxsidorna, och da finns det ingen uträkning att visa: det
+               star ett pris, och under det vad priset ar.
+               Det stangde samtidigt den varsta motsagelsen mellan de tva
+               ytorna: samma lilla central kostade 5 990 kr har och 4 552 pa
+               den andra sidan, for den har mallen drog ROT en gang till. -->
           <div class="o-calc">
-            <div class="o-calcrow"><span>Elcentral och installation</span><span class="kr" id="calcGross">5 990 till 12 900 kr</span></div>
-            <div class="o-calcrow dold" id="calcRotRad"><span>ROT, 30 procent av arbetet</span><span class="kr" id="calcRot">[GAP]</span></div>
-            <div class="o-calcfinal"><span id="calcFinalEtikett">Ditt pris</span><span class="t-price kr" id="calcNet">5 990 till 12 900 kr</span></div>
-            <p class="t-micro" id="calcRotNot" style="color:var(--faint);">Inkl. moms efter ROT-avdrag.</p>
+            <div class="o-calcfinal"><span id="calcFinalEtikett">Ditt pris</span><span class="t-price kr" id="calcNet">5 990 kr</span></div>
+            <p class="o-ingartext">Arbete och material ingår i priset.</p>
+            <p class="t-micro" id="calcRotNot" style="color:var(--faint);">inkl. moms, efter ROT-avdrag</p>
           </div>
           <div class="o-booker">
             <img src="assets/img/felix.webp" alt="" width="384" height="384">
@@ -214,7 +223,7 @@
         <div class="o-sumrows" id="sumRows"></div>
         <div class="o-sumtot">
           <span>Att betala</span>
-          <span class="o-sumpris"><span class="o-dold">Ordinarie pris </span><s class="kr" id="sumBrutto">5 990 kr</s><b class="kr" id="sumTotal" aria-live="polite">4 552 kr</b></span>
+          <span class="o-sumpris"><b class="kr" id="sumTotal" aria-live="polite">5 990 kr</b></span>
         </div>
         <p class="t-micro" style="color:var(--faint);margin-top:calc(var(--s3) * -1);">inkl. moms, efter ROT-avdrag.</p>
         <p class="t-micro" id="sumPotter" style="color:var(--faint);" hidden></p>
@@ -577,7 +586,7 @@
 
   <div class="o-bar">
     <div class="bt">
-      <span class="btrad"><b class="kr" id="barTotal">4 552 kr</b><span class="o-dold">Ordinarie pris </span><s class="kr" id="barBrutto">5 990 kr</s></span>
+      <span class="btrad"><span class="o-dold">Att betala: </span><b class="kr" id="barTotal" aria-live="polite">5 990 kr</b></span>
       <small>efter ROT-avdrag</small>
     </div>
     <button class="go" id="barGo">Summering <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
