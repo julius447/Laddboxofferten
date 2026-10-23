@@ -1468,15 +1468,14 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .o-tak__knapp{width:100%;}
 }
 
-/* --- OVRIGA TJANSTER: EN RADHOJD, MEN SIN EGEN --------------------------
-   Laddboxraden bar en paketvaljare och blir darmed en rad hogre an de tre
-   andra: uppmatt 153 mot 128. En lista med tva hojder laser som tva sorters
-   rad. Regeln ar en radhojd PER LISTA, inte en i hela dokumentet: tillaggen
-   ligger i kopflodet och de ovriga i en fold under summeringen, och de ar
-   olika saker. 160 = 10 x 16, alltsa pa spacingskalan, och rymmer valjaren.
-   Samma princip som laddboxofferten, dar tilläggsraderna ar 176 och de ovriga
-   tjansternas rader sin egen hojd. */
-.offer .o-tjanst .o-rad--utanbild{min-height:160px;}
+/* --- OVRIGA TJANSTER: SAMMA RADHOJD SOM ALLA ANDRA RADER ----------------
+   Regeln .offer .o-tjanst .o-rad--utanbild{min-height:160px} ar BORTTAGEN
+   23 okt. Den fanns bara for att de fyra raderna saknade bild: de blev 160 px
+   dar laddboxmallens sexton rader alla ar 176 och alla har bild. En egen
+   radhojd for en lista som saknar bilder ar inte en designregel, det ar en
+   defekt med en CSS-rad runt sig. Raderna har bilder nu (eller en reserverad
+   bildplats via .o-radbild.tom), sa de arver systemets 176 px och
+   .o-rad:has(.o-radantal)-regeln langre ner tar hand om antalsvaljaren. */
 
 /* --- JAMFORTABELLEN PA SMAL SKARM ----------------------------------------
    Uppmatt: fyra kolumner i foldens 343 px ger 75 px per cell, och
@@ -1607,15 +1606,11 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    noll design och noll finess. Tre olika ideer om vad blocket AR, inte tre
    skal pa samma formular. En i DOM:en at gangen.
    =========================================================================== */
-.offer .hs-vaxel{display:flex;gap:var(--s2);margin-bottom:var(--rytm-block);flex-wrap:wrap;}
-.offer .hs-vaxel button{
-  font:inherit;font-size:13px;font-weight:600;cursor:pointer;
-  padding:0 var(--s3);min-height:var(--z5,40px);
-  background:var(--card);color:var(--muted);
-  border:1px solid var(--line);border-radius:999px;
-}
-.offer .hs-vaxel button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff;}
-.offer .hs-vaxel button:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
+/* .hs-vaxel-reglerna ar BORTTAGNA 23 okt tillsammans med vaxlaren. De
+   formgav en granskningskontroll som lag i den skarpa sidan: 44 px hog, tre
+   knappar, och klicken bytte faktiskt block. Kvarlamnad CSS for ett forbjudet
+   element ar en inbjudan att satta tillbaka markupen, och oraklet i offert.py
+   stoppar den vagen. Riktningen valjs i huvudsakring.json _riktning. */
 
 /* --- delade faltrader ---------------------------------------------------- */
 .offer .hsA__falt,.offer .hsC__falt{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-bottom:var(--s5);}

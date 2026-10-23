@@ -11,6 +11,8 @@
   var KARENS=12;
   var LEDTID=10;
   var HS_TEST="Byt mätarsäkringarna ett steg ner och lev med det genom en period när huset drar som mest. Håller det byter vi bottenplattan sedan. Håller det inte sätter vi tillbaka dem, och du har inte bundit dig vid någonting.";
+  var HS_RIKTNING="A";
+  var GRANNRABATT=500;
   var BOKARE="assets/img/felix.webp";
   var ARBETSANDEL=0.8;
   var ORDNING = Object.keys(PKG).sort(function(a,b){ return a - b; });
@@ -156,6 +158,33 @@
         rows += '<div class="o-sumrow"><span>' + n + '</span><span class="kr saknas">pris saknas</span></div>';
       });
     }
+
+    /* ---- GRANNRABATTEN I SUMMERINGEN ------------------------------------
+       Rabatten nadde aldrig hit. Uppmatt 23 okt: granne@exempel.se inbjuden,
+       #refLista fick en rad, sumTotal stod kvar pa 5 990 kr, ingen rabattrad
+       och inget omnamnande av grannar. Strangarna "Grannrabatt", "500" och
+       "refLista" fanns inte i filen.
+       Raden andrar INTE talet kunden ska betala i dag, och det ar avsiktligt:
+       rabatten dras pa fakturan nar grannen har bestallt, sa ett lagre pris
+       har hade varit ett lofte vi inte kan halla. Samma val som laddboxmallen.
+       RAKNAT PA SKICKADE INBJUDNINGAR, inte pa chips i faltet. Det delade
+       grann.js exponerar window.__grannar(), men den raknar adresser.length +
+       lista.children.length, alltsa ocksa adresser kunden har skrivit men inte
+       skickat. En rad som sager "1 granne inbjuden" medan ingen inbjudan ar
+       skickad ar ett falskt pastaende pa en sida vars hela premiss ar candour.
+       #refLista li ar de faktiskt skickade, och det ar samma rakning som
+       laddboxmallen gor (offerter/laddbox/skript.js:358), sa de tva ytorna
+       beter sig likadant. grann.js anropar window.__render() efter varje
+       andring, bade nar ett chip laggs till och nar listan vaxer. */
+    var grannar = document.querySelectorAll("#refLista li").length;
+    if (grannar) {
+      rows += '<div class="o-sumrow disc"><span>Grannrabatt, ' + grannar
+        + (grannar > 1 ? " grannar inbjudna" : " granne inbjuden")
+        + '</span><span class="kr">dras när de beställt</span></div>'
+        + '<div class="o-sumnote">Upp till ' + kr(grannar * GRANNRABATT) + ' av, '
+        + GRANNRABATT + ' kr för varje granne som beställer. Ditt pris här ändras inte '
+        + 'förrän det hänt.</div>';
+    }
     $("sumRows").innerHTML = rows;
     $("calcNet").textContent = kr(netto);
     $("sumTotal").textContent = kr(netto);
@@ -214,8 +243,33 @@
     };
   }
 
+  /* ---- VARIANTRADEN: ETT VAL AR ETT VAL --------------------------------
+     .o-variant stod INTE i den har listan, sa ett byte i laddboxens
+     paketvaljare rorde ingenting. Uppmatt 23 okt pa den byggda sidan: kryssa
+     laddboxraden, summan 14 970 kr, valj Premium i dropdownen, summan
+     fortfarande 14 970 kr. Kunden valde det dyraste paketet och sidan
+     debiterade det billigaste.
+     Och radens egen prislapp skrevs aldrig om: den stod kvar pa Bas-priset
+     medan dropdownen sa Premium. Det ar samma defektklass som value mot
+     etikett, bara mellan tva element i samma rad. Laddboxmallen skriver om
+     .o-radpris vid variantbyte (skript.js:288); nu gor den har det ocksa. */
+  function variantpris(sel){
+    var rad = sel.closest(".o-rad");
+    var pr = rad ? rad.querySelector(".o-radpris") : null;
+    var v = parseInt(sel.value, 10);
+    if (pr && !isNaN(v)) pr.textContent = "+" + kr(v);
+  }
+  offer.querySelectorAll(".o-variant").forEach(function(sel){ variantpris(sel); });
+
   offer.addEventListener("change", function(e){
-    if (e.target.matches('input[name="pkg"], input[name="tid"], .add, .intresse, [data-antal]')) rakna();
+    if (e.target.matches(".o-variant")) {
+      variantpris(e.target);
+      /* Ett val i dropdownen ar ett val av raden. Utan det kunde kunden byta
+         paket utan att raden var ikryssad, och ingenting hande. */
+      var kryss = e.target.closest(".o-rad").querySelector("input.add");
+      if (kryss && !kryss.checked) kryss.checked = true;
+    }
+    if (e.target.matches('input[name="pkg"], input[name="tid"], .add, .intresse, [data-antal], .o-variant')) rakna();
   });
   /* Antalsfaltet ligger inne i etiketten. Utan det har kryssar ett tryck i
      siffran ur hela raden, och kunden tappar valet nar hen andrar antalet. */
@@ -523,17 +577,13 @@
     window.ampyHandelser = HS_KO;
   }
 
-  var vaxel = $("hsVaxel");
-  if (vaxel) {
-    vaxel.addEventListener("click", function(e){
-      var k = e.target.closest("button[data-v]");
-      if (!k) return;
-      vaxel.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed", "false"); });
-      k.setAttribute("aria-pressed", "true");
-      hsVisa(k.getAttribute("data-v"));
-    });
-    hsVisa("A");
-  }
+  /* RIKTNINGEN KOMMER UR DATAT, INTE UR EN VAXLARE PA SIDAN.
+     Fram till 23 okt hangde hela huvudsakringsblocket pa att en A/B/C-vaxlare
+     fanns i markupen: utan den anropades hsVisa aldrig och #hsYta stod tom.
+     Vaxlaren var samtidigt synlig for kunden, 44 px hog, och klicken bytte
+     faktiskt block. Nu satter bygget in BARA den valda mallen och HS_RIKTNING
+     sager vilken, sa blocket renderas utan att nagot gar att vaxla. */
+  if ($("hsYta")) hsVisa(HS_RIKTNING);
   offer.addEventListener("change", function(e){
     if (e.target.matches('.add[data-grupp="laddbox"]')) hsRita();
     if (e.target.matches('.intresse[data-grupp^="hs-"]') && e.target.checked)
