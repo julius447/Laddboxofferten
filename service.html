@@ -80,8 +80,10 @@
 
     <div class="o-colB">
       <!-- 4 DIN SUMMERING -->
-      <section class="o-sec o-sum" id="summering">
-        <div class="o-card">
+      <!-- .o-sum AR kortet i systemet: den bar sin egen kant, radie och
+           padding. En .o-card till inuti gav tva kanter, tva radier och 48 px
+           padding, alltsa ett kort i ett kort. Laddboxmallen har bara .o-sum. -->
+      <section class="o-sum" id="summering">
           <p class="t-eyebrow">Din summering</p>
           <div id="sumRows"></div>
           <div class="o-sumtot">
@@ -111,7 +113,6 @@
               <button type="button" class="o-btn ghost" id="avbojSend">Skicka</button>
             </div>
           </div>
-        </div>
       </section>
     </div>
 
