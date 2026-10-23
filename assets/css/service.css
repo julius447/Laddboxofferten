@@ -441,7 +441,13 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-sumrow.disc{color:var(--teal-ink);font-weight:600;}
 .o-sumtot{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--ink);padding-top:var(--s3);}
 .o-sumtot span{font-size:15px;font-weight:600;color:var(--ink);}
-.o-sumtot b{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.03em;}
+/* SIDANS VIKTIGASTE TAL ARVDE BRODTEXTENS RADHOJD. Uppmatt pa laddboxsidan,
+   alltsa den mall agaren kallar perfekt: hjaltens pris ar 30 px med 34,5 px
+   radhojd, och summeringens IDENTISKA 30 px hade 46,5. Tolv pixlar osynlig
+   luft runt talet kunden ska acceptera, och de kom fran den arvda 1,55.
+   Tre mallar hade rattat det lokalt, tva inte. Regeln hor hit: samma tal i
+   samma grad ska sitta likadant pa alla fem sidorna. */
+.o-sumtot b{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.15;}
 
 /* bottenrad */
 .o-bar{position:sticky;bottom:0;z-index:40;min-height:var(--barh);margin-top:calc((var(--barh) + var(--s5)) * -1);background:rgba(255,255,255,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:var(--s3) var(--s4);display:flex;align-items:center;gap:var(--s3);box-shadow:0 -6px 24px -16px rgba(9,11,50,.55);}
@@ -1503,7 +1509,9 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    att 13 px ar finstilt och "aldrig for text nagon ska lasa". Darfor 15, och
    darfor som en egen regel i mallen i stallet for en andring i systemet. */
 .offer .o-ingar--huvud{gap:var(--s2);}
-.offer .o-ingar--huvud li{font-size:15px;line-height:1.5;}
+/* 1,55 som .t-body, inte 1,5: en radhojd per typstorlek. 15 px hade annars
+   tva (23,25 och 22,5), uppmatt 23 okt. */
+.offer .o-ingar--huvud li{font-size:15px;line-height:1.55;}
 .offer .o-ingar--huvud li.prod > span > b{font-size:15px;font-weight:600;}
 .offer .o-ingar--huvud li.prod > span > span{font-size:13px;}
 
@@ -1557,6 +1565,15 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    .o-pkg .pprice, for varje mall med ett prislost paketkort far den. Se rapporten. */
 .offer .o-pkg .pprice.saknas{font-size:13px;font-weight:400;color:var(--muted);
   line-height:1.35;text-align:right;max-width:45%;}
+
+/* --- ETT TAL, EN RADHOJD --------------------------------------------------
+   Summeringens 30 px-tal (.o-sumtot b) arvde sidans 1,55, alltsa 46,5 px, dar
+   hjaltens SAMMA tal (.t-price) har 1,15, alltsa 34,5. Uppmatt 23 okt: tre
+   radhojder pa en typstorlek och 12 px osynlig luft runt sidans viktigaste
+   tal. Samma radhojd som hjalten.
+   SYSTEMREGEL I MALLENS FIL. Hor hemma i gemensamt/system.css vid .o-sumtot b:
+   laddboxmallen bar samma 46,5. Se rapporten. */
+.offer .o-sumtot b{line-height:1.15;}
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}

@@ -1,10 +1,19 @@
 (function(){
   "use strict";
   function $(id){ return document.getElementById(id); }
-  function kr(n){ return n.toLocaleString("sv-SE").replace(/ /g," ") + " kr"; }
+  /* ETT TAL, ETT TECKEN. Tusentalen skiljs med HARDSPATIE (U+00A0) och enheten
+     sitter fast vid talet med samma tecken, sa ett belopp aldrig kan brytas
+     "10 / 490 kr" i en smal rad. Forut byttes toLocaleString:s hardspatie mot
+     ett VANLIGT mellanslag, sa 22 av 22 belopp pa sidan bar ett annat tecken
+     an servicemallen (NBSP 16 av 16) och laddboxen (NBSP 28 av 31), uppmatt
+     23 okt. Samma rad som servicemallen och som byggets _kr i offert.py:
+     oraklet tusentalsavgransare haller dem lika och bevisar raden med node.
+     Avrundas EN gang, har, i renderaren. */
+  function kr(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0") + "\u00a0kr"; }
 
-  var PKG={"5990": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp"}, "9990": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp"}, "14900": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp"}};
+  var PKG={"5990": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp", "grupper": 7}, "9990": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp", "grupper": 16}, "14900": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp", "grupper": 32}};
   var TAK={"5990": 7, "9990": 9, "14900": null};
+  var RYMS={"5990": 0, "9990": 0, "14900": 10};
   var TJANSTPOTT={"laddbox": "gt", "batteri": null};
   var GRANNRABATT=500;
   var ORDNING = Object.keys(PKG).sort(function(a,b){ return a - b; });
@@ -41,7 +50,13 @@
     if (!rad) return;
     if (bildVald.bildCentral) {
       rad.hidden = false;
-      rad.textContent = "Tack. Felix tittar på bilden och bekräftar vilken storlek som gäller innan du behöver bestämma dig.";
+      /* VAD SIDAN GOR, INTE VAD VI ONSKAR. Bilden lamnar aldrig webblasaren
+         (se ovan), sa "Felix tittar pa bilden" var ett lofte sidan inte kunde
+         halla, och "innan du behover bestamma dig" stod bredvid en aktiv
+         Acceptera-knapp (CMO-granskningen 23 okt, fynd 1). Texten sager nu det
+         som ar sant: bilden ar vald, och priset galler den storlek kunden
+         sjalv valjer. Vad steget ska vara ar en agarfraga med tre riktningar. */
+      rad.textContent = "Tack, bilden är vald. Priset här gäller den storlek du själv väljer i steg 2.";
     } else {
       rad.hidden = true;
     }
@@ -181,7 +196,11 @@
 
     /* Summeringen */
     var rows = "";
-    if (p) rows += '<div class="o-sumrow"><span>' + p.namn + ", " + p.spec + '</span><span class="kr">' + kr(bas) + "</span></div>";
+    /* "Liten, " med slapande komma stod i summeringen: spec ar tom sedan korten
+       bara bar namnet (agarbesked 19 okt), och raden limmade anda ihop namn
+       och spec med ett komma. Uppmatt 23 okt pa den byggda sidan. Samma form
+       som laddboxmallens rad "Paket Bas". */
+    if (p) rows += '<div class="o-sumrow"><span>Paket ' + p.namn + '</span><span class="kr">' + kr(bas) + "</span></div>";
     if (tid) rows += '<div class="o-sumrow"><span>' + (tid === 1500 ? "Prioritet" : "Express") + '</span><span class="kr">' + kr(tid) + "</span></div>";
 
     var utanPris = [];
@@ -243,7 +262,7 @@
       potRad.hidden = true;
     }
 
-    taket(nyckel, rader);
+    platsen(nyckel, rader, taket(nyckel, rader));
   }
 
   /* ---- TAKET. Den arliga merforsaljningen. ------------------------------
@@ -253,11 +272,11 @@
      aven om nagon andrar ett pris. */
   function taket(nyckel, rader){
     var rad = $("takRad");
-    if (!rad) return;
+    if (!rad) return false;
     var tak = TAK[nyckel];
     var extra = null;
     rader.forEach(function(r){ if (r.grupp === "dvargbrytare") extra = r; });
-    if (tak == null || !extra || extra.antal <= tak) { rad.hidden = true; return; }
+    if (tak == null || !extra || extra.antal <= tak) { rad.hidden = true; return false; }
 
     var i = ORDNING.indexOf(nyckel);
     var nasta = ORDNING[i + 1];
@@ -279,6 +298,53 @@
       rakna();
       var k2 = offer.querySelector("#pkgs");
       if (k2) k2.scrollIntoView({ behavior: "smooth", block: "start" });
+    };
+    return true;
+  }
+
+  /* ---- PLATSEN. Motsagelsen som blev en upplysning. -----------------------
+     Raden "Extra dvargbrytare +500 kr" ar kopbar pa varje storlek (agarsvar
+     23 okt: "Lat den vara kopbar"), men jamfortabellen pa samma sida sager
+     "ryms: inga, inga, 10 till". Kunden kunde kopa tre brytare for 1 500 kr
+     till en central sidan sjalv sager ar full, utan att sidan sa nagot (CMO-
+     granskningen 23 okt, 3.4). Nu sager sidan vad som da kravs: en extra
+     kapsling (priset ur kapslingsradens eget value) eller nasta storlek.
+     RYMS kommer ur bygget, samma _ryms som tabellen, aldrig ett eget tal.
+     Takraden gar fore: sager den redan "byt storlek" tacker den aven platsen. */
+  /* PLATSMENING START */
+  function platsMening(namn, ryms, antal, kapslingPris, nasta, nastaGrupper){
+    if (ryms <= 0) {
+      return "I " + namn + " ryms inga extra dvärgbrytare. Då behövs en extra kapsling, +" + kr(kapslingPris)
+        + (nasta ? ", eller " + nasta + " som har plats för " + nastaGrupper + " grupper från början." : ".");
+    }
+    return "I " + namn + " ryms " + ryms + " extra dvärgbrytare. För " + antal
+      + " behövs en extra kapsling, +" + kr(kapslingPris) + ".";
+  }
+  /* PLATSMENING SLUT */
+  function platsen(nyckel, rader, takSyns){
+    var rad = $("platsRad");
+    if (!rad) return;
+    var extra = null;
+    rader.forEach(function(r){ if (r.grupp === "dvargbrytare") extra = r; });
+    var kapsling = offer.querySelector('.o-rad input[data-grupp="kapsling"]');
+    var ryms = RYMS[nyckel];
+    if (takSyns || !extra || ryms == null || extra.antal <= ryms || (kapsling && kapsling.checked)) {
+      rad.hidden = true; return;
+    }
+    var i = ORDNING.indexOf(nyckel);
+    var nasta = ORDNING[i + 1] ? PKG[ORDNING[i + 1]] : null;
+    var kp = kapsling ? parseInt(kapsling.value, 10) : NaN;
+    $("platsText").textContent = platsMening(PKG[nyckel].namn, ryms, extra.antal, isNaN(kp) ? 0 : kp,
+                                             nasta ? nasta.namn : null, nasta ? nasta.grupper : null);
+    rad.hidden = false;
+    var k = $("platsKnapp");
+    k.textContent = "Lägg till extra kapsling";
+    k.onclick = function(){
+      if (!kapsling) return;
+      var ant = kapsling.closest(".o-rad").querySelector("[data-antal]");
+      if (ant) ant.value = 1;
+      kapsling.checked = true;
+      rakna();
     };
   }
 
@@ -618,6 +684,20 @@
     offer.classList.add("visarSkarm");
     sk.hidden = false;
     sk.classList.add("syns");
+    /* KVITTOT. Det delade blocket bar en kvittorad (#oaKvitto) som laddbox- och
+       servicemallen fyller med samma varden som summeringen. Elcentralen lamnade
+       den dold: kunden accepterade ett belopp och fick tillbaka en bock utan
+       tal. Talet och paketnamnet las ur summeringen, inte raknas om, sa de kan
+       inte dra isar. */
+    if (id === "skarmAccept") {
+      var kv = $("oaKvitto");
+      if (kv) {
+        var forsta = $("sumRows").querySelector(".o-sumrow span");
+        $("oaTotal").textContent = $("sumTotal").textContent;
+        $("oaPaket").textContent = forsta ? forsta.textContent : $("prodName").textContent;
+        kv.hidden = false;
+      }
+    }
     /* EN SKARMLASARE MASTE FA VETA ATT KOPET GICK IGENOM.
        Uppmatt med riktigt Enter pa Acceptera offert: fokus hamnade pa body,
        for regeln .offer.visarSkarm > *:not(.o-skarm) slacker knappen som hade

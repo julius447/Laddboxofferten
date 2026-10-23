@@ -441,7 +441,13 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-sumrow.disc{color:var(--teal-ink);font-weight:600;}
 .o-sumtot{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--ink);padding-top:var(--s3);}
 .o-sumtot span{font-size:15px;font-weight:600;color:var(--ink);}
-.o-sumtot b{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.03em;}
+/* SIDANS VIKTIGASTE TAL ARVDE BRODTEXTENS RADHOJD. Uppmatt pa laddboxsidan,
+   alltsa den mall agaren kallar perfekt: hjaltens pris ar 30 px med 34,5 px
+   radhojd, och summeringens IDENTISKA 30 px hade 46,5. Tolv pixlar osynlig
+   luft runt talet kunden ska acceptera, och de kom fran den arvda 1,55.
+   Tre mallar hade rattat det lokalt, tva inte. Regeln hor hit: samma tal i
+   samma grad ska sitta likadant pa alla fem sidorna. */
+.o-sumtot b{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.15;}
 
 /* bottenrad */
 .o-bar{position:sticky;bottom:0;z-index:40;min-height:var(--barh);margin-top:calc((var(--barh) + var(--s5)) * -1);background:rgba(255,255,255,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:var(--s3) var(--s4);display:flex;align-items:center;gap:var(--s3);box-shadow:0 -6px 24px -16px rgba(9,11,50,.55);}
@@ -1520,6 +1526,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   background:var(--yta);cursor:pointer;position:relative;
   transition:border-color .2s, background .2s;
 }
+@media (prefers-reduced-motion: reduce){ .offer .o-bildruta{transition:none;} }
 .offer .o-bildruta:hover{border-color:var(--teal);}
 .offer .o-bildruta:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
 .offer .o-bildruta.har{border-style:solid;border-color:var(--teal);background:var(--teal-svag,var(--bg));}
@@ -1528,8 +1535,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   flex:none;width:var(--z4);height:var(--z4);border-radius:var(--r1);
   background:var(--ikonplatta);color:var(--ikonglyf);display:grid;place-items:center;
 }
-.offer .o-bildikon svg{width:20px;height:20px;}
-.offer .o-bildtext{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.offer .o-bildikon svg{width:var(--z2);height:var(--z2);}
+.offer .o-bildtext{display:flex;flex-direction:column;gap:var(--s0);min-width:0;}
 .offer .o-bildtext b{font-size:15px;font-weight:600;color:var(--ink);}
 .offer .o-bildtext span{font-size:13px;color:var(--muted);}
 .offer .o-bildstatus{margin-left:auto;font-size:13px;font-weight:600;color:var(--teal-ink);flex:none;}
@@ -1571,17 +1578,30 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
      tealkant till vanster och ikonen i teal. Samma sprak som ett valt kort. */
   background:var(--card);border:1px solid var(--teal-line,var(--line));
   border-left:3px solid var(--teal-ink);border-radius:var(--r2);
-  box-shadow:0 1px 2px rgba(9,11,50,.05);
+  /* Ingen skugga. Uppmatt 23 okt: sidans 42 kortytor bar box-shadow none, och
+     ett enda kort med skugga laser som ett annat system. Tealkanten bar
+     uppmarksamheten. */
 }
-.offer .o-tak__ikon{flex:none;width:22px;height:22px;color:var(--teal-ink);margin-top:1px;}
-.offer .o-tak__ikon svg{width:22px;height:22px;}
+/* Ikonen i storleksskalan (--z3, 24) i stallet for 22 px, och utan den
+   1 px-marginal som skulle rada upp den mot textens forsta rad: med 24 px i
+   en 23,25 px rad ar den centrerad av sig sjalv. */
+.offer .o-tak__ikon{flex:none;width:var(--z3);height:var(--z3);color:var(--teal-ink);}
+.offer .o-tak__ikon svg{width:100%;height:100%;}
 .offer .o-tak__text{flex:1;min-width:0;font-size:15px;color:var(--ink);}
+/* KNAPPEN AR SIDANS SEKUNDARKNAPP, INTE EN EGEN SORT.
+   Uppmatt 23 okt med raden tand: 14 px, alltsa ett ATTONDE typsteg som typ.js
+   aldrig ser eftersom raden ar dold i grundlaget, och fylld midnatt, alltsa
+   midnatt som yta mot agardirektivet 14 sep (midnatt bara som text). Nu samma
+   recept som .o-btn.ghost (vit, ink, line-2, 15/600) i inline-storlek: 44 px
+   hog (--z5), radie --r1 som .o-ref-knapp, sidans andra inline-knapp. "Byt till
+   Medel" andrar kundens val at henne; det ska se ut som ett erbjudande, inte
+   som sidans primara handling. */
 .offer .o-tak__knapp{
-  flex:none;font:inherit;font-size:14px;font-weight:600;cursor:pointer;
-  padding:0 var(--s3);min-height:44px;
-  background:var(--ink);color:#fff;border:0;border-radius:var(--r1);
+  flex:none;font:inherit;font-size:15px;font-weight:600;cursor:pointer;
+  padding:0 var(--s4);min-height:var(--z5);
+  background:#fff;color:var(--ink);border:1.5px solid var(--line-2);border-radius:var(--r1);
 }
-.offer .o-tak__knapp:hover{opacity:.9;}
+@media (hover:hover){ .offer .o-tak__knapp:hover{border-color:var(--line-strong,#9fb0cc);} }
 .offer .o-tak__knapp:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
 @container (max-width: 559px){
   .offer .o-tak{flex-wrap:wrap;}
@@ -1902,6 +1922,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 @container (max-width: 480px){
   .offer .o-rad:has(.o-radantal) > .o-radikon{grid-row:1 / 3;width:72px;height:72px;}
 }
+
+/* --- ETT TAL, EN RADHOJD --------------------------------------------------
+   Summeringens 30 px-tal (.o-sumtot b) arvde sidans 1,55, alltsa 46,5 px, dar
+   hjaltens SAMMA tal (.t-price) har 1,15, alltsa 34,5. Uppmatt 23 okt: tre
+   radhojder pa en typstorlek (34,2 / 34,5 / 46,5) och 12 px osynlig luft runt
+   sidans viktigaste tal. Samma radhojd som hjalten, sa talet ser likadant ut
+   pa bada ytorna.
+   SYSTEMREGEL I MALLENS FIL. Hor hemma i gemensamt/system.css vid .o-sumtot b:
+   laddboxmallen bar samma 46,5. Se rapporten. */
+.offer .o-sumtot b{line-height:1.15;}
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}

@@ -441,7 +441,13 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-sumrow.disc{color:var(--teal-ink);font-weight:600;}
 .o-sumtot{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--ink);padding-top:var(--s3);}
 .o-sumtot span{font-size:15px;font-weight:600;color:var(--ink);}
-.o-sumtot b{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.03em;}
+/* SIDANS VIKTIGASTE TAL ARVDE BRODTEXTENS RADHOJD. Uppmatt pa laddboxsidan,
+   alltsa den mall agaren kallar perfekt: hjaltens pris ar 30 px med 34,5 px
+   radhojd, och summeringens IDENTISKA 30 px hade 46,5. Tolv pixlar osynlig
+   luft runt talet kunden ska acceptera, och de kom fran den arvda 1,55.
+   Tre mallar hade rattat det lokalt, tva inte. Regeln hor hit: samma tal i
+   samma grad ska sitta likadant pa alla fem sidorna. */
+.o-sumtot b{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.15;}
 
 /* bottenrad */
 .o-bar{position:sticky;bottom:0;z-index:40;min-height:var(--barh);margin-top:calc((var(--barh) + var(--s5)) * -1);background:rgba(255,255,255,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:var(--s3) var(--s4);display:flex;align-items:center;gap:var(--s3);box-shadow:0 -6px 24px -16px rgba(9,11,50,.55);}

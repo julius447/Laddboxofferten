@@ -10,9 +10,10 @@
   var GRANNRABATT=500;
 
   function $(id){ return document.getElementById(id); }
-  function kr(n){
-    return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " kr";
-  }
+  /* ETT TAL, ETT TECKEN: hardspatie (U+00A0) mellan tusentalen och fore kr,
+     avrundat EN gang har i renderaren. Samma rad som elcentralmallen; oraklet
+     tusentalsavgransare i offert.py haller den och kor den i node. */
+  function kr(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0") + "\u00a0kr"; }
   function val(namn){
     var e = document.querySelector('input[name="' + namn + '"]:checked');
     return e ? +e.value : 0;
@@ -92,8 +93,14 @@
     var sc = document.scrollingElement;
     if (sc) sc.scrollTop = 0; else window.scrollTo(0, 0);
   }
-  ["acceptBtn", "barBtn"].forEach(function(id){
-    var b = $(id); if (b) b.addEventListener("click", function(){ visaSkarm("skarmAccept"); });
+  var acc = $("acceptBtn");
+  if (acc) acc.addEventListener("click", function(){ visaSkarm("skarmAccept"); });
+  /* Prisbarens knapp leder till summeringen, som pa laddbox, elcentral och
+     batteri. Forut accepterade den direkt (CMO-granskningen 23 okt, fynd 5c). */
+  var go = $("barGo");
+  if (go) go.addEventListener("click", function(){
+    var s = $("summering");
+    if (s) s.scrollIntoView({ behavior: "smooth", block: "start" });
   });
   var av = $("avbojSend");
   if (av) av.addEventListener("click", function(){ visaSkarm("skarmAvboj"); });
