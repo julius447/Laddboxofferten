@@ -10,11 +10,12 @@
   var INGAR={"0": [], "2050": ["perific", "kabelhallare"], "4620": ["kw22", "perific", "kabel11", "kabel22", "kabelhallare"]};
   var PKGVARIANT={"2050": {"perific": "Perific One"}, "4620": {"perific": "Perific Max"}};
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
-  /* De AGARLASTA talen, beslut C4 19 okt, samma som offerter/elcentral/
-     paket.json. Laddboxsidan bar tidigare 9 900 och 12 900 ur Rasmus
-     prislista, alltsa 90 kr och 2 000 kr fran vad elcentralofferten
-     sager om samma produkt. Tva Ampy-ytor far inte saga olika. */
-  var CEN={"5990":"Byte av elcentral, liten","9990":"Byte av elcentral, medel","14900":"Byte av elcentral, stor"};
+  /* CEN GENERERAS UR offerter/elcentral/paket.json, den mall som ager
+     produkten. Kartan var en literal har till 23 okt, och fore det bar den
+     9 900 och 12 900 ur Rasmus prislista, alltsa 90 kr och 2 000 kr fran vad
+     elcentralofferten sager om samma central. Tva Ampy-ytor far inte saga
+     olika, och nu finns bara ett stalle att saga det pa. Beslut C4 19 okt. */
+  var CEN={"5990": "Byte av elcentral, liten", "9990": "Byte av elcentral, medel", "14900": "Byte av elcentral, stor"};
 
   /* kundens egna kryss minns, så ett paketbyte aldrig raderar dem tyst */
   var kundval={};
@@ -75,7 +76,7 @@
     /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
     var _o=document.querySelector('.offer'); if(_o) _o.classList.add('js-redo');
 
-    var pkg=val("pkg"), tid=val("tid"), cen=val("central"), plats=val("plats");
+    var pkg=val("pkg"), tid=val("tid"), cen=val("elcentralpkg"), plats=val("plats");
     /* Go 2-uppgraderingen finns BARA pa Zaptec Go-mallen. Pa de andra sex
        ar raden borttagen ur markupen, inte gomd, sa uppslaget maste tala att
        den saknas. Oraklet fangade det direkt: "skriptet slar upp id som inte
@@ -293,6 +294,17 @@
         if(i.hasAttribute("data-rot")){ rotSum+=v; rotNamn.push(radNamn(r)); }
       }
     });
+    /* BATTERIET AR TRE BILDKORT, inte tre kryssrader. Namnet las ur DOM:en
+       sa summeringen inte kan saga ett annat marke an kortet kunden valde.
+       Korten bar inget value, sa de ror inte summan: det ar hela poangen med
+       en intresseanmalan, och raden sager "ingen kostnad nu". */
+    var battvald=document.querySelector('input[name="batteripkg"]:checked');
+    if(battvald){
+      var battkort=battvald.closest(".o-pkg");
+      var battnamn=battkort?battkort.querySelector(".pname b"):null;
+      if(battnamn) intresse.push("Solcellsbatteri " + battnamn.textContent.trim());
+    }
+
     var mitt = sum;
 
     $("prodName").textContent = go2 ? "Zaptec Go 2" : "Charge Amps Luna";
@@ -368,7 +380,7 @@
 
   }
 
-  document.querySelectorAll('input[name="pkg"],input[name="tid"],input[name="central"],input[name="plats"]')
+  document.querySelectorAll('input[name="pkg"],input[name="tid"],input[name="elcentralpkg"],input[name="batteripkg"],input[name="plats"]')
     .forEach(function(i){i.addEventListener("change",render);});
 
   /* Elcentralbytet är ett tillval utan "nej tack"-ruta. Klickar man på det
@@ -384,20 +396,31 @@
 
      Nu haller en variabel reda pa vad som var valt INNAN handlingen, och den
      skrivs av bade pekare, tangent och change. Click fyrar for bada
-     inmatningssatten, sa angran blir densamma. */
-  var centralFore = null;
-  function sattCentralFore(e){ centralFore = e.checked ? e.value : null; }
-  document.querySelectorAll('input[name="central"]').forEach(function(i){
-    i.addEventListener("pointerdown", function(){ sattCentralFore(this); });
-    i.addEventListener("keydown", function(e){
-      if(e.key === " " || e.key === "Spacebar" || e.key === "Enter") sattCentralFore(this);
+     inmatningssatten, sa angran blir densamma.
+
+     EN FUNKTION, TVA GRUPPER. Angran lag i en variabel som bara elcentralen
+     hade. Nar batteriet blev tre bildkort 23 okt behovde det samma angran,
+     och en andra kopia av samma logik ar ett andra stalle dar den kan
+     drifta. Jamforelsen gar pa ELEMENT och inte pa value: batterikorten ar
+     en intresseanmalan utan value, sa alla tre bar "on", och en
+     value-jamforelse hade slackt kort B i samma klick som valde det. */
+  function angerbar(grupp){
+    var fore = null;
+    function satt(e){ fore = e.checked ? e : null; }
+    document.querySelectorAll('input[name="' + grupp + '"]').forEach(function(i){
+      i.addEventListener("pointerdown", function(){ satt(this); });
+      i.addEventListener("keydown", function(e){
+        if(e.key === " " || e.key === "Spacebar" || e.key === "Enter") satt(this);
+      });
+      i.addEventListener("click", function(){
+        if(fore === this){ this.checked = false; fore = null; render(); }
+        else { fore = this; }
+      });
+      i.addEventListener("change", function(){ fore = this; });
     });
-    i.addEventListener("click", function(){
-      if(centralFore === this.value){ this.checked = false; centralFore = null; render(); }
-      else { centralFore = this.value; }
-    });
-    i.addEventListener("change", function(){ centralFore = this.value; });
-  });
+  }
+  angerbar("elcentralpkg");
+  angerbar("batteripkg");
   /* Ordningen är hela poängen. Tidigare satt render() som lyssnare FÖRE den här,
      så den hann läsa ett inaktuellt kundval och kryssa i rutan igen innan minnet
      uppdaterades. Resultatet var att man inte kunde avmarkera ett tillägg alls.

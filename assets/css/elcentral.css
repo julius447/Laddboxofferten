@@ -799,7 +799,12 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-ref-falt{display:flex;flex-direction:column;gap:var(--s2);}
 .offer .o-ref-etikett{font-size:15px;font-weight:600;color:var(--ink);}
 .offer .o-ref-rad{display:flex;gap:var(--s2);}
-.offer .o-ref-rad input{flex:1;min-width:0;background:#fff;border:1px solid var(--kant-kontroll);
+/* GOLVET LAG I EN SELEKTOR SOM FALTET HADE FLYTTAT UT UR. Mejlfaltet bor i
+   .o-chips sedan chipsen infordes, medan min-height:var(--z5) stod kvar pa
+   .o-ref-rad input. Resultatet var ett 31 px hogt faltet i ett hus dar 44
+   ar golvet, i tre mallar samtidigt, och audit.js sag det inte for att dess
+   selektorlista inte raknade input alls. Bada platserna namns nu. */
+.offer .o-ref-rad input,.offer .o-chips input{flex:1;min-width:0;background:#fff;border:1px solid var(--kant-kontroll);
   border-radius:var(--r1);padding:0 var(--s3);min-height:var(--z5);
   font-family:inherit;font-size:15px;font-weight:300;color:var(--body);}
 .offer .o-ref-rad input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:1px;}
@@ -1135,7 +1140,12 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    en spalt på 286. Utan en rullande behållare försvann 41 px av
    Premiumkolumnen, och folden klipper med overflow:hidden. */
 .o-fold .body:has(.o-cmp){overflow-x:auto;}
-.o-cmp{min-width:327px;}
+/* GOLVET VAR ETT TAL RITAT FOR EN TABELL. 327 px kom ur elcentralens fyra
+   kolumner (etikett plus tre storlekar). Batterimallens tabell har tre,
+   behover darfor inte 327, och fick 18 px sidledes rullning inne i folden
+   for ett golv som inte var dess. Golvet hor till KOLUMNEN, inte till
+   tabellen: da raknar tabellen ut sin egen bredd ur hur manga den har. */
+.o-cmp th:not(:first-child),.o-cmp td:not(:first-child){min-width:5.5ch;}
 
 /* Se allt som ingår bär samma listkomponent som paketkorten, .o-ingar.
    Bocken var ritad med två kantlinjer: 6 x 3 px roterade 45 grader inuti en
@@ -1276,6 +1286,114 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-reasons input:checked::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--teal-ink);}
 .offer .o-reasons input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
 .offer .o-optdesc:empty{display:none;}
+/* REMSAN, DELAD. Lag i offerter/laddbox/stil.css, och darfor ritades
+   bitar.tjanstekort()s remsa som naken text over kortkanten pa de fyra
+   andra mallarna. Elcentralsbygget sa [GAP] och hoppade remsan helt, med
+   skalet utskrivet i loggen, vilket var ratt gjort: en remsa utan regel ar
+   ett designfel, inte ett tomrum. Nu bor regeln dar korten fods. */
+/* Remsan satt ovanpå hjältebilden. Bilden är borta, så remsan tar sin egen
+   rad överst i kortet, som AG1:s BEST VALUE. */
+.o-pkg .ribbon{display:flex;align-items:center;gap:var(--s2);background:var(--teal-ink);color:#fff;
+  padding:var(--s2) var(--s5);font-size:13px;font-weight:600;letter-spacing:.01em;line-height:1.4;}
+.o-pkg .ribbon svg{width:14px;height:14px;flex:none;color:#fff;}
+/* TVÅ DOMAR PÅ TRE KORT TAR UT VARANDRA. "Vår rekommendation" och "Bäst
+   värde" sa båda välj mig, i samma teal, och då säger ingen av dem något.
+   En remsa är en dom och bär husets teal. Den andra är ett FAKTUM och bär
+   ikonspråkets blå: Premium bär 22 kW, den högsta laddeffekt sidan säljer,
+   och är det enda paketet som gör det. Kontrollerat i bygget. Ett faktum
+   säljer det dyra paketet bättre än ett andra beröm.
+   Remsan hette "Allt ingår" till 19 okt, då ägaren döpte om den till
+   "Maximal prestanda". Bocken följde med namnet: en bock betyder ingår, och
+   under de nya orden hade den sagt fel sak. Blixten är husets egen geometri
+   och betyder effekt. */
+.o-pkg .ribbon.fakta{background:var(--steg-bla);color:var(--ink);}
+.o-pkg .ribbon.fakta svg{color:var(--ikonglyf);}
+
+/* TJANSTEKORTETS BILDRUTA, DELAD. Matten ar raknade ur duken och valjs
+   med :has() pa de kanoniska gruppnamnen, sa de galler varje mall som
+   fodar ett kort ur bitar.tjanstekort(). De lag i laddboxens egen
+   stil.css och nadde darfor en av fem sidor. */
+/* BILDRUTAN HAR EN HOJD, INTE EN MIN-HEIGHT.
+   Systemet satter min-height:160 och lamnar bilden fri upp till 180. Da vaxer
+   rutan nar bilden landar, och tre kort i rad hoppar olika mycket. En hojd
+   reserverar plats fore laddningen, och eftersom tjanstekort() inte satter
+   width/height pa bilden ar det har det enda stallet som kan gora det.
+   Hojden ar bildens egen plus rutans 2 x 16 px padding, per sektion:
+     elcentral  Hager-bilderna ar 300 x 790, alltsa portratt. Vid 200 px hojd
+                renderas de 76 px breda, mot 72 x 168 i den gamla radformen.
+                Alla tre delar samma duk, sa storleksordningen ar sann.
+     batteri    420 x 420, kvadrat. 180 px ger 180 x 180.
+   :has() och inte en klass: tjanstekort() ager sectionens klassattribut, och
+   en delad funktion ska inte bara fem mallars varianter. */
+.offer .o-tjanst .o-pkg .pbild{min-height:0;
+  width:var(--tjbredd,204px);height:var(--tjbild,212px);max-width:100%;}
+.offer .o-tjanst .o-pkg .pbild img{max-height:100%;}
+/* BÅDA MÅTTEN ÄR RÄKNADE UR DUKEN, inte valda.
+   Rutan bär 2 x 16 px padding i höjd och 2 x 12 i bredd (--s4 / --s3), så
+   innermåttet är rutan minus det.
+     elcentral  duk 300 x 790. Höjd 232 - 32 = 200 innerhöjd, och
+                200 x 300/790 = 75,9 px bred. Ruta 76 + 24 = 100.
+     batteri    duk 420 x 420. Höjd 212 - 32 = 180, kvadrat, alltså 180 bred.
+                Ruta 180 + 24 = 204.
+   Första versionen satte bara höjden och lät bredden bli width:max-content.
+   Det gav rätt mått EFTER att bilden landat, men före det har en <img> utan
+   width-attribut ingen egen bredd, så rutan var 24 px bred och växte till 100
+   när bilden kom. tjanstekort() sätter inga width/height på bilden, och det är
+   delat av fem mallar, så reservationen måste ligga här. */
+.offer .o-tjanst:has(input[name="elcentralpkg"]){--tjbild:232px;--tjbredd:100px;}
+.offer .o-tjanst:has(input[name="batteripkg"]){--tjbild:212px;--tjbredd:204px;}
+
+/* TJANSTEGRUPPEN OCH VAGEN TILLBAKA, DELADE. En radiogrupp gar inte att
+   avmarkera med musen, sa varje mall med korsforsaljningskort behover
+   knappen. Den lag i batterimallens egen stil.css. */
+.offer .o-tjanstgrupp{display:flex;flex-direction:column;gap:var(--rytm-block);}
+
+/* --- VAGEN TILLBAKA UR ETT PAKETKORT -----------------------------------------
+   Tre radioknappar gar att valja mellan men inte att avmarkera med musen, sa
+   utan den har knappen kan kunden lagga till en laddbox och aldrig ta bort
+   den igen. En textknapp och inte en primarknapp: att ta bort nagot ur sin
+   egen offert ska inte konkurrera med att valja. Traffytan ar 44 px via
+   min-height och inte via en storre skrift, och knappen ar hidden tills nagot
+   ar valt, sa den tar ingen plats och ingen gap nar den inte behovs. */
+.offer .o-rensa__btn{align-self:flex-start;font:inherit;font-size:13px;font-weight:600;
+  color:var(--teal-ink);background:none;border:0;cursor:pointer;
+  min-height:var(--z5);padding:0 var(--s2);margin-left:calc(var(--s2) * -1);
+  border-radius:var(--r1);text-align:left;
+  text-decoration:underline;text-underline-offset:3px;}
+
+/* PRISBLOCKET UTAN RAKNERADER, DELAT. Bade .o-calc och .o-calcfinal ritar
+   en linje. Med tva rakerader emellan laser de som en tabells kanter;
+   utan dem blir det tva linjer 21 px isar med ingenting mellan, alltsa
+   agarens "dubbelrader". Galler varje mall vars pris inte raknas fram. */
+.offer .o-calc:not(:has(.o-calcrow)) .o-calcfinal{border-top:0;padding-top:0;margin-top:0;}
+/* PRODUKTBRICKORNA, DELADE. Lag i laddboxens egen stil.css, vilket gjorde att
+   ett korsforsaljningskort pa en annan mall inte kunde visa vad som ingar i
+   ett paket utan att kopiera reglerna dit. Nu bor de i systemet, for alla fem
+   mallarna visar samma sorts kort. */
+/* Produktbrickorna sist i kortet, som AG1. Tre lika stora rutor i varje paket,
+   så en bricka i Bas är exakt lika stor som en i Premium. */
+.o-ptiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);}
+/* På desktop blev en bricka 203 px bred, vilket är en produktbild och inte en
+   miniatyr längre. AG1 håller sina runt 130. Taket gäller bara från 520. */
+@container (min-width: 520px){ .o-ptiles{grid-template-columns:repeat(3,minmax(0,140px));}}
+/* Premium bär fyra delar. Fyra i ett rutnät med tre spalter blir tre plus en
+   ensam, och fyra spalter ger 64 px brickor vid 375 där etiketterna bryter.
+   Två gånger två vid 375, fyra i bredd från 520 där de ryms.
+   Spåret är uträknat som en tredjedel, inte som en halva: då är en bricka i
+   Premium exakt lika bred som en i Plus, och rutnätet blir två tredjedelar
+   brett i stället för att fylla kortet och börja konkurrera med gruppbilden. */
+/* Fyra brickor i två rader bildar ett block på två tredjedelars bredd. Till
+   vänster i kortet läste det som en ofärdig rad; centrerat läser det som ett
+   block. Bas har en enda bricka och står kvar till vänster, för där finns
+   ingen rad att centrera. */
+.o-ptiles--4{grid-template-columns:repeat(2,minmax(0,calc((100% - var(--s3) * 2) / 3)));justify-content:center;}
+@container (min-width: 520px){ .o-ptiles--4{grid-template-columns:repeat(4,minmax(0,140px));}}
+.o-ptile{margin:0;display:flex;flex-direction:column;gap:var(--s2);min-width:0;}
+.o-ptile img{width:100%;aspect-ratio:1;object-fit:contain;display:block;
+  background:var(--bg);border-radius:var(--r1);padding:var(--s3);}
+.o-ptile figcaption{font-size:11px;line-height:1.35;color:var(--muted);text-align:center;}
+.o-ptile figcaption b{display:block;font-weight:600;color:var(--ink);}
+
 .offer .o-tjanst{display:flex;flex-direction:column;gap:var(--rytm-block);}
 .offer .o-tjansttitel{display:flex;align-items:center;gap:var(--s3);font-size:17px;font-weight:600;color:var(--ink);}
 .offer .o-tjansttitel .o-stepnr{flex:none;}
@@ -1423,9 +1541,11 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    hogre an bred. Vid 128 px hojd renderade Stor 50 px bred och las som den
    minsta av de tre, alltsa tvartemot sanningen. Hogre platta ger alla tre
    samma hojd och later bredden beratta skillnaden, vilket ar vad den gor i
-   verkligheten. */
-.offer .o-pkg .pbild{min-height:232px;}
-.offer .o-pkg .pbild img{max-height:200px;}
+   verkligheten.
+   SCOPAT TILL #pkgs 23 okt: regeln traffade ocksa laddbox- och batterikorten under
+   Ovriga tjanster, som ska ha systemets kortgeometri, samma som laddboxmallen. */
+.offer #pkgs .o-pkg .pbild{min-height:232px;}
+.offer #pkgs .o-pkg .pbild img{max-height:200px;}
 
 /* PROCESSEN: ingen egen CSS. .o-steps, .o-step, .o-stepico, .o-steptext och
    .o-stepnr bor i bas.html. Min forsta version var en egen .o-process med
@@ -1515,214 +1635,216 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-fold--ingar{margin-bottom:var(--rytm-block);}
 .offer .o-ingar--stand{margin:0;}
 
-/* FORE OCH EFTER: ingen egen CSS. .o-fe, .o-febild, .o-fesom, .o-fechip och
-   .o-fereglage bor i bas.html och ar laddboxoffertens dragbara skiljelinje.
-   Min forsta version ritade tva stilla kort OCH dopte sin klass till .o-fe,
-   alltsa samma namn som den riktiga komponenten. Tva regeluppsattningar om
-   samma klass i samma dokument. */
+/* --- FÖRE OCH EFTER ------------------------------------------------------
+   Lånat 1:1 ur julius447/f-re-efter-CRO- (dist/01-fore-efter.css och
+   03-fore-efter.js), blocket som redan är godkänt på landningssidan. Formen är
+   oförändrad: 4:3-ram, FÖRE klippt vid sömmen med sitt chip klippt med, EFTER-
+   chippet klippt spegelvänt, vit söm, runt handtag och reglaget under bilden
+   så tummen aldrig skymmer sömmen man siktar på. Ledtrådspillret "Dra för att
+   jämföra" är borttaget på ägarbeslut 2026-10-20: sömmen, handtaget och
+   reglaget bär affordansen, och pillret låg över fotot som blocket ska visa.
+   TRE saker är bundna till den här sidan i stället för till blockets egna
+   värden, och bara tre:
+     1  typsnittet ÄRVS. Blocket satte "Outfit"; ägardirektivet 20 okt är att
+        båda mallarna kör Inter.
+     2  storlekar, avstånd, radier och färger kommer ur sidans skala. Blockets
+        egna clamp-steg hade gett offerten en andra typskala, och det är precis
+        den sortens inkonsekvens som gör att en köpare slutar lita på talen.
+     3  @supports-fallbacken på @media är borta: byggets orakel släpper bara
+        igenom @container om bredd, för granskningsramen är 390 px bred i ett
+        1400 px fönster och en @media-fråga svarar "desktop".
+   Komponentgeometrin (handtagets 52 px, sömmens 2 px, tummens 26 px, chippens
+   padding) är form och inte skala, och står kvar orörd. Avstånden kommer ur
+   sidans rytm: 24 mellan paren (grupp), 8 från ramen ner till reglaget (rad).
+   Källblockets vårgröna EFTER-chip är bytt mot sidans teal på ägarbesked
+   2026-10-20; se chipregeln längre ner för varför det blev --teal. */
 
-/* --- HUVUDSAKRINGEN, EGET STEG -------------------------------------------
-   Agarbesked 19 okt: inte en kryssruta i tillaggslistan utan ett eget steg,
-   som vagg-eller-stolpe i laddboxofferten. Faltraden ar tre val, och ett
-   fjarde som bara dyker upp nar det andrar svaret.
-   NOLLFALLET HAR SIN EGEN YTA, inte en gra text. Fyra kundtyper far exakt noll
-   och de ska mota ett besked, inte en tom ruta: det ar sidans enda stalle dar
-   vi pastar nagot om kundens egen faktura. */
-.offer .o-hs{padding:var(--s4);display:flex;flex-direction:column;gap:var(--s3);}
-.offer .o-hs p{margin:0;}
-.offer .o-hs__falt{display:grid;grid-template-columns:1fr;gap:var(--s3);}
-@container (min-width: 560px){ .offer .o-hs__falt{grid-template-columns:repeat(3,1fr);} }
-.offer .o-hs__f{display:flex;flex-direction:column;gap:var(--s1);cursor:pointer;}
-.offer .o-hs__f[hidden]{display:none;}
-.offer .o-hs__etikett{font-size:13px;font-weight:600;color:var(--muted);}
-.offer .o-hs__rad{display:flex;align-items:center;gap:var(--s2);}
-.offer .o-hs__rad input,.offer .o-hs__f select{
-  font:inherit;font-size:17px;font-weight:600;color:var(--ink);
-  font-variant-numeric:tabular-nums;
-  min-height:var(--z6);padding:0 var(--s3);width:100%;
-  background:var(--yta);border:1px solid var(--kant-kontroll);border-radius:var(--r1);
-}
-.offer .o-hs__rad input{width:5.5ch;text-align:center;padding:0 var(--s2);}
-.offer .o-hs__rad input:focus-visible,.offer .o-hs__f select:focus-visible{
-  outline:2px solid var(--teal-ink);outline-offset:2px;}
-.offer .o-hs__enhet{font-size:15px;color:var(--muted);white-space:nowrap;}
+@property --ff-pos{ syntax:"<percentage>"; inherits:true; initial-value:50%; }
 
-.offer .o-hs__svar{
-  display:flex;flex-direction:column;gap:var(--s1);
-  padding:var(--s4);border-radius:var(--r2);background:var(--bg);
-  border-left:3px solid var(--kant);
-}
-.offer .o-hs__svar[hidden]{display:none;}
-.offer .o-hs__svar.har{background:var(--steg-bla);border-left-color:var(--teal-ink);}
-.offer .o-hs__svar.noll{background:var(--bg);border-left-color:var(--kant-kontroll);}
-.offer .o-hs__dom{font-size:17px;font-weight:600;color:var(--ink);}
-.offer .o-hs__belopp{
-  font-size:24px;font-weight:700;color:var(--ink);
-  font-variant-numeric:tabular-nums;margin-top:var(--s1);
-}
-.offer .o-hs__under{font-size:13px;color:var(--muted);}
-.offer .o-hs__konflikt{
-  display:block;margin-top:var(--s3);padding:var(--s3);
-  background:var(--yta);border-radius:var(--r1);
-  font-size:13px;color:var(--ink);line-height:1.5;
+.offer .o-ff{ container-type:inline-size; container-name:ff; }
+.offer .o-ffpar{ display:grid; grid-template-columns:1fr; gap:var(--rytm-grupp); align-items:start; }
+
+/* Understrykningen under "bytt en elcentral" är midnatt, inte teal
+   (ägarbeslut 2026-08-17 i källblocket). */
+.offer .o-ffacc{ position:relative; white-space:nowrap; }
+.offer .o-ffacc::after{
+  content:""; position:absolute; left:0; right:0; bottom:-.04em;
+  height:.075em; border-radius:999px; background:var(--ink);
 }
 
-.offer .o-hs__apparater{display:flex;flex-direction:column;gap:var(--s2);}
-.offer .o-hs__apparater[hidden]{display:none;}
-.offer .o-hs__chips{display:flex;flex-wrap:wrap;gap:var(--s2);}
-.offer .o-chip{
-  display:inline-flex;align-items:center;gap:var(--s2);cursor:pointer;
-  padding:0 var(--s3);min-height:44px;font-size:15px;color:var(--ink);
-  background:var(--yta);border:1px solid var(--kant-kontroll);border-radius:999px;
+.offer .o-fffig{ container-type:inline-size; container-name:fffig; margin:0;
+  /* Avstandet ramen -> reglaget kommer ur figurens gap, inte ur en marginal pa
+     reglaget: en rytm-marginal pa ett barn staplas med foralderns gap och blir
+     dubbel. Hjalptexten ar absolut positionerad och rakas inte med. */
+  display:flex; flex-direction:column; gap:var(--rytm-rad);
+  /* Startvärdet står här också, inte bara i @property: en motor utan
+     @property-stöd skulle annars sakna värde tills JS kört, alltså FÖRE över
+     hela ramen med sömmen i vänsterkanten. JS skriver över det inline. */
+  --ff-pos:50%;
 }
-.offer .o-chip:has(:checked){border-color:var(--teal-ink);background:var(--steg-bla);font-weight:600;}
-.offer .o-chip:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
-.offer .o-chip input{width:16px;height:16px;accent-color:var(--teal-ink);}
 
-.offer .o-hs__vagar{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--rytm-block);}
-@container (min-width: 620px){ .offer .o-hs__vagar{grid-template-columns:1fr 1fr;} }
-.offer .o-hs__vagar[hidden]{display:none;}
-.offer .o-hs__vag{padding:var(--s4);display:flex;flex-direction:column;gap:var(--s2);}
-.offer .o-hs__vagtitel{font-size:17px;font-weight:600;color:var(--ink);}
-.offer .o-hs__vag p{margin:0;}
-
-.offer #hsHoj{margin-top:var(--rytm-block);}
-.offer .o-hs__risk{
-  list-style:none;margin:var(--rytm-block) 0 0;padding:0;
-  display:flex;flex-direction:column;gap:var(--s2);
+.offer .o-ffram{
+  position:relative;
+  /* 4:3, samma som telefonkameran. En kvadrat kastar 25 procent av varje foto
+     och ser inzoomad ut; med 4:3 beskärs ingenting, och då finns heller ingen
+     beskärningsskillnad mellan före och efter. */
+  aspect-ratio:4/3;
+  border-radius:var(--r3); overflow:hidden;
+  background:var(--bg); box-shadow:0 1px 2px rgba(9,11,50,.04), 0 8px 20px rgba(9,11,50,.06);
+  /* pan-y släpper igenom vertikal scroll, pinch-zoom lämnar kvar zoomen för
+     den som behöver den. Vi rör aldrig touchmove. */
+  touch-action:pan-y pinch-zoom; cursor:ew-resize;
+  user-select:none; -webkit-user-select:none;
+  -webkit-touch-callout:none; -webkit-tap-highlight-color:transparent;
 }
-.offer .o-hs__risk li{
-  font-size:13px;color:var(--faint);padding-left:var(--s4);position:relative;
+.offer .o-ffram::after{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  box-shadow:inset 0 0 0 1px rgba(9,11,50,.07); pointer-events:none; z-index:7;
 }
-.offer .o-hs__risk li::before{
-  content:"";position:absolute;left:0;top:.55em;
-  width:5px;height:5px;border-radius:50%;background:var(--kant-kontroll);
+
+.offer .o-fflager{ position:absolute; inset:0; }
+.offer .o-fflager img{
+  display:block; width:100%; height:100%; object-fit:cover;
+  /* DRAGFIXEN. Utan den startar webbläsaren sin egen bilddragning så fort man
+     drar i bilden, och reglaget tappar pekaren mitt i rörelsen. pointer-events
+     none gör att ramen, inte bilden, äger varje pekare. */
+  pointer-events:none; -webkit-user-drag:none;
+  user-select:none; -webkit-user-select:none;
 }
-.offer .o-rad--naken{border:0;background:none;padding:0;min-height:auto;}
-.offer .o-rad--naken:hover{border:0;background:none;}
+.offer .o-fflager--efter{ z-index:1; }
+.offer .o-fflager--fore{ clip-path:inset(0 calc(100% - var(--ff-pos)) 0 0); z-index:2; }
 
-/* ===========================================================================
-   HUVUDSAKRINGEN, TRE RIKTNINGAR. Agarorder 19 okt: forsta versionen hade
-   noll design och noll finess. Tre olika ideer om vad blocket AR, inte tre
-   skal pa samma formular. En i DOM:en at gangen.
-   =========================================================================== */
-/* .hs-vaxel-reglerna ar BORTTAGNA 23 okt tillsammans med vaxlaren. De
-   formgav en granskningskontroll som lag i den skarpa sidan: 44 px hog, tre
-   knappar, och klicken bytte faktiskt block. Kvarlamnad CSS for ett forbjudet
-   element ar en inbjudan att satta tillbaka markupen, och oraklet i offert.py
-   stoppar den vagen. Riktningen valjs i huvudsakring.json _riktning. */
-
-/* --- delade faltrader ---------------------------------------------------- */
-.offer .hsA__falt,.offer .hsC__falt{display:grid;grid-template-columns:1fr;gap:var(--s3);margin-bottom:var(--s5);}
-@container (min-width: 560px){
-  .offer .hsA__falt,.offer .hsC__falt{grid-template-columns:auto 1fr 1fr;align-items:end;}
+/* Spegelbilden av raden ovan. FÖRE-chippet bor i före-lagret och klipps bort
+   när sömmen går åt vänster; EFTER-chippet bor här och klipps bort när sömmen
+   går åt höger. Symmetrin är poängen: drar man helt åt ett håll ska den sidan
+   försvinna, inte lämna kvar sin etikett. */
+.offer .o-ffchiplager{
+  position:absolute; inset:0; z-index:5; pointer-events:none;
+  clip-path:inset(0 0 0 var(--ff-pos));
 }
-.offer .hsA__f,.offer .hsC__f{display:flex;flex-direction:column;gap:var(--s1);cursor:pointer;}
-.offer .hsA__f[hidden],.offer .hsC__f[hidden]{display:none;}
-.offer .hsA__f > span:first-child,.offer .hsC__f > span:first-child{
-  font-size:13px;font-weight:600;color:var(--muted);}
-.offer .hsA__f select,.offer .hsC__f select{
-  font:inherit;font-size:15px;color:var(--ink);background:var(--card);
-  border:1px solid var(--kant-kontroll);border-radius:var(--r1);
-  min-height:var(--z6);padding:0 var(--s3);width:100%;}
-.offer .hsA__amp,.offer .hsC__amp{
-  display:flex;align-items:baseline;gap:var(--s1);
-  background:var(--card);border:1px solid var(--kant-kontroll);border-radius:var(--r1);
-  padding:0 var(--s3);min-height:var(--z6);}
-.offer .hsA__amp input,.offer .hsC__amp input{
-  font:inherit;font-size:24px;font-weight:700;color:var(--ink);
-  font-variant-numeric:tabular-nums;width:3.2ch;border:0;background:none;padding:0;
-  text-align:right;}
-.offer .hsA__amp input:focus,.offer .hsC__amp input:focus{outline:none;}
-.offer .hsA__amp:has(:focus-visible),.offer .hsC__amp:has(:focus-visible),
-.offer .hsA__f select:focus-visible,.offer .hsC__f select:focus-visible{
-  outline:2px solid var(--teal-ink);outline-offset:2px;}
-.offer .hsA__amp > span,.offer .hsC__amp > span{font-size:15px;color:var(--muted);}
 
-/* --- A. TRAPPAN ---------------------------------------------------------- */
-/* Sakringen ar en trappa man betalar for att sta pa. Ritad behover den ingen
-   forklaring: kunden ser sitt eget steg och steget under, med skillnaden. */
-.offer .hsA__trappa{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s1);}
-.offer .hsA__steg{
-  display:flex;align-items:center;gap:var(--s3);
-  padding:var(--s3) var(--s4);border-radius:var(--r1);
-  border:1px solid transparent;background:var(--bg);
-  transition:background .18s ease,border-color .18s ease;
+.offer .o-ffsom{
+  position:absolute; top:0; bottom:0; left:var(--ff-pos);
+  width:2px; margin-left:-1px; background:#fff;
+  box-shadow:0 0 0 1px rgba(9,11,50,.18), 0 0 22px rgba(9,11,50,.28);
+  pointer-events:none; z-index:4;
 }
-@media (prefers-reduced-motion: reduce){ .offer .hsA__steg{transition:none;} }
-.offer .hsA__steg b{
-  font-size:20px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;
-  min-width:3.4ch;}
-.offer .hsA__steg .hsA__kr{margin-left:auto;font-size:15px;color:var(--muted);
-  font-variant-numeric:tabular-nums;}
-.offer .hsA__steg .hsA__lapp{
-  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  padding:2px var(--s2);border-radius:var(--r1);}
-.offer .hsA__steg.over{opacity:.42;}
-.offer .hsA__steg.nu{background:var(--card);border-color:var(--kant-kontroll);}
-.offer .hsA__steg.nu .hsA__lapp{background:var(--bg);color:var(--muted);}
-.offer .hsA__steg.mal{background:var(--teal-svag,#e4f6f2);border-color:var(--teal-ink);}
-.offer .hsA__steg.mal b,.offer .hsA__steg.mal .hsA__kr{color:var(--teal-ink);}
-.offer .hsA__steg.mal .hsA__lapp{background:var(--teal-ink);color:#fff;}
-.offer .hsA__svar{margin:var(--s4) 0 0;font-size:15px;color:var(--ink);}
-.offer .hsA__svar[hidden]{display:none;}
 
-/* --- B. BESKEDET --------------------------------------------------------- */
-/* Inte en kalkylator utan ett svar. Inmatningen ligger inne i en mening, sa
-   kunden fyller i en berattelse i stallet for ett formular. */
-.offer .hsB__mening{
-  font-size:20px;font-weight:300;line-height:1.9;color:var(--ink);margin:0 0 var(--s5);}
-.offer .hsB__mening select{
-  font:inherit;font-size:20px;font-weight:600;color:var(--teal-ink);
-  background:none;border:0;border-bottom:2px solid var(--teal-line,var(--line-2));
-  padding:0 var(--s1) 2px;cursor:pointer;max-width:16ch;}
-.offer .hsB__in{display:inline-flex;align-items:baseline;gap:1px;
-  border-bottom:2px solid var(--teal-line,var(--line-2));padding:0 var(--s1) 2px;}
-.offer .hsB__in input{
-  font:inherit;font-size:20px;font-weight:600;color:var(--teal-ink);
-  font-variant-numeric:tabular-nums;width:2.8ch;border:0;background:none;padding:0;text-align:center;}
-.offer .hsB__in input:focus,.offer .hsB__mening select:focus{outline:none;}
-.offer .hsB__in:has(:focus-visible),.offer .hsB__mening select:focus-visible{
-  outline:2px solid var(--teal-ink);outline-offset:3px;border-radius:2px;}
-.offer .hsB__in > span{font-size:20px;font-weight:600;color:var(--teal-ink);}
-.offer .hsB__fas[hidden]{display:none;}
-.offer .hsB__svar{
-  margin:0;display:flex;gap:var(--s4);align-items:flex-start;
-  background:var(--card);border:1px solid var(--line);border-radius:var(--r2);padding:var(--s4);}
-.offer .hsB__svar[hidden]{display:none;}
-.offer .hsB__foto{width:var(--z6);height:var(--z6);flex:none;border-radius:50%;overflow:hidden;}
-.offer .hsB__foto img{width:100%;height:100%;object-fit:cover;display:block;}
-.offer .hsB__text{display:flex;flex-direction:column;gap:var(--s2);min-width:0;}
-.offer .hsB__text p{margin:0;font-size:17px;line-height:1.55;color:var(--ink);}
-.offer .hsB__text p b{font-weight:700;}
-.offer .hsB__namn{font-size:13px;color:var(--muted);font-style:normal;}
-
-/* --- C. KVITTOT ---------------------------------------------------------- */
-/* Kundens EGEN rad pa natfakturan, bredvid samma rad ett steg ner. Inget
-   pastaende, bara tva belopp och skillnaden. */
-.offer .hsC__kvitto{
-  background:var(--card);border:1px solid var(--line);border-radius:var(--r2);
-  padding:var(--s5) var(--s4);display:flex;flex-direction:column;gap:var(--s3);}
-.offer .hsC__kvitto[hidden]{display:none;}
-.offer .hsC__rad{display:flex;align-items:baseline;gap:var(--s3);font-size:15px;color:var(--muted);}
-.offer .hsC__rad .hsC__belopp{margin-left:auto;font-size:17px;font-weight:600;color:var(--ink);
-  font-variant-numeric:tabular-nums;}
-.offer .hsC__strek{border:0;border-top:1px dashed var(--line-2);margin:var(--s1) 0;}
-.offer .hsC__diff{display:flex;align-items:baseline;gap:var(--s3);}
-.offer .hsC__diff span:first-child{font-size:15px;font-weight:600;color:var(--ink);}
-.offer .hsC__diff .hsC__tal{
-  margin-left:auto;font-size:30px;font-weight:800;color:var(--teal-ink);
-  font-variant-numeric:tabular-nums;line-height:1;}
-.offer .hsC__not{font-size:13px;color:var(--muted);margin:0;}
-.offer .hsC__noll{font-size:17px;color:var(--ink);margin:0;}
-
-/* --- de tva vagarna, delade av alla tre ---------------------------------- */
-.offer .hsA__val,.offer .hsB__val,.offer .hsC__val{
-  display:grid;grid-template-columns:1fr;gap:var(--s3);margin-top:var(--s5);}
-@container (min-width: 620px){
-  .offer .hsA__val,.offer .hsB__val,.offer .hsC__val{grid-template-columns:1fr 1fr;}
+.offer .o-ffhandtag{
+  position:absolute; top:50%; left:var(--ff-pos); transform:translate(-50%,-50%);
+  width:52px; height:52px; border-radius:999px; background:#fff;
+  box-shadow:0 3px 16px rgba(9,11,50,.32);
+  display:grid; place-items:center; color:var(--ink);
+  pointer-events:none; z-index:6;
 }
-.offer .hsA__val[hidden],.offer .hsB__val[hidden],.offer .hsC__val[hidden]{display:none;}
+.offer .o-ffhandtag::before{
+  content:""; position:absolute; inset:-5px; border-radius:inherit;
+  border:1px solid rgba(255,255,255,.55);
+}
+.offer .o-ffhandtag svg{ width:23px; height:23px; }
+
+/* Reglaget har tangentbordsfokus, men handtaget är det man tittar på, så ringen
+   ritas där. Klassen pekarfokus sätts av JS när fokus kom från ett tryck i
+   bilden; då ska ingen ring visas, för det är inte en tangentbordsanvändare och
+   webbläsaren kan inte se skillnaden själv.
+   Midnatt och inte teal: teal ger 2,8:1 mot ljus bakgrund, under 1.4.11:s 3:1. */
+.offer .o-fffig:not(.pekarfokus):has(.o-ffreglage:focus-visible) .o-ffhandtag{
+  box-shadow:0 3px 16px rgba(9,11,50,.32), 0 0 0 3px #fff, 0 0 0 6px var(--ink);
+}
+
+.offer .o-ffchip{
+  position:absolute; top:var(--s3); left:var(--s3); z-index:5;
+  display:inline-flex; align-items:center;
+  padding:var(--s2) var(--s4); border-radius:999px;
+  font-size:13px; font-weight:600; letter-spacing:.12em;
+  text-transform:uppercase; line-height:1; white-space:nowrap;
+  box-shadow:0 2px 10px rgba(9,11,50,.18);
+}
+.offer .o-ffchip--fore{
+  background:rgba(9,11,50,.82); color:#fff;
+  border:1px solid rgba(255,255,255,.16);
+  -webkit-backdrop-filter:blur(10px) saturate(150%); backdrop-filter:blur(10px) saturate(150%);
+}
+/* En plan färg. Källblocket bar vårgrönt #55ff9a (ägarbeslut 2026-08-17), men
+   det var den enda ytan på offerten som inte var teal eller midnatt.
+   ÄGARBESKED 2026-10-20: teal i stället.
+   --teal och inte --teal-ink: FÖRE-chippet är mörkt med vit text, och hela
+   poängen med EFTER är att det är det ljusa. Blir båda mörka skiljer bara
+   kulören dem åt, och då bär chipsen inte längre sin egen betydelse.
+   Midnatt på --teal mäter 6,4:1 på den renderade sidan, över AA för liten
+   text, så etiketten håller även mot en ljus bild bakom. */
+.offer .o-ffchip--efter{ right:var(--s3); left:auto; background:var(--teal); color:var(--ink); }
+
+/* Spåret sitter UNDER bilden så tummen aldrig skymmer sömmen man siktar på. */
+.offer .o-ffreglage{
+  display:block; width:100%; height:var(--z5); margin:0; padding:0;
+  background:transparent; border:0;
+  -webkit-appearance:none; appearance:none;
+  touch-action:pan-y pinch-zoom; cursor:ew-resize;
+  -webkit-tap-highlight-color:transparent;
+}
+.offer .o-ffreglage::-webkit-slider-runnable-track{
+  height:6px; border-radius:999px;
+  background:linear-gradient(90deg, rgba(9,11,50,.22) 0 var(--ff-pos), var(--teal-ink) var(--ff-pos) 100%);
+}
+.offer .o-ffreglage::-moz-range-track{
+  height:6px; border-radius:999px;
+  background:linear-gradient(90deg, rgba(9,11,50,.22) 0 var(--ff-pos), var(--teal-ink) var(--ff-pos) 100%);
+}
+.offer .o-ffreglage::-webkit-slider-thumb{
+  -webkit-appearance:none; width:26px; height:26px; margin-top:-10px;
+  border-radius:999px; background:#fff; border:2px solid var(--ink);
+  box-shadow:0 2px 6px rgba(9,11,50,.3); cursor:ew-resize;
+}
+.offer .o-ffreglage::-moz-range-thumb{
+  width:26px; height:26px; border-radius:999px; background:#fff;
+  border:2px solid var(--ink); box-shadow:0 2px 6px rgba(9,11,50,.3); cursor:ew-resize;
+}
+/* Två regler i stället för ett rakt :focus{outline:none}: en motor som inte kan
+   :focus-visible kastar bara den andra och behåller sin egen ring, i stället
+   för att stå utan ring alls. */
+.offer .o-fffig.pekarfokus .o-ffreglage:focus{ outline:none; }
+.offer .o-ffreglage:focus:not(:focus-visible){ outline:none; }
+.offer .o-ffreglage::-moz-focus-outer{ border:0; }
+.offer .o-fffig:not(.pekarfokus) .o-ffreglage:focus-visible{
+  outline:2px solid var(--teal-ink); outline-offset:4px; border-radius:999px;
+}
+
+/* Mjuk förflyttning vid tangentbord, tryck och engångsvinkningen. ALDRIG under
+   drag: då ska sömmen sitta i fingret. */
+.offer .o-fffig.mjuk{ transition:--ff-pos 260ms cubic-bezier(.22,.61,.36,1); }
+@media (prefers-reduced-motion: reduce){
+  .offer .o-fffig.mjuk{ transition:none; }
+}
+
+/* Spalten är 343 px på mobil och 544 till 684 px på desktop, så tröskeln ligger
+   på 520: två par bredvid varandra i varje desktopbredd, staplade på mobil.
+   520 är samma tröskel som .o-ptiles och .o-marken redan använder. */
+@container ff (min-width: 520px){
+  .offer .o-ffpar{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+
+/* Varje par mäter sin EGEN bredd. I två spalter är figuren 264 till 334 px och
+   får den kompakta geometrin; staplad på en bred mobil behåller den den stora. */
+@container fffig (max-width: 420px){
+  .offer .o-ffhandtag{ width:46px; height:46px; }
+  .offer .o-ffhandtag svg{ width:20px; height:20px; }
+  .offer .o-ffchip{ padding:var(--s2) var(--s3); letter-spacing:.08em; font-size:11px; }
+}
+
+/* UTAN JAVASCRIPT: bada bilderna staplade, ingen som och inget reglage. Originalet
+   lade de har reglerna i <noscript><style>, som bygg.py bygger ur META och inte
+   tar emot fritt CSS. .js-redo satts av skriptet synkront sist i body (samma
+   grind som systemet anvander for prisytorna), sa :not(.js-redo) ar sant exakt
+   nar sidan inte kan kora JS. Reglerna ar originalets ordagrant. */
+.offer:not(.js-redo) .o-ffram{position:static;aspect-ratio:auto;display:grid;gap:var(--s1);background:rgba(9,11,50,.09);cursor:auto;touch-action:auto;}
+.offer:not(.js-redo) .o-ffram::after{display:none;}
+.offer:not(.js-redo) .o-fflager{position:relative;inset:auto;}
+.offer:not(.js-redo) .o-fflager img{height:auto;aspect-ratio:4/3;}
+.offer:not(.js-redo) .o-fflager--fore{clip-path:none;grid-area:1/1;}
+.offer:not(.js-redo) .o-fflager--efter{grid-area:2/1;}
+.offer:not(.js-redo) .o-ffchiplager{grid-area:2/1;position:relative;inset:auto;clip-path:none;}
+.offer:not(.js-redo) .o-ffsom,.offer:not(.js-redo) .o-ffhandtag,.offer:not(.js-redo) .o-ffreglage{display:none;}
 
 /* --- ETT TYPSNITT PA SIDAN -----------------------------------------------
    testimonials.css satter 'Outfit' pa hela omdomesblocket och laddas EFTER
@@ -1739,31 +1861,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    variabeln --yta och tog bort pilen som systemet nu ger alla dropdowns.
    EN ruta i bada mallarna, definierad pa ETT stalle. */
 
-/* --- HUVUDSAKRINGEN ------------------------------------------------------ */
-.offer .o-huvudsakring{
-  margin-top:var(--rytm-block);padding:var(--s4);
-  display:flex;flex-direction:column;gap:var(--s2);
-}
-.offer .o-huvudsakring p{margin:0;}
-.offer .o-rad--smal{min-height:auto;padding:var(--s3) 0 0;border:0;background:none;}
-.offer .o-rad--smal:hover{border:0;background:none;}
-
-/* --- TILLAGGSRADEN UTAN BILD --------------------------------------------- */
-/* .o-rad bar min-height:176px i bas.html, och de 176 ar reserverade for
-   produktbilden i laddboxofferten. Elcentralens tillagg har ingen produktbild:
-   ett overspanningsskydd ar en modul i en rad, inte en vara med ett foto. Utan
-   modifieraren blir raden 176 px hog for tre korta textrader, alltsa 80 px tom
-   yta per rad och 480 px over listan. Uppmatt i webblasaren, inte gissat.
-   EN RADHOJD GALLER FORTFARANDE, bara en annan. 96 racker inte: raden ar
-   innehallsstyrd och Lock saknar specrad, sa listan matte 127 px fem ganger och
-   104 en gang. Tva hojder i en lista laser som tva sorters rad. 128 = 8 x 16,
-   alltsa pa spacingskalan, och haller alla sex lika hoga oavsett om specraden
-   finns. Den tomma raden far INTE fyllas med pahittad text for att jamna ut
-   rytmen: layouten loser layoutproblem, inte copyn.
-   Bas.html ar ororad: regeln bor har och galler bara elcentralen. */
-.offer .o-rad--utanbild{min-height:128px;}
-.offer .o-rad--utanbild .o-radtext{gap:2px;}
-
 /* --- TILLAGG UTAN PRIS --------------------------------------------------- */
 /* Sex av sex tillagg saknar Ampy-offertpris. De kan darfor inte andra summan,
    och de beter sig som solcellsbatteriet i laddboxofferten: en rad under
@@ -1779,6 +1876,32 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    renderade 36 px bred i en 96-ruta. Rutan ar portratt nu, som valen. */
 .offer .o-prodimg{aspect-ratio:300 / 790;height:auto;max-height:220px;}
 .offer .o-prodimg img{width:100%;height:100%;object-fit:contain;}
+
+/* --- PAKETKORTEN UNDER OVRIGA TJANSTER ----------------------------------
+   tjanstekort() ritar "Vi raknar pa ditt hus" i prisplatsen nar priset inte
+   gar att satta. Systemets .pprice ar flex:none, sa den langa etiketten tog
+   bredden och PRODUKTNAMNET brots: uppmatt 23 okt vid 375, "SAJ HS3" pa tva
+   rader. Etiketten ar inte ett pris: den far vika sig, i brodtextens vikt och
+   dampade farg, och namnet star kvar pa en rad. Ror bara korten i .o-tjanst;
+   elcentralens egna kort har alltid ett pris. */
+/* Namnet far inte krympa under sin egen text: systemets .pname ar flex:1 med
+   min-width:0, sa med nowrap rann "Enershare" in i etiketten (uppmatt 23 okt,
+   375: namnet 59 px brett for en 85 px text). min-width:max-content haller
+   namnet helt, och etiketten viker sig i stallet. */
+.offer .o-tjanst .o-pkg .pname{min-width:max-content;}
+.offer .o-tjanst .o-pkg .pname b{white-space:nowrap;}
+.offer .o-tjanst .pprice.saknas{flex:0 1 auto;min-width:0;text-align:right;font-size:15px;font-weight:500;color:var(--muted);line-height:1.3;}
+
+/* --- IKONRAD MED ANTALSVALJARE ------------------------------------------
+   Systemets omlaggning under 480 px (rutnat med 72 px bildspalt, valjaren
+   under namnet) placerar och krymper bara .o-radbild. En rad med .o-radikon
+   OCH antalsvaljare finns bara har (Extra dvargbrytare): plattan stod kvar pa
+   104 px i en 72 px spalt och valjaren hamnade en rad ner. Uppmatt 23 okt vid
+   375: raden 190 px dar de atta andra ar 176. Samma tva regler som systemet
+   ger bildrutan, speglade for ikonplattan. */
+@container (max-width: 480px){
+  .offer .o-rad:has(.o-radantal) > .o-radikon{grid-row:1 / 3;width:72px;height:72px;}
+}
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}

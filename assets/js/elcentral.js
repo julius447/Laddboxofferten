@@ -5,16 +5,8 @@
 
   var PKG={"5990": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp"}, "9990": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp"}, "14900": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp"}};
   var TAK={"5990": 7, "9990": 9, "14900": null};
-  var TRAPPA={"ellevio": {"namn": "Ellevio", "omrade": "Stockholms stad, Lidingö, Ekerö", "galler": "2026-06-01", "villa": {"16": 450, "20": 590, "25": 740, "35": 1130, "50": 1730, "63": 2480}, "lagenhetPlatt": 120, "plattUppTill": null, "enfas16UppTill": null, "effektavgift": false}, "vattenfall": {"namn": "Vattenfall Eldistribution", "omrade": "Huvudsta, Huddinge, Drefviken, Tyresö, Uppsala, stora delar av Mälardalen", "galler": "2026-01-01", "villa": {"16": 481, "20": 674, "25": 844, "35": 1158, "50": 1662, "63": 2240}, "lagenhetPlatt": null, "plattUppTill": null, "enfas16UppTill": 25, "effektavgift": false}, "nacka": {"namn": "Nacka Energi", "omrade": "Nacka", "galler": "2026-01-01", "villa": {"16": 276, "20": 444, "25": 549, "35": 1126, "50": 1408, "63": 1971}, "lagenhetPlatt": null, "plattUppTill": null, "enfas16UppTill": null, "effektavgift": true}, "seom": {"namn": "SEOM", "omrade": "Sollentuna", "galler": "2026-01-01", "villa": {"16": 148, "20": 148, "25": 148, "35": 265, "50": 373}, "lagenhetPlatt": null, "plattUppTill": 25, "enfas16UppTill": null, "effektavgift": true}, "boo": {"namn": "Boo Energi", "omrade": "Saltsjö-Boo", "galler": "2026-01-01", "villa": {"16": 333, "20": 379, "25": 440, "35": 580, "50": 794, "63": 980}, "lagenhetPlatt": null, "plattUppTill": null, "enfas16UppTill": null, "effektavgift": false}, "malarenergi": {"namn": "Mälarenergi Elnät", "omrade": "Västerås", "galler": "2026-07-01", "villa": {"16": 360, "20": 385, "25": 420, "35": 490, "50": 600, "63": 690}, "lagenhetPlatt": null, "plattUppTill": null, "enfas16UppTill": null, "effektavgift": false}, "eem": {"namn": "EEM Elnät", "omrade": "Eskilstuna", "galler": "2026-01-01", "villa": {"16": 405, "20": 536, "25": 654}, "lagenhetPlatt": null, "plattUppTill": null, "enfas16UppTill": null, "effektavgift": false}, "norrtalje": {"namn": "Norrtälje Energi", "omrade": "Norrtälje", "galler": "2025-04-01", "villa": {"20": 393, "25": 582, "35": 1067, "50": 1650, "63": 2332}, "lagenhetPlatt": null, "plattUppTill": null, "enfas16UppTill": null, "effektavgift": false}, "upplands": {"namn": "Upplands Energi", "omrade": "Uppland", "galler": "2025-01-01", "villa": {"16": 361, "20": 520, "25": 640, "35": 822, "50": 1150, "63": 1572}, "lagenhetPlatt": null, "plattUppTill": null, "enfas16UppTill": null, "effektavgift": false}};
-  var KAPACITET={"16": 11, "20": 14, "25": 17, "35": 24, "50": 35, "63": 44};
-  var EFFEKT_FINNS=false;
-  var KARENS=12;
-  var LEDTID=10;
-  var HS_TEST="Byt mätarsäkringarna ett steg ner och lev med det genom en period när huset drar som mest. Håller det byter vi bottenplattan sedan. Håller det inte sätter vi tillbaka dem, och du har inte bundit dig vid någonting.";
-  var HS_RIKTNING="A";
+  var TJANSTPOTT={"laddbox": "gt", "batteri": null};
   var GRANNRABATT=500;
-  var BOKARE="assets/img/felix.webp";
-  var ARBETSANDEL=0.8;
   var ORDNING = Object.keys(PKG).sort(function(a,b){ return a - b; });
 
   var offer = document.querySelector(".offer");
@@ -91,8 +83,55 @@
         variant: sel ? sel.options[sel.selectedIndex].textContent : null
       });
     });
+    return ut.concat(tjansteval());
+  }
+
+  /* ---- PAKETKORTEN UNDER OVRIGA TJANSTER --------------------------------
+     tjanstekort() i gemensamt/bitar.py ritar laddboxens och batteriets
+     paket som radiokort med name="<grupp>pkg", samma kort som originalmallens
+     laddboxkort. Raden i summeringen heter kortets rubrik plus paketets namn,
+     talet ar radions value, och potten kommer ur TJANSTPOTT som bygget
+     skriver ur paket.json (laddbox = gron teknik). En radio utan value ar en
+     intresseanmalan och hamnar under "Vi hor av oss om", som batteriet.
+     Fore 23 okt lag laddboxen i en rullgardin och batteriet i en kryssruta
+     utan bild; agarbeskedet samma dag kraver att paketen VISAS. */
+  var TJANSTEVAL = '.o-tjanst input[type="radio"]';
+  function tjansteval(){
+    var ut = [];
+    offer.querySelectorAll(TJANSTEVAL + ":checked").forEach(function(r){
+      var sek = r.closest(".o-tjanst"), kort = r.closest(".o-pkg");
+      var grupp = r.name.replace(/pkg$/, "");
+      var rub = sek ? sek.querySelector(".o-tjansttitel") : null;
+      var namn = rub ? rub.textContent.replace(/^\s*\d+\s*/, "").trim() : grupp;
+      var pn = kort ? kort.querySelector(".pname b") : null;
+      var v = r.hasAttribute("value") ? parseInt(r.value, 10) : NaN;
+      ut.push({
+        namn: namn + (pn ? ", " + pn.textContent.trim() : ""),
+        grupp: grupp, antal: 1,
+        styck: isNaN(v) ? null : v, belopp: isNaN(v) ? null : v,
+        pott: TJANSTPOTT[grupp] || "rot", variant: null
+      });
+    });
     return ut;
   }
+
+  /* En radiogrupp kan aldrig tommas av kunden. Agarkravet "gar att valja bort"
+     (originalmallen): ett andra tryck pa ett redan valt kort kryssar ur det.
+     Var kortet valt FORE trycket las pa etikettens pointerdown, for det ar
+     etiketten man trycker pa och inte den dolda radion. Avkrysset satts i
+     radions egen click, som ar det syntetiska klicket etiketten skickar
+     EFTER att webblasaren redan satt checked: att satta false dar star sig. */
+  (function(){
+    var varVald = null;
+    offer.querySelectorAll(".o-tjanst label.o-pkg").forEach(function(lbl){
+      var r = lbl.querySelector('input[type="radio"]');
+      if (!r) return;
+      lbl.addEventListener("pointerdown", function(){ varVald = r.checked ? r : null; }, true);
+      r.addEventListener("click", function(){
+        if (varVald === r) { r.checked = false; varVald = null; rakna(); }
+      });
+    });
+  })();
 
   function rakna(){
     /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
@@ -122,7 +161,7 @@
       $("prodName").textContent = "Elcentral + installation";
       $("prodSpec").textContent = p.passar;
       var bild = $("heroImg");
-      if (bild && p.bildsrc) { bild.src = p.bildsrc; bild.alt = "Hager elcentral, " + p.spec; }
+      if (bild && p.bildsrc) { bild.src = p.bildsrc; bild.alt = p.namn + " elcentral från Hager"; }
     }
     $("calcFinalEtikett").textContent = (summa > bas) ? "Ditt pris, med dina val" : "Ditt pris";
 
@@ -269,7 +308,7 @@
       var kryss = e.target.closest(".o-rad").querySelector("input.add");
       if (kryss && !kryss.checked) kryss.checked = true;
     }
-    if (e.target.matches('input[name="pkg"], input[name="tid"], .add, .intresse, [data-antal], .o-variant')) rakna();
+    if (e.target.matches('input[name="pkg"], input[name="tid"], .add, .intresse, [data-antal], .o-variant, ' + TJANSTEVAL)) rakna();
   });
   /* Antalsfaltet ligger inne i etiketten. Utan det har kryssar ett tryck i
      siffran ur hela raden, och kunden tappar valet nar hen andrar antalet. */
@@ -308,13 +347,267 @@
     $("fragaHint").textContent = "Skickad. Felix svarar på samma mejladress som offerten kom till.";
   });
 
-  /* ---- FORE OCH EFTER. Samma tva rader som laddboxofferten. ------------- */
+  /* ---- INFORMATIONSRUTORNA. Samma lyssnare som originalmallen (och
+     laddboxofferten, tail.html rad 898): data-info="tillagg" slar upp
+     #modalTillagg. preventDefault behovs eftersom knappen kan ligga inne i en
+     etikett. Nar dialogen stangs, med Escape eller med knappen, gar fokus
+     tillbaka till (i)-knappen som oppnade den: close-handelsen fyrar for bada
+     vagarna, och utan den star en tangentbordsanvandare pa body efter att ha
+     last klart. */
+  var infoOppnare = null;
+  document.querySelectorAll(".o-info").forEach(function(b){
+    b.addEventListener("click", function(e){
+      e.preventDefault(); e.stopPropagation();
+      var n = this.getAttribute("data-info");
+      var m = document.getElementById("modal" + n.charAt(0).toUpperCase() + n.slice(1));
+      if (m && m.showModal) {
+        infoOppnare = this;
+        /* Knappen far fokus INNAN dialogen oppnas. Ett musklick ger inte
+           fokus i Safari, och Chrome aterstaller fokus till "det forra
+           elementet" EFTER close-handelsen, sa en refokus i handlern blev
+           overkord: uppmatt 23 okt, fokus pa body nar knappen inte var
+           fokuserad fore klicket. Med fokus satt har pekar bada vagarna pa
+           knappen. */
+        try { this.focus({ preventScroll: true }); } catch (fel) { try { this.focus(); } catch (f2) {} }
+        m.showModal();
+      }
+    });
+  });
+  document.querySelectorAll(".o-modal").forEach(function(m){
+    m.addEventListener("close", function(){
+      var k = infoOppnare; infoOppnare = null;
+      if (!k) return;
+      /* Nasta tick: webblasarens egen aterstallning kor efter den har
+         handelsen, och den som fokuserar sist vinner. */
+      setTimeout(function(){ try { k.focus({ preventScroll: true }); } catch (fel) { k.focus(); } }, 0);
+    });
+  });
+
+/* ---- FÖRE OCH EFTER ---------------------------------------------------
+     Reglaget är en enhancement, hämtad 1:1 ur julius447/f-re-efter-CRO-
+     (dist/03-fore-efter.js). Utan den här koden står blocket kvar med båda
+     bilderna i DOM och sömmen på 50 procent: inget innehåll går förlorat.
+
+     PEKARKONTRAKTET (källans kodgranskning 2026-08-17, tre bevisade defekter):
+     ett drag ägs av EN pekare, identifierad med pointerId, och allt annat
+     ignoreras. En vilande tumme kapade sömmen; att lyfta det andra fingret
+     frös draget; pointerleave avbröt draget vid ramkanten. Därför: andra
+     fingret ignoreras helt, bara ägarens pointerup släpper, och pointerleave
+     lyssnas inte på alls.
+
+     SCROLLKONTRAKTET (källans granskning 2026-09-17, bevisat på iOS och
+     Android): ett finger som landar på fotot är INTE en interaktion förrän det
+     rört sig i sidled. Annars ryckte sömmen vid varje vanlig vertikal scroll
+     som råkade börja på bilden. Touch och penna bekräftas först efter 6 px i
+     sidled OCH mer sidled än höjdled; lyfts fingret utan rörelse var det ett
+     tryck och sömmen placeras där. Musen har inget scrollproblem och hoppar
+     direkt.
+
+     Blockets mätning (dataLayer-pushen) är inte med: offerten har varken
+     dataLayer eller samtyckeslager, och en mätkrok som aldrig kan brinna är
+     död kod. */
   (function(){
-    var r = $("feReglage");
-    if (!r) return;
-    var box = r.closest(".o-fe");
-    r.addEventListener("input", function(){ box.style.setProperty("--fe", this.value); });
+    var VILOLAGE = 50, STEG_PIL = 5, STEG_SIDA = 10, TROSKEL_PX = 6;
+
+    /* iOS: ett tryck som stoppar en pågående rullning är inget tryck. EN
+       lyssnare för sidan, inte en per figur. */
+    var sistScrollad = 0;
+    window.addEventListener("scroll", function(){ sistScrollad = Date.now(); }, { passive: true });
+
+    function initiera(figur){
+      var ram = figur.querySelector(".o-ffram");
+      var reglage = figur.querySelector(".o-ffreglage");
+      if (!ram || !reglage) return;
+
+      var aktivPekare = null, vidrord = false, vinkningPagar = false;
+      var sistAviserat = null, vantandeX = null, ramad = 0;
+      var startX = 0, startY = 0, bekraftat = false;
+
+      function satt(procent, egenInteraktion){
+        if (!isFinite(procent)) procent = VILOLAGE;
+        procent = Math.max(0, Math.min(100, procent));
+        var avrundat = Math.round(procent);
+        figur.style.setProperty("--ff-pos", procent + "%");
+        if (Number(reglage.value) !== avrundat) reglage.value = String(avrundat);
+        /* Skärmläsaren ska höra vad sömmen betyder, inte ett råtal, och bara
+           när talet faktiskt ändrats: annars blir det uppläsningsspam. */
+        if (avrundat !== sistAviserat){
+          sistAviserat = avrundat;
+          reglage.setAttribute("aria-valuetext", "Efter syns till " + (100 - avrundat) + " procent");
+        }
+        if (egenInteraktion && !vidrord){
+          vidrord = true;
+          avbrytVinkning();
+        }
+      }
+
+      function mjukt(pa){ figur.classList.toggle("mjuk", !!pa); }
+
+      function procentAv(klientX){
+        var r = ram.getBoundingClientRect();
+        if (!r.width) return VILOLAGE;
+        return ((klientX - r.left) / r.width) * 100;
+      }
+
+      /* rAF-koalescering: pekarhändelser kan komma tätare än skärmen ritar, så
+         sömmen skrivs högst en gång per bildruta. Rutan hämtas i callbacken,
+         så ett drag överlever att sidan scrollar under fingret. */
+      function schemalagg(klientX){
+        vantandeX = klientX;
+        if (ramad) return;
+        ramad = (window.requestAnimationFrame || function(f){ return setTimeout(f, 16); })(function(){
+          ramad = 0;
+          if (vantandeX === null) return;
+          satt(procentAv(vantandeX), true);
+        });
+      }
+
+      function slappDraget(){
+        if (aktivPekare === null) return;
+        aktivPekare = null; bekraftat = false; vantandeX = null;
+      }
+
+      /* Bältet till hängslena i CSS: webbläsaren får aldrig starta sin egen
+         drag-and-drop mitt i en jämförelse. */
+      ram.addEventListener("dragstart", function(e){ e.preventDefault(); });
+
+      /* Draget är bekräftat: NU tar reglaget fokus och sömmen får följa
+         fingret. preventScroll så sidan inte hoppar när fokus flyttas.
+         Klassen talar om för CSS:en att fokus kom från en pekare. */
+      function bekrafta(){
+        if (bekraftat) return;
+        bekraftat = true;
+        figur.classList.add("pekarfokus");
+        try { reglage.focus({ preventScroll: true }); } catch (fel) { /* äldre motorer */ }
+        mjukt(false);
+      }
+
+      ram.addEventListener("pointerdown", function(e){
+        if (aktivPekare !== null) return;                      // ett drag åt gången
+        if (e.button !== undefined && e.button !== 0) return;  // bara primär knapp
+        aktivPekare = e.pointerId;
+        startX = e.clientX; startY = e.clientY; bekraftat = false;
+        if (ram.setPointerCapture){
+          try { ram.setPointerCapture(e.pointerId); } catch (fel) { /* strunt samma */ }
+        }
+        if (e.pointerType === "mouse"){
+          e.preventDefault();          // ingen textmarkering, ingen bilddragning
+          bekrafta();                  // musen kan inte scrolla med knappen nere
+          satt(procentAv(e.clientX), true);
+        }
+        /* Touch och penna: vi rör ingenting ännu. Går fingret uppåt eller nedåt
+           tar webbläsaren över (touch-action: pan-y) och skickar pointercancel. */
+      });
+
+      ram.addEventListener("pointermove", function(e){
+        if (e.pointerId !== aktivPekare) return;               // fel finger
+        if (e.pointerType === "mouse" && e.buttons === 0){ slappDraget(); return; }
+        if (!bekraftat){
+          var dx = e.clientX - startX, dy = e.clientY - startY;
+          if (Math.abs(dx) <= TROSKEL_PX) return;              // för lite för att veta
+          if (Math.abs(dx) <= Math.abs(dy) * 1.5) return;      // mer höjdled än sidled
+          bekrafta();
+        }
+        schemalagg(e.clientX);
+      });
+
+      ram.addEventListener("pointerup", function(e){
+        if (e.pointerId !== aktivPekare) return;
+        if (!bekraftat && Date.now() - sistScrollad > 120){
+          bekrafta();                  // ett rent tryck: placera sömmen där fingret var
+          satt(procentAv(e.clientX), true);
+        }
+        slappDraget();
+      });
+
+      ["pointercancel", "lostpointercapture"].forEach(function(typ){
+        ram.addEventListener(typ, function(e){
+          if (e.pointerId === aktivPekare) slappDraget();      // bara släpp, aldrig flytta
+        });
+      });
+
+      /* Skyddsnät: tappar vi ändå slutet av ett drag, fönstret förlorar fokus
+         eller fliken byts, ska sömmen inte fastna i fingret. */
+      window.addEventListener("blur", slappDraget);
+      window.addEventListener("pointerup", function(e){
+        if (e.pointerId === aktivPekare) slappDraget();
+      });
+      window.addEventListener("pointercancel", function(e){
+        if (e.pointerId === aktivPekare) slappDraget();
+      });
+
+      // Trycker man direkt på reglaget kom fokus också från en pekare.
+      reglage.addEventListener("pointerdown", function(){ figur.classList.add("pekarfokus"); });
+      // Första tangenttrycket: nu ÄR det en tangentbordsanvändare, visa ringen.
+      reglage.addEventListener("keydown", function(){ figur.classList.remove("pekarfokus"); }, true);
+      reglage.addEventListener("blur", function(){ figur.classList.remove("pekarfokus"); });
+
+      reglage.addEventListener("input", function(){ mjukt(false); satt(Number(reglage.value), true); });
+
+      reglage.addEventListener("keydown", function(e){
+        var v = Number(reglage.value), traff = true;
+        switch (e.key){
+          case "ArrowLeft":
+          case "ArrowDown":  v -= STEG_PIL; break;
+          case "ArrowRight":
+          case "ArrowUp":    v += STEG_PIL; break;
+          case "PageDown":   v -= STEG_SIDA; break;
+          case "PageUp":     v += STEG_SIDA; break;
+          case "Home":       v = 0; break;
+          case "End":        v = 100; break;
+          default: traff = false;
+        }
+        if (!traff) return;
+        e.preventDefault();
+        mjukt(true);                   // tangentbord får glida, inte hoppa
+        satt(v, true);
+      });
+
+      /* Engångsvinkningen lär ut mekaniken när paret kommer in i vyn. Den
+         respekterar prefers-reduced-motion och avbryts av minsta egen
+         interaktion. */
+      var vinkningsTimers = [];
+      function avbrytVinkning(){
+        vinkningsTimers.forEach(clearTimeout);
+        vinkningsTimers = [];
+        if (vinkningPagar){ vinkningPagar = false; mjukt(false); }
+      }
+      function vinka(){
+        if (vidrord || vinkningPagar) return;
+        if (document.activeElement === reglage) return;   // rör aldrig ett reglage någon står på
+        if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        /* Utan @property går --ff-pos inte att animera: vinkningen blir två
+           hopp i stället för en glidning. Då hoppar vi över den. */
+        if (!(window.CSS && typeof CSS.registerProperty === "function")) return;
+        vinkningPagar = true;
+        mjukt(true);
+        satt(VILOLAGE + 13, false);
+        vinkningsTimers.push(setTimeout(function(){ satt(VILOLAGE, false); }, 460));
+        vinkningsTimers.push(setTimeout(function(){ vinkningPagar = false; mjukt(false); }, 760));
+      }
+      if ("IntersectionObserver" in window){
+        var blick = new IntersectionObserver(function(poster){
+          poster.forEach(function(post){
+            if (post.isIntersecting && post.intersectionRatio >= 0.55){
+              blick.disconnect();
+              setTimeout(vinka, 420);
+            }
+          });
+        }, { threshold: [0.55] });
+        blick.observe(ram);
+      }
+
+      /* Startläget läses ur reglaget, inte ur konstanten: webbläsare återställer
+         formulärvärden vid mjuk omladdning och bakåtnavigering, och då ska
+         sömmen hamna där tummen står. */
+      var start = parseFloat(reglage.value);
+      satt(isFinite(start) ? start : VILOLAGE, false);
+    }
+
+    var figurer = document.querySelectorAll(".o-fffig");
+    for (var i = 0; i < figurer.length; i++) initiera(figurer[i]);
   })();
+
 
   /* ---- EFTERSPELET -------------------------------------------------------
      Accept- och avbonsskarmarna ar samma som laddboxoffertens, hamtade ur den
@@ -357,238 +650,10 @@
   var avSend = $("avbojSend");
   if (avSend) avSend.addEventListener("click", function(){ visaSkarm("skarmAvboj"); });
 
-  /* ===== HUVUDSAKRINGEN ===================================================
-     Eget steg, som vagg-eller-stolpe i laddboxofferten.
-
-     TRE GRINDAR, och alla tre ar sanningar och inte designval:
-
-     1. BESPARINGEN RAKNAS, den pastas inte. Trappan kommer ur natbolag.json
-        och ar normaliserad till kr per manad inkl moms i bygget. Ett belopp far
-        aldrig skrivas i copyn: andras en avgift ska en fil andras.
-
-     2. NOLLFALLET AR HUVUDFALLET. Fyra fall ger exakt noll: Ellevio lagenhet
-        har platt avgift, SEOM har platt pris for hela 16 till 25 A, Vattenfall
-        enfas upp till 25 A betalar 16 A-priset, och den som redan ligger
-        lagst kan inte ga ner. Ett block som visar en besparing dar tappar
-        fortroendet pa sidans enda stalle dar vi pastar nagot om kundens egen
-        faktura. Noll star som ett BESKED, inte som ett misslyckande.
-
-     3. EFFEKTBERAKNINGEN AR DOLD tills effekttalen finns. Att summera
-        markeffekter rakt av ger ett tal som ar for hogt, och ett gissat
-        effekttal ar ett rad om nagon annans huvudsakring. Apparatlistan
-        visas inte forran EFFEKT_FINNS ar sant. */
-
-  var HS_TRAPPA_NIVAER = [16, 20, 25, 35, 50, 63];
-
-  function hsNastaNer(amp){
-    var i = HS_TRAPPA_NIVAER.indexOf(amp);
-    return (i > 0) ? HS_TRAPPA_NIVAER[i - 1] : null;
-  }
-
-  /* Returnerar ett besked, aldrig ett tal utan forklaring. */
-  function hsBesked(amp, bolagId, boende, enfas){
-    var t = TRAPPA[bolagId];
-    if (!t) return null;
-    if (!amp || HS_TRAPPA_NIVAER.indexOf(amp) < 0) {
-      return { typ: "okant", text: "Vanliga storlekar är 16, 20, 25, 35, 50 och 63 ampere. "
-        + "Står det något annat på din mätartavla tittar vi på den tillsammans." };
-    }
-    if (boende === "lagenhet" && t.lagenhetPlatt != null) {
-      return { typ: "noll", text: "Hos " + t.namn + " är lägenhetsavgiften densamma oavsett säkring. "
-        + "En sänkning ger dig <b>ingenting</b>, så vi föreslår den inte." };
-    }
-    var ner = hsNastaNer(amp);
-    if (ner == null) {
-      return { typ: "noll", text: amp + " A är den lägsta vanliga storleken. "
-        + "Det finns inget steg ner, och det är ett gott tecken: du betalar redan minst." };
-    }
-    if (t.plattUppTill && amp <= t.plattUppTill && ner <= t.plattUppTill) {
-      return { typ: "noll", text: "Hos " + t.namn + " kostar 16 till " + t.plattUppTill
-        + " A exakt lika mycket. Du betalar alltså redan som om du hade " + ner
-        + " A, och en sänkning ger <b>ingenting</b>." };
-    }
-    if (enfas && t.enfas16UppTill && amp <= t.enfas16UppTill) {
-      return { typ: "noll", text: "Med enfas och " + amp + " A betalar du redan 16 A-priset hos "
-        + t.namn + ". En sänkning ger <b>ingenting</b>." };
-    }
-    var fran = t.villa[String(amp)], till = t.villa[String(ner)];
-    if (fran == null || till == null) {
-      return { typ: "okant", text: "Vi har inte " + t.namn + "s pris för " + amp
-        + " A inläst. Felix kontrollerar det och återkommer." };
-    }
-    var diff = fran - till;
-    if (diff <= 0) {
-      return { typ: "noll", text: "Hos " + t.namn + " kostar " + ner + " A inte mindre än "
-        + amp + " A. En sänkning ger <b>ingenting</b>." };
-    }
-    return { typ: "besparing", kr: diff, fran: amp, till: ner, bolag: t.namn,
-      effektavgift: t.effektavgift };
-  }
-
-  /* ---- TRE RIKTNINGAR -----------------------------------------------------
-     En mall i DOM:en at gangen, sa id:n aldrig dubbleras. Vaxlaren hor till
-     granskningen. Besked-funktionen ar DELAD: alla tre far samma svar, och det
-     ar presentationen som skiljer dem at, inte sanningen. */
-  var NIVAER = [63, 50, 35, 25, 20, 16];
-  var hsVariant = "A", hsSettResultat = false, hsSettNoll = false, hsAngiven = false;
-
-  function hsLas(){
-    var a = $("hsAmp"), b = $("hsBolag"), bo = $("hsBoende"), f = $("hsEnfas");
-    if (!a) return null;
-    var amp = parseInt(a.value, 10);
-    var t = TRAPPA[b.value];
-    /* Fasfragan stalls BARA nar den andrar svaret. En ruta som aldrig spelar
-       roll kostar konvertering gratis. */
-    var behovs = !!(t && t.enfas16UppTill && amp && amp <= t.enfas16UppTill && bo.value === "villa");
-    var svep = f && (f.closest(".hsA__f") || f.closest(".hsC__f") || f.closest(".hsB__fas"));
-    if (svep) svep.hidden = !behovs;
-    return { amp: amp, bolag: b.value, boende: bo.value, enfas: behovs && f && f.value === "1" };
-  }
-
-  function hsVagarHtml(b){
-    return '<div class="o-card o-hs__vag"><b class="o-hs__vagtitel">Prova först, byt sen</b>'
-      + '<p class="t-small" style="color:var(--muted);">' + HS_TEST + "</p>"
-      + '<label class="o-rad o-rad--utanbild o-rad--naken">'
-      + '<input type="checkbox" class="intresse" data-grupp="hs-test" data-name="Prova en lägre säkring först">'
-      + '<span class="mark sq"></span><span class="o-radtext">'
-      + '<span class="o-radnamn">Byt mätarsäkringarna åt mig</span>'
-      + '<span class="o-radspec">pris saknas</span></span></label></div>'
-      + '<div class="o-card o-hs__vag"><b class="o-hs__vagtitel">Sänk på riktigt</b>'
-      + '<p class="t-small" style="color:var(--muted);">Vi byter bottenplattan och anmäler till '
-      + "nätägaren. Det kostar ingenting hos nätbolaget och börjar gälla efter " + LEDTID
-      + " dagar. <b>Sedan måste den sitta kvar i " + KARENS + " månader</b> innan den får ändras "
-      + "igen, så det är värt att vara säker först.</p>"
-      + '<label class="o-rad o-rad--utanbild o-rad--naken">'
-      + '<input type="checkbox" class="intresse" data-grupp="hs-sank" data-name="Sänk huvudsäkringen">'
-      + '<span class="mark sq"></span><span class="o-radtext">'
-      + '<span class="o-radnamn">Sänk min huvudsäkring</span>'
-      + '<span class="o-radspec">pris saknas</span></span></label></div>';
-  }
-
-  /* --- A. TRAPPAN. Mekanismen ritad: du betalar for ett steg du star pa. --- */
-  function hsRitaA(v, b){
-    var t = TRAPPA[v.bolag], lista = $("hsTrappa"), svar = $("hsSvar");
-    if (!lista) return;
-    var html = "";
-    NIVAER.forEach(function(n){
-      var pris = t.villa[String(n)];
-      if (pris == null) return;
-      var kl = "hsA__steg", lapp = "";
-      if (v.amp === n) { kl += " nu"; lapp = '<span class="hsA__lapp">Du är här</span>'; }
-      else if (b.typ === "besparing" && b.till === n) { kl += " mal"; lapp = '<span class="hsA__lapp">minus ' + kr(b.kr) + "</span>"; }
-      else if (v.amp && n > v.amp) kl += " over";
-      html += '<li class="' + kl + '"><b>' + n + " A</b>" + lapp
-        + '<span class="hsA__kr">' + kr(pris) + "/mån</span></li>";
-    });
-    lista.innerHTML = html;
-    /* Trappan visar sjalv besparingen, sa svarsraden behovs bara nar det INTE
-       finns nagon. Och den satts bara nar det finns text: ett tomt lage gav
-       tidigare innerHTML = undefined, som star kvar som ordet "undefined". */
-    var harText = (b.typ !== "besparing") && !!b.text;
-    svar.hidden = !harText;
-    svar.innerHTML = harText ? b.text : "";
-  }
-
-  /* --- B. BESKEDET. Ett svar fran Felix, inte ett resultat. -------------- */
-  function hsRitaB(v, b){
-    var svar = $("hsSvar");
-    if (!svar) return;
-    var text = (b.typ === "besparing")
-      ? "Du betalar <b>" + kr(TRAPPA[v.bolag].villa[String(b.fran)]) + " i månaden</b> för din "
-        + b.fran + " A hos " + b.bolag + ". Går du ner till " + b.till + " A blir det <b>"
-        + kr(b.kr) + " mindre</b> varje månad. Jag räknar igenom om huset klarar det innan vi gör något."
-      : b.text;
-    svar.hidden = false;
-    svar.innerHTML = '<span class="hsB__foto"><img src="' + BOKARE + '" alt="" width="192" height="192"></span>'
-      + '<div class="hsB__text"><p>' + text + "</p>"
-      + '<figcaption class="hsB__namn">Felix C, har räknat på ditt jobb</figcaption></div>';
-  }
-
-  /* --- C. KVITTOT. Kundens egen rad pa natfakturan. ----------------------- */
-  function hsRitaC(v, b){
-    var ruta = $("hsSvar");
-    if (!ruta) return;
-    ruta.hidden = false;
-    if (b.typ !== "besparing") { ruta.innerHTML = '<p class="hsC__noll">' + b.text + "</p>"; return; }
-    var t = TRAPPA[v.bolag];
-    ruta.innerHTML =
-      '<div class="hsC__rad"><span>Din fasta nätavgift i dag, ' + b.fran + " A</span>"
-      + '<span class="hsC__belopp">' + kr(t.villa[String(b.fran)]) + "/mån</span></div>"
-      + '<div class="hsC__rad"><span>Samma rad med ' + b.till + " A</span>"
-      + '<span class="hsC__belopp">' + kr(t.villa[String(b.till)]) + "/mån</span></div>"
-      + '<hr class="hsC__strek">'
-      + '<div class="hsC__diff"><span>Skillnad</span><span class="hsC__tal">' + kr(b.kr) + "</span></div>"
-      + '<p class="hsC__not">Per månad, inklusive moms, hos ' + b.bolag
-      + ". Överföringsavgiften per kWh är densamma oavsett säkring.</p>";
-  }
-
-  function hsRita(){
-    var v = hsLas();
-    if (!v) return;
-    var svar = $("hsSvar"), vagar = $("hsVagar");
-    if (!v.amp) { if (svar) svar.hidden = true; if (vagar) vagar.hidden = true;
-      if (hsVariant === "A") hsRitaA(v, { typ: "tom" }); return; }
-
-    var b = hsBesked(v.amp, v.bolag, v.boende, v.enfas);
-    if (hsVariant === "A") hsRitaA(v, b);
-    else if (hsVariant === "B") hsRitaB(v, b);
-    else hsRitaC(v, b);
-
-    if (vagar) {
-      vagar.hidden = (b.typ !== "besparing");
-      if (b.typ === "besparing" && !vagar.innerHTML) vagar.innerHTML = hsVagarHtml(b);
-    }
-    if (b.typ === "besparing" && !hsSettResultat) {
-      hsSettResultat = true; hsHandelse("huvudsakring_resultat_sett", { kr: b.kr, variant: hsVariant });
-    }
-    if (b.typ === "noll" && !hsSettNoll) {
-      hsSettNoll = true; hsHandelse("huvudsakring_nollbesparing_visad", { amp: v.amp, bolag: v.bolag });
-    }
-  }
-
-  function hsVisa(bokstav){
-    var yta = $("hsYta"), mall = document.getElementById("hsVariant" + bokstav);
-    if (!yta || !mall) return;
-    hsVariant = bokstav;
-    yta.innerHTML = "";
-    yta.appendChild(mall.content.cloneNode(true));
-    var a = $("hsAmp");
-    if (a) {
-      ["input", "change"].forEach(function(e){
-        a.addEventListener(e, function(){
-          if (!hsAngiven && parseInt(a.value, 10)) {
-            hsAngiven = true;
-            hsHandelse("huvudsakring_angiven", { amp: parseInt(a.value, 10) });
-          }
-          hsRita();
-        });
-      });
-    }
-    ["hsBolag", "hsBoende", "hsEnfas"].forEach(function(id){
-      var e = $(id); if (e) e.addEventListener("change", hsRita);
-    });
-    hsRita();
-  }
-
-  /* ---- HANDELSERNA. Samtyckesgrindade, koade tills kontraktet finns. ----- */
-  var HS_KO = [];
-  function hsHandelse(namn, data){
-    HS_KO.push({ h: namn, d: data || {}, t: Date.now() });
-    window.ampyHandelser = HS_KO;
-  }
-
-  /* RIKTNINGEN KOMMER UR DATAT, INTE UR EN VAXLARE PA SIDAN.
-     Fram till 23 okt hangde hela huvudsakringsblocket pa att en A/B/C-vaxlare
-     fanns i markupen: utan den anropades hsVisa aldrig och #hsYta stod tom.
-     Vaxlaren var samtidigt synlig for kunden, 44 px hog, och klicken bytte
-     faktiskt block. Nu satter bygget in BARA den valda mallen och HS_RIKTNING
-     sager vilken, sa blocket renderas utan att nagot gar att vaxla. */
-  if ($("hsYta")) hsVisa(HS_RIKTNING);
-  offer.addEventListener("change", function(e){
-    if (e.target.matches('.add[data-grupp="laddbox"]')) hsRita();
-    if (e.target.matches('.intresse[data-grupp^="hs-"]') && e.target.checked)
-      hsHandelse("huvudsakring_intresse", { val: e.target.getAttribute("data-grupp") });
-  });
+  /* HUVUDSAKRINGEN AR INTE ETT EGET STEG. Agarsvar 23 okt: 'Ta bort helt och
+     klona vad vi gjorde i original pa elcentral mallen.' Den ar en kopbar rad
+     bland tillaggen (paket.json _tillagg, grupp huvudsakring) och behover darfor
+     ingen egen logik: poster() laser den som vilken rad som helst. */
 
   /* GRANNRABATTEN LIGGER I DET DELADE BLOCKET, INTE HAR.
      Den har kopian hade fyra odeklarerade variabler: kop, f, skick, mej och

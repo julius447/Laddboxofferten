@@ -799,7 +799,12 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-ref-falt{display:flex;flex-direction:column;gap:var(--s2);}
 .offer .o-ref-etikett{font-size:15px;font-weight:600;color:var(--ink);}
 .offer .o-ref-rad{display:flex;gap:var(--s2);}
-.offer .o-ref-rad input{flex:1;min-width:0;background:#fff;border:1px solid var(--kant-kontroll);
+/* GOLVET LAG I EN SELEKTOR SOM FALTET HADE FLYTTAT UT UR. Mejlfaltet bor i
+   .o-chips sedan chipsen infordes, medan min-height:var(--z5) stod kvar pa
+   .o-ref-rad input. Resultatet var ett 31 px hogt faltet i ett hus dar 44
+   ar golvet, i tre mallar samtidigt, och audit.js sag det inte for att dess
+   selektorlista inte raknade input alls. Bada platserna namns nu. */
+.offer .o-ref-rad input,.offer .o-chips input{flex:1;min-width:0;background:#fff;border:1px solid var(--kant-kontroll);
   border-radius:var(--r1);padding:0 var(--s3);min-height:var(--z5);
   font-family:inherit;font-size:15px;font-weight:300;color:var(--body);}
 .offer .o-ref-rad input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:1px;}
@@ -1135,7 +1140,12 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    en spalt på 286. Utan en rullande behållare försvann 41 px av
    Premiumkolumnen, och folden klipper med overflow:hidden. */
 .o-fold .body:has(.o-cmp){overflow-x:auto;}
-.o-cmp{min-width:327px;}
+/* GOLVET VAR ETT TAL RITAT FOR EN TABELL. 327 px kom ur elcentralens fyra
+   kolumner (etikett plus tre storlekar). Batterimallens tabell har tre,
+   behover darfor inte 327, och fick 18 px sidledes rullning inne i folden
+   for ett golv som inte var dess. Golvet hor till KOLUMNEN, inte till
+   tabellen: da raknar tabellen ut sin egen bredd ur hur manga den har. */
+.o-cmp th:not(:first-child),.o-cmp td:not(:first-child){min-width:5.5ch;}
 
 /* Se allt som ingår bär samma listkomponent som paketkorten, .o-ingar.
    Bocken var ritad med två kantlinjer: 6 x 3 px roterade 45 grader inuti en
@@ -1276,6 +1286,114 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-reasons input:checked::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--teal-ink);}
 .offer .o-reasons input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
 .offer .o-optdesc:empty{display:none;}
+/* REMSAN, DELAD. Lag i offerter/laddbox/stil.css, och darfor ritades
+   bitar.tjanstekort()s remsa som naken text over kortkanten pa de fyra
+   andra mallarna. Elcentralsbygget sa [GAP] och hoppade remsan helt, med
+   skalet utskrivet i loggen, vilket var ratt gjort: en remsa utan regel ar
+   ett designfel, inte ett tomrum. Nu bor regeln dar korten fods. */
+/* Remsan satt ovanpå hjältebilden. Bilden är borta, så remsan tar sin egen
+   rad överst i kortet, som AG1:s BEST VALUE. */
+.o-pkg .ribbon{display:flex;align-items:center;gap:var(--s2);background:var(--teal-ink);color:#fff;
+  padding:var(--s2) var(--s5);font-size:13px;font-weight:600;letter-spacing:.01em;line-height:1.4;}
+.o-pkg .ribbon svg{width:14px;height:14px;flex:none;color:#fff;}
+/* TVÅ DOMAR PÅ TRE KORT TAR UT VARANDRA. "Vår rekommendation" och "Bäst
+   värde" sa båda välj mig, i samma teal, och då säger ingen av dem något.
+   En remsa är en dom och bär husets teal. Den andra är ett FAKTUM och bär
+   ikonspråkets blå: Premium bär 22 kW, den högsta laddeffekt sidan säljer,
+   och är det enda paketet som gör det. Kontrollerat i bygget. Ett faktum
+   säljer det dyra paketet bättre än ett andra beröm.
+   Remsan hette "Allt ingår" till 19 okt, då ägaren döpte om den till
+   "Maximal prestanda". Bocken följde med namnet: en bock betyder ingår, och
+   under de nya orden hade den sagt fel sak. Blixten är husets egen geometri
+   och betyder effekt. */
+.o-pkg .ribbon.fakta{background:var(--steg-bla);color:var(--ink);}
+.o-pkg .ribbon.fakta svg{color:var(--ikonglyf);}
+
+/* TJANSTEKORTETS BILDRUTA, DELAD. Matten ar raknade ur duken och valjs
+   med :has() pa de kanoniska gruppnamnen, sa de galler varje mall som
+   fodar ett kort ur bitar.tjanstekort(). De lag i laddboxens egen
+   stil.css och nadde darfor en av fem sidor. */
+/* BILDRUTAN HAR EN HOJD, INTE EN MIN-HEIGHT.
+   Systemet satter min-height:160 och lamnar bilden fri upp till 180. Da vaxer
+   rutan nar bilden landar, och tre kort i rad hoppar olika mycket. En hojd
+   reserverar plats fore laddningen, och eftersom tjanstekort() inte satter
+   width/height pa bilden ar det har det enda stallet som kan gora det.
+   Hojden ar bildens egen plus rutans 2 x 16 px padding, per sektion:
+     elcentral  Hager-bilderna ar 300 x 790, alltsa portratt. Vid 200 px hojd
+                renderas de 76 px breda, mot 72 x 168 i den gamla radformen.
+                Alla tre delar samma duk, sa storleksordningen ar sann.
+     batteri    420 x 420, kvadrat. 180 px ger 180 x 180.
+   :has() och inte en klass: tjanstekort() ager sectionens klassattribut, och
+   en delad funktion ska inte bara fem mallars varianter. */
+.offer .o-tjanst .o-pkg .pbild{min-height:0;
+  width:var(--tjbredd,204px);height:var(--tjbild,212px);max-width:100%;}
+.offer .o-tjanst .o-pkg .pbild img{max-height:100%;}
+/* BÅDA MÅTTEN ÄR RÄKNADE UR DUKEN, inte valda.
+   Rutan bär 2 x 16 px padding i höjd och 2 x 12 i bredd (--s4 / --s3), så
+   innermåttet är rutan minus det.
+     elcentral  duk 300 x 790. Höjd 232 - 32 = 200 innerhöjd, och
+                200 x 300/790 = 75,9 px bred. Ruta 76 + 24 = 100.
+     batteri    duk 420 x 420. Höjd 212 - 32 = 180, kvadrat, alltså 180 bred.
+                Ruta 180 + 24 = 204.
+   Första versionen satte bara höjden och lät bredden bli width:max-content.
+   Det gav rätt mått EFTER att bilden landat, men före det har en <img> utan
+   width-attribut ingen egen bredd, så rutan var 24 px bred och växte till 100
+   när bilden kom. tjanstekort() sätter inga width/height på bilden, och det är
+   delat av fem mallar, så reservationen måste ligga här. */
+.offer .o-tjanst:has(input[name="elcentralpkg"]){--tjbild:232px;--tjbredd:100px;}
+.offer .o-tjanst:has(input[name="batteripkg"]){--tjbild:212px;--tjbredd:204px;}
+
+/* TJANSTEGRUPPEN OCH VAGEN TILLBAKA, DELADE. En radiogrupp gar inte att
+   avmarkera med musen, sa varje mall med korsforsaljningskort behover
+   knappen. Den lag i batterimallens egen stil.css. */
+.offer .o-tjanstgrupp{display:flex;flex-direction:column;gap:var(--rytm-block);}
+
+/* --- VAGEN TILLBAKA UR ETT PAKETKORT -----------------------------------------
+   Tre radioknappar gar att valja mellan men inte att avmarkera med musen, sa
+   utan den har knappen kan kunden lagga till en laddbox och aldrig ta bort
+   den igen. En textknapp och inte en primarknapp: att ta bort nagot ur sin
+   egen offert ska inte konkurrera med att valja. Traffytan ar 44 px via
+   min-height och inte via en storre skrift, och knappen ar hidden tills nagot
+   ar valt, sa den tar ingen plats och ingen gap nar den inte behovs. */
+.offer .o-rensa__btn{align-self:flex-start;font:inherit;font-size:13px;font-weight:600;
+  color:var(--teal-ink);background:none;border:0;cursor:pointer;
+  min-height:var(--z5);padding:0 var(--s2);margin-left:calc(var(--s2) * -1);
+  border-radius:var(--r1);text-align:left;
+  text-decoration:underline;text-underline-offset:3px;}
+
+/* PRISBLOCKET UTAN RAKNERADER, DELAT. Bade .o-calc och .o-calcfinal ritar
+   en linje. Med tva rakerader emellan laser de som en tabells kanter;
+   utan dem blir det tva linjer 21 px isar med ingenting mellan, alltsa
+   agarens "dubbelrader". Galler varje mall vars pris inte raknas fram. */
+.offer .o-calc:not(:has(.o-calcrow)) .o-calcfinal{border-top:0;padding-top:0;margin-top:0;}
+/* PRODUKTBRICKORNA, DELADE. Lag i laddboxens egen stil.css, vilket gjorde att
+   ett korsforsaljningskort pa en annan mall inte kunde visa vad som ingar i
+   ett paket utan att kopiera reglerna dit. Nu bor de i systemet, for alla fem
+   mallarna visar samma sorts kort. */
+/* Produktbrickorna sist i kortet, som AG1. Tre lika stora rutor i varje paket,
+   så en bricka i Bas är exakt lika stor som en i Premium. */
+.o-ptiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);}
+/* På desktop blev en bricka 203 px bred, vilket är en produktbild och inte en
+   miniatyr längre. AG1 håller sina runt 130. Taket gäller bara från 520. */
+@container (min-width: 520px){ .o-ptiles{grid-template-columns:repeat(3,minmax(0,140px));}}
+/* Premium bär fyra delar. Fyra i ett rutnät med tre spalter blir tre plus en
+   ensam, och fyra spalter ger 64 px brickor vid 375 där etiketterna bryter.
+   Två gånger två vid 375, fyra i bredd från 520 där de ryms.
+   Spåret är uträknat som en tredjedel, inte som en halva: då är en bricka i
+   Premium exakt lika bred som en i Plus, och rutnätet blir två tredjedelar
+   brett i stället för att fylla kortet och börja konkurrera med gruppbilden. */
+/* Fyra brickor i två rader bildar ett block på två tredjedelars bredd. Till
+   vänster i kortet läste det som en ofärdig rad; centrerat läser det som ett
+   block. Bas har en enda bricka och står kvar till vänster, för där finns
+   ingen rad att centrera. */
+.o-ptiles--4{grid-template-columns:repeat(2,minmax(0,calc((100% - var(--s3) * 2) / 3)));justify-content:center;}
+@container (min-width: 520px){ .o-ptiles--4{grid-template-columns:repeat(4,minmax(0,140px));}}
+.o-ptile{margin:0;display:flex;flex-direction:column;gap:var(--s2);min-width:0;}
+.o-ptile img{width:100%;aspect-ratio:1;object-fit:contain;display:block;
+  background:var(--bg);border-radius:var(--r1);padding:var(--s3);}
+.o-ptile figcaption{font-size:11px;line-height:1.35;color:var(--muted);text-align:center;}
+.o-ptile figcaption b{display:block;font-weight:600;color:var(--ink);}
+
 .offer .o-tjanst{display:flex;flex-direction:column;gap:var(--rytm-block);}
 .offer .o-tjansttitel{display:flex;align-items:center;gap:var(--s3);font-size:17px;font-weight:600;color:var(--ink);}
 .offer .o-tjansttitel .o-stepnr{flex:none;}
@@ -1385,15 +1503,50 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    korten, dar den ar en detalj under ett pris. Har AR listan offerten, och
    13 ar finstilt: brodtext ar 15 eller 17. Raden far 15, och bocken flyttas
    fran 2 till 4 px sa den star mitt for den hogre raden. */
+/* INGA BILDER BETYDER ATT TYPOGRAFIN BAR ALLT.
+   Uppmatt 23 okt pa den forsta versionen: sex av elva textroller pa sidan lag
+   pa 15 px. Artikelnamnet, specen, priset, "Att betala" och
+   villkorsrubriken, alltsa allt utom de tva 30-talen och de tva 11-talen.
+   Enda kontrasten var vikt 600 mot 300. Pa en sida med noll bilder ar det
+   hela hierarkin, och da finns ingen.
+
+   Skalan har ar fyra steg ur husets sju, och varje steg har ett jobb:
+     30  totalen, det kunden ska betala
+     17  artikelnamnet och dess pris, alltsa raden kunden accepterar
+     13  specen under namnet
+     11  etiketten och finstilten
+   17 ar brodtext i huset. 13 ar finstilt och ska inte bara ett artikelnamn,
+   vilket var precis vad det gjorde.
+
+   RADHOJDERNA AR PIXLAR, INTE FAKTORER. 15 x 1,45 ger 21,75 px, sa varje
+   radgrans landade mellan tva pixlar och de uppmatta luckorna blev 12, 12
+   och 11 dar alla tre ar 12. Heltal pa 8-rutnatet i stallet: 24 / 20 / 16. */
 .offer .o-sum .o-art{gap:var(--s3);}
-.offer .o-sum .o-art li{font-size:15px;line-height:1.45;align-items:flex-start;}
+.offer .o-sum .o-art li{font-size:17px;line-height:24px;align-items:flex-start;}
+/* Bocken ar 16 px (--z1) och ska sta mitt for den FORSTA raden, inte mitt for
+   hela blocket: (24 - 16) / 2 = 4. */
 .offer .o-sum .o-art .o-bock{margin-top:var(--s1);}
 .offer .o-art__text{flex:1;min-width:0;}
-.offer .o-art__pris{flex:none;font-weight:600;color:var(--ink);}
+/* NAMNET OCH SPECEN AR TVA RADER, INTE EN MENING.
+   Systemet satter ", " mellan <b> och spannet efter, vilket ar ratt i
+   paketkortens 13-punktslista dar bada ar samma storlek. Har ar namnet 17 och
+   specen 13, och da laser "Perific lastbalansering, Perific Max, passar alla
+   elmatare" som en enda rad med tre storlekar i. Specen far egen rad.
+   Specificiteten ar raknad: systemets regel vager (0,2,4), den har (0,4,4). */
+.offer .o-sum .o-art li.prod b{display:block;font-weight:600;color:var(--ink);}
+.offer .o-sum .o-art li.prod b + span::before{content:none;}
+.offer .o-sum .o-art li.prod b + span{display:block;font-size:13px;line-height:20px;
+  font-weight:300;color:var(--muted);}
+/* PRISKOLUMNEN SKA VARA EN KOLUMN. Priset lag i 15/600 var(--ink), alltsa
+   exakt samma yta som namnet bredvid, sa fyra priser nerfor kortet gick inte
+   att lasa som en kolumn. 17/700 och tabulara siffror ur .kr, hogerstallt mot
+   kortets kant: uppmatt hogerkant 334 px vid 375 och 889 vid 1180, alltsa
+   samma for alla fyra raderna. */
+.offer .o-art__pris{flex:none;font-size:17px;line-height:24px;font-weight:700;color:var(--ink);}
 /* Pottmarkningen finns bara nar raderna hor till olika potter. Da sager
    raden under totalen 'efter gron teknik och ROT', och den har sager vilken
    som galler var. En pott: ingen markning, raden under totalen racker. */
-.offer .o-art__pott{display:block;font-size:11px;letter-spacing:.02em;font-weight:400;color:var(--faint);margin-top:var(--s0);}
+.offer .o-art__pott{display:block;font-size:11px;line-height:16px;letter-spacing:.02em;font-weight:400;color:var(--faint);margin-top:var(--s0);}
 
 /* --- INGEN PRISBAR -----------------------------------------------------------
    Sidan ar under tva skarmar hog pa en telefon och totalen star i det enda
@@ -1428,6 +1581,43 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   /* vitt pa fargat blir osynligt utan bakgrundsgrafik */
   .offer .o-btn.primary{background:#fff !important;color:var(--ink) !important;border:1px solid var(--kant) !important;}
 }
+
+/* --- RYTMEN I KORTET ---------------------------------------------------------
+   Kortet ar tre grupper: vad tillagget ar, vad det kostar, och vad du svarar.
+   Systemets .o-sum ger varje barn 16 px, alltsa blockrytmen, sa alla fem
+   elementen lag lika langt fran varandra och grupperna fanns inte. Uppmatt
+   fore: 16 / 16 / 3 / 16.
+   Rytmen i huset ar sektion 48, grupp 24, block 16, rad 8, nara 12. Har:
+     etikett -> listan   12   rubrik till sitt eget innehall
+     listan  -> totalen  24   ny grupp
+     totalen -> potraden  4   finstilten hor TILL talet, inte efter det
+     potraden -> knappar 24   ny grupp
+   De tva negativa marginalerna ar rakenskap mot gapet, inte nudgning:
+   12 - 24 = -12 och 4 - 24 = -20. */
+.offer .o-sum{gap:var(--rytm-grupp);}
+.offer .o-sum > span:first-child{margin-bottom:calc(var(--rytm-nara) - var(--rytm-grupp));}
+.offer .o-sum #pottrad{margin-top:calc(var(--s1) - var(--rytm-grupp));color:var(--faint);}
+/* ATT BETALA star i samma grad som raderna ovanfor, sa kolumnen halls ihop
+   hela vagen ner till strecket. Talet ar och forblir 30. */
+.offer .o-sumtot span{font-size:17px;line-height:24px;}
+.offer .o-sumtot b{line-height:40px;}
+
+/* --- DE TVA SVAREN ----------------------------------------------------------
+   Agaren: kunden ska kunna acceptera ELLER avboja. Da ar bada forstahandsval.
+   Avbojet lag i 13 px, som ar husets finstiltsgrad: "13 ar finstilt och
+   smaetiketter, aldrig text nagon ska lasa". En knapp ar text nagon ska lasa,
+   och ett avboj i finstilt ar ett avboj vi gommer. 15, som systemets ghost.
+   Hierarkin finns kvar i form och vikt: 17/700 fylld mot 15/500 understruken.
+   Scopad till .o-sumact sa de delade accept- och avbojskarmarnas egna knappar
+   inte foljer med. */
+.offer .o-sumact .o-btn.link{font-size:15px;}
+
+/* --- INGRESSEN --------------------------------------------------------------
+   Den enda paragraf kunden laser for att forsta vad sidan ar. 15/300 ar
+   husets t-body, satt for sidor dar en bild och ett produktkort redan har
+   sagt vad det handlar om. Har finns ingen bild. 17/26 ar brodtext.
+   Moderraden under star kvar i 13: den ar en referens, inte en mening. */
+.offer .o-hero .t-body{font-size:17px;line-height:26px;}
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}

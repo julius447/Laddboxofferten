@@ -367,76 +367,31 @@
                 <summary>Övriga tjänster</summary>
                 <div class="body">
 
-                  <section class="o-tjanst">
-                    <h3 class="o-tjansttitel" id="rub-central"><span class="o-stepnr" aria-hidden="true">1</span>Byte av elcentral</h3>
-                    <div class="o-sechead">
-                    <p class="t-small" style="color:var(--muted);">Har du en äldre central med skruvsäkringar är det här läget att byta, medan elektrikern ändå är hos dig och drar fram en ny grupp.</p>
-                  </div>
-                  <div class="o-fe" style="--fe:50;">
-                    <div class="o-febild">
-                      <img class="efter" src="assets/img/elcentral-efter.webp" alt="Elcentralen efter bytet" draggable="false" loading="lazy" decoding="async">
-                      <img class="fore" src="assets/img/elcentral-fore.webp" alt="Elcentralen före bytet" draggable="false" loading="lazy" decoding="async">
-                      <span class="o-fesom" aria-hidden="true"><i></i></span>
-                      <span class="o-fechip v">Före</span>
-                      <span class="o-fechip h">Efter</span>
-                    </div>
-                    <input type="range" class="o-fereglage" id="feReglage" min="0" max="100" value="50" step="1"
-                           aria-label="Dra åt sidan för att jämföra före och efter">
-                  </div>
-                  <div class="o-opts" role="radiogroup" aria-labelledby="rub-central">
-                    <!-- EN RADIOGRUPP UTAN VALT ALTERNATIV AR ETT OFARDIGT
-                         FORMULAR, och angran lag i ett andra musklick som
-                         tangentbordet inte kunde gora: mellanslag pa en redan
-                         vald radio aktiverar inte om. Ett val mellan 5 990 och
-                         14 900 kr som musen kunde backa men inte tangenten.
-                         Den har raden ar vagen ut, och den ar forvald. -->
-                    <label class="o-opt"><input type="radio" name="central" value="0" checked><span class="mark"></span>
-                      <span class="txt"><b>Ingen elcentral</b><span>Du behåller den du har</span></span><span class="amt kr">+0 kr</span></label>
-                    <label class="o-opt"><input type="radio" name="central" value="5990"><span class="mark"></span>
-                      <figure class="o-centralbild"><img src="assets/img/hager-liten.webp" alt="" width="340" height="340" loading="lazy" decoding="async"></figure><span class="txt"><b>Liten central</b><span>Hager, 13 moduler med jordfelsbrytare</span></span><span class="amt kr">5 990 kr</span></label>
-                    <label class="o-opt"><input type="radio" name="central" value="9990"><span class="mark"></span>
-                      <figure class="o-centralbild"><img src="assets/img/hager-mellan.webp" alt="" width="340" height="340" loading="lazy" decoding="async"></figure><span class="txt"><b>Mellan central</b><span>Hager, 26 moduler med jordfelsbrytare</span></span><span class="amt kr">9 990 kr</span></label>
-                    <label class="o-opt"><input type="radio" name="central" value="14900"><span class="mark"></span>
-                      <figure class="o-centralbild"><img src="assets/img/hager-stor.webp" alt="" width="340" height="340" loading="lazy" decoding="async"></figure><span class="txt"><b>Stor central</b><span>Hager, 52 moduler med jordfelsbrytare</span></span><span class="amt kr">14 900 kr</span></label>
-                  </div>
-                  </section>
+                  <section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-central"><span class="o-stepnr" aria-hidden="true">1</span>Byte av elcentral</h3><p class="t-small" style="color:var(--muted);">Har du en äldre central med skruvsäkringar är det här läget att byta, medan elektrikern ändå är hos dig och drar fram en ny grupp.</p><div class="o-pkgs" role="radiogroup" aria-labelledby="rub-central"><label class="o-pkg" data-pkg="liten"><input type="radio" name="elcentralpkg" value="5990"><div class="pbody"><figure class="pbild"><img src="assets/img/hager-liten.webp" alt="Liten elcentral från Hager, 1 × 13 moduler" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Liten</b></span><span class="pprice kr">5 990 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hager gamma, förmonterad kapsling</b><span>1 × 13 moduler</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Huvudbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Jordfelsbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Dvärgbrytare</b><span>upp till 7 st</span></span></li></ul></div></label><label class="o-pkg" data-pkg="medel"><input type="radio" name="elcentralpkg" value="9990"><div class="pbody"><figure class="pbild"><img src="assets/img/hager-mellan.webp" alt="Medel elcentral från Hager, 2 × 13 moduler" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Medel</b></span><span class="pprice kr">9 990 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hager gamma, förmonterad kapsling</b><span>2 × 13 moduler</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Huvudbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Jordfelsbrytare</b><span>2 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Dvärgbrytare</b><span>upp till 16 st</span></span></li></ul></div></label><label class="o-pkg" data-pkg="stor"><input type="radio" name="elcentralpkg" value="14900"><div class="pbody"><figure class="pbild"><img src="assets/img/hager-stor.webp" alt="Stor elcentral från Hager, 4 × 13 moduler" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Stor</b></span><span class="pprice kr">14 900 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hager gamma, förmonterad kapsling</b><span>4 × 13 moduler</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Huvudbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Jordfelsbrytare</b><span>2 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Dvärgbrytare</b><span>upp till 32 st</span></span></li></ul></div></label></div><p class="t-micro" style="color:var(--faint);">Demontering av den gamla centralen, driftsättning och avprovning, installation av våra egna elektriker, anmälan till nätägaren och ny plombering ingår i alla tre. Talen är inklusive moms och efter ROT. Klickar du på kortet du redan valt släpper valet.</p></section>
 
-                  <section class="o-tjanst">
-                    <h3 class="o-tjansttitel"><span class="o-stepnr" aria-hidden="true">2</span>Solcellsbatteri</h3>
-                    <p class="t-small" style="color:var(--muted);">Lagrar solel till kvällen och kan ladda bilen på din egen el. Vad ett batteri kostar beror på hur många kilowattimmar du behöver, och det går inte att svara på utan att se ditt tak och din förbrukning. Kryssa i det du vill veta mer om, så hör Rasmus av sig. <b style="color:var(--ink);font-weight:600;">Det här påverkar inte summan.</b></p>
-                    <div class="o-rader">
-                      <label class="o-rad">
-                        <input type="checkbox" class="add" data-grupp="batteri-saj" data-name="Solcellsbatteri SAJ HS3" data-intresse="1" data-fran="fr. 34 900 kr" value="0">
-                        <span class="mark sq"></span>
-                        <figure class="o-radbild"><img src="assets/img/batteri-saj.webp" alt="SAJ HS3 solcellsbatteri" width="1547" height="1547" loading="lazy" decoding="async"></figure>
-                        <span class="o-radtext">
-                          <span class="o-radnamn">SAJ HS3</span>
-                          <span class="o-radspec">5,12 till 40,72 kWh</span>
-                          <span class="o-radpris" data-grupp="batteri-saj">fr. 34 900 kr</span>
-                        </span>
-                      </label>
-                      <label class="o-rad">
-                        <input type="checkbox" class="add" data-grupp="batteri-eway" data-name="Solcellsbatteri Eway" data-intresse="1" data-fran="fr. 33 000 kr" value="0">
-                        <span class="mark sq"></span>
-                        <figure class="o-radbild"><img src="assets/img/batteri-eway.webp" alt="Eway solcellsbatteri" width="944" height="944" loading="lazy" decoding="async"></figure>
-                        <span class="o-radtext">
-                          <span class="o-radnamn">Eway</span>
-                          <span class="o-radspec">10,24 till 80 kWh</span>
-                          <span class="o-radpris" data-grupp="batteri-eway">fr. 33 000 kr</span>
-                        </span>
-                      </label>
-                      <label class="o-rad">
-                        <input type="checkbox" class="add" data-grupp="batteri-enershare" data-name="Solcellsbatteri Enershare" data-intresse="1" data-fran="fr. 36 250 kr" value="0">
-                        <span class="mark sq"></span>
-                        <figure class="o-radbild"><img src="assets/img/batteri-enershare.webp" alt="Enershare solcellsbatteri" width="1373" height="1373" loading="lazy" decoding="async"></figure>
-                        <span class="o-radtext">
-                          <span class="o-radnamn">Enershare</span>
-                          <span class="o-radspec">9,60 till 51,20 kWh</span>
-                          <span class="o-radpris" data-grupp="batteri-enershare">fr. 36 250 kr</span>
-                        </span>
-                      </label>
+                  <!-- FORE OCH EFTER PA EN CENTRAL VI BYTT.
+                       Ligger UTANFOR tjanstekortets section med flit:
+                       bitar.tjanstekort() foder hela sectionen och delas av
+                       fem mallar, sa ett reglage som bara den har mallen har
+                       far inte smygas in i den. Figuren bar sin egen bildtext
+                       i stallet, och ligger direkt under de tre korten dar
+                       den ar bevis for valet ovanfor. -->
+                  <figure class="o-feblock">
+                    <div class="o-fe" style="--fe:50;">
+                      <div class="o-febild">
+                        <img class="efter" src="assets/img/elcentral-efter.webp" alt="Elcentralen efter bytet" draggable="false" loading="lazy" decoding="async">
+                        <img class="fore" src="assets/img/elcentral-fore.webp" alt="Elcentralen före bytet" draggable="false" loading="lazy" decoding="async">
+                        <span class="o-fesom" aria-hidden="true"><i></i></span>
+                        <span class="o-fechip v">Före</span>
+                        <span class="o-fechip h">Efter</span>
+                      </div>
+                      <input type="range" class="o-fereglage" id="feReglage" min="0" max="100" value="50" step="1"
+                             aria-label="Dra åt sidan för att jämföra före och efter">
                     </div>
-                  </section>
+                    <figcaption class="t-small">En central vi har bytt. Dra reglaget för att se före och efter.</figcaption>
+                  </figure>
+
+                  <section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-batteri"><span class="o-stepnr" aria-hidden="true">2</span>Solcellsbatteri</h3><p class="t-small" style="color:var(--muted);">Lagrar solel till kvällen och kan ladda bilen på din egen el. Välj det du vill veta mer om, så hör Rasmus av sig. <b style="color:var(--ink);font-weight:600;">Det här påverkar inte summan.</b></p><div class="o-pkgs" role="radiogroup" aria-labelledby="rub-batteri"><label class="o-pkg" data-pkg="saj"><input type="radio" name="batteripkg"><div class="pbody"><figure class="pbild"><img src="assets/img/batteri-saj.webp" alt="SAJ HS3 solcellsbatteri" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>SAJ HS3</b></span><span class="pprice saknas">Vi räknar på ditt hus</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Batterimoduler</b><span>5 till 40 kWh</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hybridväxelriktare</b><span>SAJ HS3 12 kW</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Installation av våra egna elektriker</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Konfigurering, driftsättning och funktionstest</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>10 års produktgaranti</b></span></li></ul></div></label><label class="o-pkg" data-pkg="eway"><input type="radio" name="batteripkg"><div class="pbody"><figure class="pbild"><img src="assets/img/batteri-eway.webp" alt="Eway solcellsbatteri" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Eway</b></span><span class="pprice saknas">Vi räknar på ditt hus</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Batterimoduler</b><span>15,36 till 63,4 kWh</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hybridväxelriktare</b><span>Solis S6</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Installation av våra egna elektriker</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Konfigurering, driftsättning och funktionstest</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>10 års produktgaranti</b></span></li></ul></div></label><label class="o-pkg" data-pkg="enershare"><input type="radio" name="batteripkg"><div class="pbody"><figure class="pbild"><img src="assets/img/batteri-enershare.webp" alt="Enershare solcellsbatteri" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Enershare</b></span><span class="pprice saknas">Vi räknar på ditt hus</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Batterimoduler</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hybridväxelriktare</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Installation av våra egna elektriker</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Konfigurering, driftsättning och funktionstest</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>10 års produktgaranti</b></span></li></ul></div></label></div><p class="t-micro" style="color:var(--faint);">SAJ HS3 från 35 625 kr och Eway från 42 000 kr för den minsta storleken, inklusive moms och efter grön teknik räknat på två personer. Enershare står utan pris i vår prislista. Vad just ditt batteri kostar beror på hur många kilowattimmar du behöver, och det räknar vi fram när vi sett ditt tak.</p></section>
 
                   <section class="o-tjanst">
                     <h3 class="o-tjansttitel"><span class="o-stepnr" aria-hidden="true">3</span>Spotlights</h3>
@@ -817,5 +772,6 @@
 <script src="assets/js/offert-charge-amps-luna.js"></script>
 <script src="assets/js/grann.js"></script>
 <script src="assets/js/omdomen.js"></script>
+<script src="assets/js/ankare.js"></script>
 </body>
 </html>

@@ -51,7 +51,11 @@
           <span>Att betala</span>
           <span class="o-sumpris"><b class="kr" id="sumTotal" aria-live="polite">5 020 kr</b></span>
         </div>
-        <p class="t-micro" id="pottrad" style="color:var(--faint);margin-top:calc(var(--s3) * -1);">inkl. moms, efter grön teknik och ROT. Avdragen dras direkt på fakturan. ROT förutsätter att du har avdragsutrymme kvar.</p>
+        <!-- Ingen inline-style: en inline-margin slar varje regel i stil.css, och
+           den gamla "margin-top:calc(var(--s3) * -1)" gjorde just det. Uppmatt:
+           regeln i stil.css raknade fram 4 px under totalen, sidan visade 12,
+           och inget sa ifran. Bade fargen och marginalen bor i stil.css nu. -->
+        <p class="t-micro" id="pottrad">inkl. moms, efter grön teknik och ROT. Avdragen dras direkt på fakturan. ROT förutsätter att du har avdragsutrymme kvar.</p>
         <div class="o-sumact" style="display:flex;flex-direction:column;gap:var(--s2);">
           <button class="o-btn primary" id="acceptBtn">Acceptera tillägget <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
           <button class="o-btn link" id="avboj" aria-expanded="false" aria-controls="avbojPanel">Avböj tillägget</button>
@@ -212,5 +216,6 @@
 
 </div>
 <script src="assets/js/tillagg.js"></script>
+<script src="assets/js/ankare.js"></script>
 </body>
 </html>

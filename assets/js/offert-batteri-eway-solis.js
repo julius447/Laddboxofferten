@@ -10,7 +10,8 @@
   var MODELL={"id": "eway-solis", "namn": "Eway + Solis S6", "modul_kwh": 7.68, "batteri": "Eway", "storlekar": [{"kwh": 15.36, "moduler": 2, "pris": 42000, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 23.04, "moduler": 3, "pris": 48750, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 30.72, "moduler": 4, "pris": 55000, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 38.4, "moduler": 5, "pris": 61375, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 46.08, "moduler": 6, "pris": 68688, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 53.76, "moduler": 7, "pris": 76188, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 63.4, "moduler": null, "pris": 90555, "vaxelriktare": "Solis S6 20 kW"}]};
   var FORVAL=2;
   var GRANNRABATT=1500;
-  var CEN={"5990": "Byte av elcentral, liten", "9990": "Byte av elcentral, mellan", "14900": "Byte av elcentral, stor"};
+  var CEN={"5990": "Byte av elcentral, liten central", "9990": "Byte av elcentral, mellan central", "14900": "Byte av elcentral, stor central"};
+  var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
   var BOCK="<span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span>";
   var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Installation av våra egna elektriker", "Montering av batteri och växelriktare", "Anslutning till elcentralen, upp till 10 meter kabel", "Inkoppling mot dina befintliga solceller", "Föranmälan och färdiganmälan till nätbolaget", "Frakt hem till dig", "Konfigurering, driftsättning och funktionstest", "Kontrollmätning av anläggningen", "Genomgång av appen", "10 års produktgaranti"]};
   var ST=MODELL.storlekar;
@@ -93,9 +94,15 @@
        arbetskostnaden och bar data-rot. Allt som ar ROT raknas bort ur gron
        teknik-basen, annars raknas samma krona tva ganger. Inget ROT-belopp
        raknas eller visas: bara vad tjansterna kostar, efter avdrag. */
-    var cen=+val("central");
+    /* PAKETKORTEN. Laddboxen och elcentralen ar tva radiogrupper med pris,
+       fodda ur gemensamt/bitar.py:tjanstekort. Namnet ar gruppen plus "pkg".
+       Laddboxen ar GRON TEKNIK, elcentralen ar ROT pa arbetskostnaden: tva
+       potter som aldrig far rakna samma krona. Potten star ocksa i
+       innehall.json, och offert.py stoppar bygget om de tva drar isar. */
+    var cen=+val("elcentralpkg"), lb=+val("laddboxpkg");
     var gt=s.pris, rot=cen, rotNamn=[], valda=[];
     if(cen) rotNamn.push(CEN[String(cen)]);
+    if(lb) gt+=lb;
     rader().forEach(function(r){
       var inp=r.querySelector("input.add"); if(!inp) return;
       r.classList.toggle("vald", inp.checked);
@@ -131,6 +138,19 @@
     /* Hjalten */
     $("prodSpec").textContent=kwh(s.kwh)+" kWh, monterad och driftsatt";
     $("calcGross").textContent=kr(brutto);
+    /* ETIKETTEN MASTE FOLJA TALET. Nar taket biter ar avdraget 100 000 av ett
+       brutto pa 215 062, alltsa 46,5 procent, och raden sa anda "Gron teknik,
+       50 procent". Kunden kan dividera, och en rad som sager en procentsats
+       sidan inte raknar med misskrediterar varje annat tal pa sidan. */
+    /* OCH DEN NYA ETIKETTEN FAR INTE VARA LANGRE AN DEN GAMLA.
+       Forsta forsoket hette "Gron teknik, taket for tva personer" och brot
+       till TVA rader i hjaltens 209 px: uppmatt vaxte raden 20 -> 40 px,
+       kortet 499 -> 519 och hela hjalten 745 -> 766, och hopp.py matte ett
+       hopp pa 20 px nar kunden valde den storsta storleken. En rattning som
+       flyttar sidan under fingret ar en halv rattning. Vad taket betyder
+       star i summeringen, bredvid raden som bar mellanskillnaden. */
+    $("calcDedNamn").textContent = takBiter ? "Grön teknik, taket"
+                                            : "Grön teknik, 50 procent";
     $("calcDed").textContent="−"+kr(gtAvdrag);
     /* Forklaringen bor i SUMMERINGEN, bredvid raden den forklarar, inte i
        hjalten. Lag den i hjalten flyttades lagringskorten 59 px ner i samma
@@ -152,6 +172,7 @@
     valda.forEach(function(v){
       rows+='<div class="o-sumrow sub"><span>'+v.namn+'</span><span class="kr">'+kr(v.pris)+'</span></div>';
     });
+    if(lb) rows+='<div class="o-sumrow sub"><span>'+LBP[String(lb)]+'</span><span class="kr">'+kr(lb)+'</span></div>';
     if(cen) rows+='<div class="o-sumrow sub"><span>'+CEN[String(cen)]+'</span><span class="kr">'+kr(cen)+'</span></div>';
     /* NAR TAKET BITER MASTE RADERNA ANDA GA IHOP MED TOTALEN.
        Radernas tal ar prislistans NETTOPRISER, raknade med halva bruttot. Slar
@@ -174,11 +195,33 @@
     $("sumBrutto").textContent=kr(brutto+rot);
     $("barTotal").textContent=kr(netto);
     $("barBrutto").textContent=kr(brutto+rot);
+    rensningsknappar();
   }
 
   /* ---- LYSSNARNA. Ett val ar ett val oavsett vilken vag det gjordes. ---- */
-  document.querySelectorAll('input[name="lagring"], input[name="central"], input.add').forEach(function(i){
+  document.querySelectorAll('input[name="lagring"], input[name="elcentralpkg"], '
+    + 'input[name="laddboxpkg"], input.add').forEach(function(i){
     i.addEventListener("change", render);
+  });
+
+  /* VAGEN TILLBAKA UR EN RADIOGRUPP. Tre paketkort gar att valja mellan men
+     inte att avmarkera med musen, sa utan den har knappen kan kunden lagga
+     till en laddbox och aldrig ta bort den igen. Knappen syns bara nar nagot
+     ar valt, och nar den gommer sig sjalv flyttas fokus till forsta kortet i
+     gruppen: ett gomt element som har fokus tappar fokus till body. */
+  function rensningsknappar(){
+    document.querySelectorAll("[data-rensa]").forEach(function(b){
+      b.hidden = !document.querySelector('input[name="'+b.getAttribute("data-rensa")+'"]:checked');
+    });
+  }
+  document.querySelectorAll("[data-rensa]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var n=this.getAttribute("data-rensa");
+      var inp=[].slice.call(document.querySelectorAll('input[name="'+n+'"]'));
+      inp.forEach(function(i){ i.checked=false; });
+      render();
+      if(inp[0]){ try{ inp[0].focus({preventScroll:true}); }catch(_){} }
+    });
   });
   /* Tabellen i folden: ett tryck pa en rad valjer den storleken, alltsa
      samma radio som korten styr. En vag till samma sanning, inte en andra. */
@@ -212,7 +255,7 @@
      radion och webblasaren drar in den i vyn. Fokus tas sjalv pa pointerdown
      med preventScroll, i fangstfasen, sa webblasarens egen fokus inte rullar. */
   document.addEventListener("pointerdown", function(e){
-    var lab=e.target.closest && e.target.closest("label.o-lv, label.o-opt, label.o-rad");
+    var lab=e.target.closest && e.target.closest("label.o-lv, label.o-opt, label.o-rad, label.o-pkg");
     if(!lab) return;
     var i=lab.querySelector("input");
     if(i && !i.disabled){ try{ i.focus({preventScroll:true}); }catch(_){} }
