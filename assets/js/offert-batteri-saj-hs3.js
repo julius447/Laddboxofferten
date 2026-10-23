@@ -106,12 +106,36 @@
       valda.push({namn:namn, pris:v});
       if(inp.hasAttribute("data-rot")){ rot+=v; rotNamn.push(namn); } else { gt+=v; }
     });
-    var brutto=gt*2, netto=gt+rot;
+    /* GRON TEKNIK HAR ETT TAK, OCH SIDAN FAR INTE LOVA MER AN TAKET.
+       Prislistans kolumn I ar halva bruttot rakt av, utan tak. Men avdraget
+       ar hogst 50 000 kr per person och ar, alltsa 100 000 for tva, och pa
+       SAJ HS3 40 kWh gav formeln 107 531 kr. Sidan sa da "Gron teknik,
+       50 procent, minus 107 531 kr", vilket ar ett avdrag kunden inte kan fa,
+       och det ar KUNDEN som star for det mot Skatteverket.
+
+       Taket biter ocksa pa KOMBINATIONER: SAJ 35 kWh plus o-drift passerar
+       100 000 fast ingen enskild rad gor det. Darfor raknas det har, inte i
+       datat.
+
+       Pa de rader dar taket inte biter ar gtNetto exakt lika med
+       prislistans tal, sa ingenting andras pa 51 av 55 rader. Pa de ovriga
+       blir priset hogre an listan, och det ar det RIKTIGA priset.
+       AGARFRAGA 2: antingen rattas prislistan, eller star priset hogre har. */
+    var GT_TAK = 100000;
+    var gtBrutto = gt * 2;
+    var gtAvdrag = Math.min(gtBrutto * 0.5, GT_TAK);
+    var gtNetto = gtBrutto - gtAvdrag;
+    var takBiter = gtAvdrag < gtBrutto * 0.5 - 0.5;
+    var brutto = gtBrutto, netto = gtNetto + rot;
 
     /* Hjalten */
     $("prodSpec").textContent=kwh(s.kwh)+" kWh, monterad och driftsatt";
     $("calcGross").textContent=kr(brutto);
-    $("calcDed").textContent="−"+kr(gt);
+    $("calcDed").textContent="−"+kr(gtAvdrag);
+    /* Forklaringen bor i SUMMERINGEN, bredvid raden den forklarar, inte i
+       hjalten. Lag den i hjalten flyttades lagringskorten 59 px ner i samma
+       ogonblick som kunden tryckte pa ett av dem: innehall som dyker upp
+       OVANFOR det kunden ror vid ar en layoutflytt under fingret. */
     $("calcCenRad").classList.toggle("dold", !rot);
     $("calcCenNot").classList.toggle("dold", !rot);
     if(rot){
@@ -129,6 +153,16 @@
       rows+='<div class="o-sumrow sub"><span>'+v.namn+'</span><span class="kr">'+kr(v.pris)+'</span></div>';
     });
     if(cen) rows+='<div class="o-sumrow sub"><span>'+CEN[String(cen)]+'</span><span class="kr">'+kr(cen)+'</span></div>';
+    /* NAR TAKET BITER MASTE RADERNA ANDA GA IHOP MED TOTALEN.
+       Radernas tal ar prislistans NETTOPRISER, raknade med halva bruttot. Slar
+       taket i betalar kunden mellanskillnaden, och da summerade de fem raderna
+       till 115 623 kr medan totalen sa 118 856. Kunden kan rakna.
+       Raden nedan ar den skillnaden, med sitt skal. */
+    var takTillagg = gtNetto - gt;
+    if(takTillagg > 0) rows+='<div class="o-sumrow sub"><span>Över grön teknik-taket, '
+      +kr(GT_TAK)+' för två personer</span><span class="kr">'+kr(takTillagg)+'</span></div>'
+      +'<div class="o-sumnote">Grön teknik är högst 50 000 kr per person och år. '
+      +'Här slår taket i, så avdraget är '+kr(GT_TAK)+' i stället för halva priset.</div>';
     /* Grannrabatten raknas pa SKICKADE inbjudningar, som laddboxen och
        elcentralen gor. Raden andrar inte talet kunden betalar i dag: rabatten
        dras pa fakturan nar grannen har bestallt. Beloppet ar mallens eget. */

@@ -1431,21 +1431,37 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    storleken: en vag till samma radio, inte en andra sanning. Systemets regel
    gor sista raden fet (den ar prisraden i paketjamforelsen); har ar sista
    raden bara den storsta storleken. */
-.offer .o-lv-tabell th:first-child,.offer .o-lv-tabell td:first-child{width:38%;}
+/* Cellen forblir en tabellcell. Forsta forsoket gjorde td:first-child till
+   en flexbehallare, och da tappade tabellen kolumnbredden: uppmatt vid 390
+   blev kolumnen 70 px och "1 modul a 5 kWh" brot pa fyra rader. Knappen och
+   modulraden ar block i stallet, i en cell som ar en cell. */
+.offer .o-lv-tabell th:first-child,.offer .o-lv-tabell td:first-child{width:40%;}
 .offer .o-lv-tabell tbody tr:last-child td{font-weight:inherit;color:inherit;white-space:normal;}
 .offer .o-lv-tabell tbody td{vertical-align:top;}
-.offer .o-lv-tabell td:first-child{display:flex;flex-direction:column;align-items:flex-start;gap:0;}
-.offer .o-lv-valj{font:inherit;font-size:15px;font-weight:600;color:var(--teal-ink);background:none;border:0;
-  min-height:var(--z5);padding:0 var(--s1);margin-left:calc(var(--s1) * -1);cursor:pointer;
+.offer .o-lv-valj{display:block;font:inherit;font-size:15px;font-weight:600;color:var(--teal-ink);background:none;border:0;
+  min-height:var(--z5);padding:0 var(--s1);margin-left:calc(var(--s1) * -1);cursor:pointer;white-space:nowrap;
   text-decoration:underline;text-underline-offset:3px;border-radius:var(--r1);text-align:left;}
 .offer .o-lv-valj:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
-.offer .o-lv-mod{font-size:13px;color:var(--faint);}
+.offer .o-lv-mod{display:block;font-size:13px;color:var(--faint);line-height:1.4;}
 .offer .o-lv-tabell tr.vald td{color:var(--ink);}
 .offer .o-lv-tabell tr.vald td:first-child{color:var(--ink);}
 .offer .o-lv-tabell tr.vald .o-lv-valj{color:var(--ink);text-decoration:none;cursor:default;}
 .offer .o-lv-tabell tr.vald .o-lv-valj::after{content:"vald";margin-left:var(--s2);font-size:11px;font-weight:700;
   letter-spacing:.04em;text-transform:uppercase;color:var(--teal-ink);}
 .offer .o-lv-tabell tr.vald td.kr{font-weight:700;}
+
+/* --- SUMMERINGEN MED SEXSIFFRIGA TAL -----------------------------------------
+   Laddboxens summering lagger bruttot overstruket BREDVID priset. Med
+   batteriets tal, "205 426 kr" bredvid "111 363 kr", ar raden 322 px i en
+   spalt pa 295 vid 390, sa "Att betala" brot pa tva rader. Under 480 star
+   bruttot ovanfor priset i stallet, hogerstallt, samma tva tal. */
+@container (max-width: 480px){
+  .offer .o-sum .o-sumpris{flex-direction:column;align-items:flex-end;gap:0;}
+}
+/* Prisbaren har samma problem i sitt storsta lage: "107 194 kr" i 20 px
+   bredvid "199 488 kr" behover 182 px och far 173 vid 360. Uppmatt. 17 px pa
+   talet ger 163, sa raden haller pa en rad fran 360 och uppat. */
+.offer .o-bar .bt b{font-size:17px;}
 
 /* --- TILLAGGSRADEN ------------------------------------------------------------
    Tredje raden i radtexten, specen, finns redan i systemet (.o-radspec). */
