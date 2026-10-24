@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Din batterioffert</title>
-<meta name="description" content="Batterioffert: välj lagring, ö-drift som tillägg, ditt pris efter grön teknik.">
+<meta name="description" content="Batterioffert: din storlek, mer lagring och ö-drift som tillägg, ditt pris efter grön teknik.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="assets/css/testimonials.css">
 <link rel="stylesheet" href="assets/css/certifikat.css">
 <style>html,body{margin:0;padding:0}</style>
-<noscript><style>.o-utanjs{display:block !important;}.o-skarm{display:none !important;}.offer .o-calc,.offer .o-sum,.offer .o-bar,.offer #incList,.offer .o-skarm{display:none !important;}.offer .o-lagring,.offer .o-rader,.offer .o-pkgs{pointer-events:none;opacity:.6;}.offer .o-lagring input,.offer .o-rader input,.offer .o-pkgs input{display:none !important;}.offer input,.offer select,.offer textarea,.offer button{display:none !important;}</style></noscript>
+<noscript><style>.o-utanjs{display:block !important;}.o-skarm{display:none !important;}.offer .o-calc,.offer .o-sum,.offer .o-bar,.offer #incList,.offer .o-skarm{display:none !important;}.offer .o-rader,.offer .o-pkgs{pointer-events:none;opacity:.6;}.offer .o-rader input,.offer .o-pkgs input{display:none !important;}.offer input,.offer select,.offer textarea,.offer button{display:none !important;}</style></noscript>
 </head>
 <body>
 <div class="offer" id="offer">
@@ -32,7 +32,12 @@
       <!-- 1 HJALTEN. Samma rubrikform, samma stycke, samma produktkort och
            samma Google-rad som laddboxen, pa agarens ord 23 okt: "likt samma
            hero. Samma rubrik, paragraf texten hero och 5 av 5 pa Google".
-           Bruttot ar prislistans formel baklanges: kundens pris gange tva. -->
+           Bruttot ar modellfilens eget tal (brutto per storlek sedan 24 okt),
+           avdraget ar min(halva bruttot, potten) och potten ar 50 000 kr per
+           person i hushallet med gron teknik, en parameter per offert.
+           TVAPERSONSMENINGEN AR BORTA (agarfeedback 24 okt F1, ordagrant:
+           "Den kan vi ta bort oavsett vad"). Oraklet i offert.py stoppar
+           bygget om den kommer tillbaka. -->
       <section class="o-sec o-hero">
         <div class="intro">
           <h1 class="t-display">Hej Anders, här är din batterioffert</h1>
@@ -50,24 +55,10 @@
           <div class="o-calc">
             <div class="o-calcrow"><span>Solcellsbatteri och installation</span><span class="kr" id="calcGross">128 126 kr</span></div>
             <div class="o-calcrow ded"><span id="calcDedNamn">Grön teknik, 50 procent</span><span class="kr" id="calcDed">−64 063 kr</span></div>
-            <!-- FORUTSATTNINGEN STAR DAR TALET STAR. Avdraget ar raknat pa tva
-                 personer i hushallet, och gron teknik ar hogst 50 000 kr per
-                 person och ar: ar kunden ensam agare blir avdraget 50 000 i
-                 stallet for 64 063 och priset 14 063 kr hogre an sidan sager
-                 (5 000 pa Eway, 12 294 pa Dyness). Villkoret stod i 11 px
-                 langst ner i kortet, alltsa sidans minsta grad.
-                 Hedging-direktivet sager villkoret EN gang, och det gor det
-                 fortfarande: orden ar FLYTTADE hit ur finstilten, inte
-                 tillagda. Raden ar alltid med, aldrig togglad, sa den kan inte
-                 flytta nagot under fingret. Inget andrat tal, ingen ny siffra,
-                 ingen andrad prismodell. -->
-            <p class="o-calcvillkor">Räknat på två personer i hushållet. Grön teknik är högst 50&nbsp;000 kr per person och år.</p>
             <div class="o-calcrow dold" id="calcCenRad"><span id="calcCenNamn">Tjänster med ROT</span><span class="kr" id="calcCen">0 kr</span></div>
             <div class="o-calcfinal"><span>Ditt pris</span><span class="t-price kr" id="calcNet">64 063 kr</span></div>
             <p class="t-micro dold" id="calcCenNot" style="color:var(--faint);">Övriga tjänster du valt ger ROT i stället för grön teknik. Priserna är inklusive moms och efter avdrag. ROT förutsätter att du har avdragsutrymme kvar.</p>
             <p class="o-ingartext">Arbete och material ingår i priset.</p>
-            <!-- Hushallsvillkoret har FLYTTAT upp till avdragsraden, dar talet
-                 det galler star. Kvar har ar bara momsen och nar avdraget dras. -->
             <p class="t-micro" style="color:var(--faint);">inkl. moms, avdraget dras direkt på fakturan</p>
           </div>
           <div class="o-booker">
@@ -85,7 +76,9 @@
       </section>
 
       <!-- 2 DET HAR GOR VI. Tre steg med egna ikoner, som laddboxen. Inga
-           stegnummer i remsan: det ar vad vi gor, inte kundens val. -->
+           stegnummer i remsan: det ar vad vi gor, inte kundens val.
+           Ikonerna ror jag inte (agarfeedback 24 okt F3: agaren gor en egen
+           ikongenomgang pa solcellsbatteri). -->
       <section class="o-sec">
         <h2 class="t-h2">Det här gör vi</h2>
         <div class="o-steps"><div class="o-step"><span class="o-stepico"><svg viewBox="0 0 144 144" width="100%" height="100%" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M44 28h40l24 24v62a8 8 0 0 1-8 8H44a8 8 0 0 1-8-8V36a8 8 0 0 1 8-8ZM46 40v74h54V60H78V40Z"/><path d="M56.5 85.5l7-7 5.5 5.5 17.5-17.5 7 7-24.5 24.5Z"/></svg></span><div class="o-steptext"><h3><span class="o-stepnr" aria-hidden="true">1</span>Anmälan och leverans</h3><p>Vi föranmäler anläggningen till ditt nätbolag, planerar installationen utifrån din elcentral och dina solceller, och levererar batteriet hem till dig.</p></div></div><div class="o-step"><span class="o-stepico"><svg viewBox="0 0 144 144" width="100%" height="100%" fill="currentColor" aria-hidden="true"><rect x="34" y="36" width="58" height="18" rx="5"/><rect x="34" y="62" width="58" height="18" rx="5"/><rect x="34" y="88" width="58" height="18" rx="5"/><path d="M112 32l-18 36h12l-8 40 24-46h-12l10-30Z"/></svg></span><div class="o-steptext"><h3><span class="o-stepnr" aria-hidden="true">2</span>Montering och inkoppling</h3><p>Vi monterar batteriet och växelriktaren, drar kabel till elcentralen, kopplar in mot dina solceller med rätt säkringar och skydd, och mäter att allt är rätt.</p></div></div><div class="o-step"><span class="o-stepico"><svg viewBox="0 0 144 144" width="100%" height="100%" fill="currentColor" aria-hidden="true"><path d="M52.75 117.267C50.8403 117.267 49.217 116.586 47.8802 115.225C46.5434 113.864 45.875 112.211 45.875 110.267V33.7333C45.875 31.7111 46.5243 30.0389 47.8229 28.7167C49.1215 27.3944 50.7639 26.7333 52.75 26.7333H91.7083C93.6181 26.7333 95.2413 27.4139 96.5781 28.775C97.9149 30.1361 98.5833 31.7889 98.5833 33.7333V48.9C99.6528 48.9 100.608 49.2694 101.448 50.0083C102.288 50.7472 102.708 51.6611 102.708 52.75V60.6833C102.708 61.7722 102.288 62.6861 101.448 63.425C100.608 64.1639 99.6528 64.5333 98.5833 64.5333V110.267C98.5833 112.211 97.9149 113.864 96.5781 115.225C95.2413 116.586 93.6181 117.267 91.7083 117.267H52.75ZM52.75 114H91.7083C92.7778 114 93.6562 113.65 94.3437 112.95C95.0312 112.25 95.375 111.356 95.375 110.267V33.7333C95.375 32.6444 95.0312 31.75 94.3437 31.05C93.6562 30.35 92.7778 30 91.7083 30H52.75C51.6806 30 50.8021 30.35 50.1146 31.05C49.4271 31.75 49.0833 32.6444 49.0833 33.7333V110.267C49.0833 111.356 49.4271 112.25 50.1146 112.95C50.8021 113.65 51.6806 114 52.75 114ZM62.1458 104.667H82.3125C82.7708 104.667 83.1528 104.511 83.4583 104.2C83.7639 103.889 83.9167 103.5 83.9167 103.033C83.9167 102.567 83.7639 102.178 83.4583 101.867C83.1528 101.556 82.7708 101.4 82.3125 101.4H62.1458C61.6875 101.4 61.3056 101.556 61 101.867C60.6944 102.178 60.5417 102.567 60.5417 103.033C60.5417 103.5 60.6944 103.889 61 104.2C61.3056 104.511 61.6875 104.667 62.1458 104.667Z"/><path d="M71.8953 53.3333H80.7441L74.6628 67.4692H83.5116L65.7776 88L71.8953 73.8641H63.0465L71.8953 53.3333Z"/></svg></span><div class="o-steptext"><h3><span class="o-stepnr" aria-hidden="true">3</span>Driftsättning och genomgång</h3><p>Vi driftsätter, testar att allt fungerar, färdiganmäler till nätbolaget och går igenom appen med dig.</p></div></div></div>
@@ -99,42 +92,32 @@
         </details>
       </section>
 
-      <!-- 3 STEG 1 AV 2: LAGRINGEN. Riktning C, Ankaret, agarbeslut 23 okt:
-           Rasmus storlek som ett stort kort i mitten, ett steg mindre till
-           vanster och ett steg storre till hoger, skillnaden i kWh och kronor
-           utskriven, hela trappan som fold.
-           HELA trappan ligger i markupen som EN radiogrupp: ett kort per
-           storlek, och bara tre ar synliga at gangen. Da ar valet ett riktigt
-           formularvarde, tab landar pa den valda storleken och piltangenterna
-           stegar ett steg at gangen, precis som korten gor med musen. -->
-      <section class="o-sec">
-        <p class="o-steg">Steg 1 av 2</p>
-        <div class="o-sechead">
-          <h2 id="rub-lagring" class="t-h2">Välj lagring</h2>
-          <p class="t-small" style="color:var(--muted);">Rasmus har räknat på storleken i mitten. Ett steg mindre till vänster, ett steg större till höger.</p>
-        </div>
-        <div class="o-lagring" role="radiogroup" aria-labelledby="rub-lagring" id="lagring"><div class="o-lv-tom" id="lvTomNer" aria-hidden="true" hidden><span>Minsta storleken</span></div><label class="o-lv" data-i="0" hidden><input type="radio" name="lagring" value="35625" data-i="0"><span class="o-lv__etikett o-lv__etikett--tom" aria-hidden="true">Rasmus förslag</span><span class="o-lv__kwh"><b>5</b> <small>kWh</small></span><span class="o-lv__pris kr">35 625 kr</span><span class="o-lv__spec" hidden><span class="o-lv__specrad"><span>1 modul à 5 kWh</span><span>SAJ HS3 12 kW</span></span><span class="o-lv__specrad o-lv__specrad--tom" aria-hidden="true"><span>2 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span></span><span class="o-lv__delta"></span></label><label class="o-lv" data-i="1" hidden><input type="radio" name="lagring" value="40000" data-i="1"><span class="o-lv__etikett o-lv__etikett--tom" aria-hidden="true">Rasmus förslag</span><span class="o-lv__kwh"><b>10</b> <small>kWh</small></span><span class="o-lv__pris kr">40 000 kr</span><span class="o-lv__spec" hidden><span class="o-lv__specrad"><span>2 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span><span class="o-lv__specrad o-lv__specrad--tom" aria-hidden="true"><span>2 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span></span><span class="o-lv__delta"></span></label><label class="o-lv sida" data-i="2"><input type="radio" name="lagring" value="47656" data-i="2"><span class="o-lv__etikett o-lv__etikett--tom" aria-hidden="true">Rasmus förslag</span><span class="o-lv__kwh"><b>15</b> <small>kWh</small></span><span class="o-lv__pris kr">47 656 kr</span><span class="o-lv__spec" hidden><span class="o-lv__specrad"><span>3 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span><span class="o-lv__specrad o-lv__specrad--tom" aria-hidden="true"><span>2 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span></span><span class="o-lv__delta"></span></label><label class="o-lv mitt" data-i="3"><input type="radio" name="lagring" value="64063" data-i="3" checked><span class="o-lv__etikett">Rasmus förslag</span><span class="o-lv__kwh"><b>20</b> <small>kWh</small></span><span class="o-lv__pris kr">64 063 kr</span><span class="o-lv__spec"><span class="o-lv__specrad"><span>4 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span><span class="o-lv__specrad o-lv__specrad--tom" aria-hidden="true"><span>2 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span></span><span class="o-lv__delta" hidden></span></label><label class="o-lv sida" data-i="4"><input type="radio" name="lagring" value="78125" data-i="4"><span class="o-lv__etikett o-lv__etikett--tom" aria-hidden="true">Rasmus förslag</span><span class="o-lv__kwh"><b>25</b> <small>kWh</small></span><span class="o-lv__pris kr">78 125 kr</span><span class="o-lv__spec" hidden><span class="o-lv__specrad"><span>5 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span><span class="o-lv__specrad o-lv__specrad--tom" aria-hidden="true"><span>2 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span></span><span class="o-lv__delta"></span></label><label class="o-lv" data-i="5" hidden><input type="radio" name="lagring" value="86906" data-i="5"><span class="o-lv__etikett o-lv__etikett--tom" aria-hidden="true">Rasmus förslag</span><span class="o-lv__kwh"><b>30</b> <small>kWh</small></span><span class="o-lv__pris kr">86 906 kr</span><span class="o-lv__spec" hidden><span class="o-lv__specrad"><span>6 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span><span class="o-lv__specrad o-lv__specrad--tom" aria-hidden="true"><span>2 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span></span><span class="o-lv__delta"></span></label><label class="o-lv" data-i="6" hidden><input type="radio" name="lagring" value="99069" data-i="6"><span class="o-lv__etikett o-lv__etikett--tom" aria-hidden="true">Rasmus förslag</span><span class="o-lv__kwh"><b>35</b> <small>kWh</small></span><span class="o-lv__pris kr">99 069 kr</span><span class="o-lv__spec" hidden><span class="o-lv__specrad"><span>7 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span><span class="o-lv__specrad o-lv__specrad--tom" aria-hidden="true"><span>2 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span></span><span class="o-lv__delta"></span></label><label class="o-lv" data-i="7" hidden><input type="radio" name="lagring" value="115062" data-i="7"><span class="o-lv__etikett o-lv__etikett--tom" aria-hidden="true">Rasmus förslag</span><span class="o-lv__kwh"><b>40</b> <small>kWh</small></span><span class="o-lv__pris kr">115 062 kr</span><span class="o-lv__spec" hidden><span class="o-lv__specrad"><span>8 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span><span class="o-lv__specrad o-lv__specrad--tom" aria-hidden="true"><span>2 moduler à 5 kWh</span><span>SAJ HS3 12 kW</span></span></span><span class="o-lv__delta"></span></label><div class="o-lv-tom" id="lvTomUpp" aria-hidden="true" hidden><span>Största storleken</span></div></div>
-
-        <details class="o-fold">
-          <summary>Visa alla storlekar</summary>
-          <div class="body">
-            <table class="o-cmp o-lv-tabell" id="lvTabell"><thead><tr><th>Lagring</th><th>Växelriktare</th><th>Ditt pris</th></tr></thead><tbody><tr data-i="0"><td><button type="button" class="o-lv-valj" data-i="0" aria-pressed="false">5 kWh</button><span class="o-lv-mod">1 modul à 5 kWh</span></td><td>SAJ HS3 12 kW</td><td class="kr">35 625 kr</td></tr><tr data-i="1"><td><button type="button" class="o-lv-valj" data-i="1" aria-pressed="false">10 kWh</button><span class="o-lv-mod">2 moduler à 5 kWh</span></td><td>SAJ HS3 12 kW</td><td class="kr">40 000 kr</td></tr><tr data-i="2"><td><button type="button" class="o-lv-valj" data-i="2" aria-pressed="false">15 kWh</button><span class="o-lv-mod">3 moduler à 5 kWh</span></td><td>SAJ HS3 12 kW</td><td class="kr">47 656 kr</td></tr><tr data-i="3" class="vald"><td><button type="button" class="o-lv-valj" data-i="3" aria-pressed="true">20 kWh</button><span class="o-lv-mod">4 moduler à 5 kWh</span></td><td>SAJ HS3 12 kW</td><td class="kr">64 063 kr</td></tr><tr data-i="4"><td><button type="button" class="o-lv-valj" data-i="4" aria-pressed="false">25 kWh</button><span class="o-lv-mod">5 moduler à 5 kWh</span></td><td>SAJ HS3 12 kW</td><td class="kr">78 125 kr</td></tr><tr data-i="5"><td><button type="button" class="o-lv-valj" data-i="5" aria-pressed="false">30 kWh</button><span class="o-lv-mod">6 moduler à 5 kWh</span></td><td>SAJ HS3 12 kW</td><td class="kr">86 906 kr</td></tr><tr data-i="6"><td><button type="button" class="o-lv-valj" data-i="6" aria-pressed="false">35 kWh</button><span class="o-lv-mod">7 moduler à 5 kWh</span></td><td>SAJ HS3 12 kW</td><td class="kr">99 069 kr</td></tr><tr data-i="7"><td><button type="button" class="o-lv-valj" data-i="7" aria-pressed="false">40 kWh</button><span class="o-lv-mod">8 moduler à 5 kWh</span></td><td>SAJ HS3 12 kW</td><td class="kr">115 062 kr</td></tr></tbody></table>
-            <p class="t-micro o-foldnot">Priserna är inklusive moms och efter grön teknik.</p>
-          </div>
-        </details>
-      </section>
-
-      <!-- 4 STEG 2 AV 2: TILLAGG. O-drift ar det enda i den har iterationen,
-           agarbeslut 23 okt punkt 3. -->
+      <!-- 3 OVRIGA TILLAGG. Tva rader: o-drift och mer lagring.
+           AGARFEEDBACK 24 okt F4 och F5, ordagrant: "Det vi vill gora i
+           stallet for att ha det har som en egen sektion ar att ha det som
+           en tillaggsruta, sa att de far sin grundaffar. Vi har valt ut hur
+           manga kilowatt. Vi forklarar vad vi gor. Da har de egentligen bara
+           en dropdown dar de valjer hur mycket lagring de vill lagga till,
+           och sen kommer priset upp dar." och "Da blir det egentligen bara
+           o-driftstillagg. Da har vi o-drift och att man kan lagga till mer
+           lagring. I samband med det har blir det ju bara ett steg i stallet
+           for tva steg. Da tycker jag att vi kan ta bort de har stegen,
+           eftersom det da bara kommer att se konstigt ut."
+           Det upphaver agarens eget beslut 23 okt punkt 2 (riktning C,
+           Ankaret): sektionen Valj lagring, trappan och tabellen ar borta, och
+           stegremsorna Steg 1 av 2 och Steg 2 av 2 med dem. Grundaffaren bar
+           forvalets storlek; rullgardinen pa raden Mer lagring okar den i
+           prislistans egna steg, och priset per steg harleds ur trappan.
+           Infoknappen oppnar en ruta om BADA tillaggen, som laddboxens
+           Ovriga tillagg gor med sin. -->
       <section class="o-sec" style="--g:var(--s3);">
-        <p class="o-steg">Steg 2 av 2</p>
-        <h2 class="t-h2">Övriga tillägg<button type="button" class="o-info" data-info="odrift" aria-label="Mer om ö-drift"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="6.6" r="1.9"/><rect x="10.1" y="10" width="3.8" height="8.4" rx="1.9"/></svg></button></h2>
-        <div class="o-rader"><label class="o-rad"><input type="checkbox" class="add" data-grupp="odrift" data-name="Ö-drift, reservkraft vid strömavbrott" value="30000"><span class="mark sq"></span><span class="o-radikon"><svg viewBox="0 0 312 312" width="100%" height="100%" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M156 58 52 146h34v100h140V146h34ZM168 134l-36 62h24l-10 40 40-64h-24l10-38Z"/></svg></span><span class="o-radtext"><span class="o-radnamn">Ö-drift</span><span class="o-radspec">Ström från batteriet när nätet går ner</span><span class="o-radpris kr" data-grupp="odrift">+30 000 kr</span></span></label></div>
+        <h2 class="t-h2">Övriga tillägg<button type="button" class="o-info" data-info="tillagg" aria-label="Mer om tilläggen"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="6.6" r="1.9"/><rect x="10.1" y="10" width="3.8" height="8.4" rx="1.9"/></svg></button></h2>
+        <div class="o-rader"><label class="o-rad"><input type="checkbox" class="add" data-grupp="odrift" data-name="Ö-drift, reservkraft vid strömavbrott" data-brutto="60000" value="30000"><span class="mark sq"></span><span class="o-radikon"><svg viewBox="0 0 312 312" width="100%" height="100%" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M156 58 52 146h34v100h140V146h34ZM168 134l-36 62h24l-10 40 40-64h-24l10-38Z"/></svg></span><span class="o-radtext"><span class="o-radnamn">Ö-drift</span><span class="o-radspec">Ström från batteriet när nätet går ner</span><span class="o-radpris kr" data-grupp="odrift">+30 000 kr</span></span></label><label class="o-rad o-rad--lagring"><input type="checkbox" class="add" data-grupp="lagring" data-name="Mer lagring" value="14062"><span class="mark sq"></span><span class="o-radikon"><svg viewBox="0 0 312 312" width="100%" height="100%" fill="currentColor" aria-hidden="true"><rect x="70" y="190" width="120" height="36" rx="10"/><rect x="70" y="138" width="120" height="36" rx="10"/><rect x="70" y="86" width="120" height="36" rx="10"/><path fill-rule="evenodd" clip-rule="evenodd" d="M240 134a46 46 0 1 1 0 92 46 46 0 0 1 0-92Zm-9 20v17h-17v18h17v17h18v-17h17v-18h-17v-17Z"/></svg></span><span class="o-radtext"><span class="o-radnamn">Mer lagring</span><span class="o-radspec">20 kWh ingår redan i din offert.</span><span class="o-radpris kr" data-grupp="lagring">+14 062 kr</span></span><span class="o-radval"><select class="o-variant" data-grupp="lagring" aria-label="Välj hur mycket lagring du vill lägga till"><option value="14062" data-steg="1">+5 kWh, totalt 25 kWh</option><option value="22843" data-steg="2">+10 kWh, totalt 30 kWh</option><option value="35006" data-steg="3">+15 kWh, totalt 35 kWh</option><option value="50999" data-steg="4">+20 kWh, totalt 40 kWh</option></select></span></label></div>
       </section>
 
     </div><!-- /colA -->
 
-    <!-- 5 SUMMERING. Ordagrant laddboxens: Acceptera, Fraga eller andra, Avboj. -->
+    <!-- 4 SUMMERING. Ordagrant laddboxens: Acceptera, Fraga eller andra, Avboj. -->
     <div class="o-colB">
       <section class="o-sum" id="summering">
         <span class="t-micro" style="font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Din summering</span>
@@ -168,8 +151,10 @@
       </section>
     </div>
 
-    <!-- 6 FOLDARNA: ovriga tjanster i agarens ordning, laddboxens kostnader
-         som kan tillkomma, villkoren. -->
+    <!-- 5 FOLDARNA: ovriga tjanster i agarens ordning, laddboxens kostnader
+         som kan tillkomma, villkoren. Ordningen pa sidan ar agarens 24 okt
+         (F6): Ovriga tillagg, Din summering, Ovriga tjanster, Rekommendera
+         granne, omdomen. -->
     <div class="o-colC">
       <section class="o-sec" id="villkor">
         <details class="o-fold" id="ovrigt">
@@ -191,18 +176,28 @@
       </section>
     </div>
 
-    <!-- 7 REKOMMENDERA. Delat block; beloppet kommer ur META via bygg.py. -->
+    <!-- 6 REKOMMENDERA. Delat block; beloppet kommer ur META via bygg.py. -->
             <section class="o-sec">
               <div class="o-ref-panel">
                 <h2 class="t-h2 o-ref-titel">Rekommendera och få 1 500&nbsp;kr rabatt på ditt köp</h2>
-                <div class="o-ref-kort">
+                <div class="o-ref-kort o-ref-kort--delat">
                   <svg class="o-ref-svep" viewBox="0 0 320 60" preserveAspectRatio="none" aria-hidden="true"><path d="M-4 30 C60 2, 120 48, 180 34 S280 6, 324 22" fill="none" stroke="#b6f2ff" stroke-width="5" stroke-linecap="round"/></svg>
                   <div class="o-ref-kortmitt">
                     <div class="o-ref-logga">
                       <img src="assets/img/ampy-logga.png" alt="Ampy" width="1600" height="468">
                     </div>
-                    <p class="o-ref-varde">1 500&nbsp;kr rabatt</p>
-                    <span class="o-ref-fran">Från Anders</span>
+                    <div class="o-ref-halvor">
+                      <div class="o-ref-halva">
+                        <span class="o-ref-fran">Till dig</span>
+                        <p class="o-ref-varde">1 500&nbsp;kr rabatt</p>
+                        <span class="o-ref-pa">på ditt köp</span>
+                      </div>
+                      <div class="o-ref-halva">
+                        <span class="o-ref-fran">Till din granne</span>
+                        <p class="o-ref-varde">1 500&nbsp;kr rabatt</p>
+                        <span class="o-ref-pa">på sitt köp</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -218,27 +213,28 @@
                   </li>
                   <li>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3H5a2 2 0 0 0-2 2v6a2 2 0 0 0 .6 1.4l8 8a2 2 0 0 0 2.8 0l6-6a2 2 0 0 0 0-2.8l-8-8A2 2 0 0 0 11 3Z"/><circle cx="7.4" cy="7.4" r="1.45"/></svg>
-                    <span>Du får 1 500&nbsp;kr rabatt på ditt köp</span>
+                    <span>Ni får 1 500&nbsp;kr rabatt var</span>
                   </li>
                 </ul>
 
                 <div class="o-ref-falt">
                   <label class="o-ref-etikett" for="refMejl">Skicka inbjudningar</label>
-                  <p class="t-micro" id="refHjalp" style="color:var(--faint);margin:0 0 var(--s2);">Skriv en adress och tryck enter. Du kan lägga till flera innan du skickar.</p>
+                  <p class="t-micro o-ref-hjalp" id="refHjalp">Skriv en adress och tryck enter. Du kan lägga till flera innan du skickar.</p>
                   <div class="o-chips" id="refChips">
                     <input type="email" id="refMejl" placeholder="granne@exempel.se" autocomplete="off" aria-describedby="refHjalp">
                   </div>
-                  <div class="o-ref-rad" style="margin-top:var(--s2);">
+                  <div class="o-ref-rad">
                     <button type="button" class="o-ref-knapp mork" id="refSkicka" disabled>Skicka inbjudningar</button>
                   </div>
                   <ul class="o-ref-lista" id="refLista"></ul>
                 </div>
               </div>
 
-              <p class="t-micro" style="color:var(--faint);">Rabatten dras på fakturan när grannen har beställt. Hoppar grannen av behåller du ditt pris.</p>
+              <p class="t-micro o-ref-fin">Rabatten dras på fakturan när grannen har beställt. Hoppar grannen av behåller du ditt pris.</p>
             </section>
 
-    <!-- 8 VAD SAGER DINA GRANNAR. Delat block med mallens egna omdomen. -->
+    <!-- 7 VAD SAGER DINA GRANNAR. Delat block med mallens egna omdomen, i
+         agarens ordning (F7). -->
         <section class="ampy-testimonials" aria-label="Omdömen från Ampys kunder">
           <div class="ampy-testimonials__inner">
             <header class="att-head">
@@ -249,7 +245,7 @@
               <div class="o-cit__foto" aria-hidden="true"></div>
               <div class="o-cit__inner">
                 <svg class="o-cit__tecken" viewBox="0 0 32 32" aria-hidden="true"><path d="M2 18.6c0-6.9 3.9-12.2 10.4-14.6l1.4 3.1C9.5 9 7 12 6.6 15.4c.4-.2 1-.3 1.6-.3 3 0 5.4 2.3 5.4 5.4S11 26 7.9 26C4.4 26 2 23.1 2 18.6Zm16.2 0c0-6.9 3.9-12.2 10.4-14.6l1.4 3.1c-4.3 1.9-6.8 4.9-7.2 8.3.4-.2 1-.3 1.6-.3 3 0 5.4 2.3 5.4 5.4S27.2 26 24.1 26c-3.5 0-5.9-2.9-5.9-7.4Z"/></svg>
-                <div class="o-cit__lista"><div class="o-cit__item pa" data-i="0"><blockquote class="o-cit__text">Jag hade redan solceller och ville komplettera min anläggning med batterilagrin. Efter att ha begärt in offerter från flera leverantörer fick jag totalt 13 olika förslag. Ampy utmärkte sig tydligt genom att erbjuda den bästa kombinationen av kvalitet,pris och helhetslösning. Från första kontakten till färdig installation var processen professionell och smidig.  Tillsammans med Rasmus planerades allt i detalj, och installationen genomfördes snabbt och effektivt. Idag har jag en anläggning på 61,44kW som fungerar utmärkt. Det som verkligen skiljer Ampy från mängden är deras service. Jag får alltid snabb hjälp och tydlig vägledning när jag har frågor. Vid ett tillfälle trodde jag att ett fel hemma berodde på batteriet. Ampy var på plats inom 30 minuter, och det visade sig att felet låg i spisen inte i batterisystemet. Jag är mycket nöjd med mitt val av Ampy och kan varmt rekommendera dem till alla som söker en kompetent, pålitligt,serviceinriktad leverantör med  kunniga och erfarna elektriker.</blockquote><cite class="o-cit__namn">Shad Kadir</cite></div><div class="o-cit__item" data-i="1"><blockquote class="o-cit__text">Jag anlitade Ampy för installation av ett lagringsbatteri och är välförtjänt nöjd med hela processen. Elektrikerna kom på utsatt tid, arbetade professionellt och höll ordning under hela installationen. Det märktes att de hade god kunskap om både batterisystemet och hur det skulle integreras med den befintliga anläggningen. De tog sig även tid att svara på frågor och gick igenom hur systemet fungerar efter installationen. Slutresultatet blev snyggt utfört och allt fungerar som det ska. Ett tryggt och seriöst företag som jag gärna rekommenderar vidare.</blockquote><cite class="o-cit__namn">Niklas Savic</cite></div><div class="o-cit__item" data-i="2"><blockquote class="o-cit__text">Sökte en helhetslösning för hembatteri. Ampy levererade över förväntan. Snabbt, smidigt och tryggt!</blockquote><cite class="o-cit__namn">Mathias Franzen</cite></div><div class="o-cit__item" data-i="3"><blockquote class="o-cit__text">Fick tips av en granne som anlitat AMPY Installerade först laddbox Därefter batteri.  Bra rådgivning innan. Proffsiga och trevliga killar. Prydliga ledningsdragningar och snyggt jobb i inomhus och i garage. Kan rekommendera dem varmt. Kjell-Owe Wettring</blockquote><cite class="o-cit__namn">Kjell-Owe Wettring</cite></div><div class="o-cit__item" data-i="4"><blockquote class="o-cit__text">Vi ville installera ett solcellsbatteri för att sänka elkostnaden och effekttoppar. Ampy hjälpte oss hela vägen från rådgivning till färdig installation. Allt gick snabbare än vi trodde och kommunikationen var tydlig hela tiden. Systemet fungerar perfekt och det känns som en riktigt bra investering.</blockquote><cite class="o-cit__namn">Leon Russo</cite></div></div>
+                <div class="o-cit__lista"><div class="o-cit__item pa" data-i="0"><blockquote class="o-cit__text">Fick tips av en granne som anlitat AMPY Installerade först laddbox Därefter batteri.  Bra rådgivning innan. Proffsiga och trevliga killar. Prydliga ledningsdragningar och snyggt jobb i inomhus och i garage. Kan rekommendera dem varmt. Kjell-Owe Wettring</blockquote><cite class="o-cit__namn">Kjell-Owe Wettring</cite></div><div class="o-cit__item" data-i="1"><blockquote class="o-cit__text">Jag anlitade Ampy för installation av ett lagringsbatteri och är välförtjänt nöjd med hela processen. Elektrikerna kom på utsatt tid, arbetade professionellt och höll ordning under hela installationen. Det märktes att de hade god kunskap om både batterisystemet och hur det skulle integreras med den befintliga anläggningen. De tog sig även tid att svara på frågor och gick igenom hur systemet fungerar efter installationen. Slutresultatet blev snyggt utfört och allt fungerar som det ska. Ett tryggt och seriöst företag som jag gärna rekommenderar vidare.</blockquote><cite class="o-cit__namn">Niklas Savic</cite></div><div class="o-cit__item" data-i="2"><blockquote class="o-cit__text">Vi ville installera ett solcellsbatteri för att sänka elkostnaden och effekttoppar. Ampy hjälpte oss hela vägen från rådgivning till färdig installation. Allt gick snabbare än vi trodde och kommunikationen var tydlig hela tiden. Systemet fungerar perfekt och det känns som en riktigt bra investering.</blockquote><cite class="o-cit__namn">Leon Russo</cite></div><div class="o-cit__item" data-i="3"><blockquote class="o-cit__text">Sökte en helhetslösning för hembatteri. Ampy levererade över förväntan. Snabbt, smidigt och tryggt!</blockquote><cite class="o-cit__namn">Mathias Franzen</cite></div><div class="o-cit__item" data-i="4"><blockquote class="o-cit__text">Jag hade redan solceller och ville komplettera min anläggning med batterilagrin. Efter att ha begärt in offerter från flera leverantörer fick jag totalt 13 olika förslag. Ampy utmärkte sig tydligt genom att erbjuda den bästa kombinationen av kvalitet,pris och helhetslösning. Från första kontakten till färdig installation var processen professionell och smidig.  Tillsammans med Rasmus planerades allt i detalj, och installationen genomfördes snabbt och effektivt. Idag har jag en anläggning på 61,44kW som fungerar utmärkt. Det som verkligen skiljer Ampy från mängden är deras service. Jag får alltid snabb hjälp och tydlig vägledning när jag har frågor. Vid ett tillfälle trodde jag att ett fel hemma berodde på batteriet. Ampy var på plats inom 30 minuter, och det visade sig att felet låg i spisen inte i batterisystemet. Jag är mycket nöjd med mitt val av Ampy och kan varmt rekommendera dem till alla som söker en kompetent, pålitligt,serviceinriktad leverantör med  kunniga och erfarna elektriker.</blockquote><cite class="o-cit__namn">Shad Kadir</cite></div></div>
                 <hr class="o-cit__linje">
                 <span class="o-cit__stjarnor" role="img" aria-label="5 av 5 stjärnor"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17l-6.2 3.9 1.6-7L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17l-6.2 3.9 1.6-7L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17l-6.2 3.9 1.6-7L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17l-6.2 3.9 1.6-7L2 9.2l7.1-.6z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17l-6.2 3.9 1.6-7L2 9.2l7.1-.6z"/></svg></span>
               </div>
@@ -443,10 +439,10 @@
     <button class="go" id="barGo">Summering <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
   </div>
 
-  <dialog class="o-modal" id="modalOdrift">
+  <dialog class="o-modal" id="modalTillagg">
     <form method="dialog"><button class="o-modalstang" aria-label="Stäng">&times;</button></form>
-    <h3>Ö-drift, reservkraft vid strömavbrott</h3>
-    <p>Går elnätet ner fortsätter batteriet att mata de grupper vi kopplar till det, till exempel kyl, frys, belysning och router. Vi bygger en egen grupp för det i elcentralen och monterar den omkopplare som krävs. Effekten begränsas av växelriktaren, så hela huset kan inte köras på batteri. Hur länge strömmen räcker beror på hur fullt batteriet är och vad som är igång.</p>
+    <h3>Om tilläggen</h3>
+    <h4>Ö-drift, reservkraft vid strömavbrott</h4><p>Går elnätet ner fortsätter batteriet att mata de grupper vi kopplar till det, till exempel kyl, frys, belysning och router. Vi bygger en egen grupp för det i elcentralen och monterar den omkopplare som krävs. Effekten begränsas av växelriktaren, så hela huset kan inte köras på batteri. Hur länge strömmen räcker beror på hur fullt batteriet är och vad som är igång.</p><h4>Mer lagring</h4><p>Du kan lägga till fler batterimoduler. Varje rad i listan visar hur mycket lagring du får totalt och vad steget kostar, inklusive moms och efter grön teknik. Under Se allt som ingår ser du vad som ingår i den storlek du valt.</p>
     <form method="dialog"><button class="o-modalknapp">Stäng</button></form>
   </dialog>
 </div>

@@ -1,33 +1,32 @@
 (function(){
   "use strict";
-  /* Samma form som offert.py:s _kr: hardspatie mellan tusental, vanligt
-     mellanslag fore kr. toLocaleString ger olika avgransare i olika
-     webblasare, och ett tal som ser olika ut pa tva stallen laser som tva
-     olika tal. */
+  /* Samma form som bitar.kr(): hardspatie mellan tusental OCH fore kr, sa ett
+     belopp aldrig bryts mitt itu vid radslut (agarbeslut 24 okt A8).
+     toLocaleString ger olika avgransare i olika webblasare, och ett tal som
+     ser olika ut pa tva stallen laser som tva olika tal. */
   var kr=function(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" kr"; };
   var $=function(i){ return document.getElementById(i); };
   var val=function(n){ var e=document.querySelector('input[name="'+n+'"]:checked'); return e?e.value:"0"; };
-  var MODELL={"id": "saj-hs3", "namn": "SAJ HS3", "modul_kwh": 5.0, "batteri": "SAJ BU3", "storlekar": [{"kwh": 5.0, "moduler": 1, "pris": 35625, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 10.0, "moduler": 2, "pris": 40000, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 15.0, "moduler": 3, "pris": 47656, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 20.0, "moduler": 4, "pris": 64063, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 25.0, "moduler": 5, "pris": 78125, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 30.0, "moduler": 6, "pris": 86906, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 35.0, "moduler": 7, "pris": 99069, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 40.0, "moduler": 8, "pris": 107531, "vaxelriktare": "SAJ HS3 12 kW"}]};
+  var MODELL={"id": "saj-hs3", "namn": "SAJ HS3", "modul_kwh": 5.0, "batteri": "SAJ BU3", "storlekar": [{"kwh": 5.0, "moduler": 1, "brutto": 71250, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 10.0, "moduler": 2, "brutto": 80000, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 15.0, "moduler": 3, "brutto": 95312, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 20.0, "moduler": 4, "brutto": 128126, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 25.0, "moduler": 5, "brutto": 156250, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 30.0, "moduler": 6, "brutto": 173812, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 35.0, "moduler": 7, "brutto": 198138, "vaxelriktare": "SAJ HS3 12 kW"}, {"kwh": 40.0, "moduler": 8, "brutto": 215062, "vaxelriktare": "SAJ HS3 12 kW"}]};
   var FORVAL=3;
+  var POTT=100000;
   var GRANNRABATT=1500;
   var CEN={"5990": "Byte av elcentral, liten central", "9990": "Byte av elcentral, mellan central", "14900": "Byte av elcentral, stor central"};
   var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
   var BOCK="<span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span>";
   var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Installation av våra egna elektriker", "Montering av batteri och växelriktare", "Anslutning till elcentralen, upp till 10 meter kabel", "Inkoppling mot dina befintliga solceller", "Föranmälan och färdiganmälan till nätbolaget", "Frakt hem till dig", "Konfigurering, driftsättning och funktionstest", "Kontrollmätning av anläggningen", "Genomgång av appen", "10 års produktgaranti"]};
-  var ST=MODELL.storlekar;
-  /* GRON TEKNIK-TAKET. Samma tva rader som offert.py:s GT_TAK och _netto, och
-     oraklet jamfor dem. Prislistans tal ar halva bruttot rakt av, men avdraget
-     ar hogst 50 000 kr per person och ar, alltsa 100 000 for tva. Pa fyra
-     rader i listan ar listpriset darfor INTE vad kunden betalar.
-     Uppmatt 23 okt: SAJ HS3 40 kWh sa 107 531 kr pa kortet och 115 062 i
-     hjalten, baren och summeringen. Invarianten: varje yta som visar ett pris
-     for en storlek visar det kunden betalar, och varje skillnad ar skillnaden
-     mellan tva sadana tal. */
-  var GT_TAK = 100000;
-  function prisMedTak(p){ return 2*p - Math.min(p, GT_TAK); }
+  var ST=MODELL.storlekar, BAS=ST[FORVAL];
+  /* GRON TEKNIK AR HALVA BRUTTOT, MEN HOGST POTTEN.
+     Modellfilen bar BRUTTO per storlek sedan 24 okt: det fysiska priset,
+     inklusive moms, fore avdrag. Potten ar 50 000 kr per person i hushallet
+     med gron teknik, och personantalet ar en parameter per offert
+     (innehall.json: personer, 2 som forval, agarsvar 38). Nettot harleds, och
+     da ar "priset i listan det kunden betalar" sant for varje personantal
+     (agarfeedback 24 okt A1). Samma rad som offert.py:s _netto, ord for ord,
+     och oraklet jamfor dem: tva definitioner av ett pris ar hur taket en gang
+     blev osynligt pa korten. */
+  function netto(b){ return b - Math.min(Math.floor(b/2), POTT); }
   function kwh(v){ return String(v).replace(".",","); }
-  function radios(){ return [].slice.call(document.querySelectorAll('input[name="lagring"]')); }
-  function valdIndex(){ var r=radios(); for(var i=0;i<r.length;i++){ if(r[i].checked) return i; } return FORVAL; }
   function rader(){ return [].slice.call(document.querySelectorAll(".o-rad")); }
   function radAntal(r){ var a=r.querySelector("[data-antal]"); return a ? +a.value : 1; }
   function radVarde(r){
@@ -45,42 +44,28 @@
     return s ? n+", "+s.options[s.selectedIndex].text : n;
   }
 
-  /* ---- ANKARET. Riktning C, agarbeslut 23 okt. ----------------------------
-     Hela trappan ligger i markupen som en radiogrupp. Har satts bara VILKA
-     tre som syns, vilket som ar mitten, och skillnaden pa sidokorten. Talen
-     pa korten ar byggda, inte skrivna har, sa oraklet kan lasa dem. */
-  function ritaLagring(i){
-    var r=radios(), a=ST[i];
-    r.forEach(function(inp,k){
-      var lab=inp.closest(".o-lv"); if(!lab) return;
-      var syn=(k>=i-1 && k<=i+1);
-      lab.hidden=!syn;
-      lab.classList.toggle("mitt", k===i);
-      lab.classList.toggle("sida", syn && k!==i);
-      var sp=lab.querySelector(".o-lv__spec"); if(sp) sp.hidden=(k!==i);
-      var d=lab.querySelector(".o-lv__delta");
-      if(!d) return;
-      if(k===i){ d.hidden=true; d.textContent=""; return; }
-      /* Skillnaden mellan vad de TVA storlekarna kostar, inte mellan tva
-         listpriser: 35 -> 40 kWh pa SAJ stod som +8 462 kr dar steget ar
-         +15 993, for taket biter pa den ena raden och inte pa den andra. */
-      var s=ST[k], dk=Math.round((s.kwh-a.kwh)*100)/100, dp=prisMedTak(s.pris)-prisMedTak(a.pris);
-      d.hidden=false;
-      d.innerHTML='<span>'+(k<i?"ett steg mindre":"ett steg större")+'</span>'
-        +'<span class="kr">'+(dk>0?"+":"−")+kwh(Math.abs(dk))+' kWh</span>'
-        +'<span class="kr">'+(dp>0?"+":"−")+kr(Math.abs(dp))+'</span>';
-    });
-    $("lvTomNer").hidden = i>0;
-    $("lvTomUpp").hidden = i<ST.length-1;
-    [].slice.call(document.querySelectorAll("#lvTabell tr[data-i]")).forEach(function(tr){
-      var k=+tr.getAttribute("data-i");
-      tr.classList.toggle("vald", k===i);
-      var b=tr.querySelector(".o-lv-valj"); if(b) b.setAttribute("aria-pressed", k===i?"true":"false");
-    });
+  /* ---- MER LAGRING. Agarfeedback 24 okt F4. ------------------------------
+     Lagringen ar inte langre en egen sektion utan en kryssrad med en
+     rullgardin, som laddboxens laddkabelrad. Varje alternativ bar data-steg:
+     hur manga rader UPP i prislistans trappa fran forvalet. Ar raden
+     ikryssad ar den EFFEKTIVA storleken ST[FORVAL+steg], och det ar DEN
+     storlekens brutto som gar in i avdraget, for det ar samma fysiska
+     produkt som en storre rad i prislistan. Radens eget value ar skillnaden
+     i vad kunden betalar mellan de tva storlekarna, potten inraknad, och det
+     ar det talet som star pa raden och i summeringen. Oraklet i offert.py
+     raknar varje alternativ ur modellfilen pa disk och stoppar bygget om
+     value eller texten avviker. */
+  function lagringSteg(){
+    var i=document.querySelector('input.add[data-grupp="lagring"]');
+    if(!i || !i.checked) return 0;
+    var s=i.closest(".o-rad").querySelector(".o-variant");
+    var o=s && s.options[s.selectedIndex];
+    return o ? (+o.getAttribute("data-steg") || 0) : 0;
   }
 
-  /* Se allt som ingar: listan foljer den valda storleken. Markupen ar samma
-     punktlista som laddboxens, bocken ur bitar.py via bygget. */
+  /* Se allt som ingar: listan foljer den EFFEKTIVA storleken, alltsa det
+     som faktiskt installeras. Markupen ar samma punktlista som laddboxens,
+     bocken ur bitar.py via bygget. */
   function ingarLista(s){
     var mod = s.moduler ? ", "+s.moduler+(s.moduler===1?" modul à ":" moduler à ")+kwh(MODELL.modul_kwh)+" kWh" : "";
     function fyll(t){
@@ -99,23 +84,26 @@
     /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
     var _o=document.querySelector('.offer'); if(_o) _o.classList.add('js-redo');
 
-    var i=valdIndex(), s=ST[i];
-    ritaLagring(i);
+    var steg=lagringSteg(), s=ST[FORVAL+steg];
 
     /* TVA POTTER, HALLNA ISAR. Batteriet, o-driften och laddboxen ar gron
        teknik. Elcentralen, spotlights, termostat och dimmer ar ROT pa
        arbetskostnaden och bar data-rot. Allt som ar ROT raknas bort ur gron
        teknik-basen, annars raknas samma krona tva ganger. Inget ROT-belopp
-       raknas eller visas: bara vad tjansterna kostar, efter avdrag. */
-    /* PAKETKORTEN. Laddboxen och elcentralen ar tva radiogrupper med pris,
+       raknas eller visas: bara vad tjansterna kostar, efter avdrag.
+       PAKETKORTEN. Laddboxen och elcentralen ar tva radiogrupper med pris,
        fodda ur gemensamt/bitar.py:tjanstekort. Namnet ar gruppen plus "pkg".
-       Laddboxen ar GRON TEKNIK, elcentralen ar ROT pa arbetskostnaden: tva
-       potter som aldrig far rakna samma krona. Potten star ocksa i
-       innehall.json, och offert.py stoppar bygget om de tva drar isar. */
+       Potten star ocksa i innehall.json, och offert.py stoppar bygget om de
+       tva drar isar. */
     var cen=+val("elcentralpkg"), lb=+val("laddboxpkg");
-    var gt=s.pris, rot=cen, rotNamn=[], valda=[];
+    /* GRON TEKNIK-BASEN AR BRUTTO. Batteriets brutto star i modellfilen.
+       Laddboxpaketets pris ar laddboxmallens netto vid 50 procent, och
+       o-driftens 30 000 ar kundens pris netto (innehall.json odrift_pott), sa
+       deras brutto ar det dubbla. Summan av brutton far EN gang halva, upp
+       till potten: taket biter ocksa pa KOMBINATIONER (SAJ 35 kWh plus
+       o-drift passerar 100 000 fast ingen enskild rad gor det). */
+    var gtBrutto=s.brutto + 2*lb, rot=cen, rotNamn=[], valda=[], lagringRad=null;
     if(cen) rotNamn.push(CEN[String(cen)]);
-    if(lb) gt+=lb;
     rader().forEach(function(r){
       var inp=r.querySelector("input.add"); if(!inp) return;
       r.classList.toggle("vald", inp.checked);
@@ -123,92 +111,77 @@
       if(pr && !inp.disabled) pr.textContent="+"+kr(radVarde(r));
       if(!inp.checked) return;
       var v=radVarde(r), namn=radNamn(r), arRot=inp.hasAttribute("data-rot");
-      valda.push({namn:namn, pris:v, rot:arRot});
-      if(arRot){ rot+=v; rotNamn.push(namn); } else { gt+=v; }
+      /* Lagringsraden lagger inte sitt value pa bruttot: den storre storlekens
+         brutto ligger redan i s.brutto ovan. Raden ar en summeringsrad. */
+      if(inp.getAttribute("data-grupp")==="lagring"){ lagringRad={namn:namn, pris:v}; return; }
+      /* BRUTTOT STAR PA RADEN. value ar nettot kunden laser, data-brutto ar
+         det som gar in i avdraget; bygget skriver bada ur prisformen i
+         innehall.json och oraklet raknar om dem fran disk. Ett pris som
+         halveras ser ut som ett pris (koordinatorn 24 okt), sa skriptet
+         gissar inte: saknas data-brutto ar raden ett fel, inte ett netto. */
+      var bru=+inp.getAttribute("data-brutto");
+      if(!arRot && !bru) throw new Error("tillaggsraden "+inp.getAttribute("data-grupp")+" saknar data-brutto");
+      valda.push({namn:namn, pris:v, rot:arRot, brutto:bru});
+      if(arRot){ rot+=v; rotNamn.push(namn); } else { gtBrutto+=bru; }
     });
-    /* GRON TEKNIK HAR ETT TAK, OCH SIDAN FAR INTE LOVA MER AN TAKET.
-       Prislistans kolumn I ar halva bruttot rakt av, utan tak. Men avdraget
-       ar hogst 50 000 kr per person och ar, alltsa 100 000 for tva, och pa
-       SAJ HS3 40 kWh gav formeln 107 531 kr. Sidan sa da "Gron teknik,
-       50 procent, minus 107 531 kr", vilket ar ett avdrag kunden inte kan fa,
-       och det ar KUNDEN som star for det mot Skatteverket.
+    /* SIDAN FAR INTE LOVA MER AN POTTEN. Uppmatt 23 okt fore taket fanns:
+       "Gron teknik, 50 procent, minus 107 531 kr" pa SAJ HS3 40 kWh, ett
+       avdrag kunden inte kan fa, och det ar KUNDEN som star for det mot
+       Skatteverket. */
+    var gtAvdrag=Math.min(Math.floor(gtBrutto/2), POTT);
+    var gtNetto=gtBrutto-gtAvdrag;
+    var takBiter=gtAvdrag<Math.floor(gtBrutto/2);
+    var brutto=gtBrutto, total=gtNetto+rot;
 
-       Taket biter ocksa pa KOMBINATIONER: SAJ 35 kWh plus o-drift passerar
-       100 000 fast ingen enskild rad gor det. Darfor raknas det har, inte i
-       datat.
-
-       Pa de rader dar taket inte biter ar gtNetto exakt lika med
-       prislistans tal, sa ingenting andras pa 51 av 55 rader. Pa de ovriga
-       blir priset hogre an listan, och det ar det RIKTIGA priset.
-       AGARFRAGA 2: antingen rattas prislistan, eller star priset hogre har. */
-    var gtBrutto = gt * 2;
-    var gtAvdrag = Math.min(gtBrutto * 0.5, GT_TAK);
-    var gtNetto = gtBrutto - gtAvdrag;
-    var takBiter = gtAvdrag < gtBrutto * 0.5 - 0.5;
-    var brutto = gtBrutto, netto = gtNetto + rot;
-
-    /* Hjalten */
+    /* Hjalten. Specen sager den effektiva storleken: det som installeras. */
     $("prodSpec").textContent=kwh(s.kwh)+" kWh, monterad och driftsatt";
     $("calcGross").textContent=kr(brutto);
-    /* ETIKETTEN MASTE FOLJA TALET. Nar taket biter ar avdraget 100 000 av ett
-       brutto pa 215 062, alltsa 46,5 procent, och raden sa anda "Gron teknik,
-       50 procent". Kunden kan dividera, och en rad som sager en procentsats
-       sidan inte raknar med misskrediterar varje annat tal pa sidan. */
-    /* OCH DEN NYA ETIKETTEN FAR INTE VARA LANGRE AN DEN GAMLA.
-       Forsta forsoket hette "Gron teknik, taket for tva personer" och brot
-       till TVA rader i hjaltens 209 px: uppmatt vaxte raden 20 -> 40 px,
-       kortet 499 -> 519 och hela hjalten 745 -> 766, och hopp.py matte ett
-       hopp pa 20 px nar kunden valde den storsta storleken. En rattning som
-       flyttar sidan under fingret ar en halv rattning. Vad taket betyder
-       star i summeringen, bredvid raden som bar mellanskillnaden. */
+    /* ETIKETTEN MASTE FOLJA TALET. Nar taket biter ar avdraget potten och
+       inte halva bruttot, och raden far inte saga "50 procent" da. Kunden kan
+       dividera. OCH DEN KORTA ETIKETTEN FAR INTE VARA LANGRE AN DEN LANGA:
+       "Gron teknik, taket for tva personer" brot till tva rader i hjaltens
+       209 px och flyttade sidan 20 px under fingret. Vad taket betyder star i
+       summeringen, bredvid raden som bar mellanskillnaden. */
     $("calcDedNamn").textContent = takBiter ? "Grön teknik, taket"
                                             : "Grön teknik, 50 procent";
     $("calcDed").textContent="−"+kr(gtAvdrag);
-    /* Forklaringen bor i SUMMERINGEN, bredvid raden den forklarar, inte i
-       hjalten. Lag den i hjalten flyttades lagringskorten 59 px ner i samma
-       ogonblick som kunden tryckte pa ett av dem: innehall som dyker upp
-       OVANFOR det kunden ror vid ar en layoutflytt under fingret. */
     $("calcCenRad").classList.toggle("dold", !rot);
     $("calcCenNot").classList.toggle("dold", !rot);
     if(rot){
       $("calcCenNamn").textContent = rotNamn.length===1 ? rotNamn[0] : "Tjänster med ROT";
       $("calcCen").textContent=kr(rot);
     }
-    $("calcNet").textContent=kr(netto);
+    $("calcNet").textContent=kr(total);
 
     var lista=ingarLista(s);
     if($("incList").innerHTML!==lista) $("incList").innerHTML=lista;
 
-    /* Summeringen */
-    /* VARJE RAD SAGER DET KORTET SAGER. En gron teknik-rad visar sitt eget
-       pris med taket inraknat, precis som lagringskortet gor; en ROT-rad ar
-       redan ett nettopris och rors inte. gtRader ar summan av det kunden
-       LASER, och skillnaden mot totalen ar takraden nedanfor. */
-    var gtRader = prisMedTak(s.pris);
-    var rows='<div class="o-sumrow"><span>'+MODELL.namn+', '+kwh(s.kwh)+' kWh</span><span class="kr">'+kr(prisMedTak(s.pris))+'</span></div>';
+    /* Summeringen. VARJE RAD SAGER DET RADEN PA SIDAN SAGER. Batteriraden ar
+       grundaffaren, forvalets storlek med sitt eget netto. Mer lagring star
+       direkt under den med sitt eget tal, sa de tva tillsammans ar exakt den
+       storre storlekens netto. En annan gron teknik-rad visar sitt eget netto,
+       en ROT-rad ar redan netto. gtRader ar summan av det kunden LASER, och
+       skillnaden mot totalen ar takraden nedanfor: nar potten ar forbrukad av
+       batteriet far o-driften inget avdrag alls, och det ska sta som en rad
+       med sitt skal, inte gommas i totalen. Kunden kan rakna. */
+    var gtRader=netto(BAS.brutto);
+    var rows='<div class="o-sumrow"><span>'+MODELL.namn+', '+kwh(BAS.kwh)+' kWh</span><span class="kr">'+kr(netto(BAS.brutto))+'</span></div>';
+    if(lagringRad){ gtRader+=lagringRad.pris;
+      rows+='<div class="o-sumrow sub"><span>'+lagringRad.namn+'</span><span class="kr">'+kr(lagringRad.pris)+'</span></div>'; }
     valda.forEach(function(v){
-      var p = v.rot ? v.pris : prisMedTak(v.pris);
+      var p = v.rot ? v.pris : netto(v.brutto);
       if(!v.rot) gtRader += p;
       rows+='<div class="o-sumrow sub"><span>'+v.namn+'</span><span class="kr">'+kr(p)+'</span></div>';
     });
-    if(lb){ gtRader += prisMedTak(lb);
-      rows+='<div class="o-sumrow sub"><span>'+LBP[String(lb)]+'</span><span class="kr">'+kr(prisMedTak(lb))+'</span></div>'; }
+    if(lb){ gtRader += netto(2*lb);
+      rows+='<div class="o-sumrow sub"><span>'+LBP[String(lb)]+'</span><span class="kr">'+kr(netto(2*lb))+'</span></div>'; }
     if(cen) rows+='<div class="o-sumrow sub"><span>'+CEN[String(cen)]+'</span><span class="kr">'+kr(cen)+'</span></div>';
-    /* NAR TAKET BITER MASTE RADERNA ANDA GA IHOP MED TOTALEN.
-       Radernas tal ar prislistans NETTOPRISER, raknade med halva bruttot. Slar
-       taket i betalar kunden mellanskillnaden, och da summerade de fem raderna
-       till 115 623 kr medan totalen sa 118 856. Kunden kan rakna.
-       Raden nedan ar den skillnaden, med sitt skal. */
-    /* Nar EN rad passerar taket sager raden redan sitt riktiga pris, och da
-       finns ingen mellanskillnad kvar att forklara. Det som ar kvar ar
-       KOMBINATIONEN: tva rader som var for sig ryms under taket men inte
-       tillsammans. Noten hanger pa taket, raden pa mellanskillnaden, sa
-       forklaringen finns aven nar skillnaden ar noll. */
     var takTillagg = gtNetto - gtRader;
-    if(takTillagg > 0) rows+='<div class="o-sumrow sub"><span>Över grön teknik-taket, '
-      +kr(GT_TAK)+' för två personer</span><span class="kr">'+kr(takTillagg)+'</span></div>';
-    if(takBiter) rows+='<div class="o-sumnote">Grön teknik är högst 50 000 kr per person och år. '
-      +'Här slår taket i, så avdraget är '+kr(GT_TAK)+' i stället för halva priset.</div>';
+    if(takTillagg > 0) rows+='<div class="o-sumrow sub"><span>Över grön teknik-taket, '+kr(POTT)+'</span><span class="kr">'+kr(takTillagg)+'</span></div>';
+    /* Noten namnger potten, inte personantalet: meningen om tva personer ar
+       borta ur kundtexten pa agarens ord 24 okt ("Den kan vi ta bort oavsett
+       vad"), och bokaren har redan fragat hur manga som har gron teknik. */
+    if(takBiter) rows+='<div class="o-sumnote">Här slår taket för grön teknik i, så avdraget är '+kr(POTT)+' i stället för halva priset.</div>';
     /* Grannrabatten raknas pa SKICKADE inbjudningar, som laddboxen och
        elcentralen gor. Raden andrar inte talet kunden betalar i dag: rabatten
        dras pa fakturan nar grannen har bestallt. Beloppet ar mallens eget. */
@@ -216,16 +189,15 @@
     if(grannar) rows+='<div class="o-sumrow disc"><span>Grannrabatt, '+grannar+(grannar>1?' grannar inbjudna':' granne inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
       +'<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av, '+kr(GRANNRABATT)+' för varje granne som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML=rows;
-    $("sumTotal").textContent=kr(netto);
+    $("sumTotal").textContent=kr(total);
     $("sumBrutto").textContent=kr(brutto+rot);
-    $("barTotal").textContent=kr(netto);
+    $("barTotal").textContent=kr(total);
     $("barBrutto").textContent=kr(brutto+rot);
     rensningsknappar();
   }
 
   /* ---- LYSSNARNA. Ett val ar ett val oavsett vilken vag det gjordes. ---- */
-  document.querySelectorAll('input[name="lagring"], input[name="elcentralpkg"], '
-    + 'input[name="laddboxpkg"], input.add').forEach(function(i){
+  document.querySelectorAll('input[name="elcentralpkg"], input[name="laddboxpkg"], input.add').forEach(function(i){
     i.addEventListener("change", render);
   });
 
@@ -248,15 +220,6 @@
       if(inp[0]){ try{ inp[0].focus({preventScroll:true}); }catch(_){} }
     });
   });
-  /* Tabellen i folden: ett tryck pa en rad valjer den storleken, alltsa
-     samma radio som korten styr. En vag till samma sanning, inte en andra. */
-  document.querySelectorAll(".o-lv-valj").forEach(function(b){
-    b.addEventListener("click", function(){
-      var r=radios()[+this.getAttribute("data-i")];
-      if(!r || r.checked) return;
-      r.checked=true; render();
-    });
-  });
   /* andrar man antalet ar det ett val, sa rutan kryssas i */
   document.querySelectorAll("[data-antal]").forEach(function(sel){
     sel.addEventListener("change", function(){
@@ -266,7 +229,8 @@
     });
     sel.addEventListener("click", function(e){ e.stopPropagation(); });
   });
-  /* byter man paket i laddboxraden ar det ett val, sa rutan kryssas i */
+  /* byter man alternativ i en rullgardin ar det ett val, sa rutan kryssas i:
+     mer lagring och laddboxpaketet i Ovriga tjanster gar samma vag */
   document.querySelectorAll(".o-variant").forEach(function(s){
     s.addEventListener("change", function(){
       var i=this.closest(".o-rad").querySelector("input.add");
@@ -277,10 +241,11 @@
   });
 
   /* FOKUSRYCKNINGEN. Ett tryck pa en etikett flyttar fokus till den dolda
-     radion och webblasaren drar in den i vyn. Fokus tas sjalv pa pointerdown
-     med preventScroll, i fangstfasen, sa webblasarens egen fokus inte rullar. */
+     kryssrutan och webblasaren drar in den i vyn. Fokus tas sjalv pa
+     pointerdown med preventScroll, i fangstfasen, sa webblasarens egen fokus
+     inte rullar. */
   document.addEventListener("pointerdown", function(e){
-    var lab=e.target.closest && e.target.closest("label.o-lv, label.o-opt, label.o-rad, label.o-pkg");
+    var lab=e.target.closest && e.target.closest("label.o-opt, label.o-rad, label.o-pkg");
     if(!lab) return;
     var i=lab.querySelector("input");
     if(i && !i.disabled){ try{ i.focus({preventScroll:true}); }catch(_){} }
@@ -309,10 +274,11 @@
     sk.hidden=false; sk.classList.add("syns");
     if(id==="skarmAccept"){
       /* KVITTOT. Samma tal som summeringen just visade, last ur DOM:en i
-         stallet for omraknat, sa de inte kan dra isar. */
+         stallet for omraknat, sa de inte kan dra isar. Storleken ar den
+         effektiva: det som installeras. */
       var kv=$("oaKvitto");
       if(kv){
-        var s=ST[valdIndex()];
+        var s=ST[FORVAL+lagringSteg()];
         var od=document.querySelector('input.add[data-grupp="odrift"]:checked');
         $("oaTotal").textContent=$("sumTotal").textContent;
         $("oaPaket").textContent=MODELL.namn+", "+kwh(s.kwh)+" kWh"+(od?", med ö-drift":"");
@@ -338,7 +304,7 @@
   });
   $("barGo").addEventListener("click", function(){ scrollTill($("summering")); });
 
-  /* informationsrutan om o-drift */
+  /* informationsrutan om tillaggen */
   document.querySelectorAll(".o-info").forEach(function(b){
     b.addEventListener("click", function(e){
       e.preventDefault(); e.stopPropagation();
@@ -378,7 +344,10 @@
     }
   })();
 
-  /* grann.js i gemensamt behover kunna rakna om summan. */
+  /* grann.js i gemensamt behover kunna rakna om summan. Potten exponeras sa
+     att en sond (offerter/batteri/sonder/tillagg.js) kan prova takregeln i
+     den riktiga webblasaren utan att lasa skriptets kalla. */
   window.__render = render;
+  window.__pott = POTT;
   render();
 })();

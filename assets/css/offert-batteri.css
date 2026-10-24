@@ -798,22 +798,66 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   text-transform:uppercase;color:rgba(255,255,255,.82);}
 .offer .o-ref-fran{display:inline-block;background:#b6f2ff;color:#015648;
   font-size:13px;font-weight:600;border-radius:999px;padding:var(--s1) var(--s3);}
+/* DET DELADE KORTET, agarfeedback 24 okt (A7): "Kunden far 500 kr rabatt pa
+   sitt kop & grannen far 500 kr rabatt pa sitt kop, nagot som vi maste gora
+   tydligt." Fram till dess sa blocket bara vad kunden far. Nu ar kortet
+   delat i tva halvor med en rivkant emellan: vanster till dig, hoger till
+   din granne, samma belopp pa bada. Symmetrin AR budskapet, och den gar att
+   lasa utan att lasa. Tre riktningar renderade och matta 24 okt
+   (granskning/2026-10-24-grannrabatten/): A delat kort +14 px, B grannens
+   gava +52 px, C kvittot -38 px men utan presentkortet agaren bestallde
+   18 okt. Oraklet grannrabatten_ar_dubbelsidig haller halvorna lika. */
+.offer .o-ref-kort--delat{padding:var(--s7) var(--s4) var(--s5);}
+.offer .o-ref-kort--delat .o-ref-kortmitt{width:100%;gap:var(--s4);}
+.offer .o-ref-kort--delat .o-ref-logga img{height:20px;}
+.offer .o-ref-halvor{display:grid;grid-template-columns:1fr 1fr;width:100%;}
+.offer .o-ref-halva{display:flex;flex-direction:column;align-items:center;gap:var(--s2);
+  padding:var(--s1) var(--s2);text-align:center;}
+/* Perforeringen: en streckad linje, och tva cirklar i panelens farg over
+   kortets over- och underkant. overflow:hidden pa kortet klipper dem till
+   halvcirklar, alltsa en riven kant, utan en bild. */
+.offer .o-ref-halva + .o-ref-halva{border-left:2px dashed rgba(255,255,255,.5);}
+.offer .o-ref-kort--delat::before,.offer .o-ref-kort--delat::after{content:"";position:absolute;left:50%;
+  width:var(--z2);height:var(--z2);border-radius:50%;background:#f1f3f8;transform:translateX(-50%);z-index:2;}
+.offer .o-ref-kort--delat::before{top:calc(var(--z2) / -2);}
+.offer .o-ref-kort--delat::after{bottom:calc(var(--z2) / -2);}
+/* "1 500 KR RABATT" sparrat i versaler ar 149 px, och halvan ar 147 vid 375.
+   Beloppet satts darfor som text, 15/700 utan sparr, inte som etikett. */
+.offer .o-ref-halva .o-ref-varde{font-size:15px;font-weight:700;letter-spacing:0;text-transform:none;color:#fff;}
+/* .9 och inte .82 som ordet ovanfor: vitt pa kortets ljusaste ton #017666
+   ger 4,26:1 vid .82 och 4,81 vid .9. 13 px kraver 4,5. */
+.offer .o-ref-pa{font-size:13px;color:rgba(255,255,255,.9);}
+@media print{
+  /* mallarnas utskriftsregler gor kortet vitt med mork text; halvornas egna
+     vita texter och den vita rivlinjen maste folja med, annars star "Till
+     dig" och "Till din granne" over tomrum. */
+  .offer .o-ref-pa,.offer .o-ref-halva .o-ref-varde{color:var(--ink) !important;}
+  .offer .o-ref-halva + .o-ref-halva{border-left-color:var(--kant) !important;}
+  .offer .o-ref-kort--delat::before,.offer .o-ref-kort--delat::after{background:#fff !important;}
+}
 .offer .o-ref-rubrik{font-size:17px;font-weight:700;color:var(--ink);margin:0;}
 .offer .o-ref-steg{list-style:none;margin:calc(var(--s4) * -1) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s3);}
 .offer .o-ref-steg li{display:flex;align-items:center;gap:var(--s3);font-size:15px;color:var(--body);}
 .offer .o-ref-steg svg{width:var(--z2);height:var(--z2);flex:none;color:var(--ikonglyf);}
 .offer .o-ref-falt{display:flex;flex-direction:column;gap:var(--s2);}
 .offer .o-ref-etikett{font-size:15px;font-weight:600;color:var(--ink);}
-.offer .o-ref-rad{display:flex;gap:var(--s2);}
+.offer .o-ref-rad{display:flex;gap:var(--s2);margin-top:var(--s2);}
+/* Hjalptexten, knappraden och finstilten bar sina marginaler i style-
+   attribut fram till 24 okt. En inline-marginal vager mer an varje regel
+   har och star dar ingen letar. Nu klasser. */
+.offer .o-ref-hjalp{color:var(--faint);margin:0 0 var(--s2);}
+.offer .o-ref-fin{color:var(--faint);}
 /* GOLVET LAG I EN SELEKTOR SOM FALTET HADE FLYTTAT UT UR. Mejlfaltet bor i
    .o-chips sedan chipsen infordes, medan min-height:var(--z5) stod kvar pa
    .o-ref-rad input. Resultatet var ett 31 px hogt faltet i ett hus dar 44
    ar golvet, i tre mallar samtidigt, och audit.js sag det inte for att dess
    selektorlista inte raknade input alls. Bada platserna namns nu. */
-.offer .o-ref-rad input,.offer .o-chips input{flex:1;min-width:0;background:#fff;border:1px solid var(--kant-kontroll);
-  border-radius:var(--r1);padding:0 var(--s3);min-height:var(--z5);
-  font-family:inherit;font-size:15px;font-weight:300;color:var(--body);}
-.offer .o-ref-rad input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:1px;}
+/* RUTA I RUTA, uppmatt 24 okt: regeln ovan galde 'det gamla lankfaltet OCH
+   chipsfaltets input', sa inputen i .o-chips fick en egen kant, egen vit
+   botten och egen radie INUTI den ram .o-chips redan ritar. Tva kanter runt
+   samma falt, pa alla fem sidorna. Lankfaltet ar borta sedan 21 okt, sa
+   regeln ar borta med det. Golvet 44 pa inputen star kvar, i .o-chips input
+   langre ner, dar faltet bor. */
 .offer .o-ref-knapp{flex:none;border:0;border-radius:var(--r1);padding:0 var(--s4);
   min-height:var(--z5);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;}
 .offer .o-ref-knapp.ljus{background:#e3e7ef;color:var(--ink);}
@@ -1461,14 +1505,17 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    Forut kravdes kommatecken mellan adresser, och "folk fattar inte det". */
 .o-chips{
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);
-  min-height:var(--z6);padding:var(--s2);
+  /* 2 px lodrat, inte 8: inputen inuti ar sjalv 44 (golvet, matt av
+     audit.js pa inputen och inte pa ramen), sa 8 + 44 + 8 gav en ram pa
+     60 dar husets falt ar 48. */
+  min-height:var(--z6);padding:var(--s0) var(--s2);
   border:1.5px solid var(--kant);border-radius:var(--r1);background:#fff;
   cursor:text;
 }
 .o-chips:focus-within{border-color:var(--teal-ink);box-shadow:0 0 0 3px var(--teal-soft);}
 .o-chips input{
-  flex:1 1 12ch;min-width:12ch;border:0;outline:0;background:none;
-  font:inherit;font-size:15px;color:var(--ink);padding:var(--s1) 0;
+  flex:1 1 12ch;min-width:12ch;min-height:var(--z5);border:0;outline:0;background:none;
+  font:inherit;font-size:15px;font-weight:300;color:var(--ink);padding:0;
 }
 .o-chips input[aria-invalid="true"]{color:var(--fel,#a3312a);}
 .o-chip{
@@ -1565,122 +1612,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   width:var(--hb-w,100%);height:auto;max-width:none;
   margin-left:var(--hb-x,0);margin-top:var(--hb-y,0);object-fit:contain;}
 
-/* --- LAGRINGSVALET, RIKTNING C: ANKARET --------------------------------------
-   Tre kort i bredd: ett steg mindre, Rasmus storlek, ett steg storre. Hela
-   trappan ligger i markupen och bara tre syns, sa gridet far alltid tre
-   celler: de dolda korten ar display:none och tar ingen plats. Mitten ar
-   bredare, for det ar dar kunden laser. Vid 375 ar spalten 343: 8 px gap ger
-   sidokorten 94 och mitten 123, och det langsta talet, "15,36", ryms i
-   mitten pa 24 px med enheten som ett eget litet ord. */
-.offer .o-lagring{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr);gap:var(--s2);align-items:stretch;}
-@container (min-width: 560px){ .offer .o-lagring{gap:var(--s3);} }
-.offer .o-lv{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s1);
-  text-align:center;background:var(--card);border:1.5px solid var(--kant);border-radius:var(--r2);
-  padding:var(--s3) var(--s2);cursor:pointer;transition:border-color .18s ease;}
-@media (prefers-reduced-motion: reduce){ .offer .o-lv{transition:none;} }
-.offer .o-lv > input{position:absolute;opacity:0;width:1px;height:1px;}
-.offer .o-lv.mitt{border-color:var(--teal-ink);border-width:2px;padding:var(--s4) var(--s3);}
-.offer .o-lv:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
-@media (hover:hover){ .offer .o-lv.sida:hover{border-color:var(--line-strong,#9fb0cc);} }
-/* Etiketten sitter pa den storlek bokaren raknade pa och foljer inte med
-   nar kunden stegar: den ar ett faktum om forslaget, inte om valet. */
-/* Gemener, inte versaler: "RASMUS FORSLAG" i versaler med sparrning bryter
-   till tva rader i mittkortets 107 px vid 375. Uppmatt, inte gissat. */
-.offer .o-lv__etikett{display:inline-block;font-size:11px;line-height:16px;font-weight:700;letter-spacing:.01em;white-space:nowrap;
-  color:var(--teal-ink);background:var(--teal-soft);border-radius:999px;padding:var(--s0) var(--s2);margin-bottom:var(--s1);}
-/* DEN TOMMA REMSAN. Samma element, osynligt: visibility tar bort det ur
-   bilden men inte ur flodet, sa hojden ar exakt etikettens och foljer den
-   om graden andras. aria-hidden pa elementet haller den ur upplasningen. */
-.offer .o-lv__etikett--tom{visibility:hidden;}
-/* SPECREMSAN RESERVERAR SIN VARSTA HOJD, OCH DEN GOR DET VID VARJE BREDD.
-   Uppmatt 23 okt: steg 0 sager "1 modul a 5 kWh" och ryms pa en rad, steg 1
-   och uppat sager "2 moduler" och wrappar till tva. Ett ord gjorde sidan
-   ostadig: trappans rad matte 187 mot 193 och allt under den flyttade sig
-   6 px nar kunden gick fran minsta storleken till nasta.
-   Forsta rattningen reserverade `calc(3lh + var(--s0))` under 519 px. Den
-   holl vid 375 (193 x 8) men INTE vid de bredder ingen matte: 320 gav 225
-   OCH 245, 1280 gav 171 OCH 177, pa bade Eway och Dyness. Tre rader racker
-   vid 375, men 320 behover fyra och 1280 bara tva, sa ett handraknat antal
-   rader ar ratt i exakt en bredd och fel i alla andra. Det ar en nudgning,
-   inte en invariant.
-   Invariant 3 i stallet, och det ar husets egen losning, redan anvand pa
-   etiketten tre rader hogre upp: ETT DOLT SYSKON bar den langsta texten per
-   rad over alla steg, och ligger i SAMMA gridcell som den riktiga. Da ar
-   remsans hojd max(verklig, varsta) vid varje bredd, raknad av webblasaren.
-   Inget px-tal, ingen radrakning, ingen @container-band. */
-.offer .o-lv__spec{display:grid;font-size:13px;color:var(--muted);line-height:20px;margin-top:var(--s1);}
-.offer .o-lv__spec > .o-lv__specrad{grid-area:1 / 1;display:flex;flex-direction:column;gap:var(--s0);}
-/* visibility, inte display:none: tar bort ur bilden men inte ur gridcellen,
-   sa cellen fortfarande mats. aria-hidden pa elementet i markupen. */
-.offer .o-lv__specrad--tom{visibility:hidden;}
-/* RADHOJDERNA AR HELA PIXLAR, INTE FAKTORER. Det har ar invariant 1 i kortet,
-   och den foljer av en matning, inte av smak. Kortet deklarerar gap 4 mellan
-   varje barn. Uppmatt 23 okt fore regeln: skarven pris -> spec matte 8 och den
-   IDENTISKT deklarerade skarven pris -> delta matte 9, i samma komponent.
-   Skalet: mittkortets pris ar 20 px och arver 1,55, alltsa 31 px jamnt, medan
-   sidokortets pris ar 15 px och arver 1,55, alltsa 23,25 px. Den kvartspixeln
-   skjuter nasta elements overkant till en halv pixel, och webblasaren avrundar
-   den till +1. Tva luckor med samma regel som mats till olika tal ar precis
-   den sortens motsagelse den har kopare letar efter.
-   Samma orsak gjorde reservationen till 56,5625 px: 3 x 18,2 + 2.
-   ALLA sex linjeboxarna i kortet var fraktionella utom en. Nu ar varje
-   textroll deklarerad i hela pixlar pa 4-rutnatet, och da mater varje lucka
-   exakt det regeln sager. 11 -> 16 och 13 -> 20 ar samma tva varden
-   tillaggsmallen redan bar, av samma skal. Etikettens 16 star i sin egen
-   regel ovanfor: ett oraklet i offert.py vagrar samma selektor tva ganger,
-   och det gjorde sitt jobb pa forsta bygget efter den har andringen. */
-.offer .o-lv__kwh{display:block;font-size:17px;font-weight:700;color:var(--ink);line-height:20px;font-variant-numeric:tabular-nums;}
-.offer .o-lv__kwh small{font-size:13px;font-weight:600;color:var(--muted);}
-.offer .o-lv.mitt .o-lv__kwh{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:28px;}
-.offer .o-lv.mitt .o-lv__kwh small{font-size:15px;}
-.offer .o-lv__pris{display:block;font-size:15px;font-weight:600;color:var(--ink);line-height:20px;}
-.offer .o-lv.mitt .o-lv__pris{font-size:20px;font-weight:700;line-height:28px;}
-.offer .o-lv__delta{display:flex;flex-direction:column;gap:var(--s0);font-size:13px;color:var(--muted);line-height:20px;margin-top:var(--s1);}
-.offer .o-lv__delta span:first-child{font-weight:600;color:var(--faint);}
-/* Trappans andar: ingen mindre eller storre storlek finns. Rutan star kvar
-   sa mitten forblir i mitten, och sager varfor den ar tom. */
-/* INGEN CELL BAR SIN EGEN HOJD. Trappans rad ar `align-items:stretch`, sa
-   HOJDEN SATTS AV MITTKORTET och varje annan cell stracks till den. Uppmatt
-   over alla steg pa alla tre modellerna: 193 x 8, 208 x 7, 208 x 10, alltsa
-   alla celler lika hoga i varje steg. `min-height:120px` pa .o-lv och
-   .o-lv-tom bet darfor ALDRIG: inget kort kom nagonsin under 163. Ett golv
-   som inte biter ar inte ofarligt, det ar ett golv som kan borja bita nar
-   innehallet kortas, och 120 star inte i skalan (2/4/8/12/16/24/32/48/64).
-   Borta. Biter stretch inte langre sager oraklet och trappan till. */
-.offer .o-lv-tom{display:flex;align-items:center;justify-content:center;text-align:center;
-  border:1.5px dashed var(--line-2);border-radius:var(--r2);padding:var(--s3) var(--s2);
-  font-size:13px;color:var(--faint);line-height:20px;}
-
-/* --- HELA TRAPPAN I FOLDEN ---------------------------------------------------
-   Samma jamfortabell som paketen, med en knapp per rad som valjer den
-   storleken: en vag till samma radio, inte en andra sanning. Systemets regel
-   gor sista raden fet (den ar prisraden i paketjamforelsen); har ar sista
-   raden bara den storsta storleken. */
-/* Cellen forblir en tabellcell. Forsta forsoket gjorde td:first-child till
-   en flexbehallare, och da tappade tabellen kolumnbredden: uppmatt vid 390
-   blev kolumnen 70 px och "1 modul a 5 kWh" brot pa fyra rader. Knappen och
-   modulraden ar block i stallet, i en cell som ar en cell. */
-/* SYSTEMETS .o-cmp{min-width:327px} ar ritad for paketjamforelsen med fyra
-   kolumner. Lagringstabellen har tre, och 327 i en spalt pa 309 gav 18 px
-   sidledes rullning INNE i folden: uppmatt klientbredd 341 mot scrollbredd
-   359, alltsa prisets kolumn delvis gomd bakom kanten. Tabellen slapper
-   golvet och far rymmas. */
-.offer .o-lv-tabell{min-width:0;}
-.offer .o-lv-tabell th:first-child,.offer .o-lv-tabell td:first-child{width:40%;}
-.offer .o-lv-tabell tbody tr:last-child td{font-weight:inherit;color:inherit;white-space:normal;}
-.offer .o-lv-tabell tbody td{vertical-align:top;}
-.offer .o-lv-valj{display:block;font:inherit;font-size:15px;font-weight:600;color:var(--teal-ink);background:none;border:0;
-  line-height:20px;min-height:var(--z5);padding:0 var(--s1);margin-left:calc(var(--s1) * -1);cursor:pointer;white-space:nowrap;
-  text-decoration:underline;text-underline-offset:3px;border-radius:var(--r1);text-align:left;}
-.offer .o-lv-valj:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
-.offer .o-lv-mod{display:block;font-size:13px;color:var(--faint);line-height:20px;}
-.offer .o-lv-tabell tr.vald td{color:var(--ink);}
-.offer .o-lv-tabell tr.vald td:first-child{color:var(--ink);}
-.offer .o-lv-tabell tr.vald .o-lv-valj{color:var(--ink);text-decoration:none;cursor:default;}
-.offer .o-lv-tabell tr.vald .o-lv-valj::after{content:"vald";margin-left:var(--s2);font-size:11px;font-weight:700;
-  letter-spacing:.04em;text-transform:uppercase;color:var(--teal-ink);}
-.offer .o-lv-tabell tr.vald td.kr{font-weight:700;}
-
 /* --- SUMMERINGEN MED SEXSIFFRIGA TAL -----------------------------------------
    Laddboxens summering lagger bruttot overstruket BREDVID priset. Med
    batteriets tal, "205 426 kr" bredvid "111 363 kr", ar raden 322 px i en
@@ -1688,14 +1619,14 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    bruttot ovanfor priset i stallet, hogerstallt, samma tva tal. */
 @container (max-width: 480px){
   .offer .o-sum .o-sumpris{flex-direction:column;align-items:flex-end;gap:0;}
-  /* SAMMA INVARIANT SOM I TRAPPAN: tva linjeboxar staplade pa varandra maste
-     vara HELA pixlar. Nordstjarnan lagger bruttot BREDVID priset, sa dess
-     .o-sumtot ar en rad och landar pa 60 px jamnt. Kolumnen har staplar
-     15 px/23,25 ovanpa 30 px/46,5, alltsa 69,75, och da flyttas allt under
-     en trekvartspixel. Uppmatt 23 okt: luckan over totalen 17 px och under
-     den 3 px, mot nordstjarnans 16 och 4, med exakt samma regler och samma
-     markup. Ett pixelfel bada vagarna, i det kort som bar talet kunden ska
-     betala. 24 och 40 ar samma tva varden tillaggsmallen redan bar. */
+  /* TVA LINJEBOXAR STAPLADE PA VARANDRA MASTE VARA HELA PIXLAR. Nordstjarnan
+     lagger bruttot BREDVID priset, sa dess .o-sumtot ar en rad och landar pa
+     60 px jamnt. Kolumnen har staplar 15 px/23,25 ovanpa 30 px/46,5, alltsa
+     69,75, och da flyttas allt under en trekvartspixel. Uppmatt 23 okt:
+     luckan over totalen 17 px och under den 3 px, mot nordstjarnans 16 och
+     4, med exakt samma regler och samma markup. Ett pixelfel bada vagarna, i
+     det kort som bar talet kunden ska betala. 24 och 40 ar samma tva varden
+     tillaggsmallen redan bar. */
   .offer .o-sum .o-sumtot > span{line-height:24px;}
   .offer .o-sum .o-sumpris s{line-height:24px;}
   .offer .o-sum .o-sumpris b{line-height:40px;}
@@ -1705,27 +1636,15 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    talet ger 163, sa raden haller pa en rad fran 360 och uppat. */
 .offer .o-bar .bt b{font-size:17px;}
 
-/* --- FORUTSATTNINGEN FOR PRISET ----------------------------------------------
-   Villkoret som bar talet ska sta dar talet star, och i en grad som motsvarar
-   vad det ar vart. Avdraget ar raknat pa tva personer i hushallet; ar kunden
-   ensam blir priset 14 063 kr hogre an sidan sager pa SAJ-forvalet, 5 000 pa
-   Eway och 12 294 pa Dyness. Det stod i 11 px langst ner i kortet, sidans
-   minsta grad, alltsa i samma storlek som "inkl. moms".
-   13 px och --muted, inte 11 px och --faint: 11 ar finstilt och smaetiketter,
-   aldrig text nagon ska lasa (FALLOR.md). Samma grad som raden ovanfor den,
-   sa den laser som en fortsattning pa avdraget och inte som en ny sak.
-   Luften: .o-calc ger varje barn 8 px. Villkoret hor TILL avdragsraden, inte
-   efter den, sa det star 4 px under. Skrivet som sin avsikt, 4 minus 8. */
-.offer .o-calc .o-calcvillkor{font-size:13px;line-height:20px;color:var(--muted);
-  margin-top:calc(var(--s1) - var(--s2));}
-/* INVARIANT 1 OCKSA HAR, och den foll ut ur matningen av raden ovan. Kortets
-   rader arver systemets 1,55 och landar pa 20,15 / 21,75 / 23,25 / 17,05 px.
-   Uppmatt 23 okt: luckan under avdragsraden matte 5 px pa SAJ vid 320 och 4 px
-   pa Dyness vid samma bredd, med SAMMA regel, och luckan over "Arbete och
+/* --- HJALTENS RADER I HELA PIXLAR --------------------------------------------
+   INVARIANT 1: RADHOJDERNA AR HELA PIXLAR, INTE FAKTORER. Kortets rader arver
+   systemets 1,55 och landar pa 20,15 / 21,75 / 23,25 / 17,05 px. Uppmatt
+   23 okt: luckan under avdragsraden matte 5 px pa SAJ vid 320 och 4 px pa
+   Dyness vid samma bredd, med SAMMA regel, och luckan over "Arbete och
    material" matte 7 pa en sida och 8 pa en annan. Skillnaden var alltid om
    raden ovanfor hade wrappat till ett jamnt eller ojamnt antal halva pixlar.
    Hela pixlar pa 4-rutnatet: 13 -> 20, 15 -> 24, 11 -> 16, 30 -> 40. Samma
-   fyra varden som trappan, summeringen och tillaggsmallen redan bar. */
+   fyra varden som summeringen och tillaggsmallen redan bar. */
 .offer .o-calc .o-calcrow{line-height:20px;}
 .offer .o-calc .o-calcfinal > span:first-child{line-height:24px;}
 .offer .o-calc .o-calcfinal .t-price{line-height:40px;}
@@ -1749,8 +1668,31 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    Eyebrown ovanfor ar ett <span>, finstilten ett <p>: ingen ny klass behovs. */
 .offer .o-sum > p.t-micro{margin-top:calc(var(--s1) - var(--rytm-block));color:var(--faint);}
 
-/* --- TILLAGGSRADEN ------------------------------------------------------------
-   Tredje raden i radtexten, specen, finns redan i systemet (.o-radspec). */
+/* --- RADEN MER LAGRING ---------------------------------------------------------
+   O-drift ar systemets .o-rad rakt av. Mer lagring bar en rullgardin, och
+   laddboxens kabelrad lagger sin i textspalten. Det gick inte har. Uppmatt
+   24 okt: textspalten ar 149 px vid 375 och systemets .o-variant hogst 230,
+   medan det langsta alternativet behover 214 px (SAJ "+20 kWh, totalt
+   40 kWh") och 257 px (Eway och Dyness, "+23,04 kWh, totalt 53,76 kWh").
+   Texten klipptes till "+5 kWh, totalt" pa BADA bredderna, och en kund som
+   inte kan lasa vad hon valt har inte valt.
+   Darfor samma monster som antalsvaljaren (.o-radantal): rullgardinen ar ett
+   eget barn i raden. Bred rad: langst till hoger, intrinsisk bredd (Chrome
+   maater den efter det langsta alternativet, 257 px i en spalt pa 490). Smal
+   rad, under 712 px: en egen rad i full bredd under texten, 309 px vid 375.
+   Gransen ar systemets egen (hjalten breddas vid 712), inte en ny.
+   Luften: kolumngap 16 som flexraden, radgap 16 eftersom rullgardinen ar en
+   kontroll och inte en textrad. Allt ur skalan. */
+.offer .o-rad--lagring > .o-radval{margin-left:auto;flex:none;}
+.offer .o-rad--lagring .o-variant{width:auto;max-width:100%;}
+@container (max-width: 711px){
+  .offer .o-rad--lagring{display:grid;grid-template-columns:var(--z3) 104px minmax(0,1fr);
+    column-gap:var(--s4);row-gap:var(--s3);align-items:center;}
+  .offer .o-rad--lagring > .mark,.offer .o-rad--lagring > .o-radikon{grid-row:1;}
+  .offer .o-rad--lagring > .o-radtext{grid-column:3;grid-row:1;}
+  .offer .o-rad--lagring > .o-radval{grid-column:1 / 4;grid-row:2;margin-left:0;}
+  .offer .o-rad--lagring .o-variant{width:100%;max-width:none;}
+}
 
 /* --- ELCENTRALVALET I OVRIGA TJANSTER ----------------------------------------
    Samma regler som laddboxmallen bar for samma block: en kalla for
@@ -1805,9 +1747,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .o-ref-logga img{filter:none !important;}
   .offer .o-btn.primary,.offer .o-cit,.offer .o-ref-kort,.offer .o-fechip,.offer .o-ref-knapp,.offer .ampy-cert__mark{
     background:#fff !important;color:var(--ink) !important;border:1px solid var(--kant) !important;}
-  /* valet maste synas: en form, inte en bakgrundsfarg */
-  .offer .o-lv.mitt{outline:2px solid var(--ink);}
-  .offer .o-lv,.offer .o-lv-tom{break-inside:avoid;}
 }
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */

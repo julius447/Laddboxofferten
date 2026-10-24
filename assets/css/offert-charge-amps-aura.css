@@ -798,22 +798,66 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   text-transform:uppercase;color:rgba(255,255,255,.82);}
 .offer .o-ref-fran{display:inline-block;background:#b6f2ff;color:#015648;
   font-size:13px;font-weight:600;border-radius:999px;padding:var(--s1) var(--s3);}
+/* DET DELADE KORTET, agarfeedback 24 okt (A7): "Kunden far 500 kr rabatt pa
+   sitt kop & grannen far 500 kr rabatt pa sitt kop, nagot som vi maste gora
+   tydligt." Fram till dess sa blocket bara vad kunden far. Nu ar kortet
+   delat i tva halvor med en rivkant emellan: vanster till dig, hoger till
+   din granne, samma belopp pa bada. Symmetrin AR budskapet, och den gar att
+   lasa utan att lasa. Tre riktningar renderade och matta 24 okt
+   (granskning/2026-10-24-grannrabatten/): A delat kort +14 px, B grannens
+   gava +52 px, C kvittot -38 px men utan presentkortet agaren bestallde
+   18 okt. Oraklet grannrabatten_ar_dubbelsidig haller halvorna lika. */
+.offer .o-ref-kort--delat{padding:var(--s7) var(--s4) var(--s5);}
+.offer .o-ref-kort--delat .o-ref-kortmitt{width:100%;gap:var(--s4);}
+.offer .o-ref-kort--delat .o-ref-logga img{height:20px;}
+.offer .o-ref-halvor{display:grid;grid-template-columns:1fr 1fr;width:100%;}
+.offer .o-ref-halva{display:flex;flex-direction:column;align-items:center;gap:var(--s2);
+  padding:var(--s1) var(--s2);text-align:center;}
+/* Perforeringen: en streckad linje, och tva cirklar i panelens farg over
+   kortets over- och underkant. overflow:hidden pa kortet klipper dem till
+   halvcirklar, alltsa en riven kant, utan en bild. */
+.offer .o-ref-halva + .o-ref-halva{border-left:2px dashed rgba(255,255,255,.5);}
+.offer .o-ref-kort--delat::before,.offer .o-ref-kort--delat::after{content:"";position:absolute;left:50%;
+  width:var(--z2);height:var(--z2);border-radius:50%;background:#f1f3f8;transform:translateX(-50%);z-index:2;}
+.offer .o-ref-kort--delat::before{top:calc(var(--z2) / -2);}
+.offer .o-ref-kort--delat::after{bottom:calc(var(--z2) / -2);}
+/* "1 500 KR RABATT" sparrat i versaler ar 149 px, och halvan ar 147 vid 375.
+   Beloppet satts darfor som text, 15/700 utan sparr, inte som etikett. */
+.offer .o-ref-halva .o-ref-varde{font-size:15px;font-weight:700;letter-spacing:0;text-transform:none;color:#fff;}
+/* .9 och inte .82 som ordet ovanfor: vitt pa kortets ljusaste ton #017666
+   ger 4,26:1 vid .82 och 4,81 vid .9. 13 px kraver 4,5. */
+.offer .o-ref-pa{font-size:13px;color:rgba(255,255,255,.9);}
+@media print{
+  /* mallarnas utskriftsregler gor kortet vitt med mork text; halvornas egna
+     vita texter och den vita rivlinjen maste folja med, annars star "Till
+     dig" och "Till din granne" over tomrum. */
+  .offer .o-ref-pa,.offer .o-ref-halva .o-ref-varde{color:var(--ink) !important;}
+  .offer .o-ref-halva + .o-ref-halva{border-left-color:var(--kant) !important;}
+  .offer .o-ref-kort--delat::before,.offer .o-ref-kort--delat::after{background:#fff !important;}
+}
 .offer .o-ref-rubrik{font-size:17px;font-weight:700;color:var(--ink);margin:0;}
 .offer .o-ref-steg{list-style:none;margin:calc(var(--s4) * -1) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s3);}
 .offer .o-ref-steg li{display:flex;align-items:center;gap:var(--s3);font-size:15px;color:var(--body);}
 .offer .o-ref-steg svg{width:var(--z2);height:var(--z2);flex:none;color:var(--ikonglyf);}
 .offer .o-ref-falt{display:flex;flex-direction:column;gap:var(--s2);}
 .offer .o-ref-etikett{font-size:15px;font-weight:600;color:var(--ink);}
-.offer .o-ref-rad{display:flex;gap:var(--s2);}
+.offer .o-ref-rad{display:flex;gap:var(--s2);margin-top:var(--s2);}
+/* Hjalptexten, knappraden och finstilten bar sina marginaler i style-
+   attribut fram till 24 okt. En inline-marginal vager mer an varje regel
+   har och star dar ingen letar. Nu klasser. */
+.offer .o-ref-hjalp{color:var(--faint);margin:0 0 var(--s2);}
+.offer .o-ref-fin{color:var(--faint);}
 /* GOLVET LAG I EN SELEKTOR SOM FALTET HADE FLYTTAT UT UR. Mejlfaltet bor i
    .o-chips sedan chipsen infordes, medan min-height:var(--z5) stod kvar pa
    .o-ref-rad input. Resultatet var ett 31 px hogt faltet i ett hus dar 44
    ar golvet, i tre mallar samtidigt, och audit.js sag det inte for att dess
    selektorlista inte raknade input alls. Bada platserna namns nu. */
-.offer .o-ref-rad input,.offer .o-chips input{flex:1;min-width:0;background:#fff;border:1px solid var(--kant-kontroll);
-  border-radius:var(--r1);padding:0 var(--s3);min-height:var(--z5);
-  font-family:inherit;font-size:15px;font-weight:300;color:var(--body);}
-.offer .o-ref-rad input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:1px;}
+/* RUTA I RUTA, uppmatt 24 okt: regeln ovan galde 'det gamla lankfaltet OCH
+   chipsfaltets input', sa inputen i .o-chips fick en egen kant, egen vit
+   botten och egen radie INUTI den ram .o-chips redan ritar. Tva kanter runt
+   samma falt, pa alla fem sidorna. Lankfaltet ar borta sedan 21 okt, sa
+   regeln ar borta med det. Golvet 44 pa inputen star kvar, i .o-chips input
+   langre ner, dar faltet bor. */
 .offer .o-ref-knapp{flex:none;border:0;border-radius:var(--r1);padding:0 var(--s4);
   min-height:var(--z5);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;}
 .offer .o-ref-knapp.ljus{background:#e3e7ef;color:var(--ink);}
@@ -1461,14 +1505,17 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    Forut kravdes kommatecken mellan adresser, och "folk fattar inte det". */
 .o-chips{
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);
-  min-height:var(--z6);padding:var(--s2);
+  /* 2 px lodrat, inte 8: inputen inuti ar sjalv 44 (golvet, matt av
+     audit.js pa inputen och inte pa ramen), sa 8 + 44 + 8 gav en ram pa
+     60 dar husets falt ar 48. */
+  min-height:var(--z6);padding:var(--s0) var(--s2);
   border:1.5px solid var(--kant);border-radius:var(--r1);background:#fff;
   cursor:text;
 }
 .o-chips:focus-within{border-color:var(--teal-ink);box-shadow:0 0 0 3px var(--teal-soft);}
 .o-chips input{
-  flex:1 1 12ch;min-width:12ch;border:0;outline:0;background:none;
-  font:inherit;font-size:15px;color:var(--ink);padding:var(--s1) 0;
+  flex:1 1 12ch;min-width:12ch;min-height:var(--z5);border:0;outline:0;background:none;
+  font:inherit;font-size:15px;font-weight:300;color:var(--ink);padding:0;
 }
 .o-chips input[aria-invalid="true"]{color:var(--fel,#a3312a);}
 .o-chip{
