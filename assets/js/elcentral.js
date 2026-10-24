@@ -14,7 +14,7 @@
   var PKG={"5990": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp", "grupper": 7}, "9990": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp", "grupper": 16}, "14900": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp", "grupper": 32}};
   var TAK={"5990": 7, "9990": 9, "14900": null};
   var RYMS={"5990": 0, "9990": 0, "14900": 10};
-  var TJANSTPOTT={"laddbox": "gt", "batteri": null};
+  var TJANSTPOTT={"laddbox": "gt"};
   var GRANNRABATT=500;
   var ORDNING = Object.keys(PKG).sort(function(a,b){ return a - b; });
 
@@ -95,7 +95,11 @@
         styck: isNaN(styck) ? null : styck,
         belopp: isNaN(styck) ? null : styck * n,
         pott: c.getAttribute("data-avdrag") || "rot",
-        variant: sel ? sel.options[sel.selectedIndex].textContent : null
+        variant: sel ? sel.options[sel.selectedIndex].textContent : null,
+        /* Batteriraderna (bitar.tjanstrader) bar sitt fran-pris i data-fran.
+           Det ar inte ett belopp pa summan, men det ar talet raden visar, och
+           summeringen ska saga samma sak som raden. */
+        fran: c.getAttribute("data-fran") || null
       });
     });
     return ut.concat(tjansteval());
@@ -205,15 +209,21 @@
 
     var utanPris = [];
     rader.forEach(function(r){
-      if (r.belopp == null) { utanPris.push(r.namn); return; }
+      if (r.belopp == null) { utanPris.push(r); return; }
       var etikett = r.variant ? (r.namn + ", " + r.variant) : r.namn;
       if (r.antal > 1) etikett += ", " + r.antal + " st";
       rows += '<div class="o-sumrow"><span>' + etikett + '</span><span class="kr">' + kr(r.belopp) + "</span></div>";
     });
     if (utanPris.length) {
       rows += '<div class="o-sumrow"><span><b>Vi hör av oss om</b></span><span></span></div>';
-      utanPris.forEach(function(n){
-        rows += '<div class="o-sumrow"><span>' + n + '</span><span class="kr saknas">pris saknas</span></div>';
+      /* "pris saknas" bredvid en rad som visar "fr. 35 625 kr" ar tva olika
+         svar pa samma fraga pa samma sida. En intresserad med fran-pris
+         (batteriraderna, data-fran ur tjanstrader) visar fran-priset har
+         ocksa; en utan visar att priset saknas. Ingetdera laggs pa summan. */
+      utanPris.forEach(function(r){
+        rows += '<div class="o-sumrow"><span>' + r.namn + '</span>'
+          + (r.fran ? '<span class="kr">' + r.fran + '</span>' : '<span class="kr saknas">pris saknas</span>')
+          + '</div>';
       });
     }
 

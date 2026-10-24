@@ -1,5 +1,5 @@
 (function(){
-  var kr=function(n){return n.toLocaleString("sv-SE").replace(/ /g," ")+" kr";};
+  var kr=function(n){return n.toLocaleString("sv-SE").replace(/ /g," ")+" kr";};
   var $=function(i){return document.getElementById(i);};
   var val=function(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:"0";};
   var BAS=6250;        /* ur modellfilen */
@@ -12,7 +12,7 @@
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
   /* CEN GENERERAS UR offerter/elcentral/paket.json, den mall som ager
      produkten. Kartan var en literal har till 23 okt, och fore det bar den
-     9 900 och 12 900 ur Rasmus prislista, alltsa 90 kr och 2 000 kr fran vad
+     9 900 och 12 900 ur Rasmus prislista, alltsa 90 kr och 2 000 kr fran vad
      elcentralofferten sager om samma central. Tva Ampy-ytor far inte saga
      olika, och nu finns bara ett stalle att saga det pa. Beslut C4 19 okt. */
   var CEN={"5990": "Byte av elcentral, liten", "9990": "Byte av elcentral, medel", "14900": "Byte av elcentral, stor"};
@@ -20,6 +20,13 @@
   /* kundens egna kryss minns, så ett paketbyte aldrig raderar dem tyst */
   var kundval={};
   function rader(){ return [].slice.call(document.querySelectorAll(".o-rad")); }
+  /* RADENS RUTA, OAVSETT KLASS.
+     Tillaggsraderna bar class="add"; batteriets intresserader fods ur
+     bitar.tjanstrader() och bar class="intresse" och inget value. Sex stallen
+     slog upp "input.add" direkt pa raden och anvande traffen utan kontroll, sa
+     dagen batteriet blev rader igen kastade render() TypeError pa rad ett av
+     tre och hela sidan slutade rakna. Ett uppslag, ett stalle att ratta. */
+  function radRuta(r){ return r.querySelector("input.add, input.intresse"); }
   /* ANTAL GANGER STYCKPRIS. Spotlights saldes forut i fasta klumpar,
      "4 stycken" for 3 200, "6 stycken" for 4 800. Kunden vill ha SITT antal,
      inte vart. Agaren ville ha elcentralens sifferruta overallt. */
@@ -34,7 +41,7 @@
      paketpriser, sa de tva vagarna kan inte dra isar. */
   var GO2={"0": 1450, "1200": 1380, "4540": 1310};
   function radVarde(r){
-    var i=r.querySelector("input.add");
+    var i=radRuta(r);
     if(i.getAttribute("data-grupp")==="go2"){
       var n=GO2[val("pkg")];
       if(n!==undefined) return n;
@@ -45,7 +52,7 @@
     return s ? +s.value : +i.value;
   }
   function radNamn(r){
-    var i=r.querySelector("input.add");
+    var i=radRuta(r);
     var n=i.getAttribute("data-name");
     if(i.getAttribute("data-styck")){
       var an=radAntal(r);
@@ -94,10 +101,10 @@
        har22 las har, pa rad 77. Pa rad 149 kryssar kundval-aterstallningen i
        rutan igen om kunden en gang valt 22 kW, alltsa EFTER att den har raden
        redan bestamt att kabeln ska gommas. Resultatet var ett tillstand dar
-       uppgraderingen lag i ordern utan kabel, och en total som hoppade 1 650 kr
+       uppgraderingen lag i ordern utan kabel, och en total som hoppade 1 650 kr
        vid nasta klick pa vad som helst:
-         Bas, 22 kW, kabel, Premium, Bas  ger 5 400 kr
-         sedan ett RFID-pack for 175 kr    ger 7 225 kr
+         Bas, 22 kW, kabel, Premium, Bas  ger 5 400 kr
+         sedan ett RFID-pack for 175 kr    ger 7 225 kr
        Kunden ser priset stiga 1 825 for en vara som kostar 175.
        kundval ar kundens AVSIKT och den ar redan skriven nar render korer, sa
        den ar ratt kalla har. Bockar kunden UR rutan satter lyssnaren
@@ -162,7 +169,7 @@
     var kabelErsatt = har22 ? "kabel11" : null;
 
     rader().forEach(function(r){
-      var i=r.querySelector("input.add"), g=i.getAttribute("data-grupp");
+      var i=radRuta(r), g=i.getAttribute("data-grupp");
       var med=ingar.indexOf(g)>=0 && g!==kabelErsatt;
       var ute=false, uteText="";
 
@@ -182,8 +189,8 @@
          Rad 87 bockar ur 22 kW-kabeln nar 22 kW slacks. Fem rader senare
          kryssade den har loopen i den igen, for kundval sa att kunden en gang
          valt den. Tva minnen for samma val, och de var oense: raden lag gomd
-         medan summeringen debiterade 1 650 kr for den. Uppmatt: Bas, 22 kW
-         pa, kabel pa, 22 kW av gav 6 100 kr i stallet for 4 450.
+         medan summeringen debiterade 1 650 kr for den. Uppmatt: Bas, 22 kW
+         pa, kabel pa, 22 kW av gav 6 100 kr i stallet for 4 450.
          kundval nollas INTE, sa slar kunden pa 22 kW igen kommer kabeln
          tillbaka. Den ar bara inte med sa lange den inte syns. */
       var dold=r.hidden;
@@ -260,7 +267,7 @@
        dropdownen valbar men andrade ingenting, vilket ar varre an en last
        dropdown: den ser ut att gora nagot. */
     rader().forEach(function(r){
-      var i=r.querySelector("input.add");
+      var i=radRuta(r);
       if(r.hidden) return;
       if(!i.disabled || !r.classList.contains("ingar")) return;
       var sel=r.querySelector(".o-variant");
@@ -276,14 +283,14 @@
     });
 
     rader().forEach(function(r){
-      var i=r.querySelector("input.add");
+      var i=radRuta(r);
       /* Samma invariant pa summans sida: det kunden inte ser betalar hon inte
          for. Tva sparrar for samma regel ar medvetet, for den ena ar
          tillstandet och den andra ar pengarna. */
       if(r.hidden) return;
       r.classList.toggle("vald", i.checked && !i.disabled);
       if(i.disabled) return;
-      if(r.querySelector("input.add").hasAttribute("data-intresse")){
+      if(i.hasAttribute("data-intresse")){
         if(i.checked) intresse.push(radNamn(r));
         return;
       }
@@ -294,16 +301,13 @@
         if(i.hasAttribute("data-rot")){ rotSum+=v; rotNamn.push(radNamn(r)); }
       }
     });
-    /* BATTERIET AR TRE BILDKORT, inte tre kryssrader. Namnet las ur DOM:en
-       sa summeringen inte kan saga ett annat marke an kortet kunden valde.
-       Korten bar inget value, sa de ror inte summan: det ar hela poangen med
-       en intresseanmalan, och raden sager "ingen kostnad nu". */
-    var battvald=document.querySelector('input[name="batteripkg"]:checked');
-    if(battvald){
-      var battkort=battvald.closest(".o-pkg");
-      var battnamn=battkort?battkort.querySelector(".pname b"):null;
-      if(battnamn) intresse.push("Solcellsbatteri " + battnamn.textContent.trim());
-    }
+    /* BATTERIET AR TRE RADER IGEN, agarbesked 24 okt. 23 okt gjorde jag dem
+       till bildkort i en radiogrupp och las darfor namnet ur .o-pkg har. Den
+       raden ar borta: raderna gar genom data-intresse-grenen ovanfor, som
+       laser data-name ur raden, precis som varje annan rad. Tre kort i en
+       radiogrupp lat dessutom kunden anmala intresse for ETT marke; tre
+       kryssrutor later henne fraga om flera, vilket ar vad en
+       intresseanmalan ar till for. */
 
     var mitt = sum;
 
@@ -380,7 +384,7 @@
 
   }
 
-  document.querySelectorAll('input[name="pkg"],input[name="tid"],input[name="elcentralpkg"],input[name="batteripkg"],input[name="plats"]')
+  document.querySelectorAll('input[name="pkg"],input[name="tid"],input[name="elcentralpkg"],input[name="plats"]')
     .forEach(function(i){i.addEventListener("change",render);});
 
   /* Elcentralbytet är ett tillval utan "nej tack"-ruta. Klickar man på det
@@ -391,7 +395,7 @@
      flaggan sattes bara av ett musklick. Flyttade kunden sig i gruppen med
      piltangenterna fyrade change men aldrig click, sa flaggan var aldrig
      satt, och nasta mellanslag avmarkerade ingenting. Uppmatt: valt = 5990
-     fore och efter, priset stod still. Ett val pa mellan 5 990 och 14 900 kr
+     fore och efter, priset stod still. Ett val pa mellan 5 990 och 14 900 kr
      som musen kan angra men inte tangentbordet.
 
      Nu haller en variabel reda pa vad som var valt INNAN handlingen, och den
@@ -420,7 +424,10 @@
     });
   }
   angerbar("elcentralpkg");
-  angerbar("batteripkg");
+  /* INGEN angerbar("batteripkg"). Batteriet ar kryssrutor igen sedan 24 okt,
+     och en kryssruta slapper sitt eget kryss. Angran behovs bara dar en
+     radiogrupp annars later kunden sitta fast i sitt forsta val. Ett anrop
+     som matchar noll element laser som att gruppen finns. */
   /* Ordningen är hela poängen. Tidigare satt render() som lyssnare FÖRE den här,
      så den hann läsa ett inaktuellt kundval och kryssa i rutan igen innan minnet
      uppdaterades. Resultatet var att man inte kunde avmarkera ett tillägg alls.
@@ -444,11 +451,11 @@
 
      Foljderna av (3), bada uppmatta:
      - Kryssa i Zaptec Sense, byt sedan Perific-raden till Perific One: bada
-       ligger i ordern. 3 050 kr for tva enheter som gor samma sak, pa alla
+       ligger i ordern. 3 050 kr for tva enheter som gor samma sak, pa alla
        sju. Perific ar den enda lastbalanseringen med dropdown, och den
        dyraste.
      - Valj Perific One i dropdownen, byt till Plus, byt tillbaka: valet ar
-       borta ur summan men raden star kvar med "Perific One" och "+1 950 kr".
+       borta ur summan men raden star kvar med "Perific One" och "+1 950 kr".
        Inget sager att det forsvann.
 
      Nu finns handlingen pa ETT stalle och alla tre vagarna gar genom den. */
@@ -465,7 +472,7 @@
     }
   }
 
-  document.querySelectorAll("input.add").forEach(function(i){
+  document.querySelectorAll("input.add, input.intresse").forEach(function(i){
     i.addEventListener("change",function(){ valjRad(this); render(); });
   });
 
@@ -473,7 +480,7 @@
   /* andrar man antalet ar det ett val, sa rutan kryssas i */
   document.querySelectorAll("[data-antal]").forEach(function(sel){
     sel.addEventListener("change",function(){
-      var r=this.closest(".o-rad"), i=r.querySelector("input.add");
+      var r=this.closest(".o-rad"), i=radRuta(r);
       if(!i.disabled){ i.checked=true; valjRad(i); }
       var pr=r.querySelector(".o-radpris");
       if(pr && !i.disabled) pr.textContent="+"+kr(radVarde(r));
@@ -484,7 +491,7 @@
   /* byter man variant i raden är det ett val, så rutan kryssas i */
   document.querySelectorAll(".o-variant").forEach(function(s){
     s.addEventListener("change",function(){
-      var i=this.closest(".o-rad").querySelector("input.add");
+      var i=radRuta(this.closest(".o-rad"));
       i.checked=true;
       valjRad(i);
       /* Minnet skrivs HAR, fore render(). Lag skrivningen i en egen lyssnare
@@ -553,7 +560,7 @@
        uppläsaren rubriken och det som star under den. */
     /* KVITTOT. Samma tal som summeringen just visade, last ur DOM:en i
        stallet for omrraknat, sa de inte kan dra isar. Och steg 2 ska inte
-       saga "ni kommer overens om en tid" till nagon som betalat 2 500 kr for
+       saga "ni kommer overens om en tid" till nagon som betalat 2 500 kr for
        Express. */
     if (id === "skarmAccept"){
       var kv = document.getElementById("oaKvitto");

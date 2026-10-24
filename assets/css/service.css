@@ -1331,9 +1331,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
      batteri    420 x 420, kvadrat. 180 px ger 180 x 180.
    :has() och inte en klass: tjanstekort() ager sectionens klassattribut, och
    en delad funktion ska inte bara fem mallars varianter. */
-.offer .o-tjanst .o-pkg .pbild{min-height:0;
-  width:var(--tjbredd,204px);height:var(--tjbild,212px);max-width:100%;}
-.offer .o-tjanst .o-pkg .pbild img{max-height:100%;}
+/* RUTAN AR KORTETS BREDD, BILDEN RYMS INUTI. Forsta versionen satte rutans
+   BREDD till bildens egen renderade bredd, vilket gav en 100 px smal spalt i
+   ett 324 px kort: 31 procent, mot nordstjarnans egna paketkort som ligger pa
+   86. Agaren sag det direkt och kallade det "extremt fula". Reservationen av
+   HOJDEN var ratt och star kvar; det var bredden som var fel storhet att
+   binda. Ett korsforsaljningskort ska se ut som ett eget paketkort, for det
+   ar samma sak: ett paket med en bild, ett namn och ett pris. */
+.offer .o-tjanst .o-pkg .pbild{min-height:0;width:100%;
+  height:var(--tjbild,212px);}
+.offer .o-tjanst .o-pkg .pbild img{max-height:100%;max-width:100%;}
 /* BÅDA MÅTTEN ÄR RÄKNADE UR DUKEN, inte valda.
    Rutan bär 2 x 16 px padding i höjd och 2 x 12 i bredd (--s4 / --s3), så
    innermåttet är rutan minus det.
@@ -1346,8 +1353,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    width-attribut ingen egen bredd, så rutan var 24 px bred och växte till 100
    när bilden kom. tjanstekort() sätter inga width/height på bilden, och det är
    delat av fem mallar, så reservationen måste ligga här. */
-.offer .o-tjanst:has(input[name="elcentralpkg"]){--tjbild:232px;--tjbredd:100px;}
-.offer .o-tjanst:has(input[name="batteripkg"]){--tjbild:212px;--tjbredd:204px;}
+.offer .o-tjanst:has(input[name="elcentralpkg"]){--tjbild:232px;}
+.offer .o-tjanst:has(input[name="batteripkg"]){--tjbild:212px;}
 
 /* TJANSTEGRUPPEN OCH VAGEN TILLBAKA, DELADE. En radiogrupp gar inte att
    avmarkera med musen, sa varje mall med korsforsaljningskort behover
@@ -1372,6 +1379,13 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    utan dem blir det tva linjer 21 px isar med ingenting mellan, alltsa
    agarens "dubbelrader". Galler varje mall vars pris inte raknas fram. */
 .offer .o-calc:not(:has(.o-calcrow)) .o-calcfinal{border-top:0;padding-top:0;margin-top:0;}
+/* INTRESSERADENS BILD STAR FRITT, utan platta och utan kant. Originalets
+   form, och agaren 24 oktober om dagens: "Bilderna ar inte centrerade och
+   ser bedrovliga ut." En rad som ar en INTRESSEANMALAN och inte ett kop bar
+   produkten sjalv, inte en inramad miniatyr. Regeln lag i elcentralens egen
+   stil.css och nadde darfor en av de tre mallar som visar batteriraderna. */
+.offer .o-rad:has(input[data-intresse]) .o-radbild{background:transparent;border:0;padding:0;}
+
 /* PRODUKTBRICKORNA, DELADE. Lag i laddboxens egen stil.css, vilket gjorde att
    ett korsforsaljningskort pa en annan mall inte kunde visa vad som ingar i
    ett paket utan att kopiera reglerna dit. Nu bor de i systemet, for alla fem
@@ -1503,11 +1517,12 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer:not(.js-redo) .o-sum,
 .offer:not(.js-redo) .o-bar{display:none;}
 
-/* ALLT SOM INGAR AR SIDANS HUVUDMOMENT.
-   .o-ingar li ar 13 px i systemet, for listan ligger i ett paketkort dar den
-   ar en detalj. Har ar den det kunden kom for att lasa, och FALLOR.md sager
-   att 13 px ar finstilt och "aldrig for text nagon ska lasa". Darfor 15, och
-   darfor som en egen regel i mallen i stallet for en andring i systemet. */
+/* DET SOM INGAR AR SIDANS HUVUDMOMENT, och det star i hjaltekortet fore
+   priset (agaren 24 okt, E3). .o-ingar li ar 13 px i systemet, for listan
+   ligger i ett paketkort dar den ar en detalj. Har ar den det kunden kom for
+   att lasa, och FALLOR.md sager att 13 px ar finstilt och "aldrig for text
+   nagon ska lasa". Darfor 15, och darfor som en egen regel i mallen i
+   stallet for en andring i systemet. */
 .offer .o-ingar--huvud{gap:var(--s2);}
 /* 1,55 som .t-body, inte 1,5: en radhojd per typstorlek. 15 px hade annars
    tva (23,25 och 22,5), uppmatt 23 okt. */
@@ -1515,56 +1530,22 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-ingar--huvud li.prod > span > b{font-size:15px;font-weight:600;}
 .offer .o-ingar--huvud li.prod > span > span{font-size:13px;}
 
-/* GRUNDEN I GRATT, JOBBET I SVART. Samma tvatoniga lista som paketkorten
-   redan anvander, vand sa att det specifika star overst och det standiga
-   underst. Bocken ar densamma pa bada, for allt ingar lika mycket: tva toner
-   far saga "det har ar samtalet, det har ar firman", aldrig "det gra ingar
-   mindre". */
-.offer .o-ingar--huvud li.rubrik{margin-top:var(--s4);}
-.offer .o-ingar--huvud li.grund > span{color:var(--muted);font-weight:400;}
-
-/* ETT BAND BAR SIN EGEN PAUS, OCH SIDAN BAR SIN. RAKNA INTE BADA.
-   Systemet ger redan #ovrigt > .body gapet --rytm-sektion (48) mellan korten.
-   Regeln som stod har lade 24 margin-top OCH 24 padding-top ovanpa det, sa
-   avstandet mellan tva tjanstekort matte 72 px i stallet for laddboxmallens
-   48, med ytterligare 24 tomrum inne i kortet. Samma paus raknad tva ganger,
-   exakt fallan i FALLOR.md avsnitt Rytm och luft. Borttagen 23 okt. */
-.offer .o-tjanstpris{margin:var(--s2) 0 0;font-size:15px;font-weight:600;color:var(--ink);
-  font-variant-numeric:tabular-nums;}
+/* Grunden ("Det har ingar alltid") ar stegen i #alltid sedan 24 okt, samma
+   .o-steps som elcentralen och laddboxen: ingen egen CSS. Reglerna for den
+   gra tvatoniga listan (li.rubrik, li.grund) ar borta med listan. */
 
 /* TVA LINJER MED INGENTING EMELLAN.
    .o-calc ritar en border-top och .o-calcfinal en till. I laddboxmallen ligger
    tva raknerader emellan, uppmatt 77 px isar, sa de laser som en tabells
    ovre och nedre linje. Serviceofferten raknar ingenting (agardirektiv
    23 okt: bara totalsumman), sa linjerna lag 21 px isar med tomrum emellan.
-   Det ar det agaren kallade dubbelrader.
-   :has() i stallet for en modifierklass: regeln kan inte rosta: far mallen en
-   raknerad kommer den andra linjen tillbaka av sig sjalv.
-   SYSTEMREGEL I MALLENS FIL. Den hor hemma i gemensamt/system.css bredvid
-   .o-calcfinal, for den galler varje mall vars prisblock saknar raknerader.
-   Se rapporten. */
-
-
-/* Hjaltens produktkort har ingen bild pa den har mallen: service saljer inte
-   en produkt. Utan bilden ska texten inte sta indragen som om det fanns en. */
-.offer .o-prodcard .o-prodtop{align-items:flex-start;}
+   Regeln .offer .o-calc:not(:has(.o-calcrow)) .o-calcfinal bor i
+   gemensamt/system.css sedan 23 okt; oraklet i offert.py letar i bada. */
 
 @media print{
   .offer .o-ref-varde{color:var(--ink) !important;}
   .offer .o-ref-logga img{filter:none !important;}
 }
-
-/* "VI RAKNAR PA DITT HUS" AR INGET PRIS, OCH FAR INTE VAGA SOM ETT.
-   tjanstekort() skriver <span class="pprice saknas"> nar priset inte gar att
-   satta utan att se huset, men systemet har ingen regel for .saknas: texten
-   ritades darfor 17 px vikt 700, lika tung som ett belopp, och eftersom
-   .pname ar flex:1 och .pprice flex:none trycktes paketnamnet ihop. Uppmatt
-   vid 375: "SAJ HS3" bröt till TVA rader i sitt eget kort. Samma defekt som
-   agaren pekade pa i hjalten, en vaning ner.
-   SYSTEMREGEL I MALLENS FIL. Den hor hemma i gemensamt/system.css bredvid
-   .o-pkg .pprice, for varje mall med ett prislost paketkort far den. Se rapporten. */
-.offer .o-pkg .pprice.saknas{font-size:13px;font-weight:400;color:var(--muted);
-  line-height:1.35;text-align:right;max-width:45%;}
 
 /* --- ETT TAL, EN RADHOJD --------------------------------------------------
    Summeringens 30 px-tal (.o-sumtot b) arvde sidans 1,55, alltsa 46,5 px, dar

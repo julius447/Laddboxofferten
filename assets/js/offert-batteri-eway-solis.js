@@ -4,7 +4,7 @@
      mellanslag fore kr. toLocaleString ger olika avgransare i olika
      webblasare, och ett tal som ser olika ut pa tva stallen laser som tva
      olika tal. */
-  var kr=function(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" kr"; };
+  var kr=function(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" kr"; };
   var $=function(i){ return document.getElementById(i); };
   var val=function(n){ var e=document.querySelector('input[name="'+n+'"]:checked'); return e?e.value:"0"; };
   var MODELL={"id": "eway-solis", "namn": "Eway + Solis S6", "modul_kwh": 7.68, "batteri": "Eway", "storlekar": [{"kwh": 15.36, "moduler": 2, "pris": 42000, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 23.04, "moduler": 3, "pris": 48750, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 30.72, "moduler": 4, "pris": 55000, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 38.4, "moduler": 5, "pris": 61375, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 46.08, "moduler": 6, "pris": 68688, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 53.76, "moduler": 7, "pris": 76188, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 63.4, "moduler": null, "pris": 90555, "vaxelriktare": "Solis S6 20 kW"}]};
@@ -17,9 +17,9 @@
   var ST=MODELL.storlekar;
   /* GRON TEKNIK-TAKET. Samma tva rader som offert.py:s GT_TAK och _netto, och
      oraklet jamfor dem. Prislistans tal ar halva bruttot rakt av, men avdraget
-     ar hogst 50 000 kr per person och ar, alltsa 100 000 for tva. Pa fyra
+     ar hogst 50 000 kr per person och ar, alltsa 100 000 for tva. Pa fyra
      rader i listan ar listpriset darfor INTE vad kunden betalar.
-     Uppmatt 23 okt: SAJ HS3 40 kWh sa 107 531 kr pa kortet och 115 062 i
+     Uppmatt 23 okt: SAJ HS3 40 kWh sa 107 531 kr pa kortet och 115 062 i
      hjalten, baren och summeringen. Invarianten: varje yta som visar ett pris
      for en storlek visar det kunden betalar, och varje skillnad ar skillnaden
      mellan tva sadana tal. */
@@ -62,7 +62,7 @@
       if(!d) return;
       if(k===i){ d.hidden=true; d.textContent=""; return; }
       /* Skillnaden mellan vad de TVA storlekarna kostar, inte mellan tva
-         listpriser: 35 -> 40 kWh pa SAJ stod som +8 462 kr dar steget ar
+         listpriser: 35 -> 40 kWh pa SAJ stod som +8 462 kr dar steget ar
          +15 993, for taket biter pa den ena raden och inte pa den andra. */
       var s=ST[k], dk=Math.round((s.kwh-a.kwh)*100)/100, dp=prisMedTak(s.pris)-prisMedTak(a.pris);
       d.hidden=false;
@@ -128,9 +128,9 @@
     });
     /* GRON TEKNIK HAR ETT TAK, OCH SIDAN FAR INTE LOVA MER AN TAKET.
        Prislistans kolumn I ar halva bruttot rakt av, utan tak. Men avdraget
-       ar hogst 50 000 kr per person och ar, alltsa 100 000 for tva, och pa
-       SAJ HS3 40 kWh gav formeln 107 531 kr. Sidan sa da "Gron teknik,
-       50 procent, minus 107 531 kr", vilket ar ett avdrag kunden inte kan fa,
+       ar hogst 50 000 kr per person och ar, alltsa 100 000 for tva, och pa
+       SAJ HS3 40 kWh gav formeln 107 531 kr. Sidan sa da "Gron teknik,
+       50 procent, minus 107 531 kr", vilket ar ett avdrag kunden inte kan fa,
        och det ar KUNDEN som star for det mot Skatteverket.
 
        Taket biter ocksa pa KOMBINATIONER: SAJ 35 kWh plus o-drift passerar
@@ -197,7 +197,7 @@
     /* NAR TAKET BITER MASTE RADERNA ANDA GA IHOP MED TOTALEN.
        Radernas tal ar prislistans NETTOPRISER, raknade med halva bruttot. Slar
        taket i betalar kunden mellanskillnaden, och da summerade de fem raderna
-       till 115 623 kr medan totalen sa 118 856. Kunden kan rakna.
+       till 115 623 kr medan totalen sa 118 856. Kunden kan rakna.
        Raden nedan ar den skillnaden, med sitt skal. */
     /* Nar EN rad passerar taket sager raden redan sitt riktiga pris, och da
        finns ingen mellanskillnad kvar att forklara. Det som ar kvar ar
@@ -207,7 +207,7 @@
     var takTillagg = gtNetto - gtRader;
     if(takTillagg > 0) rows+='<div class="o-sumrow sub"><span>Över grön teknik-taket, '
       +kr(GT_TAK)+' för två personer</span><span class="kr">'+kr(takTillagg)+'</span></div>';
-    if(takBiter) rows+='<div class="o-sumnote">Grön teknik är högst 50 000 kr per person och år. '
+    if(takBiter) rows+='<div class="o-sumnote">Grön teknik är högst 50 000 kr per person och år. '
       +'Här slår taket i, så avdraget är '+kr(GT_TAK)+' i stället för halva priset.</div>';
     /* Grannrabatten raknas pa SKICKADE inbjudningar, som laddboxen och
        elcentralen gor. Raden andrar inte talet kunden betalar i dag: rabatten

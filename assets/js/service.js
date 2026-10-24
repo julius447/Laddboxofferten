@@ -6,6 +6,7 @@
    Priserna ar netto, sa det finns ingenting att rakna. */
 (function(){
   var PRIS=7400;
+  var JOBBNAMN="Byte av strömbrytare och uttag";
   var TID={"1500": "Prioritet, 3 till 5 dagar", "2500": "Express, 24 till 72 timmar"};
   var GRANNRABATT=500;
 
@@ -19,6 +20,39 @@
     return e ? +e.value : 0;
   }
 
+  /* ---- INTRESSEANMALNINGARNA UNDER OVRIGA TJANSTER --------------------
+     Ett korsforsaljningskort lagger ALDRIG en krona pa en serviceoffert
+     (oraklet i offert.py haller det), men ett kryss som inte syns nagonstans
+     ar ett dott kryss, och batteriingressen lovar att Rasmus hor av sig.
+     Darfor samma rad som laddbox- och elcentralmallen: "Vi hor av oss om",
+     och "ingen kostnad nu" dar talet annars star. Raderna ar kryssrutor
+     (input.intresse) och paketkorten ar radiogrupper (name="...pkg"). */
+  function intressen(){
+    var ut = [];
+    document.querySelectorAll(".o-rad > input.intresse").forEach(function(i){
+      var r = i.closest(".o-rad");
+      if (r) r.classList.toggle("vald", i.checked);
+      if (i.checked) ut.push(i.getAttribute("data-name"));
+    });
+    document.querySelectorAll('.o-tjanst input[type="radio"]:checked').forEach(function(r){
+      var sek = r.closest(".o-tjanst"), kort = r.closest(".o-pkg");
+      var rub = sek ? sek.querySelector(".o-tjansttitel") : null;
+      var namn = rub ? rub.textContent.replace(/^\s*\d+\s*/, "").trim() : r.name;
+      var pn = kort ? kort.querySelector(".pname b") : null;
+      ut.push(namn + (pn ? ", " + pn.textContent.trim() : ""));
+    });
+    return ut;
+  }
+
+  /* VAGEN TILLBAKA UR EN RADIOGRUPP. Samma knapp som batterimallen: syns
+     bara nar nagot ar valt, och nar den gommer sig flyttas fokus till forsta
+     kortet, sa fokus inte tappas till body. */
+  function rensningsknappar(){
+    document.querySelectorAll("[data-rensa]").forEach(function(b){
+      b.hidden = !document.querySelector('input[name="' + b.getAttribute("data-rensa") + '"]:checked');
+    });
+  }
+
   function render(){
     /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
     var _o = document.querySelector(".offer"); if (_o) _o.classList.add("js-redo");
@@ -26,11 +60,22 @@
     var tid = val("tid");
     var summa = PRIS + tid;
 
-    var rows = '<div class="o-sumrow"><span>' + document.getElementById("prodName").textContent
+    /* Jobbets namn kommer ur datat (JOBBNAMN), inte ur hjalten: produktraden
+       dar ar borta sedan 24 okt (E2), men summeringens rad heter anda det
+       bokaren kallade jobbet. */
+    var rows = '<div class="o-sumrow"><span>' + JOBBNAMN
              + '</span><span class="kr">' + kr(PRIS) + "</span></div>";
     if (tid) rows += '<div class="o-sumrow sub"><span>' + TID[String(tid)]
                    + '</span><span class="kr">' + kr(tid) + "</span></div>";
+    var intr = intressen();
+    if (intr.length){
+      rows += '<div class="o-sumrow grp"><span>Vi hör av oss om</span><span></span></div>';
+      intr.forEach(function(x){
+        rows += '<div class="o-sumrow sub"><span>' + x + '</span><span>ingen kostnad nu</span></div>';
+      });
+    }
     $("sumRows").innerHTML = rows;
+    rensningsknappar();
 
     $("calcFinalEtikett").textContent = tid ? "Ditt pris, med ditt val" : "Ditt pris";
     $("calcNet").textContent = kr(summa);
@@ -41,6 +86,18 @@
 
   document.querySelectorAll('input[name="tid"]').forEach(function(i){
     i.addEventListener("change", render);
+  });
+  document.querySelectorAll('.o-rad > input.intresse, .o-tjanst input[type="radio"]').forEach(function(i){
+    i.addEventListener("change", render);
+  });
+  document.querySelectorAll("[data-rensa]").forEach(function(b){
+    b.addEventListener("click", function(){
+      var n = this.getAttribute("data-rensa");
+      var inp = [].slice.call(document.querySelectorAll('input[name="' + n + '"]'));
+      inp.forEach(function(i){ i.checked = false; });
+      render();
+      if (inp[0]){ try { inp[0].focus({preventScroll:true}); } catch(_){} }
+    });
   });
 
   /* ---- panelerna ---- */
@@ -73,7 +130,7 @@
       var kv = $("oaKvitto");
       if (kv){
         $("oaTotal").textContent = $("sumTotal").textContent;
-        $("oaPaket").textContent = document.getElementById("prodName").textContent;
+        $("oaPaket").textContent = JOBBNAMN;
         kv.hidden = false;
       }
       /* Avbojspanelen nollas: ett ikryssat skal bakom en acceptskarm ar ett

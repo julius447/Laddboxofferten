@@ -1331,9 +1331,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
      batteri    420 x 420, kvadrat. 180 px ger 180 x 180.
    :has() och inte en klass: tjanstekort() ager sectionens klassattribut, och
    en delad funktion ska inte bara fem mallars varianter. */
-.offer .o-tjanst .o-pkg .pbild{min-height:0;
-  width:var(--tjbredd,204px);height:var(--tjbild,212px);max-width:100%;}
-.offer .o-tjanst .o-pkg .pbild img{max-height:100%;}
+/* RUTAN AR KORTETS BREDD, BILDEN RYMS INUTI. Forsta versionen satte rutans
+   BREDD till bildens egen renderade bredd, vilket gav en 100 px smal spalt i
+   ett 324 px kort: 31 procent, mot nordstjarnans egna paketkort som ligger pa
+   86. Agaren sag det direkt och kallade det "extremt fula". Reservationen av
+   HOJDEN var ratt och star kvar; det var bredden som var fel storhet att
+   binda. Ett korsforsaljningskort ska se ut som ett eget paketkort, for det
+   ar samma sak: ett paket med en bild, ett namn och ett pris. */
+.offer .o-tjanst .o-pkg .pbild{min-height:0;width:100%;
+  height:var(--tjbild,212px);}
+.offer .o-tjanst .o-pkg .pbild img{max-height:100%;max-width:100%;}
 /* BÅDA MÅTTEN ÄR RÄKNADE UR DUKEN, inte valda.
    Rutan bär 2 x 16 px padding i höjd och 2 x 12 i bredd (--s4 / --s3), så
    innermåttet är rutan minus det.
@@ -1346,8 +1353,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    width-attribut ingen egen bredd, så rutan var 24 px bred och växte till 100
    när bilden kom. tjanstekort() sätter inga width/height på bilden, och det är
    delat av fem mallar, så reservationen måste ligga här. */
-.offer .o-tjanst:has(input[name="elcentralpkg"]){--tjbild:232px;--tjbredd:100px;}
-.offer .o-tjanst:has(input[name="batteripkg"]){--tjbild:212px;--tjbredd:204px;}
+.offer .o-tjanst:has(input[name="elcentralpkg"]){--tjbild:232px;}
+.offer .o-tjanst:has(input[name="batteripkg"]){--tjbild:212px;}
 
 /* TJANSTEGRUPPEN OCH VAGEN TILLBAKA, DELADE. En radiogrupp gar inte att
    avmarkera med musen, sa varje mall med korsforsaljningskort behover
@@ -1372,6 +1379,13 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    utan dem blir det tva linjer 21 px isar med ingenting mellan, alltsa
    agarens "dubbelrader". Galler varje mall vars pris inte raknas fram. */
 .offer .o-calc:not(:has(.o-calcrow)) .o-calcfinal{border-top:0;padding-top:0;margin-top:0;}
+/* INTRESSERADENS BILD STAR FRITT, utan platta och utan kant. Originalets
+   form, och agaren 24 oktober om dagens: "Bilderna ar inte centrerade och
+   ser bedrovliga ut." En rad som ar en INTRESSEANMALAN och inte ett kop bar
+   produkten sjalv, inte en inramad miniatyr. Regeln lag i elcentralens egen
+   stil.css och nadde darfor en av de tre mallar som visar batteriraderna. */
+.offer .o-rad:has(input[data-intresse]) .o-radbild{background:transparent;border:0;padding:0;}
+
 /* PRODUKTBRICKORNA, DELADE. Lag i laddboxens egen stil.css, vilket gjorde att
    ett korsforsaljningskort pa en annan mall inte kunde visa vad som ingar i
    ett paket utan att kopiera reglerna dit. Nu bor de i systemet, for alla fem
@@ -1635,44 +1649,46 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    =========================================================================== */
 
 
-/* FORE OCH EFTER AR BEVIS FOR VALET OVANFOR, inte ett eget kapitel.
-   Folden ger varje barn 48 px, alltsa sektionsrytmen, och da lade figuren sig
-   lika langt fran elcentralkorten som fran batterirubriken: den laste som en
-   tredje tjanst utan rubrik. 24 over binder den till korten den hor till,
-   48 under haller kapitelbrytningen till batteriet.
-   figure bar 1em 40px i webblasarens egen stilmall, sa marginalen MASTE
-   nollas; .offer p{margin:0} nollar p men inte figure. */
-.offer .o-feblock{margin:calc(var(--rytm-grupp) - var(--rytm-sektion)) 0 0;
-  display:flex;flex-direction:column;gap:var(--rytm-nara);}
-.offer .o-feblock figcaption{color:var(--muted);}
+/* FORE OCH EFTER LIGGER NU INNE I ELCENTRALKORTET, agarbesked C1 24 okt:
+   rubrik, text, dragspelet, de tre produkterna.
+   DARFOR AR MARGINALEN NOLL. Figuren lag till 24 okt som ett syskon EFTER
+   sectionen, alltsa som ett eget barn till folden, och folden ger varje barn
+   48 px. Den negativa marginalen calc(24 - 48) fanns bara for att dra tillbaka
+   de 48:orna till 24. Nu ar figuren ett barn till .o-tjanst, som ger sina barn
+   --rytm-block (16) ur sin egen gap: samma lucka som mellan rubrik, text och
+   korten, vilket ar precis vad agaren bad om. Hade den gamla marginalen statt
+   kvar hade luckan blivit 16 - 24 = -8 px och reglaget lagt sig OVANPA texten.
+   figure bar 1em 40px i webblasarens egen stilmall, sa nollningen maste sta
+   kvar; .offer p{margin:0} nollar p men inte figure.
+   Ingen figcaption-regel langre: bildtexten ar borta pa agarens ord, och en
+   regel for ett element som inte finns laser som att elementet finns. */
+.offer .o-feblock{margin:0;display:flex;flex-direction:column;}
 
-/* PRODUKTEN SKA FYLLA SIN PLATTA, inte sväva i ett band.
-   Uppmätt 23 okt, bildens andel av plattans yta:
-                     375 px        1180 px
-     laddboxens egna   77 %          39 %     <- referensen, ägarens "supersnygg"
-     batteriet         59 %          25 %
-     elcentralen       25 %          11 %     <- 524 px sidluft
-   Hager-bilderna är 300 x 790, alltså stående, medan paketbilderna är
-   830 x 510. En stående produkt i en liggande platta får alltid sidluft, och
-   på desktop blir plattan 600 px bred kring ett 76 px föremål. Det läser som
-   en storleksbugg, inte som ett produktfoto.
-   Plattan får därför ett tak på sin BREDD i stället för att följa kortet, och
-   taket är den bredd den redan har vid 375. Då renderas korsförsäljningskorten
-   likadant på telefon och på desktop, vilket är hela poängen med att de tre
-   bilderna delar duk: storleksordningen mellan Liten, Medel och Stor ska vara
-   sann och lika i varje bredd.
-   LÖSNINGEN ÄR HUSETS EGEN REGEL: ramen matchar duken. Den står i
-   gemensamt/system.css om bundlebilderna: "I en ram pa 269x128 (2,1:1) binder
-   bredden forst och laddboxen renderas 80 px hog. Med en ram i samma
-   forhallande renderas den 112 px." Samma regel på de här två duksorterna ger
-   en stående ram till en stående central och en kvadratisk till ett
-   kvadratiskt batteri, i stället för en liggande ram till båda.
-   align-self:center och width:max-content, inte margin-inline:auto: auto-
-   marginalen upphäver flexens stretch och ger samma resultat, men av en
-   bieffekt. Det här säger vad som menas.
-   Ingen @container: regeln gäller varje bredd, för hela poängen är att de tre
-   bilderna delar duk och ska renderas LIKA STORA överallt. Höjden är och
-   förblir låst i --tjbild, så kortet växer inte när bilden landar. */
+/* KOMMENTAREN BESKREV EN REGEL SOM INTE STAR HAR LANGRE.
+   Till 24 okt lade den har filen ett TAK pa plattans bredd (width:max-content,
+   alltsa bildens egen renderade bredd), for att en stende Hager-central i en
+   liggande platta far 524 px sidluft pa desktop. Agaren sag utfallet och
+   kallade korten "extremt fula": taket gav en 100 px smal spalt i ett 324 px
+   kort, 31 procent, mot nordstjarnans egna paketkort pa 86. Koordinatorn band
+   darfor plattan till KORTET i gemensamt/system.css (A5), och taket ar borta.
+   Kvar har star bara centreringen. En kommentar som beskriver en borttagen
+   regel ar varre an ingen kommentar: nasta person felsoker en regel som inte
+   finns.
+
+   SIDLUFTEN AR INTE LOST, DEN AR FLYTTAD TILL RATT STALLE. Uppmatt efter A5:
+                     375 px               1180 px
+     plattan          259/309 = 84 %       600/650 = 92 %    <- ratt nu
+     Hagerbilden i den  76 px bred           76 px bred      <- 13 % av plattan
+   Problemet ar duken, inte ramen: Hagerbilderna ar 300 x 790 (stende) medan
+   paketbilderna ar 830 x 510 (liggande). Ingen css gor en 76 px bred produkt
+   stor i en 600 px platta utan att forstora den till grot. Agaren sa det
+   sjalv 24 okt (B8): bilderna ar "valdigt sma och vinklade", och A9 ar
+   atgarden, alltsa nya Hager-produktbilder i rat vinkel. Den har filen ska
+   inte forsoka losa ett bildproblem med en bredregel igen.
+
+   Hojden ar och forblir last i --tjbild, sa kortet vaxer inte nar bilden
+   landar. align-self:center och inte margin-inline:auto: automarginalen
+   upphaver flexens stretch och ger samma resultat, men av en bieffekt. */
 .offer .o-tjanst .o-pkg .pbild{align-self:center;}
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */

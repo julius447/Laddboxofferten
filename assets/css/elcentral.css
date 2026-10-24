@@ -1331,9 +1331,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
      batteri    420 x 420, kvadrat. 180 px ger 180 x 180.
    :has() och inte en klass: tjanstekort() ager sectionens klassattribut, och
    en delad funktion ska inte bara fem mallars varianter. */
-.offer .o-tjanst .o-pkg .pbild{min-height:0;
-  width:var(--tjbredd,204px);height:var(--tjbild,212px);max-width:100%;}
-.offer .o-tjanst .o-pkg .pbild img{max-height:100%;}
+/* RUTAN AR KORTETS BREDD, BILDEN RYMS INUTI. Forsta versionen satte rutans
+   BREDD till bildens egen renderade bredd, vilket gav en 100 px smal spalt i
+   ett 324 px kort: 31 procent, mot nordstjarnans egna paketkort som ligger pa
+   86. Agaren sag det direkt och kallade det "extremt fula". Reservationen av
+   HOJDEN var ratt och star kvar; det var bredden som var fel storhet att
+   binda. Ett korsforsaljningskort ska se ut som ett eget paketkort, for det
+   ar samma sak: ett paket med en bild, ett namn och ett pris. */
+.offer .o-tjanst .o-pkg .pbild{min-height:0;width:100%;
+  height:var(--tjbild,212px);}
+.offer .o-tjanst .o-pkg .pbild img{max-height:100%;max-width:100%;}
 /* BÅDA MÅTTEN ÄR RÄKNADE UR DUKEN, inte valda.
    Rutan bär 2 x 16 px padding i höjd och 2 x 12 i bredd (--s4 / --s3), så
    innermåttet är rutan minus det.
@@ -1346,8 +1353,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    width-attribut ingen egen bredd, så rutan var 24 px bred och växte till 100
    när bilden kom. tjanstekort() sätter inga width/height på bilden, och det är
    delat av fem mallar, så reservationen måste ligga här. */
-.offer .o-tjanst:has(input[name="elcentralpkg"]){--tjbild:232px;--tjbredd:100px;}
-.offer .o-tjanst:has(input[name="batteripkg"]){--tjbild:212px;--tjbredd:204px;}
+.offer .o-tjanst:has(input[name="elcentralpkg"]){--tjbild:232px;}
+.offer .o-tjanst:has(input[name="batteripkg"]){--tjbild:212px;}
 
 /* TJANSTEGRUPPEN OCH VAGEN TILLBAKA, DELADE. En radiogrupp gar inte att
    avmarkera med musen, sa varje mall med korsforsaljningskort behover
@@ -1372,6 +1379,13 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    utan dem blir det tva linjer 21 px isar med ingenting mellan, alltsa
    agarens "dubbelrader". Galler varje mall vars pris inte raknas fram. */
 .offer .o-calc:not(:has(.o-calcrow)) .o-calcfinal{border-top:0;padding-top:0;margin-top:0;}
+/* INTRESSERADENS BILD STAR FRITT, utan platta och utan kant. Originalets
+   form, och agaren 24 oktober om dagens: "Bilderna ar inte centrerade och
+   ser bedrovliga ut." En rad som ar en INTRESSEANMALAN och inte ett kop bar
+   produkten sjalv, inte en inramad miniatyr. Regeln lag i elcentralens egen
+   stil.css och nadde darfor en av de tre mallar som visar batteriraderna. */
+.offer .o-rad:has(input[data-intresse]) .o-radbild{background:transparent;border:0;padding:0;}
+
 /* PRODUKTBRICKORNA, DELADE. Lag i laddboxens egen stil.css, vilket gjorde att
    ett korsforsaljningskort pa en annan mall inte kunde visa vad som ingar i
    ett paket utan att kopiera reglerna dit. Nu bor de i systemet, for alla fem
@@ -1530,6 +1544,11 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-bildruta:hover{border-color:var(--teal);}
 .offer .o-bildruta:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
 .offer .o-bildruta.har{border-style:solid;border-color:var(--teal);background:var(--teal-svag,var(--bg));}
+/* INTE display:none. Etiketten (label for=bildCentral) oppnar bildvaljaren,
+   och en fil-input som ar display:none oppnar ingenting pa aldre iOS Safari.
+   1 px, opacity 0 och pointer-events none doljer den utan att ta bort den, och
+   den ar fortfarande fokuserbar sa rutan far sin ring via :has(:focus-visible).
+   Oraklet bildvaljaren i offert.py haller det (agaren 24 okt, B7). */
 .offer .o-bilddold{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;}
 .offer .o-bildikon{
   flex:none;width:var(--z4);height:var(--z4);border-radius:var(--r1);
@@ -1889,28 +1908,44 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    om det gar att kopa. */
 .offer .o-radpris.saknas{color:var(--faint);font-weight:500;font-variant-numeric:normal;}
 
-/* HJALTEBILDEN BEHOVER HOJD NU NAR CENTRALERNA AR LIGGANDE HOGA DUKAR.
-   De tre kapslingarna ar 1x13, 2x13 och 4x13 moduler, alltsa lika breda och
-   olika hoga, och bilderna ar normaliserade pa BREDD sa att den dyraste inte
-   langre ser minst ut. I en kvadratisk ruta blev foljden att hjaltebilden
-   renderade 36 px bred i en 96-ruta. Rutan ar portratt nu, som valen. */
-.offer .o-prodimg{aspect-ratio:300 / 790;height:auto;max-height:220px;}
-.offer .o-prodimg img{width:100%;height:100%;object-fit:contain;}
+/* --- HJALTEN: ORIGINALETS GEOMETRI (agaren 24 okt, B1) --------------------
+   "Copywritingen ar battre placerad, och jag gillar bilden mer ...
+   originalmallen har mer finess." De tre reglerna ar originalets, ordagrant
+   ur laddboxoffert-elcentral/assets/css/elcentral.css:
+     bildrutan 72 px bred i stallet for systemets 96 (150 fran 1040), i
+     portratt 3:4 med contain, och produktnamnet 17 px sa "Elcentral +
+     installation" star pa EN rad bredvid bilden.
+   Uppmatt 24 okt vid 375, fore: ruta 96 x 220 (aspect 300/790, max-height
+   220), namn 20 px bruten pa tva rader, kortet 479 px hogt. Originalet: ruta
+   72 x 96, namn 17 px pa en rad, kortet 398. Reglerna ar skrivna for en
+   produktbild i 3:4 (originalets hager-*.png ar 776 x 1034); pa de nuvarande
+   300 x 790-dukarna ger contain 36 px bredd, vilket ar B8:s sak (bildfilerna,
+   agda av en annan agent), inte CSS:ens. Oraklet hjaltegeometri haller de tre
+   reglerna. */
+.offer .o-prodtop .o-prodimg{width:72px;}
+.offer .o-prodimg img{aspect-ratio:3/4;object-fit:contain;}
+.offer .o-prodname{font-size:17px;}
 
 /* --- PAKETKORTEN UNDER OVRIGA TJANSTER ----------------------------------
-   tjanstekort() ritar "Vi raknar pa ditt hus" i prisplatsen nar priset inte
-   gar att satta. Systemets .pprice ar flex:none, sa den langa etiketten tog
-   bredden och PRODUKTNAMNET brots: uppmatt 23 okt vid 375, "SAJ HS3" pa tva
-   rader. Etiketten ar inte ett pris: den far vika sig, i brodtextens vikt och
-   dampade farg, och namnet star kvar pa en rad. Ror bara korten i .o-tjanst;
-   elcentralens egna kort har alltid ett pris. */
-/* Namnet far inte krympa under sin egen text: systemets .pname ar flex:1 med
-   min-width:0, sa med nowrap rann "Enershare" in i etiketten (uppmatt 23 okt,
-   375: namnet 59 px brett for en 85 px text). min-width:max-content haller
-   namnet helt, och etiketten viker sig i stallet. */
+   Bara laddboxkortet ar ett paketkort har sedan 24 okt (batteriet ar rader
+   igen, se nedan). Namnet far inte krympa under sin egen text: systemets
+   .pname ar flex:1 med min-width:0, sa med nowrap rann ett langt namn in i
+   prisplatsen (uppmatt 23 okt, 375: namnet 59 px brett for en 85 px text).
+   min-width:max-content haller namnet helt. */
 .offer .o-tjanst .o-pkg .pname{min-width:max-content;}
 .offer .o-tjanst .o-pkg .pname b{white-space:nowrap;}
-.offer .o-tjanst .pprice.saknas{flex:0 1 auto;min-width:0;text-align:right;font-size:15px;font-weight:500;color:var(--muted);line-height:1.3;}
+
+/* --- BATTERIRADERNA: ORIGINALETS RAM (agaren 24 okt, A6) -----------------
+   "Samma text, samma tillaggsrutor, samma produktbild." Originalet ritar
+   batteriets tre rader som vilka bildrader som helst: produktbilden fritt pa
+   kortets vita yta, centrerad i sin 104-ruta, utan platta. Systemet lade
+   23 okt en ljusbla platta med kant och 8 px padding bakom varje
+   intresserad (.o-rad:has(input[data-intresse]) .o-radbild i system.css),
+   for en vit SAJ pa vit yta. Uppmatt i originalet: rutaBg transparent,
+   border 0, bilden 104 x 104 centrerad. Den har regeln aterstaller det for
+   elcentralen. SYSTEMREGEL I MALLENS FIL: hor hemma i gemensamt/system.css om
+   agaren vill ha originalets ram pa alla fem mallarna. */
+.offer .o-rad:has(input[data-intresse]) .o-radbild{background:transparent;border:0;padding:0;}
 
 /* --- IKONRAD MED ANTALSVALJARE ------------------------------------------
    Systemets omlaggning under 480 px (rutnat med 72 px bildspalt, valjaren
