@@ -1709,7 +1709,17 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    Bas-kortets tre tomma rader som tre saker som ingår. */
 .offer .o-ingar li.utan{color:var(--faint);}
 .offer .o-ingar li.utan b{font-weight:400;color:var(--faint);}
-.offer .o-ingar li.utan b + span{color:var(--kant);}
+/* ORDET SOM SAGER VAD KUNDEN INTE FAR VAR SIDANS SVAGASTE TEXT.
+   "tillval" stod i var(--kant), alltsa kortens KANTFARG, #9aa5c0, som ger
+   2,47 : 1 mot vitt. WCAG AA kraver 4,5 for text i den har storleken, och
+   det har var det enda stallet i hela systemet dar --kant anvandes som
+   textfarg. --faint ger 4,83 och ar redan radens egen farg.
+
+   Det ar inte bara ett tillganglighetsfel. Candour-grinden sager att vi
+   aldrig gommer det kunden inte far, och har var exklusionen tonad ljusare
+   an allt annat pa sidan. Villaagaren som laser offerten for att leta efter
+   haken ska kunna lasa just det ordet. Uppmatt 25 oktober. */
+.offer .o-ingar li.utan b + span{color:var(--faint);}
 /* Etikettraden: en mening om det som är lika, utan markör att läsa som ett val. */
 .offer .o-ingar li.rubrik{display:block;color:var(--muted);font-size:13px;line-height:1.45;}
 .offer .o-ingar li.prod + li.rubrik,.offer .o-ingar li.utan + li.rubrik{margin-top:var(--s4);}

@@ -396,7 +396,17 @@
     </div>
     <button class="go" id="barGo">Summering <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
   </div>
-</div>
+
+<!-- ACCEPT- OCH AVBOJSKARMEN LIGGER INNE I .offer, som pa systrarna.
+     De stod efter </div> som stanger .offer, alltsa UTANFOR, och service var
+     enda mallen dar det var sa. .offer ar bade containern och det som
+     definierar --s*-skalan, sa utanfor den var --s7 ODEFINIERAD medan den ar
+     48 px pa de fyra andra, brodtexten blev 16 px i stallet for husets 15,
+     och @container (max-width:560px) kunde aldrig sla till. Uppmatt
+     25 oktober pa alla sex bredder: iOffer false pa service, true pa de
+     andra. Skarmarna ar hidden tills kunden accepterar, vilket ar skalet
+     att ingen sett det. Laddboxen har dem mellan </main> och .o-bar;
+     nu gor service det ocksa. -->
         <div class="o-skarm" id="skarmAccept" hidden>
 <div class="oa">
   <svg class="oa__aurora oa__aurora--top" xmlns="http://www.w3.org/2000/svg" width="399" height="308" viewBox="0 0 399 308" fill="none" aria-hidden="true"><path opacity="0.55" d="M398.501 19.1624V307.416C377.203 307.609 355.83 302.624 342.317 293.968C312.351 274.723 324.249 243.073 290.832 225.49C271.296 215.211 241.478 212.776 213.863 212.505C186.248 212.274 157.751 213.588 131.605 208.757C82.3243 199.637 54.8562 166.596 75.5674 141.361C85.1886 129.652 102.742 120.339 116.035 109.712C129.329 99.0458 138.436 85.3657 128.668 73.6951C108.838 50.0062 34.0715 54.798 7.77845 32.9254C-4.04606 23.1097 -1.54896 10.2412 9.61455 0.0390625H391.001L398.501 19.1624Z" fill="url(#at_p0t)"></path><path opacity="0.6" d="M398.499 0V241.34C355.859 222.68 321.444 193.856 302.503 160.131C293.654 144.379 284.851 125.261 262.485 120.588C244.078 116.765 225.536 124.967 208.24 130.948C190.9 136.928 167.201 139.967 155.151 129.052C133.764 109.64 178.361 77.2222 157.196 57.6797C143.857 45.3595 116.646 50.4248 97.2152 43.8562C76.1396 36.6993 69.2478 15.8497 77.9626 0H398.499Z" fill="url(#at_p1t)"></path><defs><radialGradient id="at_p0t" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(322.819 40.5771) scale(663.35 349.037)"><stop offset="0.5" stop-color="#b6f2ff"></stop><stop offset="1" stop-color="#f5f9ff"></stop></radialGradient><radialGradient id="at_p1t" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(372.244 23.8562) scale(378.832 278.434)"><stop stop-color="#5cc5b6"></stop><stop offset="0.5" stop-color="#00a991"></stop><stop offset="0.87" stop-color="#5cc5b6"></stop></radialGradient></defs></svg>
@@ -523,6 +533,7 @@
   </main>
 </div>
         </div>
+</div>
 <script src="assets/js/pottext.js"></script>
 <script src="assets/js/service.js"></script>
 <script src="assets/js/omdomen.js"></script>
