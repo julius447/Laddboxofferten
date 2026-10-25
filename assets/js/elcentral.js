@@ -172,6 +172,50 @@
     });
   })();
 
+  /* ---- POTTRADEN. EN HARLEDNING, TRE YTOR. -------------------------------
+     Tre stallen pa sidan kvalificerar SAMMA tal: hjalten under "Ditt pris",
+     raden under "Att betala" och prisbaren, som pa mobilen sjalv skriver
+     "Att betala:". Oraklet kvalificering_identisk har redan krav pa att de
+     sager samma sak statiskt; hade bara summeringen foljt med kundens val
+     hade sidan sagt tva saker om ett tal, vilket ar den dyraste defekten i
+     det har repot.
+
+     LYDELSEN FINNS INTE HAR. Den kommer ur window.ampyPottext() i
+     gemensamt/block/pottext.js, som bygget lagger pa varje sida. Samma
+     mening skriven i tre skript blir tre meningar sa fort nagon rattar en av
+     dem: det hande den 23 oktober, fem mallar sa fem olika saker om samma
+     avdrag. Oraklet pottraden_ar_harledd i offert.py stoppar bygget om en
+     lydelse smyger tillbaka hit.
+
+     BARENS SVANS TAS UR MARKUPEN, inte ur en egen strang. Husets regel ar
+     att barens text ar slutet av hela meningen, sa den del som INTE ar
+     svansen raknas fram en gang ur de tva statiska strangarna. Skulle de
+     nagon gang sluta passa ihop visar baren hela meningen, som ocksa ar
+     sann: en harledning som inte gar ihop ska falla tillbaka pa nagot sant,
+     inte pa nagot kort.
+
+     OCH DEN HAR BITEN KOR UNDER LADDNINGEN. Ett kastat fel har dodar hela
+     skriptet innan en enda lyssnare ar satt, och det var precis sa
+     elcentralsidan en gang visade hardkodade varden utan att nagot
+     rapporterade ett fel. Darfor laser den ingenting utan att forst se att
+     elementet finns; bygget kraver anda att bada id:na star i markupen. */
+  var POTT_BAS = "ROT-avdrag";
+  function pottraden(harAnnanPott){
+    /* TRE YTOR, EN HARLEDNING. Hjaltens rad och prisbarens small
+       kvalificerar SAMMA tal som summeringen, sa hade bara summeringen foljt
+       kundens val hade sidan sagt "efter ROT-avdrag" och "efter ROT-avdrag
+       och Gron teknik" om 10 440 kr samtidigt.
+
+       SVANSEN KOMMER UR ampyPottsvans. Forut raknades huvudet fram ur
+       markupens egna tva strangar och kapades bort med en slice. Det holl sa
+       lange de tva strangarna stod kvar exakt som de stod; andrade nagon
+       inledningen fick baren en stympad mening och ingenting sa ifran. */
+    var mening = window.ampyPottext(POTT_BAS, harAnnanPott);
+    $("sumPott").textContent = mening;
+    $("calcRotNot").textContent = mening;
+    $("barPott").textContent = window.ampyPottsvans(POTT_BAS, harAnnanPott);
+  }
+
   function rakna(){
     /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
     var _o=document.querySelector('.offer'); if(_o) _o.classList.add('js-redo');
@@ -287,19 +331,17 @@
     $("sumTotal").textContent = kr(netto);
     $("barTotal").textContent = kr(netto);
 
-    /* Potterna namnges bara nar bada finns. En rad om tva avdrag pa en sida
-       med bara ett avdrag ar brus. */
-    /* Potterna namnges nar bada finns. Inga belopp: avdragen ar redan dragna
-       i talen, och ett tal till hade varit ett pastaende om hur mycket just
-       den har kunden far tillbaka, vilket beror pa hennes eget utrymme. */
-    var potRad = $("sumPotter");
-    if (potter.gt > 0) {
-      potRad.hidden = false;
-      potRad.textContent = "Två avdrag: elcentralen är ROT, laddpunkten är grön teknik. "
-        + "Priserna är inklusive moms och efter avdrag.";
-    } else {
-      potRad.hidden = true;
-    }
+    /* VILLKORET AR DATAT, inte en lista pa produktnamn. potter.gt ar summan
+       av de valda radernas belopp vars pott ar gron teknik, och potten
+       kommer ur data-avdrag i markupen och ur TJANSTPOTT, som bygget skriver
+       ur avdrag-faltet i paket.json. En ny gron teknik-produkt i katalogen
+       slar alltsa igenom har utan att nagon rorde skriptet.
+       OCH BARA RADER MED BELOPP RAKNAS. Solcellsbatteriet ar en
+       intresseanmalan utan pris (belopp == null, hamnar under "Vi hor av oss
+       om"), sa det laggs aldrig till potter.gt. Det ar ratt: meningen
+       beskriver vad talet ovanfor ar efter, och i det talet finns da inte en
+       enda gron teknik-krona. */
+    pottraden(potter.gt > 0);
 
     platsen(nyckel, rader, taket(nyckel, rader));
   }

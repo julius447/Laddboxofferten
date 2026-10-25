@@ -50,7 +50,6 @@
                   <div class="o-calcrow ded"><span>Grön teknik, 50 procent</span><span class="kr" id="calcDed">−4 400 kr</span></div>
                   <div class="o-calcrow dold" id="calcCenRad"><span id="calcCenNamn">Byte av elcentral</span><span class="kr" id="calcCen">0 kr</span></div>
                   <div class="o-calcfinal"><span>Ditt pris</span><span class="t-price kr" id="calcNet">4 400 kr</span></div>
-                  <p class="t-micro dold" id="calcCenNot" style="color:var(--faint);">Övriga tjänster du valt ger ROT i stället för grön teknik. Priserna är inklusive moms och efter avdrag.</p>
                   <p class="o-ingartext">Arbete och material ingår i priset.</p>
                   <p class="t-micro" style="color:var(--faint);">inkl. moms, avdraget dras direkt på fakturan</p>
                 </div>
@@ -351,7 +350,7 @@
                 <span>Att betala</span>
                 <span class="o-sumpris"><span class="o-dold">Pris före grön teknik: </span><s class="kr" id="sumBrutto">8 800 kr</s><b class="kr" id="sumTotal" aria-live="polite">4 400 kr</b></span>
               </div>
-              <p class="t-micro" style="color:var(--faint);margin-top:calc(var(--s3) * -1);">inkl. moms, efter grön teknik.</p>
+              <p class="t-micro" id="sumPott" style="color:var(--faint);margin-top:calc(var(--s3) * -1);">inkl. moms, efter grön teknik</p>
               <div class="o-sumact" style="display:flex;flex-direction:column;gap:var(--s2);">
                 <button class="o-btn primary" id="acceptBtn">Acceptera offert <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
                 <button class="o-btn ghost" id="fraga" aria-expanded="false" aria-controls="fragaPanel">Fråga eller ändra något</button>
@@ -722,7 +721,12 @@
         <div class="o-bar">
           <div class="bt">
             <span class="btrad"><span class="o-dold">Att betala: </span><b class="kr" id="barTotal" aria-live="polite">4 400 kr</b><span class="o-dold">Pris före grön teknik: </span><s class="kr" id="barBrutto">8 800 kr</s></span>
-            <small>efter grön teknik</small>
+            <!-- Barens rad ar SLUTET av samma mening som star under "Att betala"
+                 i summeringen, och baren sager "Att betala" i klartext for
+                 skarmlasaren och ar den enda av de tva som syns pa mobilen.
+                 Den far ett id sa pottraden() kan folja med; samma losning som
+                 elcentralmallen. -->
+            <small id="barPott">efter grön teknik</small>
           </div>
           <button class="go" id="barGo">Summering <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
         </div>
@@ -790,6 +794,7 @@
                   <form method="dialog"><button class="o-modalknapp">Stäng</button></form>
         </dialog>
       </div>
+<script src="assets/js/pottext.js"></script>
 <script src="assets/js/bilder-easee-charge-up.js"></script>
 <script src="assets/js/offert-easee-charge-up.js"></script>
 <script src="assets/js/grann.js"></script>

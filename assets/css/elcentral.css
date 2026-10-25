@@ -1074,7 +1074,24 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
      Bada vagarna andrar alltsa nagot han inte bett om. Tva agenter kom
      oberoende till samma slutsats: det ar husets monster och ett designval.
      Det star som matvarde och vantar pa hans besked. */
-  .offer .o-main > .o-fot{grid-column:1 / -1;grid-row:5;margin-top:0;padding-bottom:0;}
+  /* FOTEN PA SPALTENS AXEL, MEN MED LINJEN KVAR I FULL BREDD.
+     Foten spanner 1 / -1 och ar text-align:center, sa texten centrerades pa
+     rutnatets 1116 px (x 590) medan allt ovanfor ligger i den 684 px breda
+     forsta spalten (x 374). UPPMATT 25 OKTOBER: 216 px snett pa fyra mallar.
+     Sett pa sidan slutar certifikatmarkena vid x 694 och fottexten driver ivag
+     at hoger under dem.
+
+     LINJEN AR DET AGAREN GILLADE nar han jamforde elcentralen med tillagget,
+     sa den behaller sin bredd. Bara texten flyttar in, genom en hogerpadding
+     lika stor som hogerspalten plus dess lucka. Tva andra vagar provades och
+     togs tillbaka: att lagga innehallet i spalt ett bret tillagget, och
+     grid-column:1 kortar linjen fran 1116 till 684.
+
+     TILLAGGSMALLEN VALJER EN SPALT och nollar darfor den har paddingen i sin
+     egen stil.css, pa samma stalle som den valjer en spalt. De tva besluten
+     hor ihop och ska lasas ihop. */
+  .offer .o-main > .o-fot{grid-column:1 / -1;grid-row:5;margin-top:0;padding-bottom:0;
+    padding-inline-end:calc(384px + var(--s7));}
 }
 
 /* ===========================================================================

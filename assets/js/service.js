@@ -20,28 +20,82 @@
     return e ? +e.value : 0;
   }
 
-  /* ---- INTRESSEANMALNINGARNA UNDER OVRIGA TJANSTER --------------------
-     Ett korsforsaljningskort lagger ALDRIG en krona pa en serviceoffert
-     (oraklet i offert.py haller det), men ett kryss som inte syns nagonstans
-     ar ett dott kryss, och batteriingressen lovar att Rasmus hor av sig.
-     Darfor samma rad som laddbox- och elcentralmallen: "Vi hor av oss om",
-     och "ingen kostnad nu" dar talet annars star. Raderna ar kryssrutor
-     (input.intresse) och paketkorten ar radiogrupper (name="...pkg"). */
-  function intressen(){
-    var ut = [];
-    document.querySelectorAll(".o-rad > input.intresse").forEach(function(i){
-      var r = i.closest(".o-rad");
-      if (r) r.classList.toggle("vald", i.checked);
-      if (i.checked) ut.push(i.getAttribute("data-name"));
-    });
-    document.querySelectorAll('.o-tjanst input[type="radio"]:checked').forEach(function(r){
-      var sek = r.closest(".o-tjanst"), kort = r.closest(".o-pkg");
+  /* ---- OVRIGA TJANSTER: VAD RAKNAS OCH VAD AR EN FRAGA ----------------
+     AGARBESKED 25 OKTOBER, ORDAGRANT: "Nar jag lade till spotlights, laddbox
+     och byte av elcentral stod det 'ingen kostnad nu'. Det har ar egentligen
+     bara en logik som ska galla for solcellsbatterier. Byte av elcentral,
+     laddbox, spotlights, lights och liknande ar nagonting som kan dras
+     direkt."
+
+     SKILLNADEN STAR I MARKUPEN, OCH MARKUPEN KOMMER UR KATALOGEN. En kontroll
+     med data-intresse ar en intresseanmalan: den bar ett fran-pris, sidan vet
+     inte vad den kostar, och raden sager "ingen kostnad nu". En kontroll med
+     ett value ar en kopbar vara och raknas in i totalen. Ingen produktlista
+     har inne, for en handskriven lista over "det har ar intresseanmalningar"
+     ar precis den defektklass som gjorde att den har buggen fanns: FALLOR.md
+     har fyra egna avsnitt om listor i skript som ska rakna upp allt.
+
+     Samma tva grenar som laddboxmallens render(), och oraklet
+     grenarna_som_laddboxmallen i offert.py laser bada skripten och haller dem
+     ihop sa de inte kan glida isar. */
+
+  /* ANTAL GANGER STYCKPRIS, som laddboxmallens radAntal/radVarde. En rad utan
+     antalsvaljare ar ett exemplar. */
+  function radAntal(r){
+    var a = r.querySelector("[data-antal]");
+    return a ? +a.value : 1;
+  }
+  function radVarde(r, i){
+    var styck = i.getAttribute("data-styck");
+    return styck ? (+styck) * radAntal(r) : +i.value;
+  }
+  function radNamn(r, i){
+    var n = i.getAttribute("data-name");
+    if (!i.getAttribute("data-styck")) return n;
+    var an = radAntal(r);
+    return n + ", " + an + " " + (an === 1 ? "styck" : "stycken");
+  }
+
+  /* Raderna och paketkorten som kunden har kryssat i, delade i tva listor:
+     koparna (med belopp) och fragorna (utan).
+
+     EN LOOP, I DOKUMENTORDNING. Forsta versionen hade tva looper, raderna
+     forst och paketkorten sedan, och summeringen laste da bakvant: uppmatt
+     25 okt med allt ikryssat stod spotlights, termostat och dimmer (foldens
+     punkt 4, 5 och 6) OVANFOR laddboxen och elcentralen (punkt 1 och 2).
+     querySelectorAll ger kontrollerna i den ordning de star pa sidan, sa
+     summeringen laser nu i samma ordning som kunden mötte dem. */
+  function ovriga(){
+    var kopt = [], fragor = [];
+    document.querySelectorAll('.o-rad > input.add, .o-rad > input.intresse, '
+                            + '.o-tjanst input[type="radio"]').forEach(function(i){
+      var rad = i.closest(".o-rad");
+      if (rad){
+        rad.classList.toggle("vald", i.checked);
+        if (i.hasAttribute("data-intresse")){
+          if (i.checked) fragor.push(i.getAttribute("data-name"));
+          return;
+        }
+        /* Prisfaltet foljer antalet, annars laser kunden ett tal pa raden och
+           ett annat i summeringen. Samma rad som laddboxmallen. */
+        var v = radVarde(rad, i);
+        var pf = rad.querySelector(".o-radpris");
+        if (pf) pf.textContent = v ? "+" + kr(v) : "pris saknas";
+        if (i.checked) kopt.push({namn: radNamn(rad, i), pris: v});
+        return;
+      }
+      /* Kvar: paketkorten. Radens namn ar sektionens rubrik plus kortets,
+         for "Bas" ensamt i en summering sager ingenting. */
+      if (!i.checked) return;
+      var sek = i.closest(".o-tjanst"), kort = i.closest(".o-pkg");
       var rub = sek ? sek.querySelector(".o-tjansttitel") : null;
-      var namn = rub ? rub.textContent.replace(/^\s*\d+\s*/, "").trim() : r.name;
+      var titel = rub ? rub.textContent.replace(/^\s*\d+\s*/, "").trim() : i.name;
       var pn = kort ? kort.querySelector(".pname b") : null;
-      ut.push(namn + (pn ? ", " + pn.textContent.trim() : ""));
+      var namn = titel + (pn ? ", " + pn.textContent.trim() : "");
+      if (i.hasAttribute("value") && +i.value > 0) kopt.push({namn: namn, pris: +i.value});
+      else fragor.push(namn);
     });
-    return ut;
+    return {kopt: kopt, fragor: fragor};
   }
 
   /* VAGEN TILLBAKA UR EN RADIOGRUPP. Samma knapp som batterimallen: syns
@@ -58,7 +112,9 @@
     var _o = document.querySelector(".offer"); if (_o) _o.classList.add("js-redo");
 
     var tid = val("tid");
+    var ovr = ovriga();
     var summa = PRIS + tid;
+    ovr.kopt.forEach(function(v){ summa += v.pris; });
 
     /* Jobbets namn kommer ur datat (JOBBNAMN), inte ur hjalten: produktraden
        dar ar borta sedan 24 okt (E2), men summeringens rad heter anda det
@@ -67,17 +123,32 @@
              + '</span><span class="kr">' + kr(PRIS) + "</span></div>";
     if (tid) rows += '<div class="o-sumrow sub"><span>' + TID[String(tid)]
                    + '</span><span class="kr">' + kr(tid) + "</span></div>";
-    var intr = intressen();
-    if (intr.length){
+    /* DET KUNDEN KOPER STAR MED SITT BELOPP, i samma radform som jobbets egna
+       tillval ovanfor. Agaren 25 okt: laddbox, elcentral, spotlights och
+       liknande "kan dras direkt". */
+    ovr.kopt.forEach(function(v){
+      rows += '<div class="o-sumrow sub"><span>' + v.namn
+            + '</span><span class="kr">' + kr(v.pris) + "</span></div>";
+    });
+    /* OCH DET KUNDEN FRAGAR OM star kvar utan belopp. Ett solcellsbatteri gar
+       inte att prissatta utan att se taket och forbrukningen, sa raden bar
+       ingen krona och totalen ror sig inte. Det ar den enda logik agaren vill
+       ha kvar. */
+    if (ovr.fragor.length){
       rows += '<div class="o-sumrow grp"><span>Vi hör av oss om</span><span></span></div>';
-      intr.forEach(function(x){
+      ovr.fragor.forEach(function(x){
         rows += '<div class="o-sumrow sub"><span>' + x + '</span><span>ingen kostnad nu</span></div>';
       });
     }
     $("sumRows").innerHTML = rows;
     rensningsknappar();
 
-    $("calcFinalEtikett").textContent = tid ? "Ditt pris, med ditt val" : "Ditt pris";
+    /* ETIKETTEN FOLJER PRISET, inte bara tidsvalet. Lade kunden till en
+       laddbox utan att valja tid stod det "Ditt pris" over ett tal hennes
+       eget kryss just hade flyttat. Villkoret ar darfor summan mot
+       utgangslaget, sa etiketten inte kan hamna fel igen nar en ny sorts
+       val kommer till. */
+    $("calcFinalEtikett").textContent = (summa !== PRIS) ? "Ditt pris, med ditt val" : "Ditt pris";
     $("calcNet").textContent = kr(summa);
     $("sumTotal").textContent = kr(summa);
     $("barTotal").textContent = kr(summa);
@@ -87,9 +158,14 @@
   document.querySelectorAll('input[name="tid"]').forEach(function(i){
     i.addEventListener("change", render);
   });
-  document.querySelectorAll('.o-rad > input.intresse, .o-tjanst input[type="radio"]').forEach(function(i){
-    i.addEventListener("change", render);
-  });
+  /* VARJE KONTROLL UNDER OVRIGA TJANSTER, inte en uppraknad lista.
+     input.add kom in 25 oktober, och hade listan har stannat vid
+     input.intresse hade kundens kryss pa en spotlight inte gjort nagonting
+     alls: ingen summering, inget pris. Antalsvaljaren hor hit av samma skal,
+     for den andrar ett belopp. */
+  document.querySelectorAll('.o-rad > input.add, .o-rad > input.intresse, '
+                          + '.o-tjanst input[type="radio"], .o-tjanst [data-antal]')
+    .forEach(function(i){ i.addEventListener("change", render); });
   document.querySelectorAll("[data-rensa]").forEach(function(b){
     b.addEventListener("click", function(){
       var n = this.getAttribute("data-rensa");

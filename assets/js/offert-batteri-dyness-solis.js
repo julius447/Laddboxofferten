@@ -96,7 +96,8 @@
        fodda ur gemensamt/bitar.py:tjanstekort. Namnet ar gruppen plus "pkg".
        Potten star ocksa i innehall.json, och offert.py stoppar bygget om de
        tva drar isar. */
-    var cen=+val("elcentralpkg"), lb=+val("laddboxpkg");
+    var cenInp=document.querySelector('input[name="elcentralpkg"]:checked');
+    var cen=cenInp?+cenInp.value:0, lb=+val("laddboxpkg");
     /* GRON TEKNIK-BASEN AR BRUTTO. Batteriets brutto star i modellfilen.
        Laddboxpaketets pris ar laddboxmallens netto vid 50 procent, och
        o-driftens 30 000 ar kundens pris netto (innehall.json odrift_pott), sa
@@ -104,7 +105,7 @@
        till potten: taket biter ocksa pa KOMBINATIONER (SAJ 35 kWh plus
        o-drift passerar 100 000 fast ingen enskild rad gor det). */
     var gtBrutto=s.brutto + 2*lb, rot=cen, rotNamn=[], valda=[], lagringRad=null;
-    if(cen) rotNamn.push(CEN[String(cen)]);
+    if(cenInp) rotNamn.push(CEN[String(cen)]);
     rader().forEach(function(r){
       var inp=r.querySelector("input.add"); if(!inp) return;
       r.classList.toggle("vald", inp.checked);
@@ -129,6 +130,7 @@
        "Gron teknik, 50 procent, minus 107 531 kr" pa SAJ HS3 40 kWh, ett
        avdrag kunden inte kan fa, och det ar KUNDEN som star for det mot
        Skatteverket. */
+    var harRot=rotNamn.length>0;
     var gtAvdrag=Math.min(Math.floor(gtBrutto/2), POTT);
     var gtNetto=gtBrutto-gtAvdrag;
     var takBiter=gtAvdrag<Math.floor(gtBrutto/2);
@@ -146,9 +148,8 @@
     $("calcDedNamn").textContent = takBiter ? "Grön teknik"
                                             : "Grön teknik, 50 procent";
     $("calcDed").textContent="−"+kr(gtAvdrag);
-    $("calcCenRad").classList.toggle("dold", !rot);
-    $("calcCenNot").classList.toggle("dold", !rot);
-    if(rot){
+    $("calcCenRad").classList.toggle("dold", !harRot);
+    if(harRot){
       $("calcCenNamn").textContent = rotNamn.length===1 ? rotNamn[0] : "Tjänster med ROT";
       $("calcCen").textContent=kr(rot);
     }
@@ -200,6 +201,26 @@
     if(grannar) rows+='<div class="o-sumrow disc"><span>Grannrabatt, '+grannar+(grannar>1?' grannar inbjudna':' granne inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
       +'<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av, '+kr(GRANNRABATT)+' för varje granne som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML=rows;
+    /* POTTRADEN SKRIVS INTE HAR, DEN HAMTAS. Meningen bor i
+       gemensamt/block/pottext.js och ar husets enda. Agaren, uppgift 3:
+       "Det borde sta 'inklusive moms efter gron teknik och ROT' nar jag
+       lagger till en elcentral", och om Plejd och spotlights: "da gar det
+       aterigen under ROT, sa dar maste det uppdateras."
+       BAREN FAR SAMMA MENING UTAN SIN INLEDNING. Pa mobilen ar baren den yta
+       som bar "Att betala", och den sa "efter gron teknik" aven med en
+       elcentral i: samma defekt, andra ytan. Hela meningen far inte plats i
+       baren vid 375 px, sa inledningen kapas av EN harledd strang. Det ar
+       ingen andra mening: andras pottext.js slutar kapningen traffa, och
+       oraklet pottraden_ar_harledd i offert.py stoppar bygget da.
+       RAPPORTERAT: ratt losning ar en svansform i pottext.js, men den filen
+       ar delad och ror jag den ror jag fyra andra mallar mitt i deras pass. */
+    var pott=window.ampyPottext("grön teknik", harRot);
+    $("sumPott").textContent=pott;
+    /* SVANSEN UR SAMMA HARLEDNING, inte ur en kapning. Raden kapade
+       "inkl. moms, " ur hela meningen, vilket fungerar tills nagon andrar
+       inledningen; da far baren en stympad mening och ingenting sager
+       ifran. ampyPottsvans kom till for just det. */
+    $("barPott").textContent=window.ampyPottsvans("grön teknik", harRot);
     $("sumTotal").textContent=kr(total);
     $("sumBrutto").textContent=kr(brutto+rot);
     $("barTotal").textContent=kr(total);

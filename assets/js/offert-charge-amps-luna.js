@@ -4,6 +4,27 @@
   var val=function(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:"0";};
   var BAS=5450;        /* ur modellfilen */
 
+  /* EN mening, tva ytor, EN harledning.
+     Summeringen bar hela meningen ("inkl. moms, efter grön teknik och ROT"),
+     den klibbiga baren bara dess svans ("efter grön teknik och ROT"), for
+     baren har sin egen etikett "Att betala:" ovanfor och ar 188 px bred vid
+     375. Uppmatt: hela meningen med "och ROT" i baren blir tva rader och gor
+     den klibbiga baren 17 px hogre, alltsa en mobilandring texten inte kraver.
+
+     BADA FORMERNA KOMMER UR gemensamt/block/pottext.js. Att kapa "inkl. moms, "
+     ur hela meningen har hade fungerat tills nagon andrar inledningen; da far
+     baren en stympad mening och ingenting sager ifran. Och att satta ihop
+     barens strang sjalv vore en andra harledning, alltsa precis det modulen
+     finns for att forhindra.
+
+     Hade bara summeringen foljt kundens val hade sidan sagt "efter grön teknik
+     och ROT" om 14 790 kr i summeringen och "efter grön teknik" om SAMMA
+     14 790 kr i baren, samtidigt, pa samma skarm. */
+  function pottraden(harAnnanPott){
+    $("sumPott").textContent  = window.ampyPottext("grön teknik", harAnnanPott);
+    $("barPott").textContent  = window.ampyPottsvans("grön teknik", harAnnanPott);
+  }
+
   /* PKG genereras av src/bygg.py ur src/paket.json, samma källa som
      punktlistan och brickorna i korten. Tre konsumenter, en sanning. */
   var PKG={"0": {"namn": "Bas", "spec": "11 kW, monterad och driftsatt", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "2050": {"namn": "Plus", "spec": "11 kW med lastbalansering", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific One</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "4620": {"namn": "Premium", "spec": "22 kW med Perific Max", "kw": 22, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Charge Amps Luna</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>22 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific Max</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Laddkabel 22 kW</b><span>5 meter</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Uppgraderad installation till 22 kW, större kabel och säkring</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel för den uppgraderade installationen</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}};
@@ -12,7 +33,7 @@
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
   /* CEN GENERERAS UR offerter/elcentral/paket.json, den mall som ager
      produkten. Kartan var en literal har till 23 okt, och fore det bar den
-     9 900 och 12 900 ur Rasmus prislista, alltsa 90 kr och 2 000 kr fran vad
+     9 900 och 12 900 ur Rasmus prislista, alltsa 90 kr och 2 000 kr fran vad
      elcentralofferten sager om samma central. Tva Ampy-ytor far inte saga
      olika, och nu finns bara ett stalle att saga det pa. Beslut C4 19 okt. */
   var CEN={"5990": "Byte av elcentral, liten", "9990": "Byte av elcentral, medel", "14900": "Byte av elcentral, stor"};
@@ -353,7 +374,6 @@
      forsta render. */
     $("calcDed").textContent = "\u2212" + kr(gtBas);
     $("calcCenRad").classList.toggle("dold", !rotSum);
-    $("calcCenNot").classList.toggle("dold", !rotSum);
     if (rotSum){
       $("calcCenNamn").textContent = rotNamn.length===1 ? rotNamn[0] : "Tjänster med ROT";
       $("calcCen").textContent = kr(rotSum);
@@ -378,6 +398,26 @@
       + '<div class="o-sumnote">Upp till '+kr(grannar*500)+' av, 500 kr för varje granne som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML = rows;
     $("sumTotal").textContent = kr(mitt);
+
+    /* POTTMENINGEN UNDER "ATT BETALA", AGARENS UPPGIFT 3, 25 OKTOBER:
+       "vi maste andra det fran 'inklusive moms efter gron teknik' till
+        'inklusive moms efter gron teknik och ROT' nar vi lagger till de har
+        sakerna."
+
+       harAnnan kommer UR DATAT, inte ur en namnlista: rotSum ar elcentralens
+       pris plus varje ikryssad rad som bar data-rot, och data-rot i sin tur
+       speglar faltet "avdrag": "rot" i katalog/tillval.json. Far spotlights
+       sallskap av en sjatte ROT-tjanst i morgon behover den har raden inte
+       roras. En handskriven lista med produktnamn hade behovt det, och hade
+       glomts: det ar samma defektklass som ".slice(0,4)" i hopp.py.
+
+       MENINGEN SKRIVS INTE HAR. ampyPottext i gemensamt/block/pottext.js
+       ager lydelsen for alla fem mallarna. Samma mening i tre skript blir
+       tre meningar sa fort nagon rattar en av dem, och det har repot har
+       redan betalat for det en gang: fem mallar sa fem olika saker om samma
+       avdrag den 23 oktober. Oraklet pottraden_ar_harledd() i offert.py
+       stoppar bygget om nagon satter raden med en egen strang. */
+    pottraden(rotSum > 0);
     $("sumBrutto").textContent = kr(gtBas*2 + rotSum);
     $("barTotal").textContent = kr(mitt);
     $("barBrutto").textContent = kr(gtBas*2 + rotSum);

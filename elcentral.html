@@ -278,12 +278,18 @@
           <span>Att betala</span>
           <span class="o-sumpris"><b class="kr" id="sumTotal" aria-live="polite">5 990 kr</b></span>
         </div>
-        <p class="t-micro" style="color:var(--faint);margin-top:calc(var(--s3) * -1);">inkl. moms, efter ROT-avdrag</p>
-        <!-- ROT-VILLKORET, EN GANG. Beslut 23 okt punkt 1 forbjuder beloppet,
-             inte villkoret. Samma mening som tillaggsofferten och
-             orderbekraftelsen. Hedging-direktivet: en gang i finstilten, har,
-             dar talet star. Oraklet rotvillkoret_en_gang haller antalet. -->
-        <p class="t-micro" id="sumPotter" style="color:var(--faint);" hidden></p>
+        <!-- DEN ENDA RADEN UNDER "ATT BETALA". Agaren, uppgift 3 den 25
+             oktober: ingen ny rad, bara den har texten uppdaterad, och den
+             ska vara den enda som syns under totalen. Paragrafen som stod
+             harunder ar struken; skalet och hans ordalydelse star i
+             uppdrag/2026-10-25-uppgift3-ordagrant.md, inte har, for en
+             HTML-kommentar ar skickade bytes som gar att lasa i Visa
+             kallkod.
+             LYDELSEN HARLEDS, den skrivs inte: skript.js pottraden() anropar
+             window.ampyPottext() ur gemensamt/block/pottext.js. Statiskt star
+             grundformen, och den ar sann utan JavaScript, for da gar inget
+             tillval att lagga till. -->
+        <p class="t-micro" id="sumPott" style="color:var(--faint);margin-top:calc(var(--s3) * -1);">inkl. moms, efter ROT-avdrag</p>
         <div class="o-sumact" style="display:flex;flex-direction:column;gap:var(--s2);">
           <button class="o-btn primary" id="acceptBtn">Acceptera offert <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
           <button class="o-btn ghost" id="fraga" aria-expanded="false" aria-controls="fragaPanel">Fråga eller ändra något</button>
@@ -601,12 +607,17 @@
   <div class="o-bar">
     <div class="bt">
       <span class="btrad"><span class="o-dold">Att betala: </span><b class="kr" id="barTotal" aria-live="polite">5 990 kr</b></span>
-      <small>efter ROT-avdrag</small>
+      <!-- Barens rad ar SLUTET av samma mening, och oraklet
+           kvalificering_identisk haller ihop de tre ytorna. Den far ett id
+           for att pottraden() ska kunna folja med: baren sager "Att betala"
+           i klartext pa mobilen, sa den ar en av platserna agaren menar. -->
+      <small id="barPott">efter ROT-avdrag</small>
     </div>
     <button class="go" id="barGo">Summering <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
   </div>
 
 </div>
+<script src="assets/js/pottext.js"></script>
 <script src="assets/js/elcentral.js"></script>
 <script src="assets/js/grann.js"></script>
 <script src="assets/js/ankare.js"></script>
