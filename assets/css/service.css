@@ -1,5 +1,36 @@
 html{scroll-behavior:smooth;}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+/* EN REGEL, INTE TIO SELEKTORER. Reducerad rorelse slacktes till 25 oktober
+   pa tio namngivna stallen: .o-fold>summary::after, .o-rad, .o-opt, .o-pkg,
+   .o-mer>summary::after, .o-plats, och acceptskarmens tre delar i tva
+   skarmar. En handskriven lista som ska racka upp ALLT ar den vanligaste
+   orsaken till falskt gront i det har repot, och nasta animerade element
+   hade inte stott pa den.
+
+   Uppmatt samma dag: 26 element pa elcentralsidan bar en transition, och
+   under reducerad rorelse var det 0. Listan var alltsa komplett just da.
+   Den har regeln gor att den inte kan bli ofullstandig.
+
+   TRANSITION:NONE OCH INTE DURATION:.01ms. Den populara snutten satter
+   transition-duration pa varje element, och eftersom CSS forval for
+   transition-property ar "all" FAR da varje element en overgang det inte
+   hade forut. Uppmatt direkt efter bytet: ett klick pa elcentralsidan satte
+   igang 25 overgangar pa element som tidigare inte hade nagon alls. Kortare
+   an ogat ser, men det ar att lagga till rorelse i det lage dar kunden har
+   bett om mindre. none tar bort den i stallet.
+
+   Risken med animation:none ar en animation med fill:both som bar
+   slutlaget: slacks den star elementet kvar i sitt utgangslage. Husets tre
+   oa-animationer gor inte det (acceptskarmen ar uppmatt synlig med
+   reducerad rorelse pa), och sonden rorelse.js bevakar just det. */
+@media (prefers-reduced-motion: reduce){
+  .offer *, .offer *::before, .offer *::after{
+    animation:none !important;
+    transition:none !important;
+    scroll-behavior:auto !important;
+  }
+}
 /* 68 var toppradens höjd. Inget ligger längre över sidan, så ett ankare
    behöver bara sin egen luft. */
 .offer .o-sec,.offer .o-steg{scroll-margin-top:var(--s4);}
@@ -1574,8 +1605,69 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 /* 1,55 som .t-body, inte 1,5: en radhojd per typstorlek. 15 px hade annars
    tva (23,25 och 22,5), uppmatt 23 okt. */
 .offer .o-ingar--huvud li{font-size:15px;line-height:1.55;}
-.offer .o-ingar--huvud li.prod > span > b{font-size:15px;font-weight:600;}
-.offer .o-ingar--huvud li.prod > span > span{font-size:13px;}
+
+/* VANLIG TEXT, INTE FETMARKERAD. AGAREN 25 OKTOBER, ordagrant: rubrikerna
+   "ska ... goras som vanlig text istallet for fetmarkerade. For att nar det
+   bara kommer vara en lang lista pa eventuellt tio punkter sa ar jag orolig
+   for att readability kommer drabbas."
+   300 ar inte ett tal jag valt: det ar .offer .t-body, husets brodtextvikt,
+   samma som hjaltens ingress och stegens meningar. Fargen ar kvar pa --ink,
+   for raden ar sidans innehall och agaren sa inget om fargen.
+   Specificiteten: .offer .o-ingar--huvud li.prod vager 0,3,1 mot systemets
+   .o-ingar li.prod pa 0,2,1. Rakna den alltid; FALLOR.md har fem fall dar en
+   enklassregel nollades tyst. Och det maste vara en CSS-regel OCH ingen <b>
+   i markupen: en <b> hade varit fet aven med vikten satt har.
+   De tva reglerna som stod har forut, li.prod > span > b (vikt 600) och
+   li.prod > span > span (13 px), styrde rubriken och beskrivningen bredvid
+   den. Bada elementen ar borta ur ingarlista() 25 okt, och en regel for ett
+   element som inte finns ar dod kod som nasta lasare tror betyder nagot. */
+.offer .o-ingar--huvud li.prod{font-weight:300;}
+
+/* --- SPACINGEN I "DET HAR INGAR ALLTID", UPPMATT 25 OKTOBER ---------------
+   AGAREN 25 OKT: "Det enda jag stor mig pa pa mobilen ar att det inte ar en
+   lika stor spacing. Alltsa spacing-logiken ar inte helt rimlig."
+
+   HAR STAR INGEN REGEL, OCH DET AR SLUTSATSEN. Uppmatt vid 375 px, blackkant
+   till blackkant, fore nagon andring:
+
+     mellan tva rader i samma stycke      7,19   7,19   ... (alla lika)
+     rubrik till sitt EGET stycke        12     12     12     12
+     steg 1>2, 2>3, 3>4                  28,19  28,19  28,19
+     samma matt fran sista textraden
+       till nasta rubrik                 39,19  39,19  39,19
+     lador (flex-gap i .o-steps)         24     24     24
+
+   Varje avstand mellan punkterna ar alltsa redan lika, och trappan
+   7 : 12 : 28 ar en ren narhetsordning. Ett tal fanns som INTE var lika:
+   avstandet mellan ikonplattorna, alltsa den langd skenan far,
+
+     152,75   72,38   99,56   (spridning 2,11 ganger)
+
+   och det ar ingen spacingregel. Det ar stegens hojder, 177 / 96 / 124 / 150,
+   som i sin tur ar radantalet: rubrikerna bryter 2/1/1/2 rader och styckena
+   4/2/3/3. Systrarna har samma komponent och samma spridning i mindre dos
+   (elcentral 1,28, laddbox 1,22), for deras meningar ar jamnlanga.
+
+   PROVADE OCH FORKASTADE, var och en renderad och uppmatt:
+     gap 24 -> 32            bygger pa att 24 vore mindre an radhojden 27,2.
+                             Applen mot paron: den vita luften mellan tva
+                             rader ar 7,19, inte 27,2. Matningen vann.
+     rubrik-till-stycke
+       8 -> var(--rytm-nara) tokennamnet ar fel men talet ar ratt: 8 px
+                             renderar redan som 12 optiskt. 12 hade gett 16,
+                             och kontrasten mot 28,19 hade sjunkit.
+     min-hojd pa stegen      jamnar plattorna men lagger 54 px dod luft under
+                             "Driftsattning", och talet hade varit mitt eget.
+     skenan borttagen eller
+       med fast langd        jamnar det ogat mater, men river formen agaren
+                             sjalv pekade pa ("som elcentralsofferten"), och
+                             en design-andring ar hans beslut, inte mitt.
+
+   DET ENDA SOM FLYTTAR TALET ar fyra jamnlanga meningar. Uppmatt med alla
+   stycken tvingade till tre rader: skenan blir 125,56 / 99,56 / 99,57,
+   spridning 1,26, alltsa elcentralens band. Resten ar de tva rubrikerna som
+   bryter pa tva rader, och de ar agarens ord. Det ar en copy-andring och
+   ligger darfor hos honom. */
 
 /* Grunden ("Det har ingar alltid") ar stegen i #alltid sedan 24 okt, samma
    .o-steps som elcentralen och laddboxen: ingen egen CSS. Reglerna for den
@@ -1604,31 +1696,10 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-sumtot b{line-height:1.15;}
 
 
-/* --- HJALTENS FOTO (agarsvar 5, 25 okt: "Bara teambilden") ----------------
-   Rutan ar systemets .o-prodimg, oforandrad: aspect-ratio 1/1 och
-   object-fit:cover, samma som laddbox- och batterimallens hjaltebild. Tva
-   rader star har, och ingen av dem ror formen.
-
-   1. BREDDEN. Systemet ger .o-prodimg en bredd bara inne i .o-prodtop, och
-      servicehjalten har ingen .o-prodtop: produktraden ar borttagen pa
-      agarens order 24 okt (E2). Utan bredd stracker sig rutan over hela
-      kortet: UPPMATT 25 okt med regeln avstangd i sidan, 293 x 293 px vid
-      375 och 634 x 634 vid 1180, i ett kort pa 343 respektive 684. Med
-      regeln 96 och 150, samma tal och samma brytpunkt som systrarnas.
-      (Forsta versionen av den har kommentaren sa 647 px. Det var gissat
-      ur kortbredden minus padding, och matningen sa 634.)
-   2. OBJECT-POSITION. Bilden ar ett staende portratt, 933 x 1400, medan
-      systrarnas ar produkter pa jamn botten. Systemets forval 50 % klipper
-      ur y 233..1166, och huvudets ovankant ligger pa y=211: hjassan hade
-      alltsa kapats med 22 px. 29 % klipper ur y 135..1068, alltsa hela
-      huvudet med luft over. Talet ar matt pa bilden (forsta raden som
-      avviker fran bakgrunden), inte valt pa kanslan.
-      cover tanjer ingenting; det enda som sker ar att brostet under
-      klipplinjen inte syns, vilket ar vad ett portratt i en kvadrat ar. */
-.offer .o-hjaltefoto{width:96px;}
-.offer .o-hjaltefoto img{object-position:50% 29%;}
-@container (min-width: 1040px){
-  .offer .o-hjaltefoto{width:150px;}}
+/* INGET HJALTEFOTO. Reglerna for .o-hjaltefoto (bredd och
+   object-position) stod har 25 oktober och ar borta samma dag:
+   agaren tog bort bilden. En regel for ett element som inte
+   finns ar dod kod som nasta lasare tror betyder nagot. */
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}

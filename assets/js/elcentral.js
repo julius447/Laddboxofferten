@@ -11,7 +11,7 @@
      Avrundas EN gang, har, i renderaren. */
   function kr(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0") + "\u00a0kr"; }
 
-  var PKG={"5990": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp", "grupper": 7}, "9990": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp", "grupper": 16}, "14900": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp", "grupper": 32}};
+  var PKG={"5990": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp", "bildduk": "120.7", "grupper": 7}, "9990": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp", "bildduk": "109.1", "grupper": 16}, "14900": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp", "bildduk": "96", "grupper": 32}};
   var TAK={"5990": 7, "9990": 9, "14900": null};
   var RYMS={"5990": 0, "9990": 0, "14900": 10};
   var TJANSTPOTT={"laddbox": "gt"};
@@ -200,7 +200,16 @@
       $("prodName").textContent = "Elcentral + installation";
       $("prodSpec").textContent = p.passar;
       var bild = $("heroImg");
-      if (bild && p.bildsrc) { bild.src = p.bildsrc; bild.alt = p.namn + " elcentral från Hager"; }
+      /* BILDEN OCH DESS SKALA BYTS TILLSAMMANS. Hjalterutan ar 72 x 96 men
+         Hager-duken ar mest tomrum, sa kapslingen renderades 37,6 px
+         (uppmatt 25 okt). --duk kommer ur samma trappa som paketkorten och
+         ar satt redan i markupen for forvalet; byter kunden storlek maste
+         talet folja med, annars renderas Medel och Stor i forvalets skala. */
+      if (bild && p.bildsrc) {
+        bild.src = p.bildsrc;
+        bild.alt = p.namn + " elcentral från Hager";
+        if (p.bildduk) bild.style.setProperty("--duk", p.bildduk + "px");
+      }
     }
     $("calcFinalEtikett").textContent = (summa > bas) ? "Ditt pris, med dina val" : "Ditt pris";
 

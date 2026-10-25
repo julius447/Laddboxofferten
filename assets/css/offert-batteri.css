@@ -1,5 +1,36 @@
 html{scroll-behavior:smooth;}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+/* EN REGEL, INTE TIO SELEKTORER. Reducerad rorelse slacktes till 25 oktober
+   pa tio namngivna stallen: .o-fold>summary::after, .o-rad, .o-opt, .o-pkg,
+   .o-mer>summary::after, .o-plats, och acceptskarmens tre delar i tva
+   skarmar. En handskriven lista som ska racka upp ALLT ar den vanligaste
+   orsaken till falskt gront i det har repot, och nasta animerade element
+   hade inte stott pa den.
+
+   Uppmatt samma dag: 26 element pa elcentralsidan bar en transition, och
+   under reducerad rorelse var det 0. Listan var alltsa komplett just da.
+   Den har regeln gor att den inte kan bli ofullstandig.
+
+   TRANSITION:NONE OCH INTE DURATION:.01ms. Den populara snutten satter
+   transition-duration pa varje element, och eftersom CSS forval for
+   transition-property ar "all" FAR da varje element en overgang det inte
+   hade forut. Uppmatt direkt efter bytet: ett klick pa elcentralsidan satte
+   igang 25 overgangar pa element som tidigare inte hade nagon alls. Kortare
+   an ogat ser, men det ar att lagga till rorelse i det lage dar kunden har
+   bett om mindre. none tar bort den i stallet.
+
+   Risken med animation:none ar en animation med fill:both som bar
+   slutlaget: slacks den star elementet kvar i sitt utgangslage. Husets tre
+   oa-animationer gor inte det (acceptskarmen ar uppmatt synlig med
+   reducerad rorelse pa), och sonden rorelse.js bevakar just det. */
+@media (prefers-reduced-motion: reduce){
+  .offer *, .offer *::before, .offer *::after{
+    animation:none !important;
+    transition:none !important;
+    scroll-behavior:auto !important;
+  }
+}
 /* 68 var toppradens höjd. Inget ligger längre över sidan, så ett ankare
    behöver bara sin egen luft. */
 .offer .o-sec,.offer .o-steg{scroll-margin-top:var(--s4);}

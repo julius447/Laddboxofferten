@@ -625,12 +625,9 @@
     });
   });
 
-  /* före och efter */
-  (function(){
-    var r=$("feReglage"); if(!r) return;
-    var box=r.closest(".o-fe");
-    r.addEventListener("input",function(){ box.style.setProperty("--fe", this.value); });
-  })();
+  /* Fore och efter: handlaren bor i gemensamt/block/foreefter.js och
+     laggs pa varje sida av bygget. Tva kopior hade redan drivit isar
+     och servicemallen hade ingen alls. */
 
   $("barGo").addEventListener("click",function(){ scrollTill($("summering"),"start"); });
 

@@ -1,5 +1,36 @@
 html{scroll-behavior:smooth;}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+/* EN REGEL, INTE TIO SELEKTORER. Reducerad rorelse slacktes till 25 oktober
+   pa tio namngivna stallen: .o-fold>summary::after, .o-rad, .o-opt, .o-pkg,
+   .o-mer>summary::after, .o-plats, och acceptskarmens tre delar i tva
+   skarmar. En handskriven lista som ska racka upp ALLT ar den vanligaste
+   orsaken till falskt gront i det har repot, och nasta animerade element
+   hade inte stott pa den.
+
+   Uppmatt samma dag: 26 element pa elcentralsidan bar en transition, och
+   under reducerad rorelse var det 0. Listan var alltsa komplett just da.
+   Den har regeln gor att den inte kan bli ofullstandig.
+
+   TRANSITION:NONE OCH INTE DURATION:.01ms. Den populara snutten satter
+   transition-duration pa varje element, och eftersom CSS forval for
+   transition-property ar "all" FAR da varje element en overgang det inte
+   hade forut. Uppmatt direkt efter bytet: ett klick pa elcentralsidan satte
+   igang 25 overgangar pa element som tidigare inte hade nagon alls. Kortare
+   an ogat ser, men det ar att lagga till rorelse i det lage dar kunden har
+   bett om mindre. none tar bort den i stallet.
+
+   Risken med animation:none ar en animation med fill:both som bar
+   slutlaget: slacks den star elementet kvar i sitt utgangslage. Husets tre
+   oa-animationer gor inte det (acceptskarmen ar uppmatt synlig med
+   reducerad rorelse pa), och sonden rorelse.js bevakar just det. */
+@media (prefers-reduced-motion: reduce){
+  .offer *, .offer *::before, .offer *::after{
+    animation:none !important;
+    transition:none !important;
+    scroll-behavior:auto !important;
+  }
+}
 /* 68 var toppradens höjd. Inget ligger längre över sidan, så ett ankare
    behöver bara sin egen luft. */
 .offer .o-sec,.offer .o-steg{scroll-margin-top:var(--s4);}
@@ -1603,7 +1634,19 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    Antalet, "(x 2)", star INNE i <b> av samma skal: lades det i ett eget span
    hade systemets regel .o-ingar li.prod b+span::before skjutit in ett
    kommatecken framfor det, alltsa precis den form specen hade. */
-.offer .o-sum .o-art li.prod b{display:block;font-weight:600;color:var(--ink);}
+/* BARA PRISET AR FETMARKERAT. Agaren 25 okt, om mobilen: "Alla rubriker ar
+   fetmarkerade. Det tycker jag att vi kan ta bort. Bara priset behover vara
+   fetmarkerat." Systemet satter 600 pa TVA stallen, .o-ingar li.prod och
+   .o-ingar li.prod b, sa en overskrivning av bara den ena lamnar kvar den
+   andra: <b> arver li:ns 600 om b-regeln sanks, och li:ns egen text (antalet)
+   star kvar i 600 om bara b sanks. Bada, darfor, var och en i sin egen regel
+   sa ingen selektor star tva ganger i filen.
+   400 och inte 300: 300 ar husets brodtextvikt och ar satt for prosa, och
+   artikelnamnet ar ett namn pa en vara i en priskolumn. Kontrasten mot priset
+   ar 400 mot 700, alltsa tre steg, och det ar den enda vikt-kontrasten kvar
+   i kortet. */
+.offer .o-sum .o-art li.prod{font-weight:400;}
+.offer .o-sum .o-art li.prod b{display:block;font-weight:400;color:var(--ink);}
 /* PRISKOLUMNEN SKA VARA EN KOLUMN. Priset lag i 15/600 var(--ink), alltsa
    exakt samma yta som namnet bredvid, sa fyra priser nerfor kortet gick inte
    att lasa som en kolumn. 17/700 och tabulara siffror ur .kr, hogerstallt mot
@@ -1635,8 +1678,27 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    som pa mobilen, 680 bred, uppifran och ner. Toppraden foljer med: 1180 bred
    over ett innehall pa 680 ar samma fel som systemet en gang rattade. */
 @container (min-width: 1040px){
-  .offer .o-top{max-width:680px;}
-  .offer .o-main{display:flex;flex-direction:column;max-width:680px;padding:var(--s6) var(--s4) var(--s7);}
+  /* TOPPRADENS INNERKANT DELAR INNEHALLETS. Systemet ger .o-top 24 px
+     sidopadding och .o-main 16, en skillnad pa 8 som ingen ser nar baren ar
+     1180 bred over ett innehall pa 1116. Har ar bada 680, och da star
+     logotypen bredvid rubriken under den utan att dela kant med den:
+     uppmatt vid 1180 logotyp v=275 mot h1 v=266, och chipets hogerkant 905
+     mot rubrikens 914. Det var "menyn ser lite konstig ut". Samma 16 som
+     .o-main, sa sidan har tva lodrata linjer, inte fyra. */
+  .offer .o-top{max-width:680px;padding-inline:var(--s4);}
+  /* ALIGN-ITEMS AR KRYSSAXELN, OCH I EN FLEXKOLUMN AR KRYSSAXELN BREDDEN.
+     Systemets desktopgrid satter align-items:start (system.css rad 487).
+     Raden nedan byter display till flex men arvde starten, och da krympte
+     VARJE barn till sitt innehall i stallet for att fylla spalten. Uppmatt
+     likadant vid 1180 och 1440, i en spalt som ar 648 bred:
+       .o-colA 648 | .o-colB 446 | .o-colC 101 | .o-fot 283
+     Kortet slutade alltsa 203 px fore rubriken ovanfor, Villkor blev en
+     101 px bred bricka, och fotens linje en 283 px stump mot elcentralens
+     1116. Det var agarens egen jamforelse: "kolla hur vi har skrivit var
+     footer ... och jamfor mellan elcentral och tillaggsofferten". Pa 375 ar
+     align-items normal, alltsa stretch, och dar var allt redan 343 brett.
+     Ett ord rattar alla fyra, och det ar hela skillnaden mot mobilen. */
+  .offer .o-main{display:flex;flex-direction:column;align-items:stretch;max-width:680px;padding:var(--s6) var(--s4) var(--s7);}
   .offer .o-colB{position:static;}
 }
 /* Foten: systemets +24 kompenserar tillitsbandets -24. Utan band blev

@@ -1,5 +1,36 @@
 html{scroll-behavior:smooth;}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+/* EN REGEL, INTE TIO SELEKTORER. Reducerad rorelse slacktes till 25 oktober
+   pa tio namngivna stallen: .o-fold>summary::after, .o-rad, .o-opt, .o-pkg,
+   .o-mer>summary::after, .o-plats, och acceptskarmens tre delar i tva
+   skarmar. En handskriven lista som ska racka upp ALLT ar den vanligaste
+   orsaken till falskt gront i det har repot, och nasta animerade element
+   hade inte stott pa den.
+
+   Uppmatt samma dag: 26 element pa elcentralsidan bar en transition, och
+   under reducerad rorelse var det 0. Listan var alltsa komplett just da.
+   Den har regeln gor att den inte kan bli ofullstandig.
+
+   TRANSITION:NONE OCH INTE DURATION:.01ms. Den populara snutten satter
+   transition-duration pa varje element, och eftersom CSS forval for
+   transition-property ar "all" FAR da varje element en overgang det inte
+   hade forut. Uppmatt direkt efter bytet: ett klick pa elcentralsidan satte
+   igang 25 overgangar pa element som tidigare inte hade nagon alls. Kortare
+   an ogat ser, men det ar att lagga till rorelse i det lage dar kunden har
+   bett om mindre. none tar bort den i stallet.
+
+   Risken med animation:none ar en animation med fill:both som bar
+   slutlaget: slacks den star elementet kvar i sitt utgangslage. Husets tre
+   oa-animationer gor inte det (acceptskarmen ar uppmatt synlig med
+   reducerad rorelse pa), och sonden rorelse.js bevakar just det. */
+@media (prefers-reduced-motion: reduce){
+  .offer *, .offer *::before, .offer *::after{
+    animation:none !important;
+    transition:none !important;
+    scroll-behavior:auto !important;
+  }
+}
 /* 68 var toppradens höjd. Inget ligger längre över sidan, så ett ankare
    behöver bara sin egen luft. */
 .offer .o-sec,.offer .o-steg{scroll-margin-top:var(--s4);}
@@ -1638,6 +1669,22 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    som går utanför rutan, men ett golv hindrar inte rutan själv från att växa
    efter sitt innehåll. height:232px är samma tal som min-height bar förut, så
    rutan är exakt den uppmätta: 293 x 232 vid 375 och 634 x 232 vid 1180. */
+/* HJALTENS BILDRUTA. Agarens punkt 25 oktober: "den lilla elcentralsbilden
+   hade vi kunnat gora en gnutta storre (...) bara forstora bilden i
+   sammanhanget". Uppmatt fore: rutan 72 x 96 px, kapslingen 37,6 x 37,6, for
+   Hager-duken ar 1200 x 1600 och kapslingen upptar 627 x 627 i mitten.
+   RUTAN VAXER INTE, bara bilden i den: overflow klipper den genomskinliga
+   duken, som inte syns anda. Taket ar 96, alltsa rutans egen hojd, satt sa
+   att STOR renderas precis som forut; agaren bad om att gora den lilla
+   storre, inte om att krympa den stora. --duk per storlek kommer ur samma
+   trappa som paketkorten, med samma exponent. */
+/* RUTAN MASTE LASAS. overflow:hidden klipper INNEHALLET, inte rutan: utan
+   en fast hojd vaxte den fran 96 till 121 px sa fort bilden blev storre
+   (uppmatt 25 okt). Samma falla som paketkortens .pbild gick i samma dag.
+   96 ar rutans uppmatta hojd fore andringen, vid bade 375 och 1180. */
+.offer .o-hero .o-prodimg{overflow:hidden;height:96px;--hjaltebildtak:96px;}
+.offer .o-hero .o-prodimg img{height:var(--duk,var(--hjaltebildtak));width:auto;max-height:none;max-width:none;}
+
 .offer #pkgs .o-pkg .pbild{min-height:232px;height:232px;overflow:hidden;--bildtak:200px;}
 .offer #pkgs .o-pkg .pbild img{height:var(--duk,var(--bildtak));width:auto;max-height:none;max-width:none;}
 

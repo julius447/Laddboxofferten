@@ -325,12 +325,9 @@
     });
   });
 
-  /* fore och efter, samma tva rader som laddboxen */
-  (function(){
-    var r=$("feReglage"); if(!r) return;
-    var box=r.closest(".o-fe");
-    r.addEventListener("input", function(){ box.style.setProperty("--fe", this.value); });
-  })();
+  /* Fore och efter: handlaren bor i gemensamt/block/foreefter.js och
+     laggs pa varje sida av bygget. Tva kopior hade redan drivit isar
+     och servicemallen hade ingen alls. */
 
   /* UTSKRIFTEN. En stangd <details> tar inte med sitt innehall pa papperet.
      Foldarna oppnas fore utskrift och aterstalls efterat, med sparren mot
