@@ -178,19 +178,19 @@
       rows+='<div class="o-sumrow sub"><span>'+LBP[String(lb)]+'</span><span class="kr">'+kr(netto(2*lb))+'</span></div>'; }
     if(cen) rows+='<div class="o-sumrow sub"><span>'+CEN[String(cen)]+'</span><span class="kr">'+kr(cen)+'</span></div>';
     var takTillagg = gtNetto - gtRader;
-    /* AGARSVAR 53, 25 OKTOBER, ORDAGRANT: "Ta bort dessa formuleringar: Kvar
-       i summeringen star 'Över grön teknik-taket, 100 000 kr' och noten 'Här
-       slår taket för grön teknik i, så avdraget är 100 000 kr i stället för
-       halva priset'. --- Skriv istället 'Räknat på två personer i hushållet'
-       alternativt: 'Räknat på en person i hushållet'".
+    /* AGARSVAR 53, 25 OKTOBER. Tva lydelser om taket togs bort har, och
+       agarens ord star ordagrant i uppdrag/2026-10-25-svaren.md och i
+       gemensamt/orakel.py:STRUKNA_FRASER. De star INTE har: en kommentar i
+       skriptet ar skickade bytes, lasbara i Visa kallkod, och en struken
+       formulering ska inte ga att hitta pa den publicerade sidan.
 
        RADEN MASTE FINNAS KVAR, bara inte med den lydelsen. Den bar
        mellanskillnaden mellan vad raderna visar och vad totalen sager; utan
        den summerar kolumnen inte, och fem rader summerade en gang till
        115 623 kr under en total pa 118 856. Etiketten sager nu vad raden ar
-       utan att namna taket och utan att skriva ut potten: potten ar ett
-       avdragsutrymme, och agarsvar 25 sager att utrymmet ar kundens ansvar
-       och aldrig var text. */
+       utan att namna taket och utan att skriva ut potten: potten ar det
+       utrymme kunden har kvar hos Skatteverket, och agarsvar 25 sager att
+       det ar kundens ansvar och aldrig var text. */
     if(takTillagg > 0) rows+='<div class="o-sumrow sub"><span>Del utan grön teknik-avdrag</span><span class="kr">'+kr(takTillagg)+'</span></div>';
     if(takBiter) rows+='<div class="o-sumnote">Räknat på '+(PERSONER===1?'en person':'två personer')+' i hushållet.</div>';
     /* Grannrabatten raknas pa SKICKADE inbjudningar, som laddboxen och
