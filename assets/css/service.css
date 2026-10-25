@@ -1603,6 +1603,33 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    laddboxmallen bar samma 46,5. Se rapporten. */
 .offer .o-sumtot b{line-height:1.15;}
 
+
+/* --- HJALTENS FOTO (agarsvar 5, 25 okt: "Bara teambilden") ----------------
+   Rutan ar systemets .o-prodimg, oforandrad: aspect-ratio 1/1 och
+   object-fit:cover, samma som laddbox- och batterimallens hjaltebild. Tva
+   rader star har, och ingen av dem ror formen.
+
+   1. BREDDEN. Systemet ger .o-prodimg en bredd bara inne i .o-prodtop, och
+      servicehjalten har ingen .o-prodtop: produktraden ar borttagen pa
+      agarens order 24 okt (E2). Utan bredd stracker sig rutan over hela
+      kortet: UPPMATT 25 okt med regeln avstangd i sidan, 293 x 293 px vid
+      375 och 634 x 634 vid 1180, i ett kort pa 343 respektive 684. Med
+      regeln 96 och 150, samma tal och samma brytpunkt som systrarnas.
+      (Forsta versionen av den har kommentaren sa 647 px. Det var gissat
+      ur kortbredden minus padding, och matningen sa 634.)
+   2. OBJECT-POSITION. Bilden ar ett staende portratt, 933 x 1400, medan
+      systrarnas ar produkter pa jamn botten. Systemets forval 50 % klipper
+      ur y 233..1166, och huvudets ovankant ligger pa y=211: hjassan hade
+      alltsa kapats med 22 px. 29 % klipper ur y 135..1068, alltsa hela
+      huvudet med luft over. Talet ar matt pa bilden (forsta raden som
+      avviker fran bakgrunden), inte valt pa kanslan.
+      cover tanjer ingenting; det enda som sker ar att brostet under
+      klipplinjen inte syns, vilket ar vad ett portratt i en kvadrat ar. */
+.offer .o-hjaltefoto{width:96px;}
+.offer .o-hjaltefoto img{object-position:50% 29%;}
+@container (min-width: 1040px){
+  .offer .o-hjaltefoto{width:150px;}}
+
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}
 

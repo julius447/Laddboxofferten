@@ -153,12 +153,24 @@
   var acc = $("acceptBtn");
   if (acc) acc.addEventListener("click", function(){ visaSkarm("skarmAccept"); });
   /* Prisbarens knapp leder till summeringen, som pa laddbox, elcentral och
-     batteri. Forut accepterade den direkt (CMO-granskningen 23 okt, fynd 5c). */
+     batteri. Forut accepterade den direkt (CMO-granskningen 23 okt, fynd 5c).
+
+     MJUKT AR EN FRAGA, INTE ETT PASTAENDE. Raden under skrevs forst som
+     scrollIntoView({behavior:"smooth"}) rakt av, alltsa mallens egen
+     losning pa nagot laddbox- och batterimallen redan hade lost. Uppmatt
+     25 okt vid 375, riktigt tryck pa knappen, reducerad rorelse pa:
+       laddbox   scrollTop 0 -> 7509, summeringens topp 7509
+       batteri   scrollTop 0 -> 2084, summeringens topp 2084
+       service   scrollTop 0 ->    0, summeringens topp 1975
+     Chrome slapper inte igenom en smooth-rullning alls nar kunden bett om
+     mindre rorelse, sa knappen gjorde INGENTING for dem. Systrarna fragar
+     forst och faller tillbaka pa ett direkt hopp; det gor den har nu ocksa.
+     Oraklet barknappen_som_systrarna laser laddboxens skript och haller de
+     tva ihop, sa de inte kan glida isar igen. */
+  var mjukt = !window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function scrollTill(el,block){ if(el) el.scrollIntoView(mjukt?{behavior:"smooth",block:block||"start"}:{block:block||"start"}); }
   var go = $("barGo");
-  if (go) go.addEventListener("click", function(){
-    var s = $("summering");
-    if (s) s.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+  if (go) go.addEventListener("click", function(){ scrollTill($("summering"), "start"); });
   var av = $("avbojSend");
   if (av) av.addEventListener("click", function(){ visaSkarm("skarmAvboj"); });
 

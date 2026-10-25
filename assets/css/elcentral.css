@@ -1617,8 +1617,29 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    verkligheten.
    SCOPAT TILL #pkgs 23 okt: regeln traffade ocksa laddbox- och batterikorten under
    Ovriga tjanster, som ska ha systemets kortgeometri, samma som laddboxmallen. */
-.offer #pkgs .o-pkg .pbild{min-height:232px;}
-.offer #pkgs .o-pkg .pbild img{max-height:200px;}
+/* BILDTRAPPAN, ÄGARSVAR 43 (25 okt): "Gör den lilla elcentral bilden lite
+   större i själva rutan, samma gäller medelstora elcentralen ... Gör inte
+   själva rutorna större."
+   Rutan är därför oförändrad, 232 px hög, och taket inuti den är oförändrat
+   200 px: --bildtak är samma tal som max-height bar till 25 okt, och bygget
+   läser det HÄRIFRÅN så CSS:en och räkningen inte kan glida isär.
+   Det som ändrades är att duken får renderas olika högt per storlek. Uppmätt
+   före: alla tre renderade duken 150 x 200 och kapslingen 78 x 78, 78 x 118
+   och 78 x 196, alltså band Stor taket medan Liten fyllde 39 procent av det.
+   Höjden kommer nu ur EN regel i offert.py (EL_BILDTRAPPAN_E), skriven som
+   --duk på varje figur, och duken får gå utanför rutan: överskottet är
+   genomskinlig duk runt kapslingen, inget av produkten, och overflow klipper
+   det. max-height och max-width måste därför stängas av, annars binder de
+   duken till rutan igen och hela trappan blir verkningslös.
+   Faller --duk bort renderas bilden exakt som före 25 okt (var(--bildtak)).
+   HÖJDEN ÄR LÅST, inte bara ett golv. Uppmätt 25 okt med enbart min-height:
+   rutan växte till 283,5 px för Liten och 259,3 för Medel, alltså precis det
+   ägaren sa nej till ("Gör inte själva rutorna större"). overflow klipper det
+   som går utanför rutan, men ett golv hindrar inte rutan själv från att växa
+   efter sitt innehåll. height:232px är samma tal som min-height bar förut, så
+   rutan är exakt den uppmätta: 293 x 232 vid 375 och 634 x 232 vid 1180. */
+.offer #pkgs .o-pkg .pbild{min-height:232px;height:232px;overflow:hidden;--bildtak:200px;}
+.offer #pkgs .o-pkg .pbild img{height:var(--duk,var(--bildtak));width:auto;max-height:none;max-width:none;}
 
 /* PROCESSEN: ingen egen CSS. .o-steps, .o-step, .o-stepico, .o-steptext och
    .o-stepnr bor i bas.html. Min forsta version var en egen .o-process med

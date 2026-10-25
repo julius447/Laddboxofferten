@@ -10,6 +10,7 @@
   var MODELL={"id": "dyness-solis", "namn": "Dyness Stack 100 Pro + Solis S6", "modul_kwh": 5.12, "batteri": "Dyness Stack 100 Pro", "storlekar": [{"kwh": 15.36, "moduler": 3, "brutto": 91850, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 20.38, "moduler": null, "brutto": 103000, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 25.6, "moduler": 5, "brutto": 113676, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 30.72, "moduler": 6, "brutto": 124588, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 35.84, "moduler": 7, "brutto": 135500, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 40.96, "moduler": 8, "brutto": 147876, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 46.08, "moduler": 9, "brutto": 161076, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 51.28, "moduler": 10, "brutto": 174562, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 56.32, "moduler": 11, "brutto": 190000, "vaxelriktare": "Solis S6 10 kW"}, {"kwh": 61.44, "moduler": 12, "brutto": 199126, "vaxelriktare": "Solis S6 10 kW"}]};
   var FORVAL=3;
   var POTT=100000;
+  var PERSONER=2;
   var GRANNRABATT=1500;
   var CEN={"5990": "Byte av elcentral, liten central", "9990": "Byte av elcentral, mellan central", "14900": "Byte av elcentral, stor central"};
   var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
@@ -142,7 +143,7 @@
        "Gron teknik, taket for tva personer" brot till tva rader i hjaltens
        209 px och flyttade sidan 20 px under fingret. Vad taket betyder star i
        summeringen, bredvid raden som bar mellanskillnaden. */
-    $("calcDedNamn").textContent = takBiter ? "Grön teknik, taket"
+    $("calcDedNamn").textContent = takBiter ? "Grön teknik"
                                             : "Grön teknik, 50 procent";
     $("calcDed").textContent="−"+kr(gtAvdrag);
     $("calcCenRad").classList.toggle("dold", !rot);
@@ -177,11 +178,21 @@
       rows+='<div class="o-sumrow sub"><span>'+LBP[String(lb)]+'</span><span class="kr">'+kr(netto(2*lb))+'</span></div>'; }
     if(cen) rows+='<div class="o-sumrow sub"><span>'+CEN[String(cen)]+'</span><span class="kr">'+kr(cen)+'</span></div>';
     var takTillagg = gtNetto - gtRader;
-    if(takTillagg > 0) rows+='<div class="o-sumrow sub"><span>Över grön teknik-taket, '+kr(POTT)+'</span><span class="kr">'+kr(takTillagg)+'</span></div>';
-    /* Noten namnger potten, inte personantalet: meningen om tva personer ar
-       borta ur kundtexten pa agarens ord 24 okt ("Den kan vi ta bort oavsett
-       vad"), och bokaren har redan fragat hur manga som har gron teknik. */
-    if(takBiter) rows+='<div class="o-sumnote">Här slår taket för grön teknik i, så avdraget är '+kr(POTT)+' i stället för halva priset.</div>';
+    /* AGARSVAR 53, 25 OKTOBER, ORDAGRANT: "Ta bort dessa formuleringar: Kvar
+       i summeringen star 'Över grön teknik-taket, 100 000 kr' och noten 'Här
+       slår taket för grön teknik i, så avdraget är 100 000 kr i stället för
+       halva priset'. --- Skriv istället 'Räknat på två personer i hushållet'
+       alternativt: 'Räknat på en person i hushållet'".
+
+       RADEN MASTE FINNAS KVAR, bara inte med den lydelsen. Den bar
+       mellanskillnaden mellan vad raderna visar och vad totalen sager; utan
+       den summerar kolumnen inte, och fem rader summerade en gang till
+       115 623 kr under en total pa 118 856. Etiketten sager nu vad raden ar
+       utan att namna taket och utan att skriva ut potten: potten ar ett
+       avdragsutrymme, och agarsvar 25 sager att utrymmet ar kundens ansvar
+       och aldrig var text. */
+    if(takTillagg > 0) rows+='<div class="o-sumrow sub"><span>Del utan grön teknik-avdrag</span><span class="kr">'+kr(takTillagg)+'</span></div>';
+    if(takBiter) rows+='<div class="o-sumnote">Räknat på '+(PERSONER===1?'en person':'två personer')+' i hushållet.</div>';
     /* Grannrabatten raknas pa SKICKADE inbjudningar, som laddboxen och
        elcentralen gor. Raden andrar inte talet kunden betalar i dag: rabatten
        dras pa fakturan nar grannen har bestallt. Beloppet ar mallens eget. */
@@ -252,7 +263,7 @@
   }, true);
 
   var mjukt = !window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function scrollTill(el){ if(el) el.scrollIntoView(mjukt?{behavior:"smooth",block:"start"}:{block:"start"}); }
+  function scrollTill(el,block){ if(el) el.scrollIntoView(mjukt?{behavior:"smooth",block:block||"start"}:{block:block||"start"}); }
 
   function panel(btnId,panelId,other){
     var b=$(btnId), p=$(panelId);

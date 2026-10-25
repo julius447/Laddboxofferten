@@ -1,7 +1,7 @@
 /* genererad av bygg.py, redigera inte */
 var IMGS = {
   "ampy-logga": "assets/img/ampy-logga.png",
-  "batteri-enershare": "assets/img/batteri-enershare.webp",
+  "batteri-dyness": "assets/img/batteri-dyness.webp",
   "batteri-eway": "assets/img/batteri-eway.webp",
   "batteri-saj": "assets/img/batteri-saj.webp",
   "cert-elsakerhetsverket": "assets/img/cert-elsakerhetsverket.webp",

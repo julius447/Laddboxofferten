@@ -21,6 +21,26 @@
   var offer = document.querySelector(".offer");
   if (!offer) return;
 
+  /* ---- RULLNINGEN FRAGAR OM RORELSE ------------------------------------
+     Chrome kor INGEN mjuk rullning alls nar prefers-reduced-motion: reduce
+     ar satt, sa scrollIntoView({behavior:"smooth"}) rakt av blir en DOD
+     knapp, inte en snabbare rullning. Uppmatt 25 okt vid 375 px med riktigt
+     tryck (pointerdown fore click) och reducerad rorelse pa:
+
+       mall       scrollY fore -> efter   summeringens topp   nadde
+       laddbox    0 -> 7509               7509                ja
+       batteri    0 -> 2084               2084                ja
+       elcentral  0 -> 0                  6198                NEJ
+
+     De tva raderna nedan ar BYTE-IDENTISKA med offerter/laddbox/skript.js.
+     Det ar inte kopiering for kopieringens skull: oraklet rullningen_fragar
+     i offert.py laser laddboxens rader och stoppar bygget om de inte star
+     ordagrant har, sa de kan inte driva isar, och koordinatorn kan lyfta dem
+     till gemensamt/bitar.py utan att rora en enda mall. En tredje variant av
+     samma rad ar precis den defektklassen vi arbetar bort. */
+  var mjukt = !window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function scrollTill(el,block){ if(el) el.scrollIntoView(mjukt?{behavior:"smooth",block:block||"start"}:{block:block||"start"}); }
+
   /* ---- BILDSTEGET. Bilderna lamnar ALDRIG webblasaren -------------------
      Ingen fetch, ingen FormData, ingen base64 in i sidan. createObjectURL
      ger en blob:-adress som bara finns i den har fliken och som aterkallas
@@ -306,8 +326,7 @@
       var kryss = offer.querySelector('.o-rad input[data-grupp="dvargbrytare"]');
       if (kryss) kryss.checked = false;
       rakna();
-      var k2 = offer.querySelector("#pkgs");
-      if (k2) k2.scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollTill(offer.querySelector("#pkgs"));
     };
     return true;
   }
@@ -407,8 +426,7 @@
   /* ---- KNAPPARNA -------------------------------------------------------- */
   var go = $("barGo");
   if (go) go.addEventListener("click", function(){
-    var s = $("summering");
-    if (s) s.scrollIntoView({ behavior: "smooth", block: "start" });
+    scrollTill($("summering"));
   });
 
   var fr = $("fraga");
