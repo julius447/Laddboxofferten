@@ -141,7 +141,22 @@ html{scroll-behavior:smooth;}
    Ägarorder 18 okt: bara ordbilden och offertnumret. Datumet står kvar där
    det hör hemma, i finstilten under totalen. Raden är en rad igen vid 360. */
 @container (min-width: 520px){
-  .o-top{margin-inline:var(--s5);min-height:64px;padding-inline:var(--s5);}
+  /* TOPPRADEN FOLJER INNEHALLETS BREDD, inte sidans. .o-main ar capad till
+     680 px harifran och upp till desktopgransen, men baren hade ingen cap
+     alls i det bandet. UPPMATT 25 OKTOBER:
+
+       768 px   baren 720 bred over ett innehall pa 680, 20 px utanfor
+       1024 px  baren 976 bred over 680, LOGOTYPEN 148 PX UTANFOR RUBRIKEN
+       1039 px  baren 991 bred over 680, 156 px
+
+     1024 ar en vanlig laptop och en iPad Pro i staende lage. Det ar det
+     agaren beskrev 25 oktober som att "menyn ser lite konstig ut".
+
+     Rattningen fanns redan, men bara till halften: kommentaren nedanfor
+     berattar att nagon loste exakt samma sak vid 1040 och uppat och lamnade
+     bandet darunder. En halv rattning ser ut som en hel tills nagon mater
+     mellan brytpunkterna. */
+  .o-top{margin-inline:auto;max-width:680px;min-height:64px;padding-inline:var(--s5);}
 }
 /* Toppraden slutade aldrig växa. Uppmätt vid 2000 px: baren 1 952 bred över
    ett innehåll på 1 180, med logotypen på x=49 och offertnumret på x=1798,
@@ -409,6 +424,40 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .o-rad:has(.o-radantal) > .o-radtext{grid-column:3;grid-row:1;}
   .offer .o-rad:has(.o-radantal) > .o-radantal{grid-column:3;grid-row:2;margin-left:0;}
 }
+/* RADEN PA DESKTOP. .o-rad var den enda radkomponenten som aldrig fick en
+   desktoplayout: den stod kvar i mobilstapeln med namn och pris under
+   varandra i vanstra halvan.
+
+   UPPMATT 25 OKTOBER vid 1180, black och inte lador (en flex:1-spalt nar
+   hogerkanten aven nar texten slutar mitt i raden, sa en ladmatning sager
+   100 procent pa varje rad):
+
+     .o-rad   43 till 59 procent av raden, 264 till 373 px dott till hoger
+     .o-opt   95 procent, 17 px dott      <- systerkomponenten, samma jobb
+     .o-pkg   96 procent, 25 px dott
+
+   Vid 375 ar alla tre jamna, 82 till 92 procent. Tva agenter hittade det var
+   for sig i desktoppasset, pa fyra av fem mallar.
+
+   RATTNINGEN FOLJER SYSTERN. .o-opt lagger priset sist i raden, sa det hamnar
+   i hogerkant. Har ligger priset inne i .o-radtext, som ar en kolumn, sa det
+   hamnar under namnet. Pa desktop blir .o-radtext ett rutnat med tva spalter:
+   namn, spec och rullgardin till vanster, priset till hoger, lodratt centrerat
+   over hela hojden. Mobilen ror sig inte: regeln ligger bakom husets egen
+   desktopgrans, @container (min-width: 1040px). */
+@container (min-width: 1040px){
+  .offer .o-rad > .o-radtext{
+    display:grid;grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;column-gap:var(--s5);}
+  .offer .o-rad > .o-radtext > .o-radpris{
+    grid-column:2;grid-row:1 / -1;justify-self:end;}
+  /* TVA RESERVERADE TEXTRADER BEHOVS INTE NAR PRISET STAR BREDVID. Pa
+     mobilen haller min-height raderna lika hoga nar ett namn bryter till tva
+     rader; pa desktop ar spalten dubbelt sa bred, namnen far plats pa en rad,
+     och reservationen blir 22 px dott over och under. */
+  .offer .o-rad > .o-radtext > .o-radnamn{min-height:0;}
+}
+
 .o-radantal select{
   /* SAMMA RUTA SOM .o-variant, inklusive pilen. appearance:none tar bort
      webblasarens egen pil, och utan en egen i stallet laser rutan som ett
@@ -1006,6 +1055,25 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   border-radius:3px;
 }
 @container (min-width: 1040px){
+  /* FOTEN LIGGER UR AXEL, OCH DET AR EN AGARFRAGA, INTE EN BUGG.
+     Den spanner 1 / -1 och ar text-align:center, sa texten centreras pa hela
+     rutnatets 1116 px, alltsa x 590, medan allt ovanfor ligger i den 684 px
+     breda forsta spalten med mitten pa x 374.
+
+     UPPMATT 25 OKTOBER vid 1180: 216 px snett pa service, laddbox, elcentral
+     och batteri. Tillaggsofferten ar 0 snett, for den har bara en spalt.
+
+     JAG PROVADE ATT RATTA DET och tog tillbaka det. Att lagga fotens
+     innehall i spalt ett gav 0 snett pa de fyra, men bret tillagget till
+     -216: dess .o-main ar en flexkolumn med flit, och en rutnatsregel pa
+     foten far da fel spaltbredd att rakna med. Att i stallet satta
+     grid-column:1 pa foten kortar linjen fran 1116 till 684, och den breda
+     linjen ar vad agaren sag som RATT nar han jamforde elcentralen med
+     tillagget.
+
+     Bada vagarna andrar alltsa nagot han inte bett om. Tva agenter kom
+     oberoende till samma slutsats: det ar husets monster och ett designval.
+     Det star som matvarde och vantar pa hans besked. */
   .offer .o-main > .o-fot{grid-column:1 / -1;grid-row:5;margin-top:0;padding-bottom:0;}
 }
 
@@ -1319,6 +1387,20 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-opts{display:flex;flex-direction:column;gap:var(--rytm-block);}
 
 /* före och efter: ett reglage som klipper den ena bilden */
+/* FORE-OCH-EFTER-RAMEN. <figure> arver webblasarens egen margin: 1em 40px,
+   och 80 px i sidled gor reglaget smalare an kortet det ligger i.
+
+   UPPMATT 25 OKTOBER, EFTER MIN EGEN ANDRING SAMMA DAG: reglaget var 229 px
+   i ett 309 px kort vid 375 och 570 i 650 vid 1180, pa service och batteri.
+   Laddboxen var hel, for den hade en egen .o-feblock-regel i sin stil.css.
+   Nar markupen flyttade till gemensamt/bitar.py:elcentral_fore_efter() foljde
+   CSS:en inte med, sa de tva mallar som FICK blocket den dagen fick det
+   trasigt. En delad markup utan sin delade CSS ar en halv flytt.
+
+   Regeln bor har och inte i en mall: blocket renderas nu av en funktion som
+   fyra mallar anropar. */
+.offer .o-feblock{margin:0;display:flex;flex-direction:column;}
+
 .o-fe{position:relative;border-radius:var(--r2);overflow:hidden;}
 .o-febild{position:relative;aspect-ratio:4/3;background:var(--bg);}
 .o-febild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
@@ -1470,7 +1552,13 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-ptiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);}
 /* På desktop blev en bricka 203 px bred, vilket är en produktbild och inte en
    miniatyr längre. AG1 håller sina runt 130. Taket gäller bara från 520. */
-@container (min-width: 520px){ .o-ptiles{grid-template-columns:repeat(3,minmax(0,140px));}}
+/* TREBRICKSRADEN HANGDE VANSTER. Fran 520 px blir spalterna 140 px fasta i
+   stallet for 1fr, och utan justify-content klumpar de ihop sig till vanster.
+   UPPMATT 25 OKTOBER vid 1180: 444 px black i en 634 px rad, 190 px dott till
+   hoger, medan fyrbricksraden pa raden under har justify-content:center och
+   lamnar 19 px. Tva varianter av samma komponent, tva svar. Vid 375 fyller
+   bada, sa regeln syns bara fran 520 och mobilen ror sig inte. */
+@container (min-width: 520px){ .o-ptiles{grid-template-columns:repeat(3,minmax(0,140px));justify-content:center;}}
 /* Premium bär fyra delar. Fyra i ett rutnät med tre spalter blir tre plus en
    ensam, och fyra spalter ger 64 px brickor vid 375 där etiketterna bryter.
    Två gånger två vid 375, fyra i bredd från 520 där de ryms.
