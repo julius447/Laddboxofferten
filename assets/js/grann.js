@@ -11,6 +11,49 @@
 (function(){
   var render = function(){ if (typeof window.__render === "function") window.__render(); };
 
+  /* KORTETS GIVARE: "Till din granne, fran <fornamn>".
+
+     Agaren, uppgift 4: "Sedan har vi 'gifted by' och kundens fornamn."
+     Fornamnet bor i mallarnas datalager (kund.fornamn), men blocket ar DELAT
+     och bygget fyller bara {{GRANNRABATT}} har. En platshallare till hade
+     krabvt en rad i bygg.py eller i varje offert.py, och bada ligger utanfor
+     det har uppdragets filer; dessutom stoppar inga_platshallare varje {{...}}
+     som overlever till sidan. Namnet loses darfor i webblasaren.
+
+     TVA KALLOR, i den har ordningen, och ingen tredje:
+
+     1. window.__kundfornamn. Den AVSEDDA vagen och en rad i mallens egen
+        skript.js. [GAP]: ingen mall satter den an, sa den ar forberedd och
+        inte i bruk.
+     2. Sidans egen halsning till samma kund, "Hej <Fornamn>," i h1.t-display.
+        Det ar kundens eget namn, last ur hennes egen offert hogst upp pa
+        samma sida. Darfor kan kortet inte visa ETT ANNAT namn an sidan redan
+        visar: varsta utfallet ar att namnet uteblir, aldrig att det blir fel.
+        Skriver en mall om sin halsning slutar namnet synas, och da star
+        "fran dig" kvar, vilket ar sant.
+
+     Monstret ar strangt med vilje: hela textinnehallet ska vara "Hej <Ord>,"
+     foljt av nagot, ordet ska borja med versal, bara bokstaver, bindestreck
+     eller apostrof, och hogst 24 tecken. Allt annat ger inget namn. */
+  (function(){
+    var givare = document.getElementById("refGivare");
+    if (!givare) return;
+
+    function urHalsningen(){
+      var h = document.querySelector(".offer h1.t-display");
+      if (!h) return null;
+      var m = /^\s*Hej\s+([A-ZÅÄÖ][A-Za-zÅÄÖåäöÉéÜü'\-]{0,23})\s*,/.exec(h.textContent || "");
+      return m ? m[1] : null;
+    }
+
+    var namn = (typeof window.__kundfornamn === "string" && window.__kundfornamn.trim())
+      ? window.__kundfornamn.trim()
+      : urHalsningen();
+
+    /* Ingen innerHTML: namnet ar data och ska aldrig kunna bara markup. */
+    if (namn) givare.textContent = namn;
+  })();
+
   /* GRANNINBJUDNINGAR SOM CHIPS.
 
      Inbjudningslanken ar borttagen pa agarorder. Skalet ar inte kosmetiskt:
@@ -30,6 +73,14 @@
     if(!box || !mej) return;
 
     var adresser = [];
+    /* FELSTRANGEN. En adress som inte gick igenom fick tystnad och bara
+       aria-invalid, alltsa ingenting for den som ser. Copywriterns strang
+       (uppdrag/2026-10-25-grannkortet-copy.md, avsnitt 4); den namner ingen
+       tangent, sa den haller pa mobil, desktop och iPad. */
+    var fel = document.getElementById("refFel"),
+        FELTEXT = "Det ser inte ut som en mejladress. Kontrollera adressen.";
+    function visaFel(pa){ if (fel) fel.textContent = pa ? FELTEXT : ""; }
+
     function giltig(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v); }
     function rent(v){ return v.replace(/[<>&"]/g, ""); }
 
@@ -57,8 +108,8 @@
     function lagg(){
       var v = mej.value.trim().toLowerCase();
       if(!v) return false;
-      if(!giltig(v)){ mej.setAttribute("aria-invalid","true"); return false; }
-      mej.removeAttribute("aria-invalid");
+      if(!giltig(v)){ mej.setAttribute("aria-invalid","true"); visaFel(true); return false; }
+      mej.removeAttribute("aria-invalid"); visaFel(false);
       if(adresser.indexOf(v) >= 0){
         /* dubblett: blinka den befintliga i stallet for att tyst slanga */
         var fanns = box.querySelectorAll(".o-chip")[adresser.indexOf(v)];
@@ -76,7 +127,7 @@
       }
     });
     mej.addEventListener("blur", lagg);
-    mej.addEventListener("input", function(){ mej.removeAttribute("aria-invalid"); });
+    mej.addEventListener("input", function(){ mej.removeAttribute("aria-invalid"); visaFel(false); });
     /* klick var som helst i rutan ska landa i inmatningen */
     box.addEventListener("click", function(e){ if(e.target === box) mej.focus(); });
 

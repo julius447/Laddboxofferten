@@ -176,26 +176,63 @@
     </div>
 
     <!-- 6 REKOMMENDERA. Delat block; beloppet kommer ur META via bygg.py. -->
+            <!-- GRANNREKOMMENDATIONEN, byggd om 25 oktober (uppdrag 4).
+
+                 AGARENS LASTA HIERARKI, ordagrant ur uppdraget:
+                   1. Rubrik: "Rekommendera och fa rabatt"  (utan belopp)
+                   2. Paragraf (ny, fanns inte fore 25 okt)
+                   3. KORT: gront kreditkort, Ampy-logotyp, beloppet som text
+                   4. "Sa funkar det" med sina tre punkter, OFORANDRADE
+                   5. "Skicka inbjudningar" med sin not, OFORANDRAD
+
+                 "Kortet ar fokuset. Kortet ar egentligen det viktigaste, och
+                 det som vi maste gora stilrent, eftersom ogat laser kort och
+                 bilder snabbare an rubriker och paragraftexter."
+
+                 Fore: kortet var last till 204 px hojd medan bredden foljde
+                 spalten, alltsa 295x204 (1,45:1) vid 375 och 636x204 (3,12:1)
+                 vid 1180. Ett riktigt kort ar 1,59:1. Det slutade lasa som
+                 ett kort och blev en kupong. Kortet bar nu ID-1-formatet och
+                 ett tak, sa det ar ETT KORT i varje bredd.
+
+                 BELOPPET AR EN PARAMETER, aldrig 500. 1 500 satts
+                 av bygget ur mallens META: 1 500 pa batterimallen, 500 pa de
+                 andra. Paragrafen, kortet och steg 3 harleder alla talet. -->
             <section class="o-sec">
               <div class="o-ref-panel">
-                <h2 class="t-h2 o-ref-titel">Rekommendera och få 1 500&nbsp;kr rabatt på ditt köp</h2>
-                <div class="o-ref-kort o-ref-kort--delat">
-                  <svg class="o-ref-svep" viewBox="0 0 320 60" preserveAspectRatio="none" aria-hidden="true"><path d="M-4 30 C60 2, 120 48, 180 34 S280 6, 324 22" fill="none" stroke="#b6f2ff" stroke-width="5" stroke-linecap="round"/></svg>
-                  <div class="o-ref-kortmitt">
-                    <div class="o-ref-logga">
-                      <img src="assets/img/ampy-logga.png" alt="Ampy" width="1600" height="468">
+                <h2 class="t-h2 o-ref-titel">Rekommendera och få rabatt</h2>
+                <!-- COPY VANTAR. Agarens egen mening, med ETT tillagg:
+                     villkoret. Hans formulering var "... for varje person du
+                     rekommenderar", och det lovar en rabatt per
+                     rekommendation. Rabatten kommer nar grannen BESTALLER,
+                     vilket blockets egen finstilt och steg 2 redan sager, sa
+                     candour-grinden stoppar hans version. Meningen nedan ar
+                     den som star i riktning A, den renderade riktning agaren
+                     valde. Copywritern avgor den slutliga lydelsen. -->
+                <p class="t-body o-ref-ingress">Ge bort 1 500&nbsp;kr rabatt och få 1 500&nbsp;kr rabatt själv för varje granne som beställer.</p>
+
+                <div class="o-ref-kort">
+                  <div class="o-ref-kortinre">
+                    <div class="o-ref-kortrad">
+                      <span class="o-ref-logga">
+                        <img src="assets/img/ampy-logga.png" alt="Ampy" width="1600" height="468">
+                      </span>
+                      <span class="o-ref-chip" aria-hidden="true"></span>
                     </div>
-                    <div class="o-ref-halvor">
-                      <div class="o-ref-halva">
-                        <span class="o-ref-fran">Till dig</span>
-                        <p class="o-ref-varde">1 500&nbsp;kr rabatt</p>
-                        <span class="o-ref-pa">på ditt köp</span>
-                      </div>
-                      <div class="o-ref-halva">
-                        <span class="o-ref-fran">Till din granne</span>
-                        <p class="o-ref-varde">1 500&nbsp;kr rabatt</p>
-                        <span class="o-ref-pa">på sitt köp</span>
-                      </div>
+                    <div class="o-ref-kortfot">
+                      <p class="o-ref-varde">1 500&nbsp;kr rabatt</p>
+                      <!-- NAMNRADEN. Bada lydelserna ar copywriterns
+                           (uppdrag/2026-10-25-grannkortet-copy.md, avsnitt 2),
+                           och hon vander agarens "gifted by": Wispr Flows kort
+                           laser mottagaren, det har kortet laser GIVAREN, sa
+                           "fran Anders" pa Anders egen sida hade sagt att
+                           nagon gett Anders nagot.
+
+                           Markupen bar namnlosa formen. grann.js byter "dig"
+                           mot fornamnet nar ett gar att lita pa; gor den inte
+                           det star raden kvar som en hel mening, och kortet
+                           byter inte form. Inget namn hittas nagonsin pa. -->
+                      <p class="o-ref-till" id="refTill">Till din granne, från <span id="refGivare">dig</span></p>
                     </div>
                   </div>
                 </div>
@@ -217,13 +254,33 @@
                 </ul>
 
                 <div class="o-ref-falt">
-                  <label class="o-ref-etikett" for="refMejl">Skicka inbjudningar</label>
-                  <p class="t-micro o-ref-hjalp" id="refHjalp">Skriv en adress och tryck enter. Du kan lägga till flera innan du skickar.</p>
+                  <!-- FALTET HADE GRUPPENS RUBRIK SOM SITT NAMN. Raden var
+                       <label for="refMejl">Skicka inbjudningar</label>, sa en
+                       skarmlasare laste upp "Skicka inbjudningar" pa ett falt
+                       som samlar EN adress, och knappen under hette samma sak.
+                       Rubriken ar kvar ordagrant, agarens punkt 5, men den ar
+                       inte langre faltets namn: den ar ett span, och faltet
+                       har en egen etikett som bara skarmlasaren hor.
+                       Copywriterns strang, avsnitt 4. -->
+                  <span class="o-ref-etikett">Skicka inbjudningar</span>
+                  <p class="t-micro o-ref-hjalp" id="refHjalp">Tryck enter efter varje adress. Inget skickas förrän du trycker på knappen.</p>
+                  <label class="o-dold" for="refMejl">Grannens mejladress</label>
                   <div class="o-chips" id="refChips">
-                    <input type="email" id="refMejl" placeholder="granne@exempel.se" autocomplete="off" aria-describedby="refHjalp">
+                    <input type="email" id="refMejl" placeholder="granne@exempel.se" autocomplete="off" aria-describedby="refHjalp refFel">
                   </div>
+                  <!-- EN ADRESS SOM INTE GAR IGENOM FICK TYSTNAD, bara
+                       aria-invalid. role="status" ar husets monster for samma
+                       sak (fragaHint, avbojHint i mallarnas body.html).
+                       Copywriterns strang, avsnitt 4; grann.js skriver den. -->
+                  <p class="t-small o-ref-fel" id="refFel" role="status"></p>
                   <div class="o-ref-rad">
-                    <button type="button" class="o-ref-knapp mork" id="refSkicka" disabled>Skicka inbjudningar</button>
+                    <!-- "Skicka inbjudan", inte "Skicka inbjudningar". grann.js
+                         kor rita() vid laddning och satter da knappen till
+                         "Skicka inbjudan", eftersom listan ar tom. Markupen sa
+                         nagot annat, sa sidan bar tva sanningar om samma knapp
+                         och bara en kund UTAN JavaScript fick se den har.
+                         Copywriterns rattelse, avsnitt 4. -->
+                    <button type="button" class="o-ref-knapp mork" id="refSkicka" disabled>Skicka inbjudan</button>
                   </div>
                   <ul class="o-ref-lista" id="refLista"></ul>
                 </div>
