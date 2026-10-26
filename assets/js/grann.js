@@ -11,10 +11,20 @@
 (function(){
   var render = function(){ if (typeof window.__render === "function") window.__render(); };
 
-  /* KORTETS GIVARE: "Till vem du vill, fran <fornamn>".
-     (Raden sa "Till din granne" till beslut 15 den 26 oktober. Koden rorde
-     aldrig substantivet, bara ordet efter "fran", sa bytet kostade noll rader
-     har: span-et #refGivare ar hela granssnittet mot markupen.)
+  /* KORTETS GIVARE: raden lyder "Fran <fornamn>".
+
+     TVA BYTEN, BADA UTAN EN RAD HAR. Raden sa "Till din granne, fran X" till
+     beslut 15 den 26 oktober, och "Till vem du vill, fran X" till agarens
+     granskning samma dag kl 15 ("sen ska det bara sta 'fran Anders', inte
+     'till vem du vill'. Bara 'fran Anders'."). Koden ror bara ordet efter
+     "fran", sa span-et #refGivare ar hela granssnittet mot markupen och bada
+     bytena kostade noll rader har. Det ar skalet att det ar ett span och inte
+     en omskrivning av hela raden.
+
+     UTAN NAMN STAR DET "FRAN DIG", och det ar hela losningen pa att fornamnet
+     inte ar garanterat. Pa kundens egen sida ar "fran dig" sant: kortet ar en
+     gava som hon ger. Alternativet, att gomma raden, hade bytt kortets form
+     mellan tva kunder. Inget namn hittas nagonsin pa.
 
      Agaren, uppgift 4: "Sedan har vi 'gifted by' och kundens fornamn."
      Fornamnet bor i mallarnas datalager (kund.fornamn), men blocket ar DELAT

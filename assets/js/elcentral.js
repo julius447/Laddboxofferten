@@ -220,6 +220,22 @@
     /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
     var _o=document.querySelector('.offer'); if(_o) _o.classList.add('js-redo');
 
+    /* DEN VALDA RADENS KANT. gemensamt/system.css rad 395 sager
+       `.o-rad.vald{border-color:var(--teal-ink)}` och rad 391 ger .o-rad en
+       overgang pa border-color. Laddbox, service och batteri satter klassen;
+       ELCENTRAL GJORDE DET ALDRIG. Kunden kryssade, bocken tandes, och kanten
+       forblev gra medan exakt samma rad blev teal pa de fyra andra ytorna.
+       Uppmatt 26 oktober av rorelsesvepet: elcentral o-rad -> o-rad pa 3 av 3
+       provade rader, de andra o-rad -> "o-rad vald", och gesten startade noll
+       overgangar VID VARJE BREDD, 33 av 33.
+       Formen ar laddboxens, skript.js rad 310: dolda rader hoppas over, och
+       en grindad rad raknas inte som vald aven om den bar en bock. */
+    offer.querySelectorAll("input.add, input.intresse").forEach(function(i){
+      var rad = i.closest(".o-rad");
+      if (!rad || rad.hidden) return;
+      rad.classList.toggle("vald", i.checked && !i.disabled);
+    });
+
     var nyckel = valdStorlek();
     var p = PKG[nyckel];
     var bas = parseInt(nyckel, 10);
