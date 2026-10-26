@@ -1549,9 +1549,21 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 
      TILLAGGSMALLEN VALJER EN SPALT och nollar darfor den har paddingen i sin
      egen stil.css, pa samma stalle som den valjer en spalt. De tva besluten
-     hor ihop och ska lasas ihop. */
-  .offer .o-main > .o-fot{grid-column:1 / -1;grid-row:5;margin-top:0;padding-bottom:0;
-    padding-inline-end:calc(384px + var(--s7));}
+     hor ihop och ska lasas ihop.
+
+     AGAREN 26 OKTOBER: fottexten ar inte centrerad pa desktop. Han hade ratt,
+     och hogerpaddingen ovan var orsaken: text-align:center centrerar i en
+     LADA, och ladan var sjalv forskjuten 432 px at vanster. Uppmatt, blackets
+     mitt mot sidans:
+         375 px    187 mot 188      1 px fel
+         1180 px   374 mot 590    216 px fel
+         1440 px   504 mot 720    216 px fel
+     Paddingen skyddade mot en krock som inte kan intraffa: vid fotens hojd
+     ligger summeringen pa y 24..400 och foten pa 858..900, alltsa ingen lodrat
+     overlappning alls. Och texten ar bara 284 px bred, sa centrerad pa sidan
+     slutar den 32 px FORE panelens kant vid bade 1180 och 1440.
+     Linjen behaller sin bredd, for det var den agaren gillade. */
+  .offer .o-main > .o-fot{grid-column:1 / -1;grid-row:5;margin-top:0;padding-bottom:0;}
 }
 
 /* ===========================================================================
