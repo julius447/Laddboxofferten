@@ -1050,19 +1050,82 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 /* Panelen omfamnar rubriken också, på ägarorder 18 okt. Förut stod rubriken
    utanför den gråa ytan och hörde visuellt ihop med sektionen före. Finstilten
    under står kvar utanför: den är ett villkor, inte en del av erbjudandet. */
+/* ===== TVA SPALTER PA DESKTOP, EN PA MOBIL =====
+   Agarens val 26 oktober, ordagrant: "A:s kort med B:s tvaspalt pa desktop".
+   Hans klagan pa nulaget: "det ar liksom valdigt vansterlinjerat, den ar
+   valdigt stor, den ar klumpig, det ar white space dar vi inte vill ha white
+   space". Uppmatt fore: panelen 684 x 686 vid 1180, 68,1 procent tomrum.
+
+   BRYTNINGEN ar varken @media eller @container. Den ar INTRINSISK: panelen ar
+   en flexrad som far radbryta, och spalterna bar flex-basis 295 px. Far bada
+   plats pa en rad star de bredvid varandra, annars under varandra. Ingen
+   fraga stalls alltsa till nagon bredd, och da finns det inget att lasa fel:
+   de tva ramarna i FALLOR.md (riktig iframe mot <div class="frame"> i
+   granskningssidan) ger samma layout, och likasa utskriften.
+
+   OCH DET VAR INTE FORSTA FORSOKET. Forsta varvet gjorde panelen till sin
+   egen @container och la rutnatet i en @container-fraga. Bygget gick igenom,
+   oraklen gick igenom, och sidan var fortfarande ENSPALTIG vid 1180: en
+   containerfraga trafffar bara containerns ATTLINGAR, aldrig containern
+   sjalv, sa regeln gallde aldrig elementet den var skriven for. Uppmatt:
+   .o-ref-kol 636 px bred, den andra 331 px UNDER den forsta. Ett bygge som
+   gar igenom ar inget bevis for att layouten blev som du tankte.
+
+   295 AR HARLETT, INTE VALT. Kortet ar 295 px brett vid 375, den smalaste
+   telefon huset mater, och en spalt pa desktop ska inte ge ett SMALARE kort
+   an en telefon gor. Tva spalter a 295 plus spaltgapet --s6 (32) blir 622 px
+   innehallsbredd, alltsa 670 px panel. Uppmatt var det lander:
+     sidan 375 -> panelen 343, inuti 295  -> en spalt
+     sidan 1024 -> panelen 528, inuti 480 -> en spalt
+     sidan 1180 -> panelen 684, inuti 636 -> TVA spalter a 302
+     sidan 834 -> panelen 770, inuti 722  -> TVA spalter a 345
+   Panelens bredd ar INTE monoton i sidans bredd (.o-main lagger undan 384 px
+   till den klibbiga summeringen fran 1024 och uppat), sa 834 ar bredare an
+   1024. En fraga mot sidans bredd hade darfor behovt tva intervall och anda
+   fatt fel i ett av dem. Den intrinsiska brytningen behover inget intervall.
+
+   PADDINGEN AR KVAR PA --s5 RUNT OM. Riktning A satte --s6 i underkant;
+   agarens hela invandning ar tomrum, sa 8 px mer luft i en panel han kallar
+   klumpig ar fel vag. */
 .offer .o-ref-panel{background:#f1f3f8;border-radius:var(--r3);padding:var(--s5);
-  display:flex;flex-direction:column;gap:var(--s5);}
-.offer .o-ref-titel{text-wrap:balance;}
+  display:flex;flex-wrap:wrap;align-items:flex-start;gap:var(--s5) var(--s6);}
+/* SPALTEN. Gapet inuti ar --s5, samma som panelens radgap, sa de tva omslagen
+   inte syns i mobilens rytm: ingressens och stegremsans marginal -16 mot
+   gapet 24 ger --rytm-rad 8, precis som fore omslagen. Gapet ar MED FLIT
+   detsamma i bada lagen; riktning B bytte det till --s4 pa desktop, och da
+   blir samma marginal 0 i stallet for 8 utan att nagon har bestamt det.
+   align-items:center ar riktning A:s komposition, och den star pa SPALTEN och
+   inte pa panelen, for pa panelen hade den centrerat sjalva spalterna. */
+.offer .o-ref-kol{flex:1 1 295px;min-width:0;
+  display:flex;flex-direction:column;gap:var(--s5);align-items:center;}
+/* RUBRIKENS RADBRYTNING PA MOBIL. Agaren: "jag tycker i sadana fall att det
+   borde sta 'rekommendera och fa' pa rad ett och sen 'rabatt' pa rad tva. For
+   rubriken har inte liksom en perfekt logik."
+   Orsaken var EN deklaration. text-wrap:balance jamnar ut radlangderna och
+   lagger darfor brytningen mitt i frasen. Uppmatt vid 375, rubriken 295 px:
+     balance -> "Rekommendera" / "och fa rabatt"      det han klagar pa
+     pretty  -> "Rekommendera och" / "fa rabatt"      inte heller hans
+     wrap    -> "Rekommendera och fa" / "rabatt"      exakt hans
+   Agarens ord rors inte, bara brytningen. Vid 414 och uppat ryms hela
+   rubriken pa en rad och deklarationen gor ingenting. */
+.offer .o-ref-titel{text-wrap:wrap;text-align:center;max-width:calc(var(--s8) * 6);}
 /* INGRESSEN, ny 25 oktober. Agaren: "vi maste aven lagga till en
    paragraftext, som vi inte har nu (...) rubriktexten vi har just nu ar ratt
    storlek."
    .offer p{margin:0} vager 0,1,1 och nollstaller varje enklassregel tyst; det
    har hant fem ganger i det har repot. .offer .o-ref-ingress vager 0,2,1 och
    vinner darfor. Den negativa marginalen ar samma grepp som .o-ref-steg redan
-   anvander har nere: panelens flexkolumn har gap --s5 (24), och 24 - 16 ger 8,
-   alltsa --rytm-rad mellan rubriken och dess egen paragraf. */
+   anvander har nere: spalten .o-ref-kol har gap --s5 (24), och 24 - 16 ger 8,
+   alltsa --rytm-rad mellan rubriken och dess egen paragraf. Gapet ar MED FLIT
+   detsamma pa spalten som pa panelen: byts det till --s4 pa desktop (som
+   riktning B gjorde) blir samma marginal 0 i stallet for 8, och rytmen mellan
+   rubrik och paragraf skiljer sig mellan telefonen och skarmen utan att nagon
+   har bestamt det.
+   TAKET 384 (--s8 x 6) binder bara i enspaltslaget mellan 384 och 622 px
+   panel: vid 375 ar panelen 295 inuti och vid 1180 ar spalten 302, alltsa
+   under taket i bada andarna. Det ar ett lastak, inte en layout. */
 .offer .o-ref-ingress{margin:calc(var(--s4) * -1) 0 0;color:var(--muted);
-  line-height:1.5;text-wrap:pretty;}
+  line-height:1.5;text-wrap:pretty;text-align:center;max-width:calc(var(--s8) * 6);}
 /* Länken är 24 tecken och rymdes inte vid 15 px i ett fält på 174. 13 är
    finstiltsgraden, och en adress man kopierar är finstilt. */
 .offer #refLank{font-size:13px;}
@@ -1164,9 +1227,22 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    lika lite som forut. Ett LANGT fornamn spiller over pa en andra rad i
    bada lydelserna (Kristoffer: 272 mot 270), vilket ar en gammal spricka och
    inte en ny: kortet har hojd for tva rader, men den dagen fornamnet kommer
-   ur riktig kunddata ar det var det slar. */
-.offer .o-ref-till{font-size:13px;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;color:rgba(255,255,255,.9);}
+   ur riktig kunddata ar det var det slar.
+
+   PILLERPLATTAN, 26 oktober. Agaren pekade ut Wisprs kort: "samma typ av
+   design, OMP i mitten, femhundra kronor rabatt, 'Gifted by' och sen
+   personens namn". Pa deras kort ar den raden en ljus platta, och det ar den
+   som gor att ogat laser den som en avsandarrad och inte som en bildtext.
+   KONTRASTEN BLIR BATTRE, inte samre: vit text pa kortets ljusaste ton
+   #017666 lag pa 4,81:1 mot kravet 4,5 for 13 px, alltsa en tiondels marginal.
+   Midnight pa en 94-procentig vit platta over samma ton ger 15,5:1.
+   Teckenmellanrummet gar fran .08 till .06em: plattan lagger till 2 x --s3 i
+   bredd, och raden med fornamnet Anders matte 242 px i en innerbredd pa 263
+   vid 375. Med .08em och plattans padding hade den brutit. */
+.offer .o-ref-till{font-size:13px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink);
+  background:rgba(255,255,255,.94);padding:var(--s1) var(--s3);
+  border-radius:999px;}
 @media print{
   /* Mallarnas utskriftsregler gor kortet vitt med mork text och tar bort
      logotypens invertering. Varje vit text pa kortet maste folja med, annars
@@ -1175,8 +1251,12 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
      Chipets display:none stod har tills beslut 16 tog bort chipet helt. Det
      ar en regel mindre att komma ihag, och det ar skalet att elementet togs
      bort och inte bara avfargades: en dekor som inte finns behover ingen
-     undantagsregel i en andra kontext. */
-  .offer .o-ref-till{color:var(--ink) !important;}
+     undantagsregel i en andra kontext.
+     PILLERPLATTAN MASTE OCKSA BORT HAR. Mallarnas utskriftsregler gor kortet
+     vitt, och en vit platta pa vitt papper ar ingenting: kvar hade blivit
+     paddingen, alltsa raden nerknuffad 8 px av en yta som inte syns. Bada
+     deklarationerna namns, inte bara fargen. */
+  .offer .o-ref-till{color:var(--ink) !important;background:none;padding:0;}
   /* EN REGRESSION JAG SJALV HADE GJORT, hittad 25 okt genom att lasa de
      byggda css-filernas print-block i stallet for att anta. Fram till i dag
      stod ".offer .o-ref-halva .o-ref-varde{color:var(--ink)}" HAR, i
@@ -1194,17 +1274,30 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .o-ref-varde{color:var(--ink) !important;}
   .offer .o-ref-logga img{filter:none !important;}
 }
-.offer .o-ref-rubrik{font-size:17px;font-weight:700;color:var(--ink);margin:0;}
-.offer .o-ref-steg{list-style:none;margin:calc(var(--s4) * -1) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s3);}
+.offer .o-ref-rubrik{font-size:17px;font-weight:700;color:var(--ink);margin:0;text-align:center;}
+/* STEGREMSAN ar centrerad som BLOCK och vansterstalld som TEXT. Spaltens
+   align-items:center krymper ul:en till sitt innehall och stallar den i
+   mitten; ikon och text inuti star kvar pa sin rad. Tre ikoner i en lodrat
+   linje ar sjalva poangen med en stegremsa, och centrerad text hade lagt dem
+   pa tre olika x. */
+.offer .o-ref-steg{list-style:none;margin:calc(var(--s4) * -1) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s3);text-align:left;}
 .offer .o-ref-steg li{display:flex;align-items:center;gap:var(--s3);font-size:15px;color:var(--body);}
 .offer .o-ref-steg svg{width:var(--z2);height:var(--z2);flex:none;color:var(--ikonglyf);}
-.offer .o-ref-falt{display:flex;flex-direction:column;gap:var(--s2);}
-.offer .o-ref-etikett{font-size:15px;font-weight:600;color:var(--ink);}
-.offer .o-ref-rad{display:flex;gap:var(--s2);margin-top:var(--s2);}
+/* FALTGRUPPEN STRACKER SIG, resten av spalten centreras. Utan den har raden
+   krymper adressfaltet till sitt innehall (spaltens align-items:center) och
+   blir en springa pa nagra tiotal pixlar i stallet for hela spaltens bredd. */
+.offer .o-ref-falt{display:flex;flex-direction:column;gap:var(--s2);align-self:stretch;}
+.offer .o-ref-etikett{font-size:15px;font-weight:600;color:var(--ink);text-align:center;}
+/* KNAPPEN STAR I MITTEN, och det ar den enda medvetna avvikelsen fran
+   riktning A i panelen. I A:s render ligger knappen i vanster kant under en
+   i ovrigt centrerad spalt, vilket ar en inkonsekvens och inte ett val: inget
+   i agarens ord pekar pa den. Centrerad knapp under centrerad etikett och
+   centrerad hjalptext ar samma komposition hela vagen ner. */
+.offer .o-ref-rad{display:flex;gap:var(--s2);margin-top:var(--s2);justify-content:center;}
 /* Hjalptexten, knappraden och finstilten bar sina marginaler i style-
    attribut fram till 24 okt. En inline-marginal vager mer an varje regel
    har och star dar ingen letar. Nu klasser. */
-.offer .o-ref-hjalp{color:var(--faint);margin:0 0 var(--s2);}
+.offer .o-ref-hjalp{color:var(--faint);margin:0 0 var(--s2);text-align:center;}
 /* FELRADEN under adressfaltet. Samma form som husets ovriga hint-rader
    (fragaHint, avbojHint i mallarnas body.html): var(--ink) och vikt 600, sa
    ingen ny kulor tillkommer for ett tillstand som intraffar sallan.
@@ -1212,9 +1305,13 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    TOM p ar fortfarande ett flexobjekt: raden hade lagt atta pixlar mellan
    faltet och knappen pa varje sida, aven nar ingenting ar fel. display:none
    tar bort den ur layouten tills den har nagot att saga. */
-.offer .o-ref-fel{color:var(--ink);font-weight:600;margin:0;}
+.offer .o-ref-fel{color:var(--ink);font-weight:600;margin:0;text-align:center;}
 .offer .o-ref-fel:empty{display:none;}
-.offer .o-ref-fin{color:var(--faint);}
+/* FINSTILTEN star UTANFOR panelen och har darfor ingen spalt att folja.
+   Centrerad som allt annat, men UTAN lasmatt: riktning A satte 448 px tak
+   pa den, och uppmatt vid 1180 blir raden da tva rader i stallet for en,
+   alltsa 16 px mer av precis det tomrum agaren klagar pa. */
+.offer .o-ref-fin{color:var(--faint);text-align:center;}
 /* GOLVET LAG I EN SELEKTOR SOM FALTET HADE FLYTTAT UT UR. Mejlfaltet bor i
    .o-chips sedan chipsen infordes, medan min-height:var(--z5) stod kvar pa
    .o-ref-rad input. Resultatet var ett 31 px hogt faltet i ett hus dar 44
@@ -1232,7 +1329,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-ref-knapp.mork{background:var(--ink);color:#fff;}
 .offer .o-ref-knapp:disabled{opacity:.55;cursor:default;}
 .offer .o-ref-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s1);}
-.offer .o-ref-lista li{display:flex;align-items:center;gap:var(--s2);font-size:13px;color:var(--muted);}
+.offer .o-ref-lista li{display:flex;align-items:center;justify-content:center;gap:var(--s2);font-size:13px;color:var(--muted);}
 .offer .o-ref-lista svg{width:var(--z1);height:var(--z1);flex:none;color:var(--ikonglyf);}
 
 /* ===== De två lånade blocken =====
@@ -2037,9 +2134,39 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    TVA EXPLICITA SPAR AR ETT TAL OM MARKUPEN och far inte skrivas av: oraklet
    tillaggsradens_pris i offert.py raknar barnen i varje .o-radtext i den
    renderade sidan och stoppar bygget om nagon rad bar fler an tva utover
-   priset. Brytpunkten 712 ar systemets egen for radens desktopform. */
+   priset. Brytpunkten 712 ar systemets egen for radens desktopform.
+
+   LADDBOXENS RADER BAR SAMMA FEL, MEN DET SAGS INTE AV `.o-radspec`.
+   Agarbeslut 6 den 26 oktober: "Ja, ratta den."
+
+   Raderna Laddkabel 11 kW, Laddkabel 22 kW, Perific lastbalansering,
+   Frontkapa och RFID-taggar bar ingen spec utan en `<select class="o-variant">`
+   i textspalten. Alltsa samma implicita rutnat, samma hopfallna spann, och
+   ett STORRE utslag: rullgardinen ar 48 px hog dar specen ar 20.
+
+   UPPMATT 26 OKTOBER, prisets mitt minus radens mitt, FORE, pa alla sju
+   laddboxmodellerna vid bade 1180 och 1440:
+     rad utan spec och utan rullgardin          -1,5 px
+     rad med spec (Zaptec Go 2, Sense, Tibber)  -1,5 px   (rattad ovan)
+     rad med rullgardin i textspalten          -29,5 px   <- felet
+   Elcentral, service och batteri har ingen rad av den sorten och ror sig inte.
+
+   EN REGEL FOR KLASSEN, INTE EN PER BARNTYP. Klassen ar inte "spec" och inte
+   "rullgardin", den ar "textspalt med nagot MELLAN namnet och priset". Det ar
+   precis det som gor rutnatet tvaradigt, och alltsa precis det `-1` maste
+   kunna rakna till. `:not(.o-radnamn):not(.o-radpris)` sager den meningen.
+   Raknat over alla tretton byggda sidor den 26 oktober finns tre former av
+   textspalt och inga fler: namn+pris (132 rader), namn+spec+pris (108) och
+   namn+rullgardin+pris (52). En fjarde barntyp i morgon far regeln gratis.
+
+   `.o-radspec` star kvar namnd sist i marginalregeln. Den ar redundant mot
+   raden ovanfor och det ar med flit: batteriets orakel tillaggsradens_pris
+   letar efter precis strangen `.o-radspec{margin-top:var(--s`, och den filen
+   ags inte av den har andringen. Ett orakel som vaktar VAR en sanning star
+   i stallet for VAD den gor har stoppat rattningen fjorton ganger har. */
 @container (min-width: 712px){
-  .offer .o-rader .o-rad > .o-radtext:has(> .o-radspec){grid-template-rows:auto auto;row-gap:0;}
+  .offer .o-rader .o-rad > .o-radtext:has(> :not(.o-radnamn):not(.o-radpris)){grid-template-rows:auto auto;row-gap:0;}
+  .offer .o-rader .o-rad > .o-radtext > :not(.o-radnamn):not(.o-radpris),
   .offer .o-rader .o-rad > .o-radtext > .o-radspec{margin-top:var(--s2);}
 }
 
@@ -2130,7 +2257,19 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    en fast hojd vaxte den fran 96 till 121 px sa fort bilden blev storre
    (uppmatt 25 okt). Samma falla som paketkortens .pbild gick i samma dag.
    96 ar rutans uppmatta hojd fore andringen, vid bade 375 och 1180. */
-.offer .o-hero .o-prodimg{overflow:hidden;height:96px;--hjaltebildtak:96px;}
+/* RUTAN MASTE OCKSA CENTRERA SIN DUK (agaren 26 okt: "konstigt placerad").
+   .o-prodimg ar display:grid med place-items:center i systemet, och det LASER
+   som att duken ar centrerad. Den ar det inte: ett grid-spar vaxer efter sitt
+   innehall, sa en duk som ar hogre och bredare an rutan far ett spar lika
+   stort som sig sjalv, star mitt i det, och spiller darfor ut at HOGER och
+   NEDAT fran rutans ovre vanstra horn i stallet for at alla fyra hallen.
+   Uppmatt 26 oktober vid 375, fore: luft i rutan 21,6 / 3,1 i sidled och
+   36,7 / 12,0 i hojdled, mot originalets 1,5 / 1,5 och 13,5 / 15,0.
+   100% / 100% laser sparet till rutans egen storlek; forst da betyder
+   place-items:center det den ser ut att betyda. Alla tre Hager-dukarna har
+   kapslingen centrerad i filen (286/287 px i sidled, 486/487, 330/330 och
+   16/16 i hojdled), sa en centrerad duk ger en centrerad kapsling. */
+.offer .o-hero .o-prodimg{overflow:hidden;height:96px;--hjaltebildtak:96px;grid-template:100% / 100%;}
 .offer .o-hero .o-prodimg img{height:var(--duk,var(--hjaltebildtak));width:auto;max-height:none;max-width:none;}
 
 .offer #pkgs .o-pkg .pbild{min-height:232px;height:232px;overflow:hidden;--bildtak:200px;}
@@ -2521,19 +2660,34 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    ar rutans hojd over mobilens tak, 200/96, precis som den forra var 150/96:
    inget nytt tal, bara rutans egna.
 
-   OCH HAR AR DET JAG INTE NADDE, RAKT UT: 14,40 procent mot originalets 20,86.
-   Skalet ar matt och det ar strukturellt. Originalets tre foton ar beskurna
-   var for sig sa att skapet fyller sin ram (innehallet 95,1 / 91,2 / 88,6
-   procent av dukens bredd), medan de nuvarande tre delar duk i SAMMA skala
-   (innehallet 627 px brett i alla tre, hojden 627 / 940 / 1568 som speglar
-   250 / 375 / 625 mm). Trappan i offert.py komprimerar den aktheten med
-   exponenten 0,75, sa Liten blir 50,3 procent av Stor i hojd; i originalet ar
-   den 75,3. Stor fyller redan 98 procent av rutans hojd, sa Liten kan inte
-   vaxa mer utan att Stor klipps.
-   Att na originalets tal krav att trappans exponent sanks fran 0,75 till 0,31,
-   och den exponenten star i markupens --duk, som ocksa styr MOBILEN: uppmatt
-   skulle Liten da ga 47,3 -> omkring 70 px vid 375. Agaren har sagt att
-   mobilen inte far roras, sa det ar hans beslut och inte mitt. [GAP]
+   RATTAT 26 OKTOBER, EFTER TREDJE GANGEN: DET HAR BLOCKET VAR RATT SAK PA
+   FEL YTA. Agarens 25-oktoberpunkt gallde desktop och den sitter kvar. Men
+   hans 26-oktoberpunkt, och bilden han bifogade, ar MOBILEN. Skarmbilden
+   uppdrag/referens/elcentral-gamla-kortet.png ar 810 px bred, kortet 718 px,
+   avdelaren pa y 272, textens vanstra kant pa 226 och produkten 138 px bred.
+   Delat med tva: kort 359, avdelare 136, text 113, produkt 69. Den har mallen
+   mater vid 375: avdelare 137, text 113, padding 24, ruta 72, gap 16. Det ar
+   alltsa en 390-vy i 2x pa ett kort som redan ar vart: hans kort 359 mot vart
+   358, hans avdelare 136 mot var 137. Hela det har blocket
+   ligger bakom @container (min-width: 1024px) och kunde darfor aldrig andra
+   en enda pixel i det han fotograferade. Tva rattningar i rad gick den vagen.
+   LARDOMEN: harled en skarmbilds SKALA ur nagot du kanner igen i den innan du
+   mater den. Tva kanda langder racker. Utan det blir 2x-vyn av mobilen
+   lasbar som en desktopvy, och da rattar man fel yta tva ganger.
+
+   FORRA RUNDANS [GAP] AR NU STANGD, OCH DEN HADE RATT. Den sa: "Att na
+   originalets tal krav att trappans exponent sanks fran 0,75 till 0,31, och
+   den exponenten star i markupens --duk, som ocksa styr MOBILEN." Precis sa.
+   Hjalten har nu en EGEN exponent, harledd ur EL_HJALTE_FYLLNAD i offert.py
+   (0,346, mot paketkortens 0,75), och den rorde mobilen med flit, for det var
+   mobilen han bad om. Uppmatt efter, vid 375 / 1180:
+     kapslingen      68,5 x 68,5 / 142,6 x 142,6   (fore 47,3 / 98,5)
+     andel av rutan  95,1 % i bada                 (fore 65,7 %)
+     luft i rutan    1,7 / 1,8 och 13,7 / 13,8     (fore 21,6 / 3,1 och 36,7 / 12,0)
+   Desktoptalet 142,6 ar originalets egna 142,7, och det foll ut av sig sjalvt:
+   desktoprutan 150 x 200 ar mobilrutan 72 x 96 gangrad med exakt 200/96.
+   Ekvivalensprovet vid 375 och 390: 8 avvikelser av 1 224 element, alla pa
+   hjaltens ruta och dess bild. Inget annat pa sidan rorde sig.
 
    RUTAN LASES I HOJD AVEN HAR. overflow:hidden klipper innehallet, inte
    rutan, sa utan height vaxer rutan med duken (uppmatt 96 -> 121 px 25 okt).
