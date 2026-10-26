@@ -319,11 +319,11 @@
        andring, bade nar ett chip laggs till och nar listan vaxer. */
     var grannar = document.querySelectorAll("#refLista li").length;
     if (grannar) {
-      rows += '<div class="o-sumrow disc"><span>Grannrabatt, ' + grannar
-        + (grannar > 1 ? " grannar inbjudna" : " granne inbjuden")
+      rows += '<div class="o-sumrow disc"><span>Rekommendationsrabatt, ' + grannar
+        + (grannar > 1 ? " personer inbjudna" : " person inbjuden")
         + '</span><span class="kr">dras när de beställt</span></div>'
         + '<div class="o-sumnote">Upp till ' + kr(grannar * GRANNRABATT) + ' av, '
-        + GRANNRABATT + ' kr för varje granne som beställer. Ditt pris här ändras inte '
+        + GRANNRABATT + ' kr för varje person som beställer. Ditt pris här ändras inte '
         + 'förrän det hänt.</div>';
     }
     $("sumRows").innerHTML = rows;

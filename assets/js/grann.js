@@ -11,7 +11,10 @@
 (function(){
   var render = function(){ if (typeof window.__render === "function") window.__render(); };
 
-  /* KORTETS GIVARE: "Till din granne, fran <fornamn>".
+  /* KORTETS GIVARE: "Till vem du vill, fran <fornamn>".
+     (Raden sa "Till din granne" till beslut 15 den 26 oktober. Koden rorde
+     aldrig substantivet, bara ordet efter "fran", sa bytet kostade noll rader
+     har: span-et #refGivare ar hela granssnittet mot markupen.)
 
      Agaren, uppgift 4: "Sedan har vi 'gifted by' och kundens fornamn."
      Fornamnet bor i mallarnas datalager (kund.fornamn), men blocket ar DELAT

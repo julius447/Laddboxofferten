@@ -394,8 +394,8 @@
       });
     }
     var grannar=document.querySelectorAll("#refLista li").length;
-    if (grannar) rows += '<div class="o-sumrow disc"><span>Grannrabatt, '+grannar+(grannar>1?' grannar inbjudna':' granne inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
-      + '<div class="o-sumnote">Upp till '+kr(grannar*500)+' av, 500 kr för varje granne som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
+    if (grannar) rows += '<div class="o-sumrow disc"><span>Rekommendationsrabatt, '+grannar+(grannar>1?' personer inbjudna':' person inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
+      + '<div class="o-sumnote">Upp till '+kr(grannar*500)+' av, 500 kr för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML = rows;
     $("sumTotal").textContent = kr(mitt);
 

@@ -21,7 +21,17 @@
 
   <header class="o-top">
     <img class="o-logo" src="assets/img/ampy-logga.png" alt="Ampy" width="1600" height="468">
-    <div class="o-topmeta"><span class="o-ref">Tillägg till #2026-0640</span></div>
+    <!-- TILLAGGETS EGET OFFERTNUMMER, agarbeslut 4 den 26 oktober: "Da det ar
+         en ny offert ser jag aven att det ar viktigt att den har sitt egna
+         nummer sa att vi kan sarskilja dem." Numret star som literal har, som
+         i laddboxens och elcentralens body.html, och bygget laser det harifran
+         till de delade skarmarnas offertnummer. urval.json bar samma tal
+         for CRM:et, och oraklet kraver att de tva ar lika.
+         BARA ETT CHIP, och det ar matt: vid 375 px kraver tva chip 322 px i en
+         lada pa 241 och sidan far scrollWidth 427 i stallet for 375, alltsa en
+         vagrat rullist. .o-ref ar white-space:nowrap och kan inte vika. Vilken
+         offert tillagget hor till star pa bada skarmarna i stallet. -->
+    <div class="o-topmeta"><span class="o-ref">Offert #2026-0644</span></div>
   </header>
 
   <main class="o-main">
@@ -104,7 +114,7 @@
         </svg>
       </div>
       <h1 class="oa__title">Ditt tillägg är nu accepterat!</h1>
-      <span class="oa__ref">Tillägg till offert <span data-oa="offert.referens">#2026-0640</span></span>
+      <span class="oa__ref">Offert <span data-oa="offert.referens">#2026-0644</span>, tillägg till offert #2026-0640</span>
       <!-- SKARMEN BEKRAFTADE INGENTING. Uppmatt: en konfigurerad order pa
            11 845 kr, och noll forekomster av "kr" pa hela skarmen. Kunden
            tryckte acceptera pa ett belopp och fick tillbaka en bock utan tal.
@@ -171,7 +181,7 @@
         </svg>
       </div>
       <h1 class="oa__title">Tack, du har nu avböjt tillägget</h1>
-      <span class="oa__ref">Tillägg till offert <span data-oa="offert.referens">#2026-0640</span></span>
+      <span class="oa__ref">Offert <span data-oa="offert.referens">#2026-0644</span>, tillägg till offert #2026-0640</span>
     </section>
 
     <!-- 2 · vad som händer nu -->
@@ -216,6 +226,5 @@
 <script src="assets/js/pottext.js"></script>
 <script src="assets/js/tillagg.js"></script>
 <script src="assets/js/ankare.js"></script>
-<script src="assets/js/foreefter.js"></script>
 </body>
 </html>
