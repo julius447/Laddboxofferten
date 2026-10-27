@@ -11,7 +11,7 @@
   var FORVAL=3;
   var POTT=100000;
   var PERSONER=2;
-  var GRANNRABATT=1500;
+  var GRANNRABATT=3000;
   var CEN={"5990": "Byte av elcentral, liten central", "9990": "Byte av elcentral, mellan central", "14900": "Byte av elcentral, stor central"};
   var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
   var BOCK="<span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span>";
@@ -199,7 +199,11 @@
        dras pa fakturan nar grannen har bestallt. Beloppet ar mallens eget. */
     var grannar=document.querySelectorAll("#refLista li").length;
     if(grannar) rows+='<div class="o-sumrow disc"><span>Rekommendationsrabatt, '+grannar+(grannar>1?' personer inbjudna':' person inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
-      +'<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
+      /* SUMMERINGSNOTEN SAGER FAKTURAN, FRAN 27 OKTOBER (agarbeslut, se
+         beslut/grann-texterna.md). Raden sa "Upp till X av, Y kr", och
+         beloppet ar ett avdrag pa fakturans totalsumma, inte pa raden
+         under. Noten namner darfor fakturan, som blockets tre andra ytor. */
+      +'<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av på fakturan, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML=rows;
     /* POTTRADEN SKRIVS INTE HAR, DEN HAMTAS. Meningen bor i
        gemensamt/block/pottext.js och ar husets enda. Agaren, uppgift 3:

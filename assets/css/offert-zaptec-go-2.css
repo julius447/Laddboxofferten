@@ -2490,6 +2490,84 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    upphaver flexens stretch och ger samma resultat, men av en bieffekt. */
 .offer .o-tjanst .o-pkg .pbild{align-self:center;}
 
+/* ===========================================================================
+   TILLITSRUTORNA I HJALTEKORTET. Fyra fakta i ett kors, under bokaren och
+   ovanfor Google-raden.
+
+   KORTETS INNERBREDD, uppmatt i Chrome pa den byggda sidan:
+       320 -> 238    375 -> 293    390 -> 308    768 -> 654
+       834 -> 720   1024 -> 478   1280 -> 634
+   Alltsa 238 till 720, tre ganger. En ruta ar halva det: 119 till 360. Darfor
+   ar sidluften i rutan liten pa smalt och stor pa brett, medan IKONEN ar fast.
+   Ikonen foljer husets eget matt: .o-stepico ar 48 x 48 pa varje bredd, och
+   ikonarket sager "48 px pa sidan, 144-ruta". 48 pa mobil, 56 fran 712.
+
+   KORSET AR KANTER, INTE ELEMENT. En absolut placerad linje maste veta hur
+   hog raden ar och faller sonder nar en text blir en rad hogre; en kant vaxer
+   med rutan gratis och foljer med i utskriften. Ingen yttre kant uppstar, for
+   bara udda rutor far lodrat och bara de tva forsta far vagrat.
+
+   KORSET ROR INTE KORTKANTEN. Inluften ar kortets egen padding, 25 px fran
+   kortets ytterkant vid varje bredd (uppmatt). En mork linje som moter
+   kortets ljusa 1 px-kant ger en T-skarv mellan tva olika linjer.
+
+   LINJEFARGEN. --ink (#090b32) ar det morkaste huset har och mater 18,4:1 mot
+   vitt. Byt linje genom att satta om EN variabel, --tillitslinje.
+   =========================================================================== */
+.offer .o-tillit{
+  --tillitslinje:var(--ink);
+  --tillit-ikon:48px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.offer .o-tillit > li{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:var(--s3);
+  padding:var(--s5) var(--s2);
+  min-width:0;          /* annars kan en lang text trycka ut kolumnen */
+  list-style:none;
+}
+.offer .o-tillit > li:nth-child(odd){border-inline-end:1px solid var(--tillitslinje);}
+.offer .o-tillit > li:nth-child(-n+2){border-block-end:1px solid var(--tillitslinje);}
+
+/* Rutan ar kvadratisk aven nar glyfen ar lagre: bilen ritar 48 x 36 i en
+   48-ruta. Det ar det som gor att alla fyra texter borjar pa samma y utan en
+   enda handpaflagd marginal. */
+.offer .o-tillit__ico{
+  inline-size:var(--tillit-ikon);
+  block-size:var(--tillit-ikon);
+  flex:none;
+  display:grid;
+  place-items:center;
+  color:var(--ink);
+}
+/* viewBox ar blackrutan, sa meet fyller langsta sidan och centrerar resten. */
+.offer .o-tillit__ico svg{inline-size:100%;block-size:100%;display:block;}
+
+/* 13 px ar husets lilla storlek (.o-booker span, .o-prodspec). 500 och inte
+   400: raden ar ett pastaende och inte brodtext. balance ger jamna radlangder
+   i en smal ruta i stallet for en sista rad med ett enda ord. */
+.offer .o-tillit p{
+  margin:0;
+  font-size:13px;
+  line-height:1.35;
+  font-weight:500;
+  color:var(--ink);
+  text-wrap:balance;
+  hyphens:none;
+}
+
+@container (min-width: 712px){
+  .offer .o-tillit{--tillit-ikon:56px;}
+  .offer .o-tillit > li{padding:var(--s6) var(--s5);}
+}
+
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}
 

@@ -8,7 +8,7 @@
   var PRIS=7400;
   var JOBBNAMN="Byte av strömbrytare och uttag";
   var TID={"1500": "Prioritet, 3 till 5 dagar", "2500": "Express, 24 till 72 timmar"};
-  var GRANNRABATT=500;
+  var GRANNRABATT=1000;
 
   function $(id){ return document.getElementById(id); }
   /* ETT TAL, ETT TECKEN: hardspatie (U+00A0) mellan tusentalen och fore kr,

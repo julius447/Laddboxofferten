@@ -1,5 +1,6 @@
 (function(){
   var kr=function(n){return n.toLocaleString("sv-SE").replace(/ /g," ")+" kr";};
+  var GRANNRABATT=1000;
   var $=function(i){return document.getElementById(i);};
   var val=function(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:"0";};
   var BAS=4400;        /* ur modellfilen */
@@ -395,7 +396,15 @@
     }
     var grannar=document.querySelectorAll("#refLista li").length;
     if (grannar) rows += '<div class="o-sumrow disc"><span>Rekommendationsrabatt, '+grannar+(grannar>1?' personer inbjudna':' person inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
-      + '<div class="o-sumnote">Upp till '+kr(grannar*500)+' av, 500 kr för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
+      /* SUMMERINGSNOTEN SAGER FAKTURAN, FRAN 27 OKTOBER (agarbeslut, se
+         beslut/grann-texterna.md). Raden sa "Upp till X av, Y kr", och
+         beloppet ar ett avdrag pa fakturans totalsumma, inte pa raden
+         under. Noten namner darfor fakturan, som blockets tre andra ytor.
+         OCH TALET AR INTE LANGRE EN LITERAL. kr(grannar*500) och strangen
+         '500 kr' stod har medan blocket ovanfor fick sitt tal ur bygget, sa
+         samma skarm bar tva kallor till ett tal. GRANNRABATT kommer ur
+         META["grannrabatt"] via js_data(), samma kalla som markupen. */
+      + '<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av på fakturan, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML = rows;
     $("sumTotal").textContent = kr(mitt);
 

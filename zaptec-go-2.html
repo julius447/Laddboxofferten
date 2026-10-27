@@ -57,6 +57,40 @@
                   <img src="assets/img/rasmus.webp" alt="" width="192" height="192">
                   <div><b>Rasmus L</b><span>Har räknat på ditt jobb</span></div>
                 </div>
+                <!-- TILLITSRUTORNA. Fyra fakta i ett kors inne i hjaltekortet.
+                
+                     Korset ar KANTER pa rutorna, inte fyra egna element: nth-child(odd)
+                     ger den lodrata linjen, de tva forsta ger den vagrata, och ingen yttre
+                     kant uppstar. En kant vaxer med rutan och foljer med i utskriften; en
+                     absolut placerad linje maste veta hur hog raden ar.
+                
+                     Varje svg:s viewBox AR glyfens blackruta, uppmatt med path.getBBox():
+                     bil 232x176, schema 103,42x101,29, skold 75,83x104,33, stolpe
+                     91,37x97,33. Filerna kom med 0 till 36 enheters olika luft inne i sina
+                     viewBoxar, vilket pa en 48 px ruta hade gett glyfer mellan 33 och 48 px
+                     i samma rad. Nu fyller langsta sidan rutan och glyfen star centrerad:
+                     en regel for alla fyra, ingen justering per ikon.
+                
+                     Ikonrutan ar kvadratisk aven nar glyfen ar lagre (bilen ritar 48 x 36 i
+                     en 48-ruta), sa alla texter i en rad borjar pa samma y. -->
+                <ul class="o-tillit">
+                  <li>
+                    <span class="o-tillit__ico" data-ikon="bil"><svg viewBox="12 36 232 176" fill="currentColor" aria-hidden="true"><path d="M240,108H226.6L197.77,43.13a12,12,0,0,0-11-7.13H69.2a12,12,0,0,0-11,7.13L29.4,108H16a4,4,0,0,0,0,8H28v84a12,12,0,0,0,12,12H64a12,12,0,0,0,12-12V180H180v20a12,12,0,0,0,12,12h24a12,12,0,0,0,12-12V116h12a4,4,0,0,0,0-8ZM65.54,46.38A4,4,0,0,1,69.2,44H186.8a4,4,0,0,1,3.66,2.38L217.84,108H38.16ZM68,200a4,4,0,0,1-4,4H40a4,4,0,0,1-4-4V180H68Zm148,4H192a4,4,0,0,1-4-4V180h32v20A4,4,0,0,1,216,204Zm4-32H36V116H220ZM60,144a4,4,0,0,1,4-4H80a4,4,0,0,1,0,8H64A4,4,0,0,1,60,144Zm112,0a4,4,0,0,1,4-4h16a4,4,0,0,1,0,8H176A4,4,0,0,1,172,144Z"/></svg></span>
+                    <p>Passar alla elbilar och laddhybrider</p>
+                  </li>
+                  <li>
+                    <span class="o-tillit__ico" data-ikon="schema"><svg viewBox="21.292 17.875 103.416 101.292" fill="currentColor" aria-hidden="true"><path d="M31.1193 119.167C28.3189 119.167 25.9809 118.248 24.1052 116.411C22.2295 114.574 21.2917 112.284 21.2917 109.541V33.459C21.2917 30.7162 22.2295 28.4262 24.1052 26.5891C25.9809 24.7519 28.3189 23.8333 31.1193 23.8333H87.7399V29.7917H31.1193C30.0273 29.7917 29.13 30.1353 28.4274 30.8225C27.7258 31.5106 27.375 32.3895 27.375 33.459V109.541C27.375 110.61 27.7258 111.489 28.4274 112.178C29.13 112.865 30.0273 113.208 31.1193 113.208H108.797C109.889 113.208 110.787 112.865 111.489 112.178C112.191 111.489 112.542 110.61 112.542 109.541V54.0838H118.625V109.541C118.625 112.284 117.687 114.574 115.811 116.411C113.936 118.248 111.598 119.167 108.797 119.167H31.1193ZM43.9871 98.3125H50.0704V62.5625H43.9871V98.3125ZM66.9167 98.3125H73V44.6875H66.9167V98.3125ZM89.8463 98.3125H95.9296V80.4375H89.8463V98.3125ZM106.458 47.6667V35.75H94.2917V29.7917H106.458V17.875H112.542V29.7917H124.708V35.75H112.542V47.6667H106.458Z"/></svg></span>
+                    <p>Schemalagd laddning när elen är billigast</p>
+                  </li>
+                  <li>
+                    <span class="o-tillit__ico" data-ikon="skold"><svg viewBox="0 0 75.833 104.326" fill="currentColor" aria-hidden="true"><path d="M32.2292 68.721L59.0836 39.8008L55.2189 35.6388L32.2292 60.3969L20.6456 47.9223L16.7808 52.0844L32.2292 68.721ZM37.9167 104.326C27.0346 100.849 17.9946 93.7494 10.7968 83.0287C3.59893 72.3081 0 60.2321 0 46.8008V15.2556L37.9167 0L75.8333 15.2556V46.8008C75.8333 60.2321 72.2344 72.3081 65.0366 83.0287C57.8387 93.7494 48.7988 100.849 37.9167 104.326ZM37.9167 98.1342C47.3056 94.9258 55.0694 88.5092 61.2083 78.8842C67.3472 69.2592 70.4167 58.5647 70.4167 46.8008V19.2383L37.9167 6.22563L5.41667 19.2383V46.8008C5.41667 58.5647 8.48611 69.2592 14.625 78.8842C20.7639 88.5092 28.5278 94.9258 37.9167 98.1342Z"/></svg></span>
+                    <p>5 års garanti</p>
+                  </li>
+                  <li>
+                    <span class="o-tillit__ico" data-ikon="stolpe"><svg viewBox="26 21 91.367 97.333" fill="currentColor" aria-hidden="true"><path d="M47.618 106.869L58.0861 87.214H51.8292V71.8901L41.2472 91.5439H47.618V106.869ZM31.9167 60.5417H67.4167V30.8276C67.4167 29.8908 67.0375 29.0325 66.2792 28.2529C65.5209 27.4732 64.6861 27.0833 63.775 27.0833H35.5584C34.6472 27.0833 33.8125 27.4732 33.0541 28.2529C32.2958 29.0325 31.9167 29.8908 31.9167 30.8276V60.5417ZM31.9167 112.25H67.4167V66.625H31.9167V112.25ZM26 118.333V30.8276C26 28.0273 26.9122 25.6892 28.7365 23.8135C30.5608 21.9378 32.8347 21 35.5584 21H63.775C66.4986 21 68.7726 21.9378 70.5969 23.8135C72.4212 25.6892 73.3333 28.0273 73.3333 30.8276V67.3276H79.1361C81.6921 67.3276 83.8675 68.2498 85.6622 70.094C87.4559 71.9383 88.3528 74.1744 88.3528 76.8024V104.821C88.3528 107.013 89.2137 108.916 90.9354 110.53C92.6572 112.145 94.622 112.953 96.8299 112.953C99.1354 112.953 101.124 112.145 102.797 110.53C104.469 108.916 105.306 107.013 105.306 104.821V50.714H103.258C101.885 50.714 100.745 50.2482 99.8385 49.3164C98.9323 48.3846 98.4792 47.2131 98.4792 45.8018V36.2083H100.868V29.4224H105.419V36.2083H110.426V29.4224H114.978V36.2083H117.367V45.8018C117.367 47.2131 116.914 48.3846 116.007 49.3164C115.101 50.2482 113.961 50.714 112.587 50.714H110.54V104.821C110.54 108.534 109.207 111.714 106.541 114.361C103.874 117.009 100.637 118.333 96.8299 118.333C93.1201 118.333 89.9074 117.009 87.1916 114.361C84.4759 111.714 83.118 108.534 83.118 104.821V76.8024C83.118 75.5939 82.7482 74.6094 82.0086 73.849C81.2691 73.0885 80.3115 72.7083 79.1361 72.7083H73.3333V118.333H26Z"/></svg></span>
+                    <p>Inkl. installation och material</p>
+                  </li>
+                </ul>
               </div>
               <a class="o-betyg" id="googleBetyg"
                  href="https://www.google.com/maps/place/Ampy/@59.3576299,17.9842061,17z/data=!3m1!4b1!4m6!3m5!1s0x2bec1ce5c4ed9ce9:0xfce1752e84a1bfee!8m2!3d59.3576272!4d17.986781!16s%2Fg%2F11ypjy9rrm"
@@ -485,9 +519,29 @@
                  ett kort och blev en kupong. Kortet bar nu ID-1-formatet och
                  ett tak, sa det ar ETT KORT i varje bredd.
 
-                 BELOPPET AR EN PARAMETER, aldrig 500. 500 satts
-                 av bygget ur mallens META: 1 500 pa batterimallen, 500 pa de
-                 andra. Paragrafen, kortet och steg 3 harleder alla talet.
+                 BELOPPET AR EN PARAMETER, aldrig en literal.
+                 1 000 satts av bygget ur mallens META. Paragrafen,
+                 kortet och steg 3 harleder alla talet.
+
+                 AGARBESLUT 27 OKTOBER: talen ar 1 000 pa laddbox, elcentral
+                 och service, och 3 000 pa batteriet, och de ar avdrag pa
+                 FAKTURANS TOTALSUMMA. Darfor bar varje yta som bar talet ocksa
+                 ordet FAKTURA: paragrafen, kortet och steg 3. Foljden for
+                 kundens egen betalning star EN gang, i finstilten, enligt
+                 doseringsdirektivet 2026-08-15, och utan tal.
+
+                 SKALET STAR INTE HAR, OCH DET AR AVSIKTLIGT. Den har filen
+                 klistras in i varje levererad sida, sa varje tecken i den har
+                 kommentaren ar skickade bytes som kunden kan lasa i Visa
+                 kallkod. Uppmatt 27 oktober: 35 kommentarer i
+                 offert-zaptec-go.html. Agarens ord, uttakningen bakom talen och
+                 risken han vager star i beslut/grann-texterna.md och
+                 implementation/01-owner-decisions.md, som aldrig skickas till en
+                 kund. Lagg inte tillbaka dem har.
+
+                 Oraklet grannrabatten_sager_vad_bada_far (krav 6) och
+                 agarpunkt 105 och 106 haller regeln. COPYN AR AGARENS ATT
+                 GODKANNA; alternativa lydelser star i rapporten for 27 oktober.
 
                  BESLUT 15, 26 oktober, ordagrant: "Vem som helst, skriv om
                  blocket." Erbjudandet galler den kunden vill bjuda in, inte
@@ -563,7 +617,7 @@
                      "person" mot "granne" 25 okt med skalet att fem av
                      blockets strangar sa granne. Beslut 15 river det skalet,
                      och da star agarens ord kvar oforandrat. -->
-                <p class="t-body o-ref-ingress">Ge bort 500&nbsp;kr rabatt och få 500&nbsp;kr rabatt själv för varje person som beställer.</p>
+                <p class="t-body o-ref-ingress">Ge bort 1 000&nbsp;kr på fakturan och få 1 000&nbsp;kr på din egen, för varje person som beställer.</p>
 
                 <!-- KORTET, ritat om 26 oktober efter agarens referensbild
                      (uppdrag/referens/wispr-kortet-stort.png). Hans ord:
@@ -572,6 +626,9 @@
                      kortet, likt vi hade det forut. Sen har vi Ampy-
                      logotypen. Sen har vi da 500 kronor rabatt. Och sen ska
                      det bara sta 'fran Anders'."
+                     (Hans "500 kronor rabatt" ar 26 oktober. Beslutet 27
+                     oktober byter bade talet och vad det raknas pa; FORMEN han
+                     beskriver, logga over belopp over namnrad, ar orord.)
                      Och: "Kortet kan behalla nuvarande farg och storlek."
 
                      STRIMMAN ar randen. Uppmatt ur hans bild, kolumn for
@@ -612,7 +669,7 @@
                       <img src="assets/img/ampy-logga.png" alt="Ampy" width="1600" height="468">
                     </span>
                     <div class="o-ref-kortfot">
-                      <p class="o-ref-varde">500&nbsp;kr rabatt</p>
+                      <p class="o-ref-varde">1 000&nbsp;kr på fakturan</p>
                       <!-- NAMNRADEN SAGER BARA GIVAREN, fran 26 oktober.
                            Agaren, ordagrant: "sen ska det bara sta 'fran
                            Anders', inte 'till vem du vill'. Bara 'fran
@@ -658,7 +715,7 @@
                   </li>
                   <li>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3H5a2 2 0 0 0-2 2v6a2 2 0 0 0 .6 1.4l8 8a2 2 0 0 0 2.8 0l6-6a2 2 0 0 0 0-2.8l-8-8A2 2 0 0 0 11 3Z"/><circle cx="7.4" cy="7.4" r="1.45"/></svg>
-                    <span>Ni får 500&nbsp;kr rabatt var</span>
+                    <span>Ni får 1 000&nbsp;kr lägre faktura var</span>
                   </li>
                 </ul>
 
@@ -703,8 +760,18 @@
                    pris" blev "ditt ordinarie pris"). Den ar enda stallet
                    villkoret star, enligt doseringsdirektivet 2026-08-15.
                    Beslut 15 byter SUBSTANTIVET och ingenting annat: "grannen"
-                   blir "personen", tva ganger, samma mening. -->
-              <p class="t-micro o-ref-fin">Rabatten dras på fakturan när personen har beställt. Hoppar personen av behåller du ditt ordinarie pris.</p>
+                   blir "personen", tva ganger, samma mening.
+
+                   27 OKTOBER: tva ord och en bisats. "pa fakturan" blev "pa
+                   fakturans totalsumma", for det ar vad agaren rabatterar, och
+                   bisatsen "och skattereduktionen raknas sedan pa den lagre
+                   summan" ar den enda raden pa sidan som sager vad det gor med
+                   det kunden betalar. Den star HAR och ingen annanstans:
+                   doseringsdirektivet sager villkoret EN gang, och en rad som
+                   upprepas pa kortet hade dessutom gjort kortet till en
+                   brasklapp. Den namner inget tal, for talet skulle bli olika
+                   pa de fyra mallar som delar blocket. -->
+              <p class="t-micro o-ref-fin">Rabatten dras på fakturans totalsumma när personen har beställt, och skattereduktionen räknas sedan på den lägre summan. Hoppar personen av behåller du ditt ordinarie pris.</p>
             </section>
 
 

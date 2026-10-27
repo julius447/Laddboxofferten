@@ -15,7 +15,7 @@
   var TAK={"5990": 7, "9990": 9, "14900": null};
   var RYMS={"5990": 0, "9990": 0, "14900": 10};
   var TJANSTPOTT={"laddbox": "gt"};
-  var GRANNRABATT=500;
+  var GRANNRABATT=1000;
   var ORDNING = Object.keys(PKG).sort(function(a,b){ return a - b; });
 
   var offer = document.querySelector(".offer");
@@ -338,8 +338,16 @@
       rows += '<div class="o-sumrow disc"><span>Rekommendationsrabatt, ' + grannar
         + (grannar > 1 ? " personer inbjudna" : " person inbjuden")
         + '</span><span class="kr">dras när de beställt</span></div>'
-        + '<div class="o-sumnote">Upp till ' + kr(grannar * GRANNRABATT) + ' av, '
-        + GRANNRABATT + ' kr för varje person som beställer. Ditt pris här ändras inte '
+        /* SUMMERINGSNOTEN SAGER FAKTURAN, FRAN 27 OKTOBER (agarbeslut, se
+           beslut/grann-texterna.md). Raden sa "Upp till X av, Y kr", och
+           beloppet ar ett avdrag pa fakturans totalsumma, inte pa raden
+           under. Noten namner darfor fakturan, som blockets tre andra ytor.
+           OCH TALET GAR GENOM kr(). Raden skrev GRANNRABATT + ' kr', alltsa
+           talet rakt ut utan tusentalsavgransare: med 500 syntes det inte, med
+           1 000 hade raden sagt "1000 kr" bredvid en summering dar varje annat
+           belopp bar hardspatie. */
+        + '<div class="o-sumnote">Upp till ' + kr(grannar * GRANNRABATT) + ' av på fakturan, '
+        + kr(GRANNRABATT) + ' för varje person som beställer. Ditt pris här ändras inte '
         + 'förrän det hänt.</div>';
     }
     $("sumRows").innerHTML = rows;
