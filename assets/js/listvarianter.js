@@ -35,7 +35,7 @@
     var b = e.target.closest('button[data-n]');
     if (!b) return;
     var v = b.getAttribute('data-n');
-    offer.classList.remove('linje-b', 'linje-c');
+    offer.classList.remove('linje-b', 'linje-c', 'linje-d');
     if (v !== 'a') offer.classList.add('linje-' + v);
     ng.querySelectorAll('button').forEach(function (o) {
       o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
