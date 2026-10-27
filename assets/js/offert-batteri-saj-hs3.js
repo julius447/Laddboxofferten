@@ -203,7 +203,7 @@
          beslut/grann-texterna.md). Raden sa "Upp till X av, Y kr", och
          beloppet ar ett avdrag pa fakturans totalsumma, inte pa raden
          under. Noten namner darfor fakturan, som blockets tre andra ytor. */
-      +'<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av på fakturan, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
+      +'<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML=rows;
     /* POTTRADEN SKRIVS INTE HAR, DEN HAMTAS. Meningen bor i
        gemensamt/block/pottext.js och ar husets enda. Agaren, uppgift 3:

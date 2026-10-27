@@ -346,7 +346,7 @@
            talet rakt ut utan tusentalsavgransare: med 500 syntes det inte, med
            1 000 hade raden sagt "1000 kr" bredvid en summering dar varje annat
            belopp bar hardspatie. */
-        + '<div class="o-sumnote">Upp till ' + kr(grannar * GRANNRABATT) + ' av på fakturan, '
+        + '<div class="o-sumnote">Upp till ' + kr(grannar * GRANNRABATT) + ' av, '
         + kr(GRANNRABATT) + ' för varje person som beställer. Ditt pris här ändras inte '
         + 'förrän det hänt.</div>';
     }

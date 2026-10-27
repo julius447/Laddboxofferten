@@ -401,7 +401,7 @@
          '500 kr' stod har medan blocket ovanfor fick sitt tal ur bygget, sa
          samma skarm bar tva kallor till ett tal. GRANNRABATT kommer ur
          META["grannrabatt"] via js_data(), samma kalla som markupen. */
-      + '<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av på fakturan, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
+      + '<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML = rows;
     $("sumTotal").textContent = kr(mitt);
 
