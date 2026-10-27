@@ -393,11 +393,7 @@
     }
     var grannar=document.querySelectorAll("#refLista li").length;
     if (grannar) rows += '<div class="o-sumrow disc"><span>Rekommendationsrabatt, '+grannar+(grannar>1?' personer inbjudna':' person inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
-      /* SUMMERINGSNOTEN SAGER FAKTURAN, FRAN 27 OKTOBER (agarbeslut, se
-         beslut/grann-texterna.md). Raden sa "Upp till X av, Y kr", och
-         beloppet ar ett avdrag pa fakturans totalsumma, inte pa raden
-         under. Noten namner darfor fakturan, som blockets tre andra ytor.
-         OCH TALET AR INTE LANGRE EN LITERAL. kr(grannar*500) och strangen
+      /* TALET AR INTE EN LITERAL. kr(grannar*500) och strangen
          '500 kr' stod har medan blocket ovanfor fick sitt tal ur bygget, sa
          samma skarm bar tva kallor till ett tal. GRANNRABATT kommer ur
          META["grannrabatt"] via js_data(), samma kalla som markupen. */

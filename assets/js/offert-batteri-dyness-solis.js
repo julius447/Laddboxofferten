@@ -199,10 +199,8 @@
        dras pa fakturan nar grannen har bestallt. Beloppet ar mallens eget. */
     var grannar=document.querySelectorAll("#refLista li").length;
     if(grannar) rows+='<div class="o-sumrow disc"><span>Rekommendationsrabatt, '+grannar+(grannar>1?' personer inbjudna':' person inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
-      /* SUMMERINGSNOTEN SAGER FAKTURAN, FRAN 27 OKTOBER (agarbeslut, se
-         beslut/grann-texterna.md). Raden sa "Upp till X av, Y kr", och
-         beloppet ar ett avdrag pa fakturans totalsumma, inte pa raden
-         under. Noten namner darfor fakturan, som blockets tre andra ytor. */
+      /* Talet kommer ur bygget, aldrig en literal: GRANNRABATT satts av
+         js_data() ur mallens META, samma kalla som markupen ovanfor. */
       +'<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML=rows;
     /* POTTRADEN SKRIVS INTE HAR, DEN HAMTAS. Meningen bor i

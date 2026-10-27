@@ -338,11 +338,7 @@
       rows += '<div class="o-sumrow disc"><span>Rekommendationsrabatt, ' + grannar
         + (grannar > 1 ? " personer inbjudna" : " person inbjuden")
         + '</span><span class="kr">dras när de beställt</span></div>'
-        /* SUMMERINGSNOTEN SAGER FAKTURAN, FRAN 27 OKTOBER (agarbeslut, se
-           beslut/grann-texterna.md). Raden sa "Upp till X av, Y kr", och
-           beloppet ar ett avdrag pa fakturans totalsumma, inte pa raden
-           under. Noten namner darfor fakturan, som blockets tre andra ytor.
-           OCH TALET GAR GENOM kr(). Raden skrev GRANNRABATT + ' kr', alltsa
+        /* TALET GAR GENOM kr(). Raden skrev GRANNRABATT + ' kr', alltsa
            talet rakt ut utan tusentalsavgransare: med 500 syntes det inte, med
            1 000 hade raden sagt "1000 kr" bredvid en summering dar varje annat
            belopp bar hardspatie. */
