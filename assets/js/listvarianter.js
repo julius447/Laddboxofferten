@@ -28,6 +28,20 @@
     });
   });
 
+  // Korslinjen i tillitsrutorna. Hela linjen hanger pa en variabel,
+  // --tillitslinje, sa varianten ar en klass pa .offer och inget annat.
+  var ng = document.querySelector('.switch-linje');
+  if (ng) ng.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-n]');
+    if (!b) return;
+    var v = b.getAttribute('data-n');
+    offer.classList.remove('linje-b', 'linje-c');
+    if (v !== 'a') offer.classList.add('linje-' + v);
+    ng.querySelectorAll('button').forEach(function (o) {
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
+    });
+  });
+
   grupp.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-l]');
     if (!b) return;

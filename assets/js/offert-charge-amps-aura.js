@@ -32,11 +32,8 @@
   var INGAR={"0": [], "1590": ["perific", "kabelhallare"], "3710": ["kw22", "perific", "kabel11", "kabel22", "kabelhallare"]};
   var PKGVARIANT={"1590": {"perific": "Perific One"}, "3710": {"perific": "Perific Max"}};
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
-  /* CEN GENERERAS UR offerter/elcentral/paket.json, den mall som ager
-     produkten. Kartan var en literal har till 23 okt, och fore det bar den
-     9 900 och 12 900 ur Rasmus prislista, alltsa 90 kr och 2 000 kr fran vad
-     elcentralofferten sager om samma central. Tva Ampy-ytor far inte saga
-     olika, och nu finns bara ett stalle att saga det pa. Beslut C4 19 okt. */
+  /* CEN genereras ur offerter/elcentral/paket.json, den mall som ager
+     produkten. En kalla, en sanning. Skalet star i beslut/19-oktober.md (C4). */
   var CEN={"5990": "Byte av elcentral, liten", "9990": "Byte av elcentral, medel", "14900": "Byte av elcentral, stor"};
 
   /* kundens egna kryss minns, så ett paketbyte aldrig raderar dem tyst */

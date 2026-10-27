@@ -2511,8 +2511,9 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    kortets ytterkant vid varje bredd (uppmatt). En mork linje som moter
    kortets ljusa 1 px-kant ger en T-skarv mellan tva olika linjer.
 
-   LINJEFARGEN. --ink (#090b32) ar det morkaste huset har och mater 18,4:1 mot
-   vitt. Byt linje genom att satta om EN variabel, --tillitslinje.
+   LINJEFARGEN. --ink (#090b32) ar det morkaste huset har och mater 19,00:1
+   mot vitt; akta svart ger 21,00:1 och gar inte att skilja pa en 1 px linje.
+   Byt linje genom att satta om EN variabel, --tillitslinje.
    =========================================================================== */
 .offer .o-tillit{
   --tillitslinje:var(--ink);
@@ -2567,6 +2568,14 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .o-tillit{--tillit-ikon:56px;}
   .offer .o-tillit > li{padding:var(--s6) var(--s5);}
 }
+
+/* Korslinjens tre lagen, bara for granskningsramen att vaxla mellan. Uppmatt
+   kontrast mot vitt: A 19,00:1 (--ink, akta svart ger 21,00 och gar inte att
+   skilja pa en 1 px linje), B 1,41:1 (--line-2, husets egen harlinje),
+   C 1,91:1 (ink 28 procent, komposit #babbc6). En linje ar dekor och har
+   inget kontrastkrav; talen star har for att valet ska vara upplyst. */
+.offer.linje-b .o-tillit{--tillitslinje:var(--line-2);}
+.offer.linje-c .o-tillit{--tillitslinje:rgba(9,11,50,.28);}
 
 /* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}
