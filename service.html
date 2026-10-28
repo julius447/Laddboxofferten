@@ -570,6 +570,12 @@
         <span class="oa__kvitto-rad"><span id="oaPaket">Paket</span><b class="kr" id="oaTotal"></b></span>
         <span class="oa__kvitto-not">inkl. moms, efter skattereduktion</span>
       </p>
+      <!-- RADERNA, DATUMET OCH FOLDARNA fylls av gemensamt/block/acceptkvitto.js
+           ur sidans EGNA element: raderna ur #sumRows, foldarna ur sidans egna
+           <details>. Ingen text ar avskriven hit, for en avskrift ar en andra
+           sanning. Tomma och dolda tills skarmen oppnas. -->
+      <div class="oa__rader" id="oaRader" hidden></div>
+      <p class="oa__datum" id="oaDatum" hidden></p>
     </section>
 
     <!-- 2 · what happens next -->
@@ -593,7 +599,10 @@
       </div>
     </section>
 
-    <!-- 3 · trust + contact + close -->
+    <!-- 3 · villkoren och kostnaderna, klonade ur sidan -->
+    <section class="oa__section oa__folds" id="oaFolds" hidden></section>
+
+    <!-- 4 · trust + contact + close -->
     <section class="oa__section">
       <div class="oa__trust">
         <span class="oa__trust-item">
@@ -677,5 +686,6 @@
 <script src="assets/js/grann.js"></script>
 <script src="assets/js/ankare.js"></script>
 <script src="assets/js/foreefter.js"></script>
+<script src="assets/js/acceptkvitto.js"></script>
 </body>
 </html>
