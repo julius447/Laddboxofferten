@@ -58,7 +58,18 @@
     return null;
   }
 
-  function fyll() {
+  /* FYLLD EN GANG PER OPPNING, INTE EN GANG PER KLICK. Forsta versionen
+     fyllde pa varje klick i dokumentet, och det ar en bugg som ser ut som att
+     foldarna ar trasiga: kunden trycker pa "Villkor", browsern oppnar den, och
+     i SAMMA klick bygger den har filen om #oaFolds fran grunden sa den oppnade
+     folden byts mot en ny stangd klon. Uppmatt 29 oktober: details.open blev
+     true, men elementet lag inte kvar i dokumentet. Agaren sag det som att
+     ingenting hande. */
+  var fylld = false;
+
+  function fyll(tvinga) {
+    if (!tvinga && fylld) return;
+    fylld = true;
     var etikett = document.getElementById("oaPaket");
     if (etikett) etikett.textContent = "Att betala";
 
@@ -116,12 +127,16 @@
      rora fem separata visaSkarm(). Observern star kvar for de vagar som inte
      gar via ett klick. */
   document.addEventListener("click", function () {
-    if (!skarm.hidden) fyll();
+    if (!skarm.hidden) fyll(false);
   });
 
+  /* Observern aterstaller flaggan nar skarmen gommes och fyller OM nar den
+     visas igen, sa en kund som gar tillbaka, andrar sina val och accepterar en
+     gang till far de nya raderna och inte de gamla. */
   new MutationObserver(function () {
-    if (!skarm.hidden) fyll();
+    fylld = false;
+    if (!skarm.hidden) fyll(true);
   }).observe(skarm, { attributes: true, attributeFilter: ["hidden"] });
 
-  if (!skarm.hidden) fyll();
+  if (!skarm.hidden) fyll(true);
 })();
