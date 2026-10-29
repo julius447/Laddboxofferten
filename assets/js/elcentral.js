@@ -12,7 +12,7 @@
   function kr(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0") + "\u00a0kr"; }
 
   var PKG={"5990": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp", "bildduk": "174.7", "grupper": 7}, "9990": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp", "bildduk": "134.1", "grupper": 16}, "14900": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp", "bildduk": "96", "grupper": 32}};
-  var TAK={"5990": 7, "9990": 9, "14900": null};
+  var TAK={"5990": 18, "9990": 22, "14900": null};
   var RYMS={"5990": 0, "9990": 0, "14900": 10};
   var TJANSTPOTT={"laddbox": "gt"};
   var GRANNRABATT=1000;
@@ -371,31 +371,66 @@
      nasta sager sidan det sjalv. Talet kommer ur TAK, som bygget harleder ur
      priserna och ett orakel haller sant. Sidan kan alltsa inte saga fel sak
      aven om nagon andrar ett pris. */
+  /* Summan av de extra dvargbrytarna, oavsett ampere: antal i modulplatser och
+     belopp i kronor. Null nar ingen rad ar vald, sa anroparna kan prova pa den. */
+  function summeraDvarg(rader){
+    var antal = 0, belopp = 0, fanns = false;
+    rader.forEach(function(r){
+      if (r.grupp && r.grupp.indexOf("dvargbrytare") === 0) {
+        fanns = true; antal += r.antal; belopp += r.belopp;
+      }
+    });
+    return fanns ? {antal: antal, belopp: belopp} : null;
+  }
+
   function taket(nyckel, rader){
     var rad = $("takRad");
     if (!rad) return false;
     var tak = TAK[nyckel];
     var extra = null;
-    rader.forEach(function(r){ if (r.grupp === "dvargbrytare") extra = r; });
+    /* TVA DVARGBRYTARRADER SEDAN 29 OKTOBER (C10 A och C16 A). Taket och
+       platsen handlar om MODULPLATSER, och en modulplats bryr sig inte om
+       amperen: bada raderna tar en plats per brytare. Darfor summeras de.
+       Forsta versionen last bara "dvargbrytare" och hade alltsa slutat se
+       halva kopet i det ogonblick raden delades. */
+    extra = summeraDvarg(rader);
     if (tak == null || !extra || extra.antal <= tak) { rad.hidden = true; return false; }
 
+    /* STORLEKEN SOM FAKTISKT RYMMER DEM, inte bara nasta i ordningen.
+       Raden sa "nasta storlek har plats for dem fran borjan" vid VARJE antal
+       over taket. Uppmatt 29 oktober: vid tolv extra pa Liten lovade den att
+       Medel rymmer nitton grupper, och Medel bar sexton. Nu valjs den minsta
+       storlek vars egna dvargbrytare racker till, och racker ingen sager
+       raden det i stallet for att peka pa en som inte gor det. */
     var i = ORDNING.indexOf(nyckel);
-    var nasta = ORDNING[i + 1];
-    var np = PKG[nasta];
+    var vill = PKG[nyckel].grupper + extra.antal;
+    var nasta = null;
+    for (var k = i + 1; k < ORDNING.length; k++) {
+      if (PKG[ORDNING[k]].grupper >= vill) { nasta = ORDNING[k]; break; }
+    }
     rad.hidden = false;
-    $("takText").innerHTML = "Med " + extra.antal + " extra dvärgbrytare kostar "
-      + PKG[nyckel].namn + " <b>" + kr(parseInt(nyckel, 10) + extra.belopp) + "</b>. "
-      + np.namn + " kostar <b>" + kr(parseInt(nasta, 10)) + "</b> och har plats för dem från början.";
+    var start = "Med " + extra.antal + " extra dvärgbrytare kostar "
+      + PKG[nyckel].namn + " <b>" + kr(parseInt(nyckel, 10) + extra.belopp) + "</b>. ";
+    if (!nasta) {
+      var storst = PKG[ORDNING[ORDNING.length - 1]];
+      $("takText").innerHTML = start + "Så många grupper ryms inte ens i " + storst.namn
+        + ", som har <b>" + storst.grupper + "</b> dvärgbrytare från början. Ring oss så "
+        + "räknar vi på rätt lösning.";
+      $("takKnapp").hidden = true;
+      return true;
+    }
+    $("takKnapp").hidden = false;
+    var np = PKG[nasta];
+    $("takText").innerHTML = start + np.namn + " kostar <b>" + kr(parseInt(nasta, 10))
+      + "</b> och har plats för dem från början.";
     var k = $("takKnapp");
     k.textContent = "Byt till " + np.namn;
     k.onclick = function(){
       var inp = offer.querySelector('input[name="pkg"][value="' + nasta + '"]');
       if (!inp) return;
       inp.checked = true;
-      var ruta = offer.querySelector('[data-antal="dvargbrytare"]');
-      if (ruta) ruta.value = 1;
-      var kryss = offer.querySelector('.o-rad input[data-grupp="dvargbrytare"]');
-      if (kryss) kryss.checked = false;
+      offer.querySelectorAll('[data-antal^="dvargbrytare"]').forEach(function(ruta){ ruta.value = 1; });
+      offer.querySelectorAll('.o-rad input[data-grupp^="dvargbrytare"]').forEach(function(kryss){ kryss.checked = false; });
       rakna();
       scrollTill(offer.querySelector("#pkgs"));
     };
@@ -415,7 +450,7 @@
   function platsMening(namn, ryms, antal, kapslingPris, nasta, nastaGrupper){
     if (ryms <= 0) {
       return "I " + namn + " ryms inga extra dvärgbrytare. Då behövs en extra kapsling, +" + kr(kapslingPris)
-        + (nasta ? ", eller " + nasta + " som har plats för " + nastaGrupper + " grupper från början." : ".");
+        + (nasta ? ", eller " + nasta + " som har " + nastaGrupper + " dvärgbrytare från början." : ".");
     }
     return "I " + namn + " ryms " + ryms + " extra dvärgbrytare. För " + antal
       + " behövs en extra kapsling, +" + kr(kapslingPris) + ".";
@@ -425,7 +460,12 @@
     var rad = $("platsRad");
     if (!rad) return;
     var extra = null;
-    rader.forEach(function(r){ if (r.grupp === "dvargbrytare") extra = r; });
+    /* TVA DVARGBRYTARRADER SEDAN 29 OKTOBER (C10 A och C16 A). Taket och
+       platsen handlar om MODULPLATSER, och en modulplats bryr sig inte om
+       amperen: bada raderna tar en plats per brytare. Darfor summeras de.
+       Forsta versionen last bara "dvargbrytare" och hade alltsa slutat se
+       halva kopet i det ogonblick raden delades. */
+    extra = summeraDvarg(rader);
     var kapsling = offer.querySelector('.o-rad input[data-grupp="kapsling"]');
     var ryms = RYMS[nyckel];
     if (takSyns || !extra || ryms == null || extra.antal <= ryms || (kapsling && kapsling.checked)) {

@@ -14,8 +14,7 @@
   var GRANNRABATT=3000;
   var CEN={"5990": "Byte av elcentral, liten central", "9990": "Byte av elcentral, mellan central", "14900": "Byte av elcentral, stor central"};
   var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
-  var BOCK="<span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span>";
-  var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Installation av våra egna elektriker", "Montering av batteri och växelriktare", "Anslutning till elcentralen, upp till 10 meter kabel", "Inkoppling mot dina befintliga solceller", "Föranmälan och färdiganmälan till nätbolaget", "Frakt hem till dig", "Konfigurering, driftsättning och funktionstest", "Kontrollmätning av anläggningen", "Genomgång av appen", "10 års produktgaranti"]};
+  var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Våra egna elektriker installerar och monterar", "Anslutning till elcentralen, upp till 10 meter kabel, och till dina befintliga solceller", "För- och färdiganmälan till nätbolaget, frakt hem till dig", "Konfigurering, driftsättning, funktionstest, kontrollmätning och genomgång av appen", "10 års produktgaranti"]};
   var ST=MODELL.storlekar, BAS=ST[FORVAL];
   /* GRON TEKNIK AR HALVA BRUTTOT, MEN HOGST POTTEN.
      Modellfilen bar BRUTTO per storlek sedan 24 okt: det fysiska priset,
@@ -64,21 +63,32 @@
     return o ? (+o.getAttribute("data-steg") || 0) : 0;
   }
 
-  /* Se allt som ingar: listan foljer den EFFEKTIVA storleken, alltsa det
-     som faktiskt installeras. Markupen ar samma punktlista som laddboxens,
-     bocken ur bitar.py via bygget. */
+  /* HARDVARAN I HJALTEN: foljer den EFFEKTIVA storleken, alltsa det som
+     faktiskt installeras nar Mer lagring ar ikryssad.
+
+     TVA ANDRINGAR 29 OKTOBER, bada agarbeslut.
+     1. Funktionen returnerar BARA hardvaran. Jobbledet beror inte pa vald
+        storlek, star statiskt i markupen ur bygget (#incJobb) och rors aldrig
+        harifran. Darfor behover skriptet ingen $()-uppslagning for det, vilket
+        ocksa haller det generiska oraklet js_id nojt utan att nagot laggs i
+        villkorliga.
+     2. Utan BOCK. I en fold som hette "Se allt som ingar" markerade bocken vad
+        som INGAR mot vad som inte gor det (.o-ingar li.utan); i hjalten finns
+        ingen sadan motsats, och bocken kostade 24 px.
+     MARKUPEN HAR MASTE VARA ORD FOR ORD DEN SOM offert.py:_ingar_hardvara
+     bygger. Bygget renderar listan statiskt sa att den finns utan JavaScript,
+     och den har raden skriver om den: drar de tva isar byter raden utseende i
+     det ogonblick skriptet kor. */
   function ingarLista(s){
     var mod = s.moduler ? ", "+s.moduler+(s.moduler===1?" modul à ":" moduler à ")+kwh(MODELL.modul_kwh)+" kWh" : "";
     function fyll(t){
       return t.replace("{batteri}", MODELL.batteri).replace("{kwh}", kwh(s.kwh))
               .replace("{moduler}", mod).replace("{vaxelriktare}", s.vaxelriktare);
     }
-    var ut=INGAR.hard.map(function(h){
+    return INGAR.hard.map(function(h){
       var spec=fyll(h.spec);
-      return '<li class="prod">'+BOCK+'<span><b>'+fyll(h.namn)+'</b>'+(spec?'<span>'+spec+'</span>':'')+'</span></li>';
-    });
-    ut=ut.concat(INGAR.jobb.map(function(j){ return '<li>'+BOCK+'<span>'+j+'</span></li>'; }));
-    return ut.join("");
+      return '<li class="prod"><span><b>'+fyll(h.namn)+'</b>'+(spec?'<span>'+spec+'</span>':'')+'</span></li>';
+    }).join("");
   }
 
   function render(){
@@ -136,8 +146,14 @@
     var takBiter=gtAvdrag<Math.floor(gtBrutto/2);
     var brutto=gtBrutto, total=gtNetto+rot;
 
-    /* Hjalten. Specen sager den effektiva storleken: det som installeras. */
-    $("prodSpec").textContent=kwh(s.kwh)+" kWh, monterad och driftsatt";
+    /* HJALTEN. Specen bar inget kWh-tal sedan 29 oktober. Agaren, ordagrant:
+       "Ta bort 20 kWtimmar ... dar det star kilowatt och vi vill bara ha
+       monterad och driftsatt." Strangen ar darfor konstant och identisk med
+       den bygget skriver i markupen: vore bara den ena andrad skulle det gamla
+       talet blinka forbi innan den har raden kor. Oraklet i offert.py (punkt
+       3c) kraver bada, och forbjuder kWh i bada. Den effektiva storleken star
+       pa hardvaruraden nedanfor, dar agaren vill ha den. */
+    $("prodSpec").textContent="Monterad och driftsatt";
     $("calcGross").textContent=kr(brutto);
     /* ETIKETTEN MASTE FOLJA TALET. Nar taket biter ar avdraget potten och
        inte halva bruttot, och raden far inte saga "50 procent" da. Kunden kan
@@ -145,8 +161,8 @@
        "Gron teknik, taket for tva personer" brot till tva rader i hjaltens
        209 px och flyttade sidan 20 px under fingret. Vad taket betyder star i
        summeringen, bredvid raden som bar mellanskillnaden. */
-    $("calcDedNamn").textContent = takBiter ? "Grön teknik"
-                                            : "Grön teknik, 50 procent";
+    $("calcDedNamn").textContent = takBiter ? "Avdrag för grön teknik"
+                                            : "50 % avdrag för grön teknik";
     $("calcDed").textContent="−"+kr(gtAvdrag);
     $("calcCenRad").classList.toggle("dold", !harRot);
     if(harRot){
@@ -167,7 +183,12 @@
        batteriet far o-driften inget avdrag alls, och det ska sta som en rad
        med sitt skal, inte gommas i totalen. Kunden kan rakna. */
     var gtRader=netto(BAS.brutto);
-    var rows='<div class="o-sumrow"><span>'+MODELL.namn+', '+kwh(BAS.kwh)+' kWh</span><span class="kr">'+kr(netto(BAS.brutto))+'</span></div>';
+    /* FORSTA RADEN BAR MODELLNAMNET OCH INGET KWH-TAL (agarbeslut 29 okt,
+       ordagrant: "pa din summering har vi ocksa i det har fallet 20 kW. Det
+       vill vi ocksa ta bort."). Talet var obevakat: jag tog bort det innan
+       oraklet fanns och bygget sa ingenting. Punkt 3e i offert.py laser den
+       har raden nu. */
+    var rows='<div class="o-sumrow"><span>'+MODELL.namn+'</span><span class="kr">'+kr(netto(BAS.brutto))+'</span></div>';
     if(lagringRad){ gtRader+=lagringRad.pris;
       rows+='<div class="o-sumrow sub"><span>'+lagringRad.namn+'</span><span class="kr">'+kr(lagringRad.pris)+'</span></div>'; }
     valda.forEach(function(v){

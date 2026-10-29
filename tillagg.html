@@ -132,27 +132,29 @@
       <p class="oa__datum" id="oaDatum" hidden></p>
     </section>
 
-    <!-- 2 · what happens next -->
-    <section class="oa__section">
-      <div class="oa__next">
-      <h2 class="oa__eyebrow">Så här går vi vidare</h2>
-      <ol class="oa__steps">
-        <li class="oa__step">
-          <span class="oa__node" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
-          <span class="oa__step-text">Din accept är registrerad<small>Klart, vi har tagit emot ditt godkännande.</small></span>
-        </li>
-        <li class="oa__step">
-          <span class="oa__node" aria-hidden="true"><span>2</span></span>
-          <span class="oa__step-text">Elektrikern tar det härifrån<small>Du behöver inte göra något mer.</small></span>
-        </li>
-      </ol>
-      </div>
-    </section>
+    <!-- SA HAR GAR VI VIDARE AR BORTTAGEN. AGARORDER 29 OKTOBER, ORDAGRANT:
+         "SAHAR GAR VI VIDARE och alla dess 1/2/3 steg och copy tar vi bort
+         helt och hallet fran alla acceptera mallarna."
 
-    <!-- 3 · villkoren och kostnaderna, klonade ur sidan -->
+         Beslutet togs i motet 29 okt: "de har ju accepterat offerten...
+         Din offert ar nu accepterad. Ja, men det kanske racker."
+         Och: "for oss pingar det ju till sa fort en offert ar godkand. Sen
+         tar ju vi action pa det. Jag tror inte manga ar sa har, jaha, nu da.
+         De kommer ju fa en bokningsbekraftelse snart."
+
+         DET UPPHAVER tva saker: det delade blockets steg 2 namngav bokaren
+         (data-oa="bokare.namn"), och tillaggsmallen skrev om steg 2 och tog
+         bort steg 3 lokalt for att elektrikern redan star hos kunden. Bada
+         de lokala ratningarna ar nu onodiga och borttagna i sina
+         offert.py-filer. Avbojsskarmens egen "Vad som hander nu" star KVAR:
+         agarordern galler accepteraskarmen, och den som avbojer far ingen
+         bokningsbekraftelse som berattar vad som hander sedan.
+    -->
+
+    <!-- 2 · kostnaderna, forberedelserna och villkoren, klonade ur sidan -->
     <section class="oa__section oa__folds" id="oaFolds" hidden></section>
 
-    <!-- 4 · trust + contact + close -->
+    <!-- 3 · trust + contact + close -->
     <section class="oa__section">
       <div class="oa__trust">
         <span class="oa__trust-item">

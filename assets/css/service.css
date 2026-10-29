@@ -241,6 +241,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-fold[open]>summary::after{transform:rotate(-135deg);margin-top:var(--s1);}
 @media (prefers-reduced-motion: reduce){ .o-fold>summary::after{transition:none;} }
 .o-fold .body{padding:0 var(--s4) var(--s4);}
+/* FORBEREDELSELISTAN i folden "Vad behöver du göra före installationen?".
+   Punkterna är korta instruktioner, inte en innehållslista, så de bär ingen
+   bock: en bock betyder "det här ingår" på den här sidan, och det här är
+   tvärtom något kunden ska göra. Prick i teal, samma gap som folden i övrigt.
+   Listan ligger i en <template> på offertsidan och renderas först inne i
+   #skarmAccept, där tokens är omdefinierade men --teal är samma värde. */
+.o-forbered{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--s3);}
+.o-forbered li{position:relative;padding-left:var(--s4);color:var(--muted);}
+.o-forbered li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--teal);}
+#skarmAccept .o-forbered li{font-size:13.5px;line-height:1.5;}
 /* EN BOCK, INTE TVÅ. Ägarorder 18 okt: varje rad bär samma symbol, den
    ifyllda brickan med svart bock. En lista med två sorters bockar läser som
    två sorters sanning, och allt i listan är lika mycket "ingår".
@@ -918,21 +928,10 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 #skarmAccept .oa__ref{ display:inline-block; font-size:13px; font-weight:600; letter-spacing:.01em;
   color:var(--teal-ink); background:rgba(0,169,145,.08); border:1px solid rgba(0,169,145,.16);
   padding:6px 13px; border-radius:999px; }
-#skarmAccept .oa__next{ width:fit-content; max-width:100%; margin-inline:auto; }
-#skarmAccept .oa__eyebrow{ margin:0 0 16px; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:.14em; color:var(--teal-deep); }
-#skarmAccept .oa__steps{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:30px; }
-#skarmAccept .oa__step{ position:relative; display:flex; align-items:flex-start; gap:18px; }
-#skarmAccept .oa__node{ position:relative; z-index:1; flex:0 0 auto; width:42px; height:42px; border-radius:50%;
-  display:grid; place-items:center; 
-  background:linear-gradient(145deg,var(--teal-deep),var(--teal-ink));
-  box-shadow:0 6px 16px rgba(0,169,145,.34), inset 0 0 0 3px rgba(255,255,255,.9); }
-#skarmAccept .oa__step:not(:last-child)::after{ content:""; position:absolute; z-index:0;
-  left:21px; margin-left:-1px; width:2px; top:42px; height:calc(100% - 12px);
-  background:linear-gradient(180deg, rgba(0,169,145,.42), rgba(0,169,145,.12)); }
-#skarmAccept .oa__node span{ font-size:16px; font-weight:600; color:#fff; line-height:1; }
-#skarmAccept .oa__node svg{ width:18px; height:18px; fill:none; stroke:#fff; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
-#skarmAccept .oa__step-text{ font-size:17px; line-height:1.35; font-weight:600; color:var(--ink); }
-#skarmAccept .oa__step-text small{ display:block; font-size:14px; font-weight:400; color:var(--ink-soft); line-height:1.4; margin-top:4px; }
+/* STEGREMSANS REGLER AR BORTTAGNA. Agarorder 29 oktober tog bort
+   'Sa har gar vi vidare' ur acceptskarmen, och darmed oa__next, oa__eyebrow,
+   oa__steps, oa__step, oa__node och oa__step-text. Reglerna for #skarmAvboj
+   star kvar: avbojsskarmen behaller sin 'Vad som hander nu'. */
 #skarmAccept .oa__trust{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 18px; text-align:center; }
 #skarmAccept .oa__trust-item{ display:inline-flex; align-items:center; gap:7px; font-size:13.5px; color:var(--ink-soft); }
 #skarmAccept .oa__stars{ display:inline-flex; gap:2px; }
@@ -1618,56 +1617,113 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .ampy-testimonials .att-badge__stars svg{fill:var(--stjarna);}
 
 /* ===========================================================================
-   TILLITSBLOCKET, TRE VARIANTER. Bara granskningsramen växlar.
-   Tre designagenter läste originalet ur offertmallen (r2-checkouten) med
-   varsin lins. De var eniga om fyra saker och oense om en.
+   OMDÖMESKORTETS YTA ÄR LJUS. ÄGARVAL 29 OKTOBER, OCH DET RIVER DET GAMLA.
 
-   ENIGA: ett citat och ingen karusell; inget "5 av 5" och ingen volymsiffra
-   inne i kortet; citattecknet i teal på FULL opacitet, inte #00c4a7 på 0,55;
-   namnet i vitt, inte i en tredje gråton.
+   Ordagrant: "den här mörkblåa bakgrundsfärgen [passar] inte in med resten av
+   designen på våra fackmallar (...) Det kan vara en ljus färg med svart text.
+   Det spelar ingen roll. Den måste bara vara bättre. Den mörka kontrasten
+   passar inte in i vår annars väldigt moderna offertmall." Allt utom färgen
+   ska vara kvar: citattecknet, texten, namnet, linjen, de fem stjärnorna,
+   layouten, radien, bredden.
 
-   OENSE om ytan, och det är det som skiljer varianterna åt:
-     A Kortet   mörkt kort på den ljusa sidan. Närmast det du pekade på.
-     B Bandet   hela sektionen mörk, kant till kant, radie 0, inget kort inuti.
-                Ytlinsens svar: ingen token ger 3:1 mot midnatt, så en mörk box
-                i ett mörkt band går inte att rita. Bandet ÄR kortet.
-     C Fotot    originalets hus i skymning under slöja. Uppmätt på den riktiga
-                filen: slöjans sämsta punkt ger 2,53:1 mot vit text, alltså 56
-                procent av kravet. Slöjan måste till 0,56 för att nå 5,10:1, och
-                då är greppet, att bilden andas ut åt höger, borta. Varianten
-                finns här så du kan se priset, inte för att jag rekommenderar den.
+   DET HÄR UPPHÄVER ÄGARVALET 19 OKTOBER, "A Kortet, mörkt kort på den ljusa
+   sidan". Den journalen stod här och förklarade varför varje färg i kortet
+   förutsatte en mörk yta. Den färgen finns inte kvar, så journalen är omskriven
+   i stället för bevarad: en kommentar som beskriver gårdagens beslut är en
+   andra sanning. Bytet går dessutom TILLBAKA till husregeln, inte emot den
+   (ägardirektiv 14 sept: ljusa ytor i nya verktyg och block, midnight bara
+   som text).
 
-   Mätt på plan #090b32: vit text 19,00:1, teal #00a991 6,41:1, stjärna
-   #f5a623 9,37:1, vit ruta 19,00:1, sömmen mot sidbakgrunden 17,98:1.
-   teal-ink #017666 ger bara 3,42:1 och duger alltså inte till text här.
+   VARFÖR EN RITAD KANT OCH INTE EN TONAD PLATTA. När ytan blir ljus försvinner
+   det som skilde kortet från sidan. Sidan är --bg #f5f9ff och husets kort är
+   --card #ffffff, så ett vitt kort på en ljus sida har nästan ingen egen kant.
+   Tre riktningar mättes mot varandra 29 okt (sonden omdomeskort-riktningar.js,
+   som injicerar varje riktning i den byggda sidan och läser om kulörerna):
+     R1 tonplattan   --teal-soft som yta. Skiljer sig genom TON. Brödtext
+                     16,97:1, men ytan mot sidan bara 1,06:1 i luminans: i
+                     gråskala och på papper finns kortet inte. Stjärnan sämst
+                     av alla tre, 1,81:1.
+     R2 kortkanten   vitt --card + 1 px --line-2. VALD. Skiljer sig genom en
+                     RITAD gräns, inte genom ton, så den syns även där kulören
+                     inte gör det. Högst kontrast på varje textdel.
+     R3 ljusa bandet tonad sektion, vitt kort inuti. Håller vid 375, men faller
+                     vid 1180: bandet är fullbredd under 1024 och bara kolumn 1
+                     över, så "bandet" slutar mitt på sidan vid x=716. Samma fel
+                     som raden ovanför redan bokfört: samma block såg olika ut i
+                     tre bredder.
+
+   --line-2 OCH INTE --kant, trots att --kant mäter mer. Uppmätt mot sidbotten:
+   --kant 2,33:1, --line-2 1,33:1. Mätningen pekar på --kant, husets grammatik
+   på --line-2, och grammatiken vinner: varje --kant-kantad låda i offerten är
+   något kunden VÄLJER (.o-pkg, .o-opt, .o-variant, markörerna), och ett omdöme
+   går inte att välja. --line-2 är husets passiva kort, exakt som .o-granne
+   (#fff + 1 px --line-2 + --r2) och de fyra certrutorna direkt under det här
+   kortet. En starkare kant hade gjort citatet till ett paketkort.
+
+   MÄTT PÅ PLAN #ffffff (sonden omdomeskort.js, 375 och 1180, samma tal):
+   ink-text 19,00:1, namnet 19,00:1, citattecknet i teal-ink #017666 5,55:1,
+   linjen i kortet 1,41:1 (mörka ytans rgba gav 1,48 — paritet), kanten mot
+   sidan 1,33:1. Stjärnan #f5a623 faller från 9,37:1 till 2,03:1, och det är
+   priset för ägarvalet. Det är INTE en ny defektklass: husets eget hjältebetyg
+   .o-betyg__stjarnor ligger redan på 1,92:1 mot samma sidbotten på varje sida
+   som skeppas, så kortet går in i en standard som redan gäller i stället för
+   att hitta på en sämre. Stjärnan behåller sin token (EN STJÄRNA, EN FÄRG,
+   raden ovanför) och meningen bärs av aria-label "5 av 5 stjärnor".
+
+   TVÅ TOKEN BYTER HÅLL, inte för att de var fel utan för att planet är ett
+   annat. teal-ink #017666 gav 3,42:1 mot midnatt och dög därför inte till
+   tecknet DÄR; mot vitt ger den 5,55:1 och full teal #00a991 bara 2,96:1. Det
+   som var rätt på mörkt är fel på ljust, åt båda hållen.
+
+   DE TVÅ MÖRKA VARIANTERNA FINNS KVAR, nedtill, och bara granskningsramen
+   växlar dem (listvarianter.js, som bara granskning.html laddar). De är de
+   riktningar ägaren nu vänder, och de måste därför SJÄLVA sätta sin vita text,
+   sitt fulla teal och sin ljusa linje: basen bär ljusytans kulörer nu.
+     B Bandet  hela sektionen mörk, kant till kant, radie 0, inget kort inuti.
+               Ingen token ger 3:1 mot midnatt, så en mörk box i ett mörkt band
+               går inte att rita. Bandet ÄR kortet.
+     C Fotot   huset i skymning under slöja. Slöjans sämsta punkt gav 2,53:1
+               mot vit text, alltså 56 procent av kravet; 0,62 ger 6,19:1 och
+               då syns huset knappt. Finns kvar så priset går att se.
    =========================================================================== */
 .offer .ampy-testimonials .o-cit{
   position:relative;margin:0;border-radius:var(--r3);overflow:hidden;isolation:isolate;
-  background:var(--ink);max-width:640px;margin-inline:auto;}
+  background:var(--card);border:1px solid var(--line-2);
+  max-width:640px;margin-inline:auto;}
 .offer .ampy-testimonials .o-cit__foto{display:none;}
 .offer .ampy-testimonials .o-cit__inner{position:relative;z-index:2;padding:var(--s5);}
 @container (min-width: 760px){ .offer .ampy-testimonials .o-cit__inner{padding:var(--s6);} }
 /* Citattecknet är en RITAD FORM, inte ett glyf. Inters ” bär omkring 0,24 em
    bläck, så vid den största tillåtna graden 30 px syns 7 px tecken. Originalet
    behövde 72 px för att synas, och 72 finns inte i skalan. En form på 32 x 32
-   ger 24 px bläck på under halva ytan. Full opacitet: #00a991 på 0,55 mot
-   midnatt komponeras till en smutsgrön fläck och halverar kontrasten. */
-.offer .ampy-testimonials .o-cit__tecken{display:block;width:var(--z4);height:var(--z4);fill:var(--teal);}
+   ger 24 px bläck på under halva ytan.
+   TEAL-INK PÅ LJUS YTA, full opacitet. Mot vitt ger --teal 2,96:1 och
+   --teal-ink 5,55:1, alltså tvärtom mot den mörka ytan där --teal gav 6,41 och
+   --teal-ink 3,42. Tecknet byter token för att planet bytte, inte för att
+   valet var fel. Ingen genomskinlighet: ett tecken på 0,55 komponeras till en
+   fläck och halverar kontrasten på vilket plan som helst. */
+.offer .ampy-testimonials .o-cit__tecken{display:block;width:var(--z4);height:var(--z4);fill:var(--teal-ink);}
 .offer .ampy-testimonials .o-cit__text{margin:var(--s4) 0 0;font-size:20px;font-weight:400;line-height:1.45;
-  letter-spacing:-.01em;color:#fff;}
+  letter-spacing:-.01em;color:var(--ink);}
 @container (min-width: 760px){ .offer .ampy-testimonials .o-cit__text{max-width:48ch;} }
-/* Vitt, inte #aeb8d4. Den grå tonen ger 3,04:1 mot midnatt och faller under
-   AA. På en mörk yta dämpar man en signatur med grad och vikt, inte med en
-   tredje gråton. */
-/* cite är kursiv och inline som standard. Inters kursiv är en lutad
-   variant som tappar upplevd stamvikt i vitt mot midnatt, och en inline-
-   signatur tar inte emot marginalen över citatet. */
+/* --ink, inte --body och inte --muted. Ägaren bad om "svart text", och husets
+   svarta är --ink: 19,00:1 mot vitt. --body #333333 ger 12,63 och --muted
+   #565e82 6,33, båda över AA, men en signatur dämpas med grad och vikt, inte
+   med en tredje gråton. Samma regel som gällde på den mörka ytan, andra kulör.
+   cite är kursiv och inline som standard. Inters kursiv är en lutad variant
+   som tappar upplevd stamvikt, och en inline-signatur tar inte emot
+   marginalen över citatet. */
 .offer .ampy-testimonials .o-cit__namn{display:block;font-style:normal;
-  margin-top:var(--s4);font-size:15px;font-weight:600;color:#fff;}
-.offer .ampy-testimonials .o-cit__linje{border:0;height:1px;background:rgba(227,234,245,.16);margin:var(--s5) 0;}
+  margin-top:var(--s4);font-size:15px;font-weight:600;color:var(--ink);}
+/* Linjen följer med ytan: rgba(227,234,245,.16) var ritad för att ligga PÅ
+   midnatt och mäter 1,03:1 mot vitt, alltså borta. --line-2 ger 1,41:1 mot
+   vitt mot den gamla linjens 1,48:1 på midnatt. Samma optiska vikt, ny yta. */
+.offer .ampy-testimonials .o-cit__linje{border:0;height:1px;background:var(--line-2);margin:var(--s5) 0;}
 /* Stjärnorna är kortets sista slag och står centrerade. Ingen skugga: den
-   fanns för att bära stjärnan mot ett foto, och mot plan midnatt är den bara
-   en oskärpa på en kant som redan mäter 9,37:1. */
+   fanns för att bära stjärnan mot ett foto och blir smuts mot ljust, precis
+   som certrutornas skuggor. Stjärnan faller från 9,37:1 på midnatt till
+   2,03:1 på vitt och behåller ändå sin token: husets hjältebetyg ligger redan
+   på 1,92:1 mot sidbotten, och EN STJÄRNA, EN FÄRG står kvar. */
 .offer .ampy-testimonials .o-cit__stjarnor{display:flex;justify-content:center;gap:var(--s1);}
 .offer .ampy-testimonials .o-cit__stjarnor svg{width:var(--z1);height:var(--z1);fill:var(--stjarna);display:block;}
 /* OMDÖMENA I KORTET. Två lägen, mätta mot varandra.
@@ -1747,7 +1803,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 /* Citatet behåller sin spalt på 640 även utan kort. Utan taket blev det en
    vänsterställd textremsa i ett 1132 px brett band, med rubriken centrerad
    ovanför: två olika axlar i samma block. */
-.offer.t-b .ampy-testimonials .o-cit{background:transparent;border-radius:0;}
+.offer.t-b .ampy-testimonials .o-cit{background:transparent;border-radius:0;border:0;}
 .offer.t-b .ampy-testimonials .o-cit__inner{padding-inline:0;}
 .offer.t-b .ampy-testimonials .o-marken__ogonbryn{color:#aeb8d4;}
 
@@ -1758,6 +1814,25 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   background-image:url("assets/img/hem-skymning.webp");background-size:cover;background-position:62% 46%;}
 .offer.t-c .ampy-testimonials .o-cit__foto::after{content:"";position:absolute;inset:0;
   background:linear-gradient(103deg, rgba(9,11,50,.92) 0%, rgba(9,11,50,.86) 40%, rgba(9,11,50,.62) 100%);}
+/* C har ingen ritad kant: slöjan möter sidan direkt, och en --line-2-hårlinje
+   runt ett mörkt foto läser som en ram, inte som en kortkant. */
+.offer.t-c .ampy-testimonials .o-cit{border:0;}
+
+/* DE MÖRKA VARIANTERNAS EGNA KULÖRER, B OCH C. Basen bär ljusytans kulörer
+   sedan 29 okt, så de två mörka ytorna måste sätta tillbaka sina egna: vit
+   text, fullt --teal i tecknet och den ljusa rgba-linjen. Utan den här
+   blocket blev B och C ink-på-midnatt, alltså oläsliga, och det är precis
+   den sortens följdfel ett ytbyte lämnar efter sig.
+   Mätt på plan #090b32: vit text 19,00:1, --teal 6,41:1, stjärnan 9,37:1,
+   linjen 1,48:1. --teal-ink ger bara 3,42:1 här och duger inte till tecknet. */
+.offer.t-b .ampy-testimonials .o-cit__text,
+.offer.t-b .ampy-testimonials .o-cit__namn,
+.offer.t-c .ampy-testimonials .o-cit__text,
+.offer.t-c .ampy-testimonials .o-cit__namn{color:#fff;}
+.offer.t-b .ampy-testimonials .o-cit__tecken,
+.offer.t-c .ampy-testimonials .o-cit__tecken{fill:var(--teal);}
+.offer.t-b .ampy-testimonials .o-cit__linje,
+.offer.t-c .ampy-testimonials .o-cit__linje{background:rgba(227,234,245,.16);}
 
 /* ===========================================================================
    MÄRKENA. Ägarval 19 okt: A:s design i C:s placering.

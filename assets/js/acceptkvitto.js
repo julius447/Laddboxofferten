@@ -98,16 +98,39 @@
     var rutan = document.getElementById("oaFolds");
     if (rutan) {
       rutan.innerHTML = "";
-      /* Villkoren forst, kostnaderna under. Agarens ordning 28 oktober. */
-      ["Villkor", "Kostnader som kan tillkomma"].forEach(function (r) {
-        var f = folden(r);
-        if (!f) return;
-        var k = f.cloneNode(true);
+
+      /* ORDNINGEN AR VAND SEDAN 28 OKTOBER, OCH DET AR ETT AGARBESLUT.
+         Da stod villkoren forst och kostnaderna under. Agardokumentet
+         "Bokningsbekraftelse & Godkand offert" 29 oktober sager tvartom,
+         ordagrant: "Det vi behover lagga till ar ovanfor villkor", och
+         raknar sedan upp kostnaderna som 1 och forberedelserna som 2.
+         Villkoren ligger darfor sist. */
+      function las(el) {
+        if (!el) return;
+        var k = el.cloneNode(true);
         k.removeAttribute("id");
         k.removeAttribute("open");
         k.querySelectorAll("[id]").forEach(function (e) { e.removeAttribute("id"); });
         rutan.appendChild(k);
-      });
+      }
+
+      las(folden("Kostnader som kan tillkomma"));
+
+      /* FORBEREDELSERNA kommer inte ur en fold pa sidan utan ur en
+         <template id="oaForbered"> som bygg.py renderar ur
+         katalog/forberedelser.json. Texten hor hemma forst nar kunden har
+         sagt ja, sa den far inte ligga synlig pa offerten. Men den far inte
+         heller skrivas av in i det delade blocket: den sager olika saker for
+         laddbox, elcentral och batteri, och service och tillagg har ingen
+         alls. En <template> ar bade EN kalla och osynlig, vilket ar precis
+         de tva kraven. */
+      var mallen = document.getElementById("oaForbered");
+      if (mallen && mallen.content) {
+        var f = mallen.content.querySelector("details.o-fold");
+        if (f) las(f);
+      }
+
+      las(folden("Villkor"));
       rutan.hidden = !rutan.children.length;
     }
   }
