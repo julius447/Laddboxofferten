@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="assets/css/testimonials.css">
 <link rel="stylesheet" href="assets/css/certifikat.css">
 <style>html,body{margin:0;padding:0}</style>
-<noscript><style>.o-utanjs{display:block !important;}.o-skarm{display:none !important;}.offer .o-calc,.offer .o-sum,.offer .o-bar,.offer #incList,.offer .o-skarm{display:none !important;}.offer .o-pkgs,.offer .o-platsval,.offer .o-rader,.offer .o-opts{pointer-events:none;opacity:.6;}.offer .o-pkgs input,.offer .o-platsval input,.offer .o-rader input,.offer .o-opts input{display:none !important;}.offer input,.offer select,.offer textarea,.offer button{display:none !important;}</style></noscript>
+<noscript><style>.o-utanjs{display:block !important;}.o-skarm{display:none !important;}.offer .o-calc,.offer .o-sum,.offer .o-bar,.offer #incList,.offer .o-skarm,.offer .o-brygga{display:none !important;}.offer .o-pkgs,.offer .o-platsval,.offer .o-rader,.offer .o-opts{pointer-events:none;opacity:.6;}.offer .o-pkgs input,.offer .o-platsval input,.offer .o-rader input,.offer .o-opts input{display:none !important;}.offer input,.offer select,.offer textarea,.offer button{display:none !important;}</style></noscript>
 </head>
 <body>
 <div class="offer" id="offer">
@@ -423,14 +423,14 @@
 
 <section class="o-tjanst">
                     <h3 class="o-tjansttitel"><span class="o-stepnr" aria-hidden="true">4</span>Golvvärmetermostat</h3>
-                    <p class="t-small" style="color:var(--muted);">Smart termostat som styr golvvärmen från telefonen. Monterad och inkopplad.</p>
+                    <p class="t-small" style="color:var(--muted);">Smart termostat för elektrisk golvvärme. Gör det möjligt att styra uppvärmningen efter schema och elpris, beroende på systemets funktioner och vald tjänst. Priset är per termostat.</p>
                     <div class="o-rader">
                       <label class="o-rad">
-                        <input type="checkbox" class="add" data-grupp="termostat" data-name="Plejd TRM-01" data-rot="1" data-styck="2150" value="2150">
+                        <input type="checkbox" class="add" data-grupp="termostat" data-name="Plejd-termostat" data-rot="1" data-styck="2150" value="2150">
                         <span class="mark sq"></span>
-                        <figure class="o-radbild"><img src="assets/img/plejd-trm01.webp" alt="Plejd TRM-01 smart golvvärmetermostat i ram" width="340" height="340" loading="lazy" decoding="async"></figure>
+                        <figure class="o-radbild"><img src="assets/img/plejd-trm01.webp" alt="Plejd-termostat för elektrisk golvvärme i ram" width="340" height="340" loading="lazy" decoding="async"></figure>
                         <span class="o-radtext">
-                          <span class="o-radnamn">Plejd TRM-01</span>
+                          <span class="o-radnamn">Plejd-termostat</span>
                           <span class="o-radpris kr" data-grupp="termostat">+2 150 kr</span>
                         </span>
                         <span class="o-radantal"><select data-antal="termostat" aria-label="Antal golvvärmetermostat"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option></select></span>
@@ -440,7 +440,7 @@
 
 <section class="o-tjanst">
                     <h3 class="o-tjansttitel"><span class="o-stepnr" aria-hidden="true">5</span>Dimmer</h3>
-                    <p class="t-small" style="color:var(--muted);">Dosdimmer med återfjädrande tryckknapp, monterad bakom befintlig strömbrytare, så belysningen går att dimra. Priset är per dimmer.</p>
+                    <p class="t-small" style="color:var(--muted);">Smart dimmer som kan styras via app och återfjädrande tryckknapp. Gör det möjligt att dimra belysning samt skapa och styra scenarier. Priset är per dimmer.</p>
                     <div class="o-rader">
                       <label class="o-rad">
                         <input type="checkbox" class="add" data-grupp="dimmer" data-name="Plejd-dimmer" data-rot="1" data-styck="1350" value="1350">
@@ -462,7 +462,7 @@
                       <label class="o-rad">
                         <input type="checkbox" class="add" data-grupp="vridimmer" data-name="Vridimmer" data-rot="1" data-styck="950" value="950">
                         <span class="mark sq"></span>
-                        <figure class="o-radbild"><img src="assets/img/exxact-vridimmer.webp" alt="Vit vridimmer med fyrkantig ram och rund vridratt" width="340" height="340" loading="lazy" decoding="async"></figure>
+                        <figure class="o-radbild"><img src="assets/img/exxact-vridimmer.webp" alt="Schneider Electric Exxact vridimmer, vit, med rund vridratt" width="340" height="340" loading="lazy" decoding="async"></figure>
                         <span class="o-radtext">
                           <span class="o-radnamn">Vridimmer</span>
                           <span class="o-radpris kr" data-grupp="vridimmer">+950 kr</span>
@@ -814,6 +814,25 @@
           </div>
         </section>
 
+        <!-- 11 LADDBOXBRYGGAN. Platsen ar agarens, 30 oktober: under
+             certifikatmarkenas ogonbryn i tillit.html, alltsa precis har.
+             AGARENS ORD STAR ORDAGRANT i offert.py over BRYGGA_RIKTNING och i
+             uppdrag/30-oktober/, INTE har. Skalet ar matt, tva ganger samma
+             timme: en HTML-kommentar ar skickade bytes, och hans formulering
+             om certifikaten bar ett av orden i LEVERANSORD. Forst citerade
+             jag honom har och [GAP]-raknaren gick fran 5 till 6 pa alla sju
+             sidorna. Sedan skrev jag om kommentaren till en forklaring av
+             felet, och forklaringen bar samma ord: 6 igen. En rattning som
+             oppnar samma hal ar ingen rattning. Ordet star inte har.
+
+             Markupen genereras av offert.py ur modellfilerna: ett produktnamn
+             far inte kunna skrivas for hand pa sju sidor. -->
+        <section class="o-brygga" id="brygga" aria-labelledby="bryggaFraga">
+          <p class="o-bryggafraga" id="bryggaFraga">Vill du jämföra laddboxar?</p>
+          <button type="button" class="o-btn link o-bryggaknapp" data-bib-oppna>Se hela utbudet</button>
+        </section>
+
+
         <footer class="o-fot">
           <p class="t-micro">Ampy Nordic AB, org.nr 559254-9819, <a href="tel:+46102657979">010-265&nbsp;79&nbsp;79</a></p>
         </footer>
@@ -1050,6 +1069,26 @@
           <p>En timme till med elektrikern medan han ändå är hos dig, för småfix som inte ingår i standardinstallationen. Ett uttag som sitter fel, en strömbrytare som krånglar, en lampa som ska upp.</p>
                   <form method="dialog"><button class="o-modalknapp">Stäng</button></form>
         </dialog>
+
+        <!-- BIBLIOTEKET. Ligger som en <dialog> hos de andra modalerna, alltsa
+             UTANFOR .o-main. Tva skal, bada uppmatta:
+             1. audit.js kraver att foten ar sista barnet i .o-main
+                (fotenSistIMain). Ett bibliotek inne i main efter foten hade
+                fallt det provet.
+             2. En stangd <dialog> ar display:none, sa biblioteket foljer inte
+                med pa papperet. En <details> hade gjort det: system.css
+                tvingar varje fold oppen i @media print, alltsa sju
+                produktkort pa en godkand offert.
+             Tom strang pa de riktningar som inte har en overlay. -->
+        <dialog class="o-modal o-bib" id="modalBibliotek" tabindex="-1" aria-labelledby="bibTitel">
+          <form method="dialog"><button class="o-modalstang" aria-label="Stäng biblioteket">&times;</button></form>
+          <h3 id="bibTitel">Alla laddboxar vi installerar</h3>
+          <p>Din offert gäller Zaptec Go. Väljer du en annan skrivs den in i din fråga, som du skickar själv. Den här offerten står kvar som den är.</p>
+          <ul class="o-biblista" role="list"><li class="o-bibkort ardin" data-bib-kort="zaptec-go"><figure class="o-bibbild"><img src="assets/img/zaptec-go.webp" alt="Zaptec Go laddbox" width="420" height="420" loading="lazy" decoding="async"></figure><span class="o-bibnamn">Zaptec Go</span><span class="o-bibdin">Din offert</span></li><li class="o-bibkort" data-bib-kort="charge-amps-aura"><figure class="o-bibbild"><img src="assets/img/charge-amps-aura.webp" alt="Charge Amps Aura laddbox" width="420" height="420" loading="lazy" decoding="async"></figure><span class="o-bibnamn">Charge Amps Aura</span><button type="button" class="o-bibknapp" data-bib-gor="fraga" data-bib-modell="charge-amps-aura" data-bib-namn="Charge Amps Aura">Fråga om den här</button></li><li class="o-bibkort" data-bib-kort="charge-amps-luna"><figure class="o-bibbild"><img src="assets/img/charge-amps-luna.webp" alt="Charge Amps Luna laddbox" width="420" height="420" loading="lazy" decoding="async"></figure><span class="o-bibnamn">Charge Amps Luna</span><button type="button" class="o-bibknapp" data-bib-gor="fraga" data-bib-modell="charge-amps-luna" data-bib-namn="Charge Amps Luna">Fråga om den här</button></li><li class="o-bibkort" data-bib-kort="easee-charge-up"><figure class="o-bibbild"><img src="assets/img/easee-charge-up.webp" alt="Easee Charge Up laddbox" width="420" height="420" loading="lazy" decoding="async"></figure><span class="o-bibnamn">Easee Charge Up</span><button type="button" class="o-bibknapp" data-bib-gor="fraga" data-bib-modell="easee-charge-up" data-bib-namn="Easee Charge Up">Fråga om den här</button></li><li class="o-bibkort" data-bib-kort="easee-max"><figure class="o-bibbild"><img src="assets/img/easee-charge-max.webp" alt="Easee Charge Max laddbox" width="420" height="420" loading="lazy" decoding="async"></figure><span class="o-bibnamn">Easee Charge Max</span><button type="button" class="o-bibknapp" data-bib-gor="fraga" data-bib-modell="easee-max" data-bib-namn="Easee Charge Max">Fråga om den här</button></li><li class="o-bibkort" data-bib-kort="nexblue-edge-2"><figure class="o-bibbild"><img src="assets/img/nexblue-edge-2.webp" alt="NexBlue Edge 2 laddbox" width="420" height="420" loading="lazy" decoding="async"></figure><span class="o-bibnamn">NexBlue Edge 2</span><button type="button" class="o-bibknapp" data-bib-gor="fraga" data-bib-modell="nexblue-edge-2" data-bib-namn="NexBlue Edge 2">Fråga om den här</button></li><li class="o-bibkort" data-bib-kort="zaptec-go-2"><figure class="o-bibbild"><img src="assets/img/zaptec-go-2.webp" alt="Zaptec Go 2 laddbox" width="420" height="420" loading="lazy" decoding="async"></figure><span class="o-bibnamn">Zaptec Go 2</span><button type="button" class="o-bibknapp" data-bib-gor="fraga" data-bib-modell="zaptec-go-2" data-bib-namn="Zaptec Go 2">Fråga om den här</button></li></ul>
+          <p class="o-modalnot">Priset skiljer sig mellan modellerna, så ett byte ger en ny offert. Den du accepterar är den du köper.</p>
+          <form method="dialog"><button class="o-modalknapp">Tillbaka till offerten</button></form>
+        </dialog>
+
       </div>
 <script src="assets/js/pottext.js"></script>
 <script src="assets/js/bilder-zaptec-go.js"></script>

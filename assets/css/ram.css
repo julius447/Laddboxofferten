@@ -49,14 +49,12 @@ header.top{padding-block:64px 28px;}
 .meta{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:20px;font-size:.875rem;color:var(--muted);}
 .meta b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}
 section.notes{padding-block:64px 0;}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;margin-top:26px;}
-.ncard{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:9px;}
-.ncard .n{font-size:.75rem;font-weight:700;color:var(--teal);letter-spacing:.08em;}
-.ncard h3{font-size:1.0625rem;font-weight:600;}
-.ncard p{font-size:.9375rem;color:var(--muted);line-height:1.5;}
-.ncard .src{font-size:.8125rem;color:var(--faint);border-top:1px solid var(--line-soft);padding-top:9px;margin-top:auto;}
+/* ANTECKNINGSKORTEN OCH TABELLOMSLAGET AR BORTTAGNA 30 OKTOBER, 674 B.
+   `.cards`, `.ncard*` och `.tablewrap` var ramens forsta notformat. Ersatta
+   av `.notegrid` + `.nt` som bor i `gemensamt/system.css` (rad 817-823), och
+   det ar dar de ska bo: ramen ager sin krom, inte offertens innehall.
+   `.measure` star kvar, den traffar. */
 .measure{max-width:42rem;}
-.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);margin-top:18px;}
 table.doc{border-collapse:collapse;width:100%;font-size:.9375rem;}
 table.doc th,table.doc td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top;}
 table.doc th{font-weight:600;color:var(--ink);font-size:.8125rem;letter-spacing:.04em;text-transform:uppercase;background:var(--surface-2);white-space:nowrap;}

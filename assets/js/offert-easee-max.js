@@ -657,6 +657,127 @@
 
   window.__render = render;
 
+  /* ---------------------------------------------------------------- bryggan
+     Biblioteket, och de tre lagren i VAGEN TILLBAKA.
+
+     Agaren 29 oktober: "sen maste vi bygga ett smart satt att man da kan komma
+     tillbaka till originalet eh sa att det blir en bra anvandarupplevelse."
+     Det ar den svaraste delen, och svaret har ar att gora den onodig: kunden
+     lamnar aldrig sidan, sa det finns ingen vag tillbaka att bygga.
+
+     Lager 1: BIBLIOTEKET ANDRAR INGET I OFFERTEN. Att oppna, titta och stanga
+              ror inte ett enda val. Provet offerter/laddbox/sonder/brygga.js
+              mater det: paket, plats, tid, tillagg, antal, grannar och totalen
+              jamfors fore och efter, och domen faller om nagot av dem rort sig.
+     Lager 2: KUNDENS EGEN LADDBOX STAR FORST och sager "Din offert". Hon
+              behover aldrig leta efter det hon redan har.
+     Lager 3: TELEFONENS BAKATGEST STANGER BIBLIOTEKET, inte offerten. En
+              <dialog> lagger ingen historikpost, sa ett svep bakat hade tagit
+              kunden ut ur offerten helt, och DET ar den dyra varianten av att
+              tappa vagen tillbaka: pa en token-URL finns ingen annan vag in.
+              pushState med SAMMA url lagger en post utan att skriva nagot i
+              adressen. Kontraktet forbjuder data i url:en, och den har posten
+              bar ingen: location.href gar in oforandrad.
+              Stangs dialogen pa Esc, krysset eller knappen plockas posten bort
+              igen med history.back(), annars hade nasta bakattryck inte gjort
+              nagonting och kunden hade tryckt tva ganger for att komma ut. */
+  var bib = document.getElementById("modalBibliotek");
+  var bibEgenPost = false;
+
+  function bibOppna(){
+    if (!bib || !bib.showModal || bib.open) return;
+    bib.showModal();
+    /* FOKUS PA DIALOGEN, INTE PA KRYSSET.
+       showModal() ger fokus till forsta fokuserbara elementet, och det ar
+       stangknappen. Uppmatt pa skarmbilden: det forsta ogat moter nar
+       biblioteket oppnas ar en ring runt ett kryss, alltsa "stang det har" i
+       stallet for "har ar utbudet". Samma losning som acceptskarmen redan
+       bar: tabindex -1 plus focus() flyttar lasmarkoren in i dialogen, sa en
+       upplasare laser rubriken och det som star under den. */
+    try { bib.focus({preventScroll:true}); } catch(e) { }
+    try { history.pushState({ampyBib:1}, "", location.href); bibEgenPost = true; }
+    catch(e) { bibEgenPost = false; }
+  }
+
+  if (bib) {
+    bib.addEventListener("close", function(){
+      /* Flaggan nollas FORE history.back(), for back() triggar popstate och
+         utan nollningen hade de tva handlarna kallat varandra. */
+      if (!bibEgenPost) return;
+      bibEgenPost = false;
+      try { history.back(); } catch(e) { }
+    });
+    window.addEventListener("popstate", function(){
+      if (!bib.open) return;
+      bibEgenPost = false;
+      bib.close();
+    });
+  }
+
+  document.querySelectorAll("[data-bib-oppna]").forEach(function(b){
+    b.addEventListener("click", function(e){ e.preventDefault(); bibOppna(); });
+  });
+
+  /* VAD KNAPPEN PA ETT PRODUKTKORT GOR, som en tabell och inte som en if-kedja.
+     Prisfragan ar agarens och inte avgjord: CRM:ets grundbelopp ar ETT tal per
+     affar och prislistan per modell finns bara i det har repot, spann 4 190 till
+     14 550 kr. Tre vagar star oppna och de skiljer sig BARA har. offert.py
+     valjer lage, och dess orakel kraver att varje lage som star i markupen har
+     en nyckel i den har tabellen. Ett lage utan handlare stoppar bygget, sa
+     ingen kan skeppa en knapp som inte gor nagonting. */
+  var BIBGOR = {
+    /* LAGE "fraga": BIBLIOTEKET SALJER INTE.
+       Valet skrivs in i kundens egen fraga till bokaren, som hon skickar sjalv.
+       Tva skal, och bada ar matta:
+       1. Noll prisrisk. Sidan registrerar ingen order pa en produkt vars pris
+          CRM:et inte kanner.
+       2. NOLL NYA LEVERANSLOFTEN. Kanalen finns redan, och dess gap ar redan
+          uppskrivet i META['leverans_gap']. Hade bryggan haft en egen
+          "skickat"-text hade leveranslofte() stoppat bygget, och med rätta.
+       Det ar ocksa agarens egen kortsiktiga losning, mekaniserad: "ska det vara
+       en charge amp da far vi kanske skicka en standard SMS-mall nu
+       kortsiktigt." Bokaren far en fraga som namnger modellen. */
+    fraga: function(mid, namn){
+      var ta = document.getElementById("fragaText");
+      var panel = document.getElementById("fragaPanel");
+      if (!ta || !panel) return;
+      if (bib && bib.open) bib.close();
+      var avb = document.getElementById("avbojPanel");
+      if (avb) avb.hidden = true;
+      var knapp = document.getElementById("avboj");
+      if (knapp) knapp.setAttribute("aria-expanded", "false");
+      panel.hidden = false;
+      var oppnaren = document.getElementById("fraga");
+      if (oppnaren) oppnaren.setAttribute("aria-expanded", "true");
+      /* EN ANDRA FRAGA AR INTE EN ANGRAD FORSTA. Har kunden redan skickat en
+         fraga star rutan readOnly och knappen disabled, och kvittensen ar en
+         role="status", alltsa ett ogonblicks besked och inte ett register.
+         Rutan oppnas darfor igen for den nya fragan, och kvittensen tas bort
+         sa den inte star kvar over en text som inte ar skickad. */
+      var send = document.getElementById("fragaSend");
+      if (send) send.disabled = false;
+      ta.readOnly = false;
+      var hint = document.getElementById("fragaHint");
+      if (hint) hint.textContent = "";
+      var rad = "Jag vill veta mer om " + namn + ".";
+      if (ta.value.indexOf(rad) < 0)
+        ta.value = (ta.value.trim() ? ta.value.trim() + "\n" : "") + rad;
+      /* SCROLLA FORST, FOKUSERA SEDAN MED preventScroll.
+         Ett focus() utan flaggan later webblasaren dra in elementet sjalv, och
+         FALLOR.md har mätvärdena: -1 944, -1 922 och +3 728 px i extremfallen.
+         Hit ska kunden, men en gang och mjukt, inte tva ganger. */
+      scrollTill(panel, "center");
+      try { ta.focus({preventScroll:true}); } catch(e) { }
+    }
+  };
+
+  document.querySelectorAll(".o-bibknapp").forEach(function(b){
+    b.addEventListener("click", function(){
+      var f = BIBGOR[this.getAttribute("data-bib-gor")];
+      if (f) f(this.getAttribute("data-bib-modell"), this.getAttribute("data-bib-namn"));
+    });
+  });
+
   /* informationsrutorna */
   document.querySelectorAll(".o-info").forEach(function(b){
     b.addEventListener("click",function(e){

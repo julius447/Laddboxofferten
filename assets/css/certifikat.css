@@ -79,101 +79,28 @@
 .ampy-cert :where(img,svg){display:block;max-width:100%}
 
 /* ===========================================================================
-   2. BAKGRUNDEN
-   Vågen är en SVG med preserveAspectRatio="none" i 100% × 100%. Det är HELA
-   fixen för de kantiga linjerna i det gamla blocket: där visades en 1193×568
-   SVG i en 1193×319-ruta med object-fit:cover, vilket klippte bort ~124px
-   uppe och nere, alltså exakt vågkammen. Här kan ingenting klippas.
+   DEN MORKA TEXTSIDAN AR BORTTAGEN 30 OKTOBER
+   Sju regelfamiljer, 17 regler och 2 432 B, skeppades till 21 sidor utan att
+   traffa ett element: `.ampy-cert__bg` (vag-SVG:n), `.ampy-cert__glow`,
+   `.ampy-cert__inner`, `.ampy-cert__intro`, `.ampy-cert__heading` och
+   `.ampy-cert__text`.
+
+   VAD SOM ERSATTE DEM, OCH NAR: tillitsblocket byggdes om 18-19 oktober
+   ("Tillitsblocket: ett citat, tre ytor att valja mellan", 036bf59). Bandet
+   ar inte langre ett morkt kort med rubrik och brodtext till vanster och
+   markena till hoger. Det ar ETT citat pa ljus botten, och markena star
+   under det som en egen rad: `.ampy-cert__marks.o-marken-ljus` med
+   `.o-marken__ogonbryn` ovanfor, se `gemensamt/block/tillit.html`. De
+   reglerna bor i `gemensamt/system.css` (`.offer .ampy-testimonials
+   .o-marken-ljus` m.fl.), inte har, for luften runt ett band ags av sidan.
+   Agardirektivet bakom bytet: ljusa ytor i nya block, midnattsbla bara som
+   text.
+
+   KVAR OCH LEVANDE I DEN HAR FILEN: `.ampy-cert` sjalvt, `.ampy-cert__marks`
+   och `.ampy-cert__mark*` med sina fyra blacknormaliseringar.
+
+   ATERINFOR INTE. Mats med `python3 gemensamt/verktyg/dodcss.py`.
    =========================================================================== */
-/* top/right/bottom/left står FÖRE inset: inset stöds först från iOS Safari
-   14.5, och utan fallback kollapsar lagret så hela vågen försvinner. */
-.ampy-cert__bg{
-  position:absolute;
-  top:0;right:0;bottom:0;left:0;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-}
-.ampy-cert__bg svg{
-  position:absolute;
-  top:0;right:0;bottom:0;left:0;
-  inset:0;
-  width:100%;
-  height:100%;
-  display:block;
-}
-/* Mjuk ljusglugg bakom logotypklustret som lyfter de vita korten.
-   rgba(255,255,255,0) och inte transparent: Safari interpolerar "transparent"
-   via genomskinligt SVART och lägger en grå dis över gradienten. */
-.ampy-cert__glow{
-  position:absolute;
-  z-index:1;
-  right:-6%;
-  top:50%;
-  width:62%;
-  height:150%;
-  transform:translateY(-50%);
-  pointer-events:none;
-  background:radial-gradient(ellipse at 55% 50%,
-    rgba(255,255,255,.10) 0%,
-    rgba(255,255,255,.04) 38%,
-    rgba(255,255,255,0) 70%);
-}
-
-/* ===========================================================================
-   3. INNEHÅLLET
-   =========================================================================== */
-.ampy-cert__inner{
-  position:relative;
-  z-index:2;
-  width:100%;
-  max-width:var(--container-width,1280px);
-  margin-left:auto;margin-right:auto;
-  display:flex;
-  flex-direction:row;
-  align-items:center;
-  gap:var(--apspace-m,clamp(16px,calc(1.25cqw + 12px),28px));
-}
-
-.ampy-cert__intro{flex:1 1 0;min-width:0;color:#fff}
-
-/* Rubriken använder samma token, vikt och radhöjd som "Så funkar det" på
-   ampy.se startsida (36px w400 lh1,2 desktop / 26,76px mobil). Det gamla
-   blocket låg på 32px, minst av alla sektionsrubriker på sidan. */
-.ampy-cert__heading{
-  margin:0;
-  font-size:30px;
-  font-weight:400;
-  line-height:1.2;
-  color:#fff;
-  letter-spacing:-.01em;
-  /* Verkningslös när rubriken får plats på en rad (≥1100px). Räddar de två
-     lägen där den bryter: 901-1000px gav änkan "jobb" (379px mot 63px) och
-     mobil gav 306px mot 51px. Saknas stödet bryter texten greedy, ingen skada. */
-  text-wrap:balance;
-}
-
-/* Brödtexten: 48ch ger två rader på desktop med en mening per rad (527/415px).
-   44ch gav visserligen två rader men nästan lika långa (484/458). 46 och 48ch
-   bryter identiskt, så värdet ligger mitt i sitt säkra spann.
-   text-wrap:balance ska INTE på här i normalläget — brytningen är ritad. */
-.ampy-cert__text{
-  margin:var(--apspace-xs,clamp(10.2px,calc(0.39cqw + 9px),14px)) 0 0;
-  font-size:17px;
-  font-weight:300;
-  line-height:1.7;
-  color:#fff;
-  max-width:48ch;
-}
-@container (min-width:901px){
-  .ampy-cert__text{line-height:1.55}   /* binder ihop raderna till ett block */
-}
-/* Mellanbandet är för smalt för två rader och lämnar änkan "ryggen." på 59px.
-   Taket är satt till 1099 och inte 1069 där brytningen faktiskt vänder, så en
-   pixels renderingsskillnad inte kan återinföra änkan. */
-@container (min-width:901px) and (max-width:1099px){
-  .ampy-cert__text{text-wrap:balance}
-}
 
 /* ===========================================================================
    4. MÄRKESGRIDEN
@@ -316,22 +243,6 @@
       var(--ampy-cert-navy) 34%,
       var(--ampy-cert-teal) 100%);
   }
-  .ampy-cert__inner{
-    flex-direction:column;
-    align-items:center;
-    /* mer luft mellan paragrafen och korten: blocket blir något mer avlångt,
-       vilket balanserar logotypernas dominans */
-    gap:var(--apspace-xl,clamp(25px,calc(3.23cqw + 14.7px),56px));
-  }
-  .ampy-cert__intro{flex:none;width:100%;text-align:center}
-  .ampy-cert__text{
-    max-width:34ch;
-    margin-left:auto;margin-right:auto;
-    line-height:1.6;
-    /* ingen balance här: vanlig brytning ger tre rader i fallande form
-       (320/264/255) utan änka, vilket är snyggare än balance (284/265/290
-       där sista raden blir längst) */
-  }
   .ampy-cert__marks{
     flex:none;
     width:100%;
@@ -347,7 +258,6 @@
   .ampy-cert__mark--esv  {--ampy-cert-lh:56px}
   .ampy-cert__mark--id06 {--ampy-cert-lh:30px}
   .ampy-cert__mark--th   {--ampy-cert-lh:20px}
-  .ampy-cert__glow{width:100%;right:auto;left:0;height:60%;top:70%}
 }
 
 /* Små telefoner (iPhone SE/mini 375px, bredaste Android 360px). Där föll den
@@ -367,9 +277,5 @@
    .offer p, .offer h1..h4 och .offer ul nollställer margin och väger
    tyngre än blockets egna regler. Samma regler igen, med .offer framför.
    Rotens egen marginal lyfts INTE: den styrs av fullbreddsregeln. */
-.offer .ampy-cert__heading{margin:0;}
-.offer .ampy-cert__inner{margin-left:auto;margin-right:auto;}
 .offer .ampy-cert__marks{margin-left:auto;margin-right:auto;}
 .offer .ampy-cert__marks{margin:0;}
-.offer .ampy-cert__text{margin-left:auto;margin-right:auto;}
-.offer .ampy-cert__text{margin:var(--apspace-xs,clamp(10.2px,calc(0.39cqw + 9px),14px)) 0 0;}

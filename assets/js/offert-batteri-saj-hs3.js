@@ -13,6 +13,7 @@
   var PERSONER=2;
   var GRANNRABATT=3000;
   var CEN={"5990": "Byte av elcentral, liten central", "9990": "Byte av elcentral, mellan central", "14900": "Byte av elcentral, stor central"};
+  var BOCK="<span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span>";
   var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
   var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Våra egna elektriker installerar och monterar", "Anslutning till elcentralen, upp till 10 meter kabel, och till dina befintliga solceller", "För- och färdiganmälan till nätbolaget, frakt hem till dig", "Konfigurering, driftsättning, funktionstest, kontrollmätning och genomgång av appen", "10 års produktgaranti"]};
   var ST=MODELL.storlekar, BAS=ST[FORVAL];
@@ -72,9 +73,9 @@
         harifran. Darfor behover skriptet ingen $()-uppslagning for det, vilket
         ocksa haller det generiska oraklet js_id nojt utan att nagot laggs i
         villkorliga.
-     2. Utan BOCK. I en fold som hette "Se allt som ingar" markerade bocken vad
-        som INGAR mot vad som inte gor det (.o-ingar li.utan); i hjalten finns
-        ingen sadan motsats, och bocken kostade 24 px.
+     2. MED BOCK IGEN, 30 OKTOBER. Agaren skickade servicemallens lista som
+        forlaga: bla rund bock, en rad per post. Bocken togs bort 29 oktober
+        for att spara 24 px, och det var mitt designval, inte hans beslut.
      MARKUPEN HAR MASTE VARA ORD FOR ORD DEN SOM offert.py:_ingar_hardvara
      bygger. Bygget renderar listan statiskt sa att den finns utan JavaScript,
      och den har raden skriver om den: drar de tva isar byter raden utseende i
@@ -87,7 +88,7 @@
     }
     return INGAR.hard.map(function(h){
       var spec=fyll(h.spec);
-      return '<li class="prod"><span><b>'+fyll(h.namn)+'</b>'+(spec?'<span>'+spec+'</span>':'')+'</span></li>';
+      return '<li class="prod">'+BOCK+'<span><b>'+fyll(h.namn)+'</b>'+(spec?'<span>'+spec+'</span>':'')+'</span></li>';
     }).join("");
   }
 
@@ -232,11 +233,13 @@
        BAREN FAR SAMMA MENING UTAN SIN INLEDNING. Pa mobilen ar baren den yta
        som bar "Att betala", och den sa "efter gron teknik" aven med en
        elcentral i: samma defekt, andra ytan. Hela meningen far inte plats i
-       baren vid 375 px, sa inledningen kapas av EN harledd strang. Det ar
-       ingen andra mening: andras pottext.js slutar kapningen traffa, och
-       oraklet pottraden_ar_harledd i offert.py stoppar bygget da.
-       RAPPORTERAT: ratt losning ar en svansform i pottext.js, men den filen
-       ar delad och ror jag den ror jag fyra andra mallar mitt i deras pass. */
+       baren vid 375 px, sa baren hamtar SVANSEN ur samma harledning,
+       window.ampyPottsvans. Ingen andra mening och ingen kapning: den gamla
+       raden kapade "inkl. moms, " ur hela meningen, vilket haller tills
+       nagon andrar inledningen i pottext.js. Oraklet pottraden_ar_harledd i
+       offert.py kraver bada halvorna, och mutationer-pottraden.py visar att
+       det stoppar bygget bade nar baren skriver sin egen svans och nar en
+       replace kommer tillbaka ovanpa accessorn. */
     var pott=window.ampyPottext("grön teknik", harRot);
     $("sumPott").textContent=pott;
     /* SVANSEN UR SAMMA HARLEDNING, inte ur en kapning. Raden kapade

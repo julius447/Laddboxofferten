@@ -305,36 +305,25 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-modalstang:hover{background:var(--bg);color:var(--ink);}
 .o-modalstang:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
 
-/* grannköpet */
-.o-granne{background:var(--card);border:1px solid var(--line);border-radius:var(--r3);padding:var(--s5);display:flex;flex-direction:column;gap:var(--s4);}
-.o-grannsteg{list-style:none;margin:0;padding:0;counter-reset:g;display:flex;flex-direction:column;gap:var(--s3);}
-.o-grannsteg li{counter-increment:g;position:relative;padding-left:var(--z4);font-size:13px;font-weight:300;color:var(--body);line-height:1.5;}
-.o-grannsteg li::before{content:counter(g);position:absolute;left:0;top:0;width:var(--z3);height:var(--z3);
-  border-radius:50%;background:var(--bg);color:var(--muted);font-size:11px;font-weight:700;display:grid;place-items:center;}
-.o-grannsteg b{font-weight:600;color:var(--ink);}
+/* GRANNKOPET OCH DEN GAMLA OMDOMESLISTAN AR BORTTAGNA 30 OKTOBER.
+   Sjutton regler, 1 857 B, pa var och en av de 22 sidorna utan ett element
+   att traffa.
 
-/* omdömen */
-.o-omdlista{display:grid;grid-auto-flow:column;grid-auto-columns:82%;gap:var(--s3);
-  overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--s4);
-  margin-inline:calc(var(--s4) * -1);padding:var(--s1) var(--s4) var(--s4);
-  scrollbar-width:thin;overscroll-behavior-x:contain;}
-.o-omdlista > *{scroll-snap-align:start;}
-@container (min-width: 760px){ .o-omdlista{grid-auto-columns:46%;} }
-.o-omd{margin:0;background:var(--card);border:1px solid var(--line);border-radius:var(--r3);
-  padding:var(--s5);display:flex;flex-direction:column;gap:var(--s3);height:100%;}
-.o-omd figcaption{margin-top:auto;}
-.o-stjarnor{display:flex;gap:2px;color:var(--stjarna);}
-.o-stjarnor svg{width:var(--z1);height:var(--z1);}
-.o-omd blockquote{margin:0;font-size:15px;line-height:1.6;color:var(--ink);font-weight:300;}
-.o-omd figcaption{display:flex;align-items:center;gap:var(--s3);border-top:1px solid var(--line);padding-top:var(--s3);}
-.o-init{width:var(--z4);height:var(--z4);border-radius:50%;background:var(--bg);color:var(--muted);
-  font-weight:700;font-size:13px;display:grid;place-items:center;flex:none;}
-.o-omd figcaption b{display:block;font-size:13px;color:var(--ink);}
-.o-omd figcaption span span{display:block;font-size:11px;color:var(--faint);font-weight:300;}
-.o-omdkalla{font-size:13px;font-weight:300;color:var(--muted);line-height:1.55;}
-.o-bevis{display:flex;flex-direction:column;gap:var(--s5);}
-.o-bevis>div>b{display:block;font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.02em;}
-.o-bevis>div>span{display:block;font-size:13px;font-weight:300;color:var(--muted);line-height:1.5;margin-top:var(--s1);}
+   `.o-granne` och `.o-grannsteg*` var grannkopets forsta form: ett kort med
+   en numrerad trestegslista. Ersatt av `.o-ref-*` i
+   `gemensamt/block/grann.html`, kortet byggt om 25 oktober (uppdrag 4,
+   riktning A), och blocket slutade saga "granne" 26 oktober (8457285):
+   `.o-ref-kort`, `.o-ref-steg`, `.o-ref-panel`, `.o-ref-falt`.
+
+   `.o-omdlista`, `.o-omd*`, `.o-stjarnor*`, `.o-init`, `.o-omdkalla` och
+   `.o-bevis*` var omdomena som en vagratt scroller med flera kort samtidigt.
+   Ersatta 18-19 oktober av tillitsblocket, ETT citat i taget (036bf59,
+   "Tillitsblocket: ett citat, tre ytor att valja mellan"): `.o-cit`,
+   `.o-cit__lista`, `.o-cit__item` med klassen `pa`, `.o-cit__stjarnor`,
+   `.o-cit__namn` och `.o-cit__foto`, se `gemensamt/block/tillit.html`.
+   Initialrundeln `.o-init` blev ett riktigt foto.
+
+   ATERINFOR INTE. Mats med `python3 gemensamt/verktyg/dodcss.py`. */
 .o-marken{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5);align-items:center;justify-items:center;}
 /* Logotyperna i sina egna färger. opacity .8 hörde till gråskalan: en
    nedtonad färglogotyp ser trasig ut, inte diskret. Höjden är satt per märke
@@ -349,24 +338,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 
 @container (min-width: 520px){ .o-marken{grid-template-columns:repeat(4,1fr);} }
 
-/* grannmodulen: en granne i taget, med riktiga fält */
-.o-grannar{display:flex;flex-direction:column;gap:var(--s3);}
-.o-grannar:empty{display:none;}
-.o-granne{background:var(--card);border:1px solid var(--line-2);border-radius:var(--r2);padding:var(--s4);
-  display:flex;flex-direction:column;gap:var(--s3);}
-.o-grannhuvud{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);}
-.o-grannhuvud b{font-size:15px;font-weight:700;color:var(--ink);}
-.o-grannbort{border:0;background:none;color:var(--muted);font:inherit;font-size:13px;font-weight:600;
-  cursor:pointer;min-height:var(--z5);padding:0 var(--s2);border-radius:var(--r1);}
-.o-grannbort:hover{background:var(--bg);color:var(--ink);}
-.o-grannbort:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
-.o-grannfalt{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);}
-.o-grannfalt label{display:flex;flex-direction:column;gap:var(--s1);font-size:13px;font-weight:600;color:var(--muted);}
-.o-grannfalt label.bred{grid-column:1 / -1;}
-.o-grannfalt input{height:var(--z6);border:1px solid var(--line-2);border-radius:var(--r1);background:#fff;
-  font-family:inherit;font-size:15px;color:var(--ink);padding:0 var(--s3);width:100%;}
-.o-grannfalt input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:1px;border-color:var(--teal);}
-.o-grannklar{font-size:13px;font-weight:600;color:var(--teal-ink);display:flex;align-items:center;gap:var(--s2);}
+/* GRANNMODULEN AR BORTTAGEN 30 OKTOBER. Fjorton regler, 1 180 B, som
+   skeppades till 22 sidor utan att traffa nagot.
+   Formen var "en granne i taget, med riktiga falt": `.o-grannar`,
+   `.o-granne`, `.o-grannhuvud`, `.o-grannbort`, `.o-grannfalt` och
+   `.o-grannklar`. Ersatt av rekommendationspanelen i
+   `gemensamt/block/grann.html`: `.o-ref-panel`, `.o-ref-falt`,
+   `.o-ref-rad`, `.o-ref-etikett`, `.o-ref-knapp`, `.o-ref-lista`,
+   `.o-ref-fel`, `.o-ref-klar`. Kortet byggdes om 25 oktober och blocket
+   slutade saga "granne" 26 oktober (8457285).
+   ATERINFOR INTE. Mats med `python3 gemensamt/verktyg/dodcss.py`. */
 .o-btn.ghost svg{width:18px;height:18px;}
 
 /* radkomponenten, byggd efter elbilsvaruhusets mobildesign: kryss, stor bild,
@@ -797,15 +778,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 }
 
 /* ===== tillägg till offertens system, samma spacingskala ===== */
-.offer .o-qty{display:flex;align-items:center;gap:var(--s3);padding-top:var(--s4);border-top:1px solid var(--teal-line);}
+/* `.o-qty` och `.qbtn` BORTTAGNA 30 okt, 486 B pa 22 sidor utan traff.
+   Antalsvaljaren som anvands ar `.o-radantal` inne i radkomponenten, med
+   `.o-btn.ghost` som knappar.
+   `.o-stepper` STAR KVAR MED FLIT: `verktyg/lagringsval.py` skriver den, och
+   den sidan ar avpublicerad med flit (se publicera.py) men kvar som protokoll
+   over de tre riktningarna. dodcss.py domer den GRINDAD, inte dod. */
 .offer .o-stepper{display:flex;align-items:center;gap:var(--s1);background:#fff;border:1.5px solid var(--line-2);border-radius:var(--r1);padding:var(--s1);}
 .offer .o-stepper input{width:var(--z6);height:var(--z5);border:0;background:none;text-align:center;font-family:inherit;font-size:17px;font-weight:700;color:var(--ink);-moz-appearance:textfield;}
 .offer .o-stepper input::-webkit-outer-spin-button,.offer .o-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
 .offer .o-stepper input:focus{outline:2px solid var(--teal-ink);outline-offset:1px;border-radius:var(--r1);}
-.offer .qbtn{width:var(--z5);height:var(--z5);padding:0;border-radius:var(--r1);border:0;background:var(--bg);color:var(--ink);font-size:20px;font-weight:600;cursor:pointer;line-height:1;}
-.offer .qbtn:hover{border-color:var(--teal);}
-.offer .qbtn:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
-.offer .qbtn[disabled]{opacity:.35;cursor:default;}
 .offer .o-panel{background:var(--bg);border:1px solid var(--line);border-radius:var(--r2);padding:var(--s3);display:flex;flex-direction:column;gap:var(--s3);}
 .offer .o-panel[hidden]{display:none;}
 .offer .o-panel textarea{width:100%;min-height:80px;border:1.5px solid var(--line-2);border-radius:var(--r1);padding:var(--s3);font-family:inherit;font-size:15px;font-weight:300;color:var(--body);background:#fff;resize:vertical;line-height:1.5;}
@@ -813,8 +795,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-priceline{display:flex;justify-content:space-between;gap:var(--s3);font-size:13px;color:var(--muted);}
 .offer .o-priceline span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink);font-weight:500;}
 .offer .o-sumnote{font-size:13px;font-weight:300;color:var(--muted);line-height:1.45;background:var(--teal-soft);border-radius:var(--r1);padding:var(--s2) var(--s3);}
-.offer .o-grannline{display:flex;justify-content:space-between;gap:var(--s3);font-size:13px;color:var(--muted);padding-top:var(--s3);border-top:1px dashed var(--line);}
-.offer .o-grannline span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;}
+/* `.o-grannline` BORTTAGEN 30 okt, 258 B. Rabattens egen summeringsrad,
+   ersatt 26 okt (8457285) av `.o-sumrow.disc` + `.o-sumnote`. */
 .offer #moreWrap[hidden]{display:none;}
 .offer .o-villkor{display:inline-flex;align-items:center;min-height:var(--z5);color:var(--teal-ink);font-weight:600;}
 
@@ -1037,9 +1019,10 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   min-height:44px; padding:0 10px; margin:0 -6px;
   color:var(--teal-deep); font-weight:600; white-space:nowrap;
   text-decoration:underline; text-underline-offset:3px; }
-#skarmAvboj .oa__back{ display:inline-flex; align-items:center; min-height:44px; margin-top:2px;
-  font-size:14px; font-weight:600; color:var(--teal-deep);
-  text-decoration:underline; text-underline-offset:3px; }
+/* `.oa__back` BORTTAGEN 30 okt, 213 B. Avbojsskarmen hade en
+   tillbaka-till-offerten-lank under kortet; den finns inte i
+   `gemensamt/block/skarm-avboj.html` langre. Skarmens egen vag tillbaka ar
+   `.oa__next`. */
 #skarmAvboj .oa a:focus-visible{ outline:3px solid #090b32; outline-offset:3px; border-radius:12px; }
 @container (max-width:560px){#skarmAvboj .oa__trust-item{ font-size:14px; }
 #skarmAvboj .oa__title{ font-size:clamp(27px,6.5cqw,31px); }}
@@ -1472,8 +1455,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .o-main > .o-colC{grid-column:1;grid-row:2;}
   .offer .o-main > .o-sec{grid-column:1;grid-row:3;}
 }
-/* Sliderns spår är overflow:visible i originalet. Här klipps skymten i kanten. */
-.offer .ampy-testimonials .att-slider .splide__track{overflow:hidden;}
 /* .offer h1..h4 sätter färg OCH vikt. Blockets rubrik är w400 i originalet,
    offertens regel gjorde den w700. */
 .offer .ampy-testimonials .att-heading{color:var(--ink);font-weight:400;}
@@ -1611,10 +1592,10 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    tre olika betyg. Sidan har en stjärntoken och nu bär alla den.
    Googles guld hade ett argument, det är deras märke, men G-logotypen bär
    redan varumärket och vi lånar ingen annan Google-färg någonstans. */
-/* Tre klasser, inte två: testimonials.css laddas EFTER offert.css och väger
-   lika mycket, så vid lika vikt vinner den som står sist. */
-.offer .ampy-testimonials .att-card__stars svg,
-.offer .ampy-testimonials .att-badge__stars svg{fill:var(--stjarna);}
+/* STJARNTOKENEN SATTS NU BARA PA `.o-cit__stjarnor`. Lyften for det gamla
+   kortets och den gamla badgens stjarnor (`.att-card__stars svg`,
+   `.att-badge__stars svg`) ar borttagna 30 okt, 117 B: bada elementen gick
+   ur markupen med kortet och badgen. */
 
 /* ===========================================================================
    OMDÖMESKORTETS YTA ÄR LJUS. ÄGARVAL 29 OKTOBER, OCH DET RIVER DET GAMLA.
@@ -1784,15 +1765,12 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .ampy-testimonials .o-marken__ogonbryn{text-align:center;}
 }
 
-/* Karusellen, prickarna och den gamla badgen hör till läget "som i dag".
-   Tre klasser: testimonials.css laddas efter offert.css och vinner vid lika
-   vikt. Badgen är dessutom dubbel nu, betyget står i hjälten. */
-.offer .ampy-testimonials .att-slider,
-.offer .ampy-testimonials .att-nav,
-.offer .ampy-testimonials .att-rating{display:none;}
-.offer.t-nu .ampy-testimonials .att-slider{display:block;}
-.offer.t-nu .ampy-testimonials .att-nav,
-.offer.t-nu .ampy-testimonials .att-rating{display:flex;}
+/* LAGET "SOM I DAG" HAR INGENTING ATT VISA. De sex reglerna som tande den
+   gamla karusellen, prickraden och badgen i `t-nu` ar borttagna 30 okt
+   (283 B): alla tre gick ur markupen 18-25 okt. Uppmatt 30 okt pa
+   offert-easee-max vid 375: knappen tar bandet 940 -> 416 px, slacker det
+   levande citatkortet och tander NOLL gamla element. AGARBESLUT KVAR:
+   knappen ur body.html rad 15, eller en fryst jamforelseyta tillbaka. */
 .offer.t-nu .o-cit,.offer.t-nu .o-marken__ogonbryn{display:none;}
 
 /* B BANDET. Hela sektionen blir ytan. Innehållet håller sin bredd, ytan gör
