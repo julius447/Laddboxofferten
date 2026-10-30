@@ -11,9 +11,9 @@
      Avrundas EN gang, har, i renderaren. */
   function kr(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0") + "\u00a0kr"; }
 
-  var PKG={"5990": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp", "bildduk": "174.7", "grupper": 7}, "9990": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp", "bildduk": "134.1", "grupper": 16}, "14900": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp", "bildduk": "96", "grupper": 32}};
-  var TAK={"5990": 18, "9990": 22, "14900": null};
-  var RYMS={"5990": 0, "9990": 0, "14900": 10};
+  var PKG={"5850": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp", "bildduk": "174.7", "grupper": 7}, "9750": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp", "bildduk": "134.1", "grupper": 20}, "17250": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp", "bildduk": "96", "grupper": 36}};
+  var TAK={"5850": 17, "9750": 34, "17250": null};
+  var RYMS={"5850": 13, "9750": 22, "17250": 20};
   var TJANSTPOTT={"laddbox": "gt"};
   var GRANNRABATT=1000;
   var ORDNING = Object.keys(PKG).sort(function(a,b){ return a - b; });
@@ -216,9 +216,63 @@
     $("barPott").textContent = window.ampyPottsvans(POTT_BAS, harAnnanPott);
   }
 
+  /* ---- DET SOM INGAR GAR INTE ATT KOPA EN GANG TILL --------------------
+     SVAR 08, 30 OKTOBER, ORDAGRANT: "Nej, nar man kryssat i stor sa gar ej
+     overspanningsskydd att valja." Stor Premium bar ett overspanningsskydd
+     (kravspec §7), och en rad som saljer det en gang till ar en
+     dubbeldebitering pa 3 250 kr.
+
+     BYGGET SAGER VILKA RADER DET GALLER, inte den har filen. Varje
+     tillaggsrad vars grupp ar en komponent i en storlek bar
+     data-ingar-i="<prisnyckel> ...", harlett ur paket.json hard-listor. Da kan
+     grinden inte peka pa fel rad nar paketens innehall andras.
+
+     KUNDENS EGET VAL SPARAS. Kryssar hon skyddet pa Liten, byter till Stor och
+     tillbaka ska bocken komma tillbaka: det var hennes val, och Liten bar inget
+     skydd. Samma form som laddboxmallens kundval, och av samma skal: tva minnen
+     for samma val blir oense, och da debiterar summeringen nagot som inte syns.
+     Uppmatt pa laddboxsidan nar den buggen fanns: 6 100 kr i stallet for
+     4 450. */
+  var ingarKundval = {};
+  function grinda(nyckel){
+    offer.querySelectorAll("input.add[data-ingar-i]").forEach(function(i){
+      var rad = i.closest(".o-rad");
+      if (!rad) return;
+      var med = (" " + i.getAttribute("data-ingar-i") + " ").indexOf(" " + nyckel + " ") !== -1;
+      var pr = rad.querySelector(".o-radpris");
+      if (med) {
+        /* Kundens bock sparas INNAN den tas bort, en gang per last tillstand.
+           Las vi om varje rakning skulle ett klick pa en last rad kunna sparas
+           som ett val hon aldrig gjorde. */
+        if (!i.disabled) ingarKundval[i.getAttribute("data-grupp")] = i.checked;
+        i.checked = false;
+        i.disabled = true;
+        rad.classList.add("ingar");
+        if (pr) {
+          pr.textContent = "Ingår i " + (PKG[nyckel] ? PKG[nyckel].namn : nyckel);
+          pr.classList.add("ingarpris");
+        }
+      } else {
+        if (i.disabled) {
+          i.disabled = false;
+          i.checked = !!ingarKundval[i.getAttribute("data-grupp")];
+        }
+        rad.classList.remove("ingar");
+        if (pr) {
+          pr.textContent = "+" + kr(parseInt(i.value, 10));
+          pr.classList.remove("ingarpris");
+        }
+      }
+    });
+  }
+
   function rakna(){
     /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
     var _o=document.querySelector('.offer'); if(_o) _o.classList.add('js-redo');
+
+    /* GRINDEN FORST. poster() laser ".add:checked", sa en rad som ingar maste
+       vara urkryssad INNAN summan raknas, inte efterat. */
+    grinda(valdStorlek());
 
     /* DEN VALDA RADENS KANT. gemensamt/system.css rad 395 sager
        `.o-rad.vald{border-color:var(--teal-ink)}` och rad 391 ger .o-rad en
@@ -388,7 +442,7 @@
     if (!rad) return false;
     var tak = TAK[nyckel];
     var extra = null;
-    /* TVA DVARGBRYTARRADER SEDAN 29 OKTOBER (C10 A och C16 A). Taket och
+    /* TVA DVARGBRYTARRADER SEDAN 29 OKTOBER (C10A och C16A, svar 07). Taket och
        platsen handlar om MODULPLATSER, och en modulplats bryr sig inte om
        amperen: bada raderna tar en plats per brytare. Darfor summeras de.
        Forsta versionen last bara "dvargbrytare" och hade alltsa slutat se
@@ -460,7 +514,7 @@
     var rad = $("platsRad");
     if (!rad) return;
     var extra = null;
-    /* TVA DVARGBRYTARRADER SEDAN 29 OKTOBER (C10 A och C16 A). Taket och
+    /* TVA DVARGBRYTARRADER SEDAN 29 OKTOBER (C10A och C16A, svar 07). Taket och
        platsen handlar om MODULPLATSER, och en modulplats bryr sig inte om
        amperen: bada raderna tar en plats per brytare. Darfor summeras de.
        Forsta versionen last bara "dvargbrytare" och hade alltsa slutat se

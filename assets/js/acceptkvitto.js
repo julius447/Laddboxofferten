@@ -20,9 +20,22 @@
 
    EN KALLA, INTE EN AVSKRIFT. Raderna klonas ur #sumRows och foldarna ur
    sidans egna <details>. Ingen text kopieras in i den har filen, for en
-   avskrift blir en andra sanning som driver isar fran den forsta. Mallar som
-   saknar en fold (service och tillagg har ingen "Kostnader som kan tillkomma")
-   far bara de som finns.
+   avskrift blir en andra sanning som driver isar fran den forsta.
+
+   OCH ATT SERVICE SAKNAR KOSTNADSFOLDEN AR AVGJORT, 30 OKTOBER. Har stod till
+   i dag att "service och tillagg har ingen 'Kostnader som kan tillkomma'",
+   skrivet som en iakttagelse. Det lastes som en oavgjord lucka i tva dagar,
+   och gapdokumentets post 21 sager det rakt ut: "Koden bar luckan som en
+   kommentar i acceptkvitto.js, sa den ar kand men inte avgjord." AGARSVAR 21,
+   ordagrant: "Nej det ska inte finnas pa service." Luckan ar alltsa ett
+   BESLUT, och beslutet bor numera i ett stopp och inte i den har
+   kommentaren: offerter/service/offert.py: ingen_kostnadsfold() faller om
+   folden kommer tillbaka pa servicesidan. Tillagget ar en egen offert med
+   egna rader och har aldrig haft folden.
+
+   Koden nedan ar oforandrad och ska vara det: las(folden(...)) tar den fold
+   som FINNS, och en mall utan den far bara de ovriga. Det ar ratt mekanik aven
+   nar luckan ar ett beslut.
 
    DATUMET. Agarsvar 46, 25 oktober: "Ja, lagg till datum." I produktion satter
    CRM:et det i samma ogonblick kunden trycker acceptera (falt `accepterad` i

@@ -379,16 +379,38 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 }
 .o-rad:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
 .o-rad > input{position:absolute;opacity:0;width:1px;height:1px;}
-.o-radbild{margin:0;width:104px;height:104px;flex:none;background:transparent;display:grid;place-items:center;}
-/* EN VIT PRODUKT PA EN VIT RUTA SYNS INTE.
-   SAJ HS3 ar en hog vit skap fotograferad rakt framifran utan skuggning:
-   uppmatt 1,65 procent black pa duken, varav 28 procent halvtransparent. I
-   raden lastes den som en tom ruta bredvid tva riktiga produktfoton.
-   Produkten ar inte andrad, bakgrunden ar. De tre batterierna ar dessutom en
-   egen sort, intresseanmalan och inte kopbart tillagg, sa plattan markerar
-   dem som en grupp. Samma platta som ikonrutorna redan anvander. */
-.o-rad:has(input[data-intresse]) .o-radbild{
-  background:var(--bg);border:1px solid var(--line);border-radius:var(--r2);
+/* `background:transparent` stod har och var bade overflodig, det ar
+   initialvardet, och vilseledande: den laste som ett beslut att fotot INTE
+   har en ruta, vilket det nu har. Tagen bort sa filen bara har ett stalle
+   som bestammer radbildens botten. */
+.o-radbild{margin:0;width:104px;height:104px;flex:none;display:grid;place-items:center;}
+/* PRODUKTBILDEN INNANFOR BOXEN. AGAREN 30 OKTOBER, ORDAGRANT:
+   "Designen for overspanningsskyddet, likt den pa skarmbilden, maste fixas
+    sa att overspanningsskyddet ar innanfor boxen."
+
+   UPPMATT 30 OKTOBER, fore rattningen, vid 375 px pa elcentralsidan: ingen
+   enda .o-radbild i huset hade en egen ruta. Varje produktfoto lag naket pa
+   kortets vita botten, medan .o-radikon i SAMMA lista bar sin glyf i en
+   platta med 14 px radie. Tva rader isar i en och samma lista, alltsa tva
+   svar pa vad en tillvalsrad ar: "Lock till elcentral" fritt i luften,
+   "Anpassning av huvudsakring" i en ruta.
+
+   Rutan ar husets egen och inte en ny form: .o-ptile img, produktbrickan i
+   paketkorten, bar redan background var(--bg) + radie + padding. Samma
+   behandling flyttas hit, med .o-radikons radie (--r2) sa de tva rutorna i
+   listan far samma horn.
+
+   EN VIT PRODUKT PA EN VIT RUTA SYNS INTE ar samma fynd fran andra hallet:
+   SAJ HS3 ar en hog vit skap fotograferad rakt framifran utan skuggning,
+   uppmatt 1,65 procent black pa duken, varav 28 procent halvtransparent, och
+   lastes i raden som en tom ruta bredvid tva riktiga produktfoton. Regeln lag
+   darfor forut pa `:has(input[data-intresse])` allena, och var DOD: raden vid
+   "INTRESSERADENS BILD STAR FRITT" langre ner i den har filen (0,4,1) slog den
+   (0,3,1) och nollstallde alla tre egenskaperna. Agarbeskedet 24 oktober om
+   intresseraderna star kvar och ar undantaget; kopbara tillvalsrader far
+   rutan. Oraklet `produktbilden_i_boxen` haller bada halvorna. */
+.offer .o-rad > .o-radbild{
+  background:var(--bg);border-radius:var(--r2);
   padding:var(--s2);box-sizing:border-box;}
 .o-radikon{width:104px;height:104px;flex:none;border-radius:var(--r2);background:var(--ikonplatta);
   display:block;overflow:hidden;color:var(--ikonglyf);}
@@ -2098,7 +2120,13 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
    form, och agaren 24 oktober om dagens: "Bilderna ar inte centrerade och
    ser bedrovliga ut." En rad som ar en INTRESSEANMALAN och inte ett kop bar
    produkten sjalv, inte en inramad miniatyr. Regeln lag i elcentralens egen
-   stil.css och nadde darfor en av de tre mallar som visar batteriraderna. */
+   stil.css och nadde darfor en av de tre mallar som visar batteriraderna.
+
+   DET HAR AR UNDANTAGET fran "PRODUKTBILDEN INNANFOR BOXEN" hogre upp i
+   filen (agaren 30 oktober). Raden vinner pa specificitet, (0,4,1) mot
+   (0,3,0), och det ar med flit: tva agarbesked om tva olika sorters rad,
+   och det senare gallde den kopbara. Rivs den har raden far batteriraderna
+   en ruta de uttryckligen blivit av med. */
 .offer .o-rad:has(input[data-intresse]) .o-radbild{background:transparent;border:0;padding:0;}
 
 /* PRODUKTBRICKORNA, DELADE. Lag i laddboxens egen stil.css, vilket gjorde att

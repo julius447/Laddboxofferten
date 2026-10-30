@@ -71,5 +71,6 @@ var IMGS = {
   "vagg-stor": "assets/img/vagg-stor.webp",
   "zaptec-go": "assets/img/zaptec-go.webp",
   "zaptec-go-2": "assets/img/zaptec-go-2.webp",
-  "zaptec-sense": "assets/img/zaptec-sense.webp"
+  "zaptec-sense": "assets/img/zaptec-sense.webp",
+  "adax-element": "assets/img/adax-element.webp"
 };

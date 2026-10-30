@@ -34,7 +34,7 @@
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
   /* CEN genereras ur offerter/elcentral/paket.json, den mall som ager
      produkten. En kalla, en sanning. Skalet star i beslut/19-oktober.md (C4). */
-  var CEN={"5990": "Byte av elcentral, liten", "9990": "Byte av elcentral, medel", "14900": "Byte av elcentral, stor"};
+  var CEN={"5850": "Byte av elcentral, liten", "9750": "Byte av elcentral, medel", "17250": "Byte av elcentral, stor"};
 
   /* kundens egna kryss minns, så ett paketbyte aldrig raderar dem tyst */
   var kundval={};
@@ -719,12 +719,20 @@
   });
 
   /* VAD KNAPPEN PA ETT PRODUKTKORT GOR, som en tabell och inte som en if-kedja.
-     Prisfragan ar agarens och inte avgjord: CRM:ets grundbelopp ar ETT tal per
-     affar och prislistan per modell finns bara i det har repot, spann 4 190 till
-     14 550 kr. Tre vagar star oppna och de skiljer sig BARA har. offert.py
-     valjer lage, och dess orakel kraver att varje lage som star i markupen har
-     en nyckel i den har tabellen. Ett lage utan handlare stoppar bygget, sa
-     ingen kan skeppa en knapp som inte gor nagonting. */
+
+     SEDAN 30 OKTOBER AR KORTET EN LANK OCH TABELLEN ANVANDS INTE AV DEN
+     SKEPPADE SIDAN. Agaren: "Nar jag valjer att trycka pa dem ska jag komma in
+     pa den offerten, den offertmallen." Lage "mall" i offert.py renderar
+     darfor en <a href> med systermallens publicerade adress, och en lank
+     behover ingen handlare: lyssnaren nedan laser data-bib-gor, far null, och
+     slapper igenom klicket till webblasaren.
+
+     TABELLEN STAR KVAR for att lagena fraga, byt och crm fortfarande ar
+     parametrar, och for att brygga_orakel() kraver en handlare har sa fort
+     markupen bar ett data-bib-gor. Vander nagon tillbaka utan att skriva koden
+     stoppar bygget. Prisfragan ar fortfarande agarens och inte avgjord:
+     CRM:ets grundbelopp ar ETT tal per affar och prislistan per modell finns
+     bara i det har repot, spann 4 190 till 14 550 kr. */
   var BIBGOR = {
     /* LAGE "fraga": BIBLIOTEKET SALJER INTE.
        Valet skrivs in i kundens egen fraga till bokaren, som hon skickar sjalv.

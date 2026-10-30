@@ -12,10 +12,10 @@
   var POTT=100000;
   var PERSONER=2;
   var GRANNRABATT=3000;
-  var CEN={"5990": "Byte av elcentral, liten central", "9990": "Byte av elcentral, mellan central", "14900": "Byte av elcentral, stor central"};
+  var CEN={"5850": "Byte av elcentral, liten central", "9750": "Byte av elcentral, medel central", "17250": "Byte av elcentral, stor central"};
   var BOCK="<span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span>";
   var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
-  var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Våra egna elektriker installerar och monterar", "Anslutning till elcentralen, upp till 10 meter kabel, och till dina befintliga solceller", "För- och färdiganmälan till nätbolaget, frakt hem till dig", "Konfigurering, driftsättning, funktionstest, kontrollmätning och genomgång av appen", "10 års produktgaranti"]};
+  var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Montering och installation, egna elektriker", "Anslutning till elcentral och dina solceller", "Upp till 10 meter kabel, frakt hem till dig", "För- och färdiganmälan, driftsättning, test", "Kontrollmätning, genomgång av appen, 10 års produktgaranti"]};
   var ST=MODELL.storlekar, BAS=ST[FORVAL];
   /* GRON TEKNIK AR HALVA BRUTTOT, MEN HOGST POTTEN.
      Modellfilen bar BRUTTO per storlek sedan 24 okt: det fysiska priset,
