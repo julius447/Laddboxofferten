@@ -3,61 +3,23 @@
   var GRANNRABATT=1000;
   var $=function(i){return document.getElementById(i);};
   var val=function(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:"0";};
-  var BAS=4400;        /* ur modellfilen */
-
-  /* EN mening, tva ytor, EN harledning.
-     Summeringen bar hela meningen ("inkl. moms, efter grön teknik och ROT"),
-     den klibbiga baren bara dess svans ("efter grön teknik och ROT"), for
-     baren har sin egen etikett "Att betala:" ovanfor och ar 188 px bred vid
-     375. Uppmatt: hela meningen med "och ROT" i baren blir tva rader och gor
-     den klibbiga baren 17 px hogre, alltsa en mobilandring texten inte kraver.
-
-     BADA FORMERNA KOMMER UR gemensamt/block/pottext.js. Att kapa "inkl. moms, "
-     ur hela meningen har hade fungerat tills nagon andrar inledningen; da far
-     baren en stympad mening och ingenting sager ifran. Och att satta ihop
-     barens strang sjalv vore en andra harledning, alltsa precis det modulen
-     finns for att forhindra.
-
-     Hade bara summeringen foljt kundens val hade sidan sagt "efter grön teknik
-     och ROT" om 14 790 kr i summeringen och "efter grön teknik" om SAMMA
-     14 790 kr i baren, samtidigt, pa samma skarm. */
+  var BAS=4400;        
   function pottraden(harAnnanPott){
     $("sumPott").textContent  = window.ampyPottext("grön teknik", harAnnanPott);
     $("barPott").textContent  = window.ampyPottsvans("grön teknik", harAnnanPott);
   }
-
-  /* PKG genereras av src/bygg.py ur src/paket.json, samma källa som
-     punktlistan och brickorna i korten. Tre konsumenter, en sanning. */
   var PKG={"0": {"namn": "Bas", "spec": "11 kW, monterad och driftsatt", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Easee Charge Up</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "1290": {"namn": "Plus", "spec": "11 kW med lastbalansering", "kw": 11, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Easee Charge Up</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Easee Equalizer</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat 16 A och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel, 5G2,5</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}, "4730": {"namn": "Premium", "spec": "22 kW med Perific Max", "kw": 22, "inc": "<li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Easee Charge Up</b></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>22 kW</b><span>laddeffekt</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Perific Max</b><span>lastbalansering</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Laddkabel 22 kW</b><span>5 meter</span></span></li><li class=\"prod\"><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span><b>Zaptec Chill</b></span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Uppgraderad installation till 22 kW, större kabel och säkring</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Personskyddsautomat och egen grupp</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Upp till 10 meter installationskabel för den uppgraderade installationen</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Två håltagningar</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Installation av våra egna elektriker</span></li><li><span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span><span>Driftsättning och genomgång av appen</span></li>"}};
   var INGAR={"0": [], "1290": ["equalizer", "kabelhallare"], "4730": ["kw22", "perific", "kabel11", "kabel22", "kabelhallare"]};
   var PKGVARIANT={"1290": {"equalizer": "Easee Equalizer"}, "4730": {"perific": "Perific Max"}};
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
-  /* CEN genereras ur offerter/elcentral/paket.json, den mall som ager
-     produkten. En kalla, en sanning. Skalet star i beslut/19-oktober.md (C4). */
-  var CEN={"5850": "Byte av elcentral, liten", "9750": "Byte av elcentral, medel", "17250": "Byte av elcentral, stor"};
-
-  /* kundens egna kryss minns, så ett paketbyte aldrig raderar dem tyst */
+  var CEN={"5990": "Byte av elcentral, liten", "9750": "Byte av elcentral, medel", "17250": "Byte av elcentral, stor"};
   var kundval={};
   function rader(){ return [].slice.call(document.querySelectorAll(".o-rad")); }
-  /* RADENS RUTA, OAVSETT KLASS.
-     Tillaggsraderna bar class="add"; batteriets intresserader fods ur
-     bitar.tjanstrader() och bar class="intresse" och inget value. Sex stallen
-     slog upp "input.add" direkt pa raden och anvande traffen utan kontroll, sa
-     dagen batteriet blev rader igen kastade render() TypeError pa rad ett av
-     tre och hela sidan slutade rakna. Ett uppslag, ett stalle att ratta. */
   function radRuta(r){ return r.querySelector("input.add, input.intresse"); }
-  /* ANTAL GANGER STYCKPRIS. Spotlights saldes forut i fasta klumpar,
-     "4 stycken" for 3 200, "6 stycken" for 4 800. Kunden vill ha SITT antal,
-     inte vart. Agaren ville ha elcentralens sifferruta overallt. */
   function radAntal(r){
     var a=r.querySelector("[data-antal]");
     return a ? +a.value : 1;
   }
-  /* Uppgraderingen till Zaptec Go 2 kostar OLIKA MYCKET i olika paket, for
-     paketen ar rabatterade och uppgraderingen ar en del som rabatten biter
-     pa. Ett fast tal gav Go-sidan 5 910 / 7 200 / 10 630 dar Go 2-sidan sa
-     5 900 / 7 120 / 10 480. Kartan kommer ur bada modellernas egna
-     paketpriser, sa de tva vagarna kan inte dra isar. */
   var GO2={"0": 1450, "1290": 1380, "4730": 1310};
   function radVarde(r){
     var i=radRuta(r);
@@ -80,12 +42,7 @@
     var s=r.querySelector(".o-variant");
     return s ? n+", "+s.options[s.selectedIndex].text : n;
   }
-
   function toppAbs(e){var y=0;while(e){y+=e.offsetTop;e=e.offsetParent;}return y;}
-
-
-  /* En variant ar en LANGD om alla dess val slutar pa "meter". Langdvalet
-     overlever en paketlasning, allt annat lases med raden. */
   function arLangd(sel){
     var ok=true;
     Array.prototype.forEach.call(sel.options,function(o){
@@ -97,121 +54,39 @@
     var i=document.querySelector('input.add[data-grupp="'+grupp+'"]');
     return i?i.closest(".o-rad"):null;
   }
-
   function render(){
-    /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
     var _o=document.querySelector('.offer'); if(_o) _o.classList.add('js-redo');
-
     var pkg=val("pkg"), tid=val("tid"), cen=val("elcentralpkg"), plats=val("plats");
-    /* Go 2-uppgraderingen finns BARA pa Zaptec Go-mallen. Pa de andra sex
-       ar raden borttagen ur markupen, inte gomd, sa uppslaget maste tala att
-       den saknas. Oraklet fangade det direkt: "skriptet slar upp id som inte
-       finns i markupen: go2". */
     var go2ruta=$("go2"), go2=!!(go2ruta && go2ruta.checked);
     var p=PKG[pkg];
-
-    /* 22 KW-KABELN VISAS BARA NAR 22 KW AR VALT. Prislistan 20 okt:
-       "Visas endast om uppgraderad installation ar vald". En 22 kW-kabel i en
-       11 kW-installation ar en dyrare kabel som inte laddar snabbare, alltsa
-       ett tillagg kunden betalar for utan att fa nagot. Vacks valet bort
-       slacks kabeln ocksa, annars ligger den kvar i summan osynlig. */
     var kw22ruta = document.querySelector('input.add[data-grupp="kw22"]');
-    /* LAS DET SETTLADE TILLSTANDET, INTE DET SOM ANDRAS LANGRE NER.
-       har22 las har, pa rad 77. Pa rad 149 kryssar kundval-aterstallningen i
-       rutan igen om kunden en gang valt 22 kW, alltsa EFTER att den har raden
-       redan bestamt att kabeln ska gommas. Resultatet var ett tillstand dar
-       uppgraderingen lag i ordern utan kabel, och en total som hoppade 1 650 kr
-       vid nasta klick pa vad som helst:
-         Bas, 22 kW, kabel, Premium, Bas  ger 5 400 kr
-         sedan ett RFID-pack for 175 kr    ger 7 225 kr
-       Kunden ser priset stiga 1 825 for en vara som kostar 175.
-       kundval ar kundens AVSIKT och den ar redan skriven nar render korer, sa
-       den ar ratt kalla har. Bockar kunden UR rutan satter lyssnaren
-       kundval.kw22 = false fore render, sa angringen funkar.
-       Och disabled fick INTE lasas har heller: pa vagen Premium -> Bas star
-       rutan kvar som disabled fran forra renderingen, sa ett villkor pa
-       disabled gav exakt samma inaktuella svar som checked gjorde. Enda
-       kallan som alltid ar aktuell nar render borjar ar kundval, for den
-       skrivs av lyssnaren innan render anropas. */
     var kw22Pa = !!(kw22ruta && (kw22ruta.checked || kundval["kw22"]));
     var har22 = kw22Pa || (p && p.kw === 22);
     var rad22 = document.querySelector('input.add[data-grupp="kabel22"]');
     if(rad22){
       var kort22 = rad22.closest(".o-rad");
       kort22.hidden = !har22;
-      /* Bocka UR rutan, men glom inte kundens val. Forut nollades ocksa
-         kundval, sa den som bockade av 22 kW och pa igen fick kabeln tyst
-         borttagen ur summan medan langdvalet lag kvar i dropdownen.
-         kabel11 sparade redan sitt kundval, sa samma fil hade tva olika
-         angerregler for samma sorts val. */
       if(!har22 && rad22.checked){ rad22.checked = false; }
     }
-
-    /* FRONTKAPAN HOR TILL ZAPTEC GO, INTE TILL GO 2.
-       Agarnotering 22 okt, och provet T22 bevakar att raden inte ens FINNS pa
-       de andra sex modellerna. Men pa Go-sidan gar kunden over till Go 2 med
-       uppgraderingsraden, och da lag kapan kvar valbar: hjalten sa Zaptec
-       Go 2 medan kunden kunde kopa en kapa till en Zaptec Go for 300 kr.
-       Samma grind som 22 kW-kabeln, och darmed samma invariant: en gomd rad
-       varken raknas eller aterstalls ur minnet. */
     var kapruta = document.querySelector('input.add[data-grupp="frontkapa"]');
     if(kapruta){
       kapruta.closest(".o-rad").hidden = go2;
     }
-
-    /* TRE LÅSNINGSORSAKER, INTE EN.
-
-       Förut fanns bara "ingår i paketet", och det var roten till två fel.
-
-       1. INGAR     kunden får den, den är betald i paketet.
-       2. UTESLUTEN kunden får den INTE och kan inte köpa den, för något hon
-                    redan har ersätter den.
-       3. fri       valbar.
-
-       DEFEKTEN SOM RÄTTAS: utestängningen av lastbalanseringar kördes BARA
-       när kunden själv klickade i en ruta. Ingick en i paketet, som Zaptec
-       Sense i Plus, låstes bara den raden medan Perific, Tibber och Easee
-       Equalizer lämnades fria. En Plus-kund kunde alltså kryssa i tre till
-       och betala för FYRA enheter som gör exakt samma sak.
-
-       Och de två tillstånden får inte dela text. "Ingår i Premium" på
-       11 kW-kabeln påstod att kunden får två kablar. Den ska säga att den är
-       ersatt. */
     var ingar=INGAR[pkg]||[];
     var LB=["sense","equalizer","tibber","perific"];
-
-    /* vilken lastbalansering paketet redan bär, om någon */
     var lbIPaket=null;
     LB.forEach(function(g){ if(ingar.indexOf(g)>=0) lbIPaket=g; });
-
-    /* 22 kW-paket: 11 kW-kabeln är ersatt, inte inkluderad */
     var kabelErsatt = har22 ? "kabel11" : null;
-
     rader().forEach(function(r){
       var i=radRuta(r), g=i.getAttribute("data-grupp");
       var med=ingar.indexOf(g)>=0 && g!==kabelErsatt;
       var ute=false, uteText="";
-
       if(!med && lbIPaket && LB.indexOf(g)>=0){
-        /* KORT TEXT, INTE PRODUKTNAMNET.
-           "Ingår redan: Perific lastbalansering" bryter radens layout: namnet
-           ar langre an kolumnen och klipps mitt i ordet. Agaren: "da gar
-           designen sonder... Vi vill bara morka ner dem." Tva ord racker, och
-           raden ar redan nedtonad, sa skalet syns pa formen ocksa. */
         ute=true; uteText="Ingår redan";
       }
       if(g===kabelErsatt){
         ute=true; uteText="Ersatt av 22 kW";
       }
-
-      /* EN GOMD RAD AR INGET VAL KUNDEN KAN GORA.
-         Rad 87 bockar ur 22 kW-kabeln nar 22 kW slacks. Fem rader senare
-         kryssade den har loopen i den igen, for kundval sa att kunden en gang
-         valt den. Tva minnen for samma val, och de var oense: raden lag gomd
-         medan summeringen debiterade 1 650 kr for den. Uppmatt: Bas, 22 kW
-         pa, kabel pa, 22 kW av gav 6 100 kr i stallet for 4 450.
-         kundval nollas INTE, sa slar kunden pa 22 kW igen kommer kabeln
-         tillbaka. Den ar bara inte med sa lange den inte syns. */
       var dold=r.hidden;
       var last=med||ute;
       r.classList.toggle("ingar",med);
@@ -219,20 +94,10 @@
       i.disabled=last;
       if(last||dold){ i.checked=false; }
       else if(kundval[g]){ i.checked=true; }
-
-      /* LÄNGDEN FÅR ALDRIG LÅSAS. Ägaren: längd 5 eller 10 meter ska vara
-         valbar oavsett paket. Förut låstes varianten tillsammans med raden,
-         så en Premiumkund inte kunde välja 10 meter alls. */
       var s=r.querySelector(".o-variant");
       if(s) s.disabled = ute || (med && !arLangd(s));
-
-      /* EN LAST RAD MASTE VISA DET PAKETET FAKTISKT BAR.
-         Lases raden som "ingar" och paketet namnger en variant, stall
-         dropdownen pa den och byt bilden med. Utan det sa Premium-raden
-         "Perific One" medan kortet och priset bar Max. */
       if(s && !arLangd(s) && !med && !ute && kundvariant[g] !== undefined
          && s.selectedIndex !== kundvariant[g]){
-        /* Raden ar fri igen: tillbaka till kundens eget val. */
         s.selectedIndex = kundvariant[g];
         var nk=s.getAttribute("data-bild");
         if(nk){
@@ -258,33 +123,18 @@
           }
         }
       }
-
       var pr=r.querySelector(".o-radpris");
       if(med){ pr.textContent="Ingår i "+p.namn; pr.classList.add("ingarpris"); }
       else if(ute){ pr.textContent=uteText; pr.classList.add("ingarpris"); }
       else { pr.classList.remove("ingarpris"); }
     });
-
     var paketpris=BAS+(+pkg);
     var cenPris=(+cen>0)?+cen:0;
-    var sum=paketpris+(+tid)+(+plats)+cenPris;   /* Go 2 är en vanlig tilläggsrad nu */
+    var sum=paketpris+(+tid)+(+plats)+cenPris;   
     var valda=[];
-    /* ROT och grön teknik är två olika avdrag ur två olika potter. Laddpunkten
-       är grön teknik; elcentralen, spotlightsen och termostaten är ROT på
-       arbetskostnaden. Allt som är ROT måste därför bort ur grön teknik-basen,
-       annars räknas samma krona två gånger och hjältetalet blir fel. */
     var rotSum=cenPris, rotNamn=[];
     if (cenPris) rotNamn.push(CEN[cen]);
-    /* Intresseanmälan: krysset betyder "berätta mer", inte "lägg till".
-       Ett batteri går inte att prissätta utan att se taket och förbrukningen,
-       och en offert ska inte bära ett tal som inte är räknat. */
     var intresse=[];
-    /* MELLANSKILLNADEN. En kabel som INGAR i paketet ar betald i 5-meters-
-       utforande. Valjer kunden 10 meter far hon inte kabeln gratis, men hon
-       ska inte heller betala hela 10-meterspriset: hon betalar SKILLNADEN.
-       Agaren: langden ska vara valbar oavsett paket. Utan det har blocket var
-       dropdownen valbar men andrade ingenting, vilket ar varre an en last
-       dropdown: den ser ut att gora nagot. */
     rader().forEach(function(r){
       var i=radRuta(r);
       if(r.hidden) return;
@@ -294,18 +144,11 @@
       var delta=(+sel.value) - (+sel.options[0].value);
       if(delta>0){
         sum+=delta; rotSum+=0;
-        /* Nyckeln heter "pris", inte "v". Alla andra rader anvander pris, och
-           summeringen laser pris. Med v: skrev sidan "pris saknas" bredvid en
-           rad som hade ett helt korrekt tal i totalen. */
         valda.push({namn:radNamn(r)+" i stället för "+sel.options[0].text.trim(), pris:delta});
       }
     });
-
     rader().forEach(function(r){
       var i=radRuta(r);
-      /* Samma invariant pa summans sida: det kunden inte ser betalar hon inte
-         for. Tva sparrar for samma regel ar medvetet, for den ena ar
-         tillstandet och den andra ar pengarna. */
       if(r.hidden) return;
       r.classList.toggle("vald", i.checked && !i.disabled);
       if(i.disabled) return;
@@ -320,56 +163,20 @@
         if(i.hasAttribute("data-rot")){ rotSum+=v; rotNamn.push(radNamn(r)); }
       }
     });
-    /* BATTERIET AR TRE RADER IGEN, agarbesked 24 okt. 23 okt gjorde jag dem
-       till bildkort i en radiogrupp och las darfor namnet ur .o-pkg har. Den
-       raden ar borta: raderna gar genom data-intresse-grenen ovanfor, som
-       laser data-name ur raden, precis som varje annan rad. Tre kort i en
-       radiogrupp lat dessutom kunden anmala intresse for ETT marke; tre
-       kryssrutor later henne fraga om flera, vilket ar vad en
-       intresseanmalan ar till for. */
-
     var mitt = sum;
-
     $("prodName").textContent = go2 ? "Zaptec Go 2" : "Easee Charge Up";
     $("heroImg").src = go2 ? IMGS["zaptec-go-2"] : IMGS["easee-charge-up"];
-    /* HJALTEN SA 11 kW MEDAN ORDERN BAR 22.
-       Kryssade kunden i uppgraderingen stod det fortfarande "11 kW, monterad
-       och driftsatt" i hjalten, "11 kW laddeffekt" i innehallslistan och
-       "Personskyddsautomat 16 A" bland jobben, med "Uppgradering till 22 kW
-       950 kr" i summeringen tva skarmar ner. Samma skarm sa tva saker, och
-       elektrikern som laser listan far 16 A dar kunden kopt 32.
-       Allt tre foljer har22 nu, alltsa bade paketets effekt och kryssrutan. */
     $("prodSpec").textContent = har22 ? p.spec.replace("11 kW", "22 kW") : p.spec;
-
-    /* Markupen är genererad i bygget, inte här: listan i kortet och listan
-       här ska aldrig kunna säga olika saker. Enda skillnaden är namnet när
-       kunden har kryssat i Go 2. */
     var nyLista = go2 ? p.inc.replace("<b>Zaptec Go</b>","<b>Zaptec Go 2</b>") : p.inc;
     if (har22 && p.kw !== 22){
       nyLista = nyLista.replace("<b>11 kW</b>", "<b>22 kW</b>")
                        .replace("Personskyddsautomat 16 A", "Personskyddsautomat 32 A");
     }
     if ($("incList").innerHTML !== nyLista){
-      /* Listan ligger OVANFÖR paketkorten. Byter man paket med folden öppen
-         ändras dess höjd med upp till 106 px, och allt kunden tittar på
-         trycks ner lika mycket. offsetTop är skaloberoende, till skillnad
-         från getBoundingClientRect inne i en skalad ram. */
       $("incList").innerHTML = nyLista;
     }
-
-    /* grön teknik gäller laddpunkten, inte elcentralbytet. Det är ROT och räknas separat. */
-    /* Bruttot är grön teknik-basen före avdrag PLUS allt som är ROT, för ROT
-       dras på arbetskostnaden och inte på hela priset. Raden räknade bara
-       elcentralen tidigare; nu när spotlights och termostat också är ROT
-       måste hela rotSum med, annars visar baren ett brutto som är för lågt. */
     var gtBas = mitt - rotSum;
     $("calcGross").textContent = kr(gtBas*2);
-    /* MINUSTECKEN, inte ordet "minus". Agaren vande tre ganger och landade i:
-     "Vi gor sa har. Kor gront. Andra minus till minustecken."
-     Tecknet ar U+2212 MINUS SIGN, inte bindestreck och inte tankstreck:
-     bindestrecket ar for kort bredvid siffror och tankstrecket ar ett
-     AI-tell. Markupen bar samma tecken, annars blinkar ordet forbi innan
-     forsta render. */
     $("calcDed").textContent = "\u2212" + kr(gtBas);
     $("calcCenRad").classList.toggle("dold", !rotSum);
     if (rotSum){
@@ -377,7 +184,6 @@
       $("calcCen").textContent = kr(rotSum);
     }
     $("calcNet").textContent = kr(mitt);
-
     var rows = '<div class="o-sumrow"><span>Paket '+p.namn+'</span><span class="kr">'+kr(paketpris)+'</span></div>';
     valda.forEach(function(v){
       rows += '<div class="o-sumrow sub"><span>'+v.namn+'</span><span class="kr">'+(v.pris?kr(v.pris):"pris saknas")+'</span></div>';
@@ -393,63 +199,16 @@
     }
     var grannar=document.querySelectorAll("#refLista li").length;
     if (grannar) rows += '<div class="o-sumrow disc"><span>Rekommendationsrabatt, '+grannar+(grannar>1?' personer inbjudna':' person inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
-      /* TALET AR INTE EN LITERAL. kr(grannar*500) och strangen
-         '500 kr' stod har medan blocket ovanfor fick sitt tal ur bygget, sa
-         samma skarm bar tva kallor till ett tal. GRANNRABATT kommer ur
-         META["grannrabatt"] via js_data(), samma kalla som markupen. */
       + '<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML = rows;
     $("sumTotal").textContent = kr(mitt);
-
-    /* POTTMENINGEN UNDER "ATT BETALA", AGARENS UPPGIFT 3, 25 OKTOBER:
-       "vi maste andra det fran 'inklusive moms efter gron teknik' till
-        'inklusive moms efter gron teknik och ROT' nar vi lagger till de har
-        sakerna."
-
-       harAnnan kommer UR DATAT, inte ur en namnlista: rotSum ar elcentralens
-       pris plus varje ikryssad rad som bar data-rot, och data-rot i sin tur
-       speglar faltet "avdrag": "rot" i katalog/tillval.json. Far spotlights
-       sallskap av en sjatte ROT-tjanst i morgon behover den har raden inte
-       roras. En handskriven lista med produktnamn hade behovt det, och hade
-       glomts: det ar samma defektklass som ".slice(0,4)" i hopp.py.
-
-       MENINGEN SKRIVS INTE HAR. ampyPottext i gemensamt/block/pottext.js
-       ager lydelsen for alla fem mallarna. Samma mening i tre skript blir
-       tre meningar sa fort nagon rattar en av dem, och det har repot har
-       redan betalat for det en gang: fem mallar sa fem olika saker om samma
-       avdrag den 23 oktober. Oraklet pottraden_ar_harledd() i offert.py
-       stoppar bygget om nagon satter raden med en egen strang. */
     pottraden(rotSum > 0);
     $("sumBrutto").textContent = kr(gtBas*2 + rotSum);
     $("barTotal").textContent = kr(mitt);
     $("barBrutto").textContent = kr(gtBas*2 + rotSum);
-
   }
-
   document.querySelectorAll('input[name="pkg"],input[name="tid"],input[name="elcentralpkg"],input[name="plats"]')
     .forEach(function(i){i.addEventListener("change",render);});
-
-  /* Elcentralbytet är ett tillval utan "nej tack"-ruta. Klickar man på det
-     kort man redan valt släpper valet, så man kan ångra sig utan att leta
-     efter en avbrytknapp. */
-  /* ANGRAN MASTE FINNAS FOR TANGENTBORDET OCKSA.
-     Forut lag den i en click-lyssnare som styrdes av dataset.var, och den
-     flaggan sattes bara av ett musklick. Flyttade kunden sig i gruppen med
-     piltangenterna fyrade change men aldrig click, sa flaggan var aldrig
-     satt, och nasta mellanslag avmarkerade ingenting. Uppmatt: valt = 5990
-     fore och efter, priset stod still. Ett val pa mellan 5 990 och 14 900 kr
-     som musen kan angra men inte tangentbordet.
-
-     Nu haller en variabel reda pa vad som var valt INNAN handlingen, och den
-     skrivs av bade pekare, tangent och change. Click fyrar for bada
-     inmatningssatten, sa angran blir densamma.
-
-     EN FUNKTION, TVA GRUPPER. Angran lag i en variabel som bara elcentralen
-     hade. Nar batteriet blev tre bildkort 23 okt behovde det samma angran,
-     och en andra kopia av samma logik ar ett andra stalle dar den kan
-     drifta. Jamforelsen gar pa ELEMENT och inte pa value: batterikorten ar
-     en intresseanmalan utan value, sa alla tre bar "on", och en
-     value-jamforelse hade slackt kort B i samma klick som valde det. */
   function angerbar(grupp){
     var fore = null;
     function satt(e){ fore = e.checked ? e : null; }
@@ -466,41 +225,7 @@
     });
   }
   angerbar("elcentralpkg");
-  /* INGEN angerbar("batteripkg"). Batteriet ar kryssrutor igen sedan 24 okt,
-     och en kryssruta slapper sitt eget kryss. Angran behovs bara dar en
-     radiogrupp annars later kunden sitta fast i sitt forsta val. Ett anrop
-     som matchar noll element laser som att gruppen finns. */
-  /* Ordningen är hela poängen. Tidigare satt render() som lyssnare FÖRE den här,
-     så den hann läsa ett inaktuellt kundval och kryssa i rutan igen innan minnet
-     uppdaterades. Resultatet var att man inte kunde avmarkera ett tillägg alls.
-     Minnet skrivs nu först, render körs efteråt. */
-  /* ENDAST EN LASTBALANSERING. Prislistan 20 okt: "endast 1 lastbalansering
-     gar att valja". Forut var Sense, Equalizer, Tibber och Perific fyra
-     oberoende kryssrutor, sa kunden kunde kopa fyra enheter som gor samma
-     sak och betala for alla fyra. Kryssar man i en slacks de andra. */
   var LASTBALANS = ["sense","equalizer","tibber","perific"];
-
-  /* EN PLATS DAR ETT VAL BLIR ETT VAL.
-
-     Tre lyssnare gjorde var sin halva av samma sak, och de tva halvorna som
-     saknades kostade kunden pengar:
-
-     1. Kryssrutan skrev kundval OCH korde utestangningen. Hel.
-     2. Antalsvaljaren skrev kundval men korde aldrig utestangningen. Ofarlig,
-        for ingen antalsrad ar en lastbalansering.
-     3. Variantdropdownen skrev kundvariant men ALDRIG kundval, och korde
-        aldrig utestangningen.
-
-     Foljderna av (3), bada uppmatta:
-     - Kryssa i Zaptec Sense, byt sedan Perific-raden till Perific One: bada
-       ligger i ordern. 3 050 kr for tva enheter som gor samma sak, pa alla
-       sju. Perific ar den enda lastbalanseringen med dropdown, och den
-       dyraste.
-     - Valj Perific One i dropdownen, byt till Plus, byt tillbaka: valet ar
-       borta ur summan men raden star kvar med "Perific One" och "+1 950 kr".
-       Inget sager att det forsvann.
-
-     Nu finns handlingen pa ETT stalle och alla tre vagarna gar genom den. */
   function valjRad(i){
     if(!i || i.disabled) return;
     var g = i.getAttribute("data-grupp");
@@ -513,13 +238,9 @@
       });
     }
   }
-
   document.querySelectorAll("input.add, input.intresse").forEach(function(i){
     i.addEventListener("change",function(){ valjRad(this); render(); });
   });
-
-
-  /* andrar man antalet ar det ett val, sa rutan kryssas i */
   document.querySelectorAll("[data-antal]").forEach(function(sel){
     sel.addEventListener("change",function(){
       var r=this.closest(".o-rad"), i=radRuta(r);
@@ -529,16 +250,11 @@
       render();
     });
   });
-
-  /* byter man variant i raden är det ett val, så rutan kryssas i */
   document.querySelectorAll(".o-variant").forEach(function(s){
     s.addEventListener("change",function(){
       var i=radRuta(this.closest(".o-rad"));
       i.checked=true;
       valjRad(i);
-      /* Minnet skrivs HAR, fore render(). Lag skrivningen i en egen lyssnare
-         kordes render forst, och aterstallningen slog da tillbaka kundens
-         just gjorda val. Samma falla som kundval en gang hade. */
       if(!arLangd(this)) kundvariant[this.getAttribute("data-grupp")]=this.selectedIndex;
       var nycklar=this.getAttribute("data-bild");
       if(nycklar){
@@ -550,29 +266,14 @@
     });
     s.addEventListener("click",function(e){ e.stopPropagation(); });
   });
-
-
   var mjukt = !window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  /* FOKUSRYCKNINGEN.
-     Varje val är en etikett runt en dold kryssruta. Ett tryck på etiketten
-     flyttar fokus till kryssrutan, och webbläsaren drar då in den i vyn. Är
-     kortet högre än skärmen går det inte att se hela: man trycker på den
-     synliga nedre delen och sidan rycker upp överkanten. Uppmätt vid 390 x 812
-     med kortet mitt i vyn: noll i sju fall av åtta, men Premiumkortet är 989 px
-     högt mot en skärm på 812 och rycker 415 px. Med scroll-behavior: smooth
-     animeras hela sträckan, vilket är det som känns som att flängas.
-     Åtgärden: ta fokus SJÄLVA på pointerdown, med preventScroll. Då är rutan
-     redan fokuserad när webbläsarens egen fokus kommer, och den rullar inte.
-     Capture-fasen, så vi hinner före. */
   document.addEventListener("pointerdown", function(e){
     var lab = e.target.closest && e.target.closest("label.o-pkg, label.o-opt, label.o-rad, label.o-plats");
     if (!lab) return;
     var i = lab.querySelector("input");
     if (i && !i.disabled) { try { i.focus({preventScroll:true}); } catch(_) { } }
   }, true);
-
   function scrollTill(el,block){ if(el) el.scrollIntoView(mjukt?{behavior:"smooth",block:block||"start"}:{block:block||"start"}); }
-
   function panel(btnId,panelId,other){
     var b=$(btnId), p=$(panelId);
     b.addEventListener("click",function(){
@@ -583,27 +284,11 @@
   }
   panel("fraga","fragaPanel","avbojPanel");
   panel("avboj","avbojPanel","fragaPanel");
-
-  /* I produktion är accept och avböj egna sidor. Prototypen visar dem som
-     egna skärmar i stället för en inline-rad, så flödet går att granska. */
   function visaSkarm(id){
     var s=document.getElementById(id);
     if(!s) return;
     document.querySelector(".offer").classList.add("visarSkarm");
     s.hidden=false; s.classList.add("syns");
-
-    /* EN SKARMLASARE MASTE FA VETA ATT KOPET GICK IGENOM.
-       Uppmatt med riktigt Enter pa Acceptera offert: fokus hamnade pa body,
-       for regeln .offer.visarSkarm > *:not(.o-skarm) slacker knappen som hade
-       fokus. Skarmen hade varken role, aria-live eller tabindex, sa en blind
-       kund horde ingenting efter ett kop pa tiotusentals kronor och hade en
-       enda fokuserbar sak kvar pa sidan: telefonnumret.
-       tabindex -1 plus focus() flyttar lasmarkoren in i skarmen, och da laser
-       uppläsaren rubriken och det som star under den. */
-    /* KVITTOT. Samma tal som summeringen just visade, last ur DOM:en i
-       stallet for omrraknat, sa de inte kan dra isar. Och steg 2 ska inte
-       saga "ni kommer overens om en tid" till nagon som betalat 2 500 kr for
-       Express. */
     if (id === "skarmAccept"){
       var kv = document.getElementById("oaKvitto");
       if (kv){
@@ -616,8 +301,6 @@
           (document.querySelector('input.add[data-grupp="kw22"]:checked') ? ", 22 kW" : "");
         kv.hidden = false;
       }
-      /* Avbojspanelen nollas: ett ikryssat skal bakom en acceptskarm ar ett
-         svar sidan aldrig fick, och det skulle folja med in i CRM:et. */
       document.querySelectorAll('input[name="skal"]:checked').forEach(function(e){ e.checked = false; });
       var fritext = document.getElementById("avbojText");
       if (fritext) fritext.value = "";
@@ -634,75 +317,30 @@
     var sc=document.getElementById("scroller")||document.scrollingElement;
     if(sc) sc.scrollTop=0; else window.scrollTo(0,0);
   }
-
   var avbojSend=document.getElementById("avbojSend");
   if (avbojSend) avbojSend.addEventListener("click",function(){ visaSkarm("skarmAvboj"); });
-
   $("fragaSend").addEventListener("click",function(){
     var ta=$("fragaText"), h=$("fragaHint");
     if(!ta.value.trim()){ h.textContent="Skriv din fråga i rutan först."; ta.focus(); return; }
     h.textContent="Frågan är mottagen.";
     this.disabled=true; ta.readOnly=true;
   });
-  /* Chips-faltet ligger i gemensamt/block/grann.js: markupen ar delad,
-     sa koden ska vara det ocksa. */
-  /* KUNDENS EGET VARIANTVAL, skilt fran paketets.
-     Nar ett paket laser en rad satts varianten till det paketet bar. Lamnas
-     bara det kvar nar kunden gar tillbaka till Bas har paketet tyst andrat
-     ett val kunden sjalv gjort. Samma skal som kundval finns for kryssen. */
   var kundvariant = {};
   document.querySelectorAll(".o-variant").forEach(function(s){
     if(!arLangd(s)) kundvariant[s.getAttribute("data-grupp")] = s.selectedIndex;
   });
-
   window.__render = render;
-
-  /* ---------------------------------------------------------------- bryggan
-     Biblioteket, och de tre lagren i VAGEN TILLBAKA.
-
-     Agaren 29 oktober: "sen maste vi bygga ett smart satt att man da kan komma
-     tillbaka till originalet eh sa att det blir en bra anvandarupplevelse."
-     Det ar den svaraste delen, och svaret har ar att gora den onodig: kunden
-     lamnar aldrig sidan, sa det finns ingen vag tillbaka att bygga.
-
-     Lager 1: BIBLIOTEKET ANDRAR INGET I OFFERTEN. Att oppna, titta och stanga
-              ror inte ett enda val. Provet offerter/laddbox/sonder/brygga.js
-              mater det: paket, plats, tid, tillagg, antal, grannar och totalen
-              jamfors fore och efter, och domen faller om nagot av dem rort sig.
-     Lager 2: KUNDENS EGEN LADDBOX STAR FORST och sager "Din offert". Hon
-              behover aldrig leta efter det hon redan har.
-     Lager 3: TELEFONENS BAKATGEST STANGER BIBLIOTEKET, inte offerten. En
-              <dialog> lagger ingen historikpost, sa ett svep bakat hade tagit
-              kunden ut ur offerten helt, och DET ar den dyra varianten av att
-              tappa vagen tillbaka: pa en token-URL finns ingen annan vag in.
-              pushState med SAMMA url lagger en post utan att skriva nagot i
-              adressen. Kontraktet forbjuder data i url:en, och den har posten
-              bar ingen: location.href gar in oforandrad.
-              Stangs dialogen pa Esc, krysset eller knappen plockas posten bort
-              igen med history.back(), annars hade nasta bakattryck inte gjort
-              nagonting och kunden hade tryckt tva ganger for att komma ut. */
   var bib = document.getElementById("modalBibliotek");
   var bibEgenPost = false;
-
   function bibOppna(){
     if (!bib || !bib.showModal || bib.open) return;
     bib.showModal();
-    /* FOKUS PA DIALOGEN, INTE PA KRYSSET.
-       showModal() ger fokus till forsta fokuserbara elementet, och det ar
-       stangknappen. Uppmatt pa skarmbilden: det forsta ogat moter nar
-       biblioteket oppnas ar en ring runt ett kryss, alltsa "stang det har" i
-       stallet for "har ar utbudet". Samma losning som acceptskarmen redan
-       bar: tabindex -1 plus focus() flyttar lasmarkoren in i dialogen, sa en
-       upplasare laser rubriken och det som star under den. */
     try { bib.focus({preventScroll:true}); } catch(e) { }
     try { history.pushState({ampyBib:1}, "", location.href); bibEgenPost = true; }
     catch(e) { bibEgenPost = false; }
   }
-
   if (bib) {
     bib.addEventListener("close", function(){
-      /* Flaggan nollas FORE history.back(), for back() triggar popstate och
-         utan nollningen hade de tva handlarna kallat varandra. */
       if (!bibEgenPost) return;
       bibEgenPost = false;
       try { history.back(); } catch(e) { }
@@ -713,38 +351,10 @@
       bib.close();
     });
   }
-
   document.querySelectorAll("[data-bib-oppna]").forEach(function(b){
     b.addEventListener("click", function(e){ e.preventDefault(); bibOppna(); });
   });
-
-  /* VAD KNAPPEN PA ETT PRODUKTKORT GOR, som en tabell och inte som en if-kedja.
-
-     SEDAN 30 OKTOBER AR KORTET EN LANK OCH TABELLEN ANVANDS INTE AV DEN
-     SKEPPADE SIDAN. Agaren: "Nar jag valjer att trycka pa dem ska jag komma in
-     pa den offerten, den offertmallen." Lage "mall" i offert.py renderar
-     darfor en <a href> med systermallens publicerade adress, och en lank
-     behover ingen handlare: lyssnaren nedan laser data-bib-gor, far null, och
-     slapper igenom klicket till webblasaren.
-
-     TABELLEN STAR KVAR for att lagena fraga, byt och crm fortfarande ar
-     parametrar, och for att brygga_orakel() kraver en handlare har sa fort
-     markupen bar ett data-bib-gor. Vander nagon tillbaka utan att skriva koden
-     stoppar bygget. Prisfragan ar fortfarande agarens och inte avgjord:
-     CRM:ets grundbelopp ar ETT tal per affar och prislistan per modell finns
-     bara i det har repot, spann 4 190 till 14 550 kr. */
   var BIBGOR = {
-    /* LAGE "fraga": BIBLIOTEKET SALJER INTE.
-       Valet skrivs in i kundens egen fraga till bokaren, som hon skickar sjalv.
-       Tva skal, och bada ar matta:
-       1. Noll prisrisk. Sidan registrerar ingen order pa en produkt vars pris
-          CRM:et inte kanner.
-       2. NOLL NYA LEVERANSLOFTEN. Kanalen finns redan, och dess gap ar redan
-          uppskrivet i META['leverans_gap']. Hade bryggan haft en egen
-          "skickat"-text hade leveranslofte() stoppat bygget, och med rätta.
-       Det ar ocksa agarens egen kortsiktiga losning, mekaniserad: "ska det vara
-       en charge amp da far vi kanske skicka en standard SMS-mall nu
-       kortsiktigt." Bokaren far en fraga som namnger modellen. */
     fraga: function(mid, namn){
       var ta = document.getElementById("fragaText");
       var panel = document.getElementById("fragaPanel");
@@ -757,11 +367,6 @@
       panel.hidden = false;
       var oppnaren = document.getElementById("fraga");
       if (oppnaren) oppnaren.setAttribute("aria-expanded", "true");
-      /* EN ANDRA FRAGA AR INTE EN ANGRAD FORSTA. Har kunden redan skickat en
-         fraga star rutan readOnly och knappen disabled, och kvittensen ar en
-         role="status", alltsa ett ogonblicks besked och inte ett register.
-         Rutan oppnas darfor igen for den nya fragan, och kvittensen tas bort
-         sa den inte star kvar over en text som inte ar skickad. */
       var send = document.getElementById("fragaSend");
       if (send) send.disabled = false;
       ta.readOnly = false;
@@ -770,23 +375,16 @@
       var rad = "Jag vill veta mer om " + namn + ".";
       if (ta.value.indexOf(rad) < 0)
         ta.value = (ta.value.trim() ? ta.value.trim() + "\n" : "") + rad;
-      /* SCROLLA FORST, FOKUSERA SEDAN MED preventScroll.
-         Ett focus() utan flaggan later webblasaren dra in elementet sjalv, och
-         FALLOR.md har mätvärdena: -1 944, -1 922 och +3 728 px i extremfallen.
-         Hit ska kunden, men en gang och mjukt, inte tva ganger. */
       scrollTill(panel, "center");
       try { ta.focus({preventScroll:true}); } catch(e) { }
     }
   };
-
   document.querySelectorAll(".o-bibknapp").forEach(function(b){
     b.addEventListener("click", function(){
       var f = BIBGOR[this.getAttribute("data-bib-gor")];
       if (f) f(this.getAttribute("data-bib-modell"), this.getAttribute("data-bib-namn"));
     });
   });
-
-  /* informationsrutorna */
   document.querySelectorAll(".o-info").forEach(function(b){
     b.addEventListener("click",function(e){
       e.preventDefault(); e.stopPropagation();
@@ -795,29 +393,9 @@
       if(m&&m.showModal) m.showModal();
     });
   });
-
-  /* Fore och efter: handlaren bor i gemensamt/block/foreefter.js och
-     laggs pa varje sida av bygget. Tva kopior hade redan drivit isar
-     och servicemallen hade ingen alls. */
-
   $("barGo").addEventListener("click",function(){ scrollTill($("summering"),"start"); });
-
   $("acceptBtn").addEventListener("click",function(){ visaSkarm("skarmAccept"); });
-
-
-
   var frame=$("frame"), stage=document.querySelector(".stage");
-  /* INGEN SKALNING AV RAMEN.
-     Förut skalades bredare lägen ner med transform: scale(). Tre följder:
-     1. En granskningsram som skalar ljuger om renderingen.
-     2. getBoundingClientRect returnerar SKALADE mått, och allt inuti ramen som
-        mäter sig självt får fel svar. Splide mäter sig självt: karusellen
-        parkerade mellan två kort och såg ut att ha fastnat mitt i ett svep.
-     3. avail kunde bli negativt i ett fönster som rapporterar innerWidth 0,
-        och skalan blev -0,107, alltså spegelvänd och en tiondel.
-     Nu renderar ramen 1:1 och scenen scrollar i sidled när fönstret är smalare
-     än läget. Uppmätt i webbläsaren: skala -0,107 blev ingen skala alls, och
-     spårets rect gick från 36,6 till 343, samma som offsetWidth. */
   function fit(){
     if(!frame) return;
     frame.style.transform="";
@@ -838,24 +416,12 @@
     var sc=$("scroller");
     if($("mHeight")) $("mHeight").textContent=(sc.scrollHeight/844).toFixed(1).replace(".",",")+" skärmar";
   }
-
   render(); fit();
   if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){setTimeout(function(){fit();measure();},60);});}
   setTimeout(function(){fit();measure();},600);
-
-  /* UTSKRIFTEN. En stangd <details> tar inte med sitt innehall pa papperet,
-     oavsett vad CSS sager om barnet, for ::details-content bar
-     content-visibility:hidden. Villkoren och kostnaderna som kan tillkomma
-     saknades darfor i den utskrivna offerten. Foldarna oppnas har och
-     aterstalls efterat, sa skarmen ser likadan ut som forut. */
   (function(){
     var fore = [];
     function oppna(){
-      /* Bade beforeprint och matchMedia("print") fyrar i vissa webblasare, och
-         den har kordes da tva ganger. Andra varvet las e.open, som forsta
-         varvet just satt till true, sa alla foldar mindes sig sjalva som
-         oppna och stod kvar oppna efter utskriften. Mat: [0,0,0,0,0] blev
-         [1,1,1,1,1]. Minnet skrivs darfor bara nar det ar tomt. */
       if (fore.length) return;
       fore = [].slice.call(document.querySelectorAll("details"));
       fore.forEach(function(e){ e.dataset.varOppen = e.open ? "1" : "0"; e.open = true; });
@@ -872,5 +438,4 @@
       if (lyssna) lyssna(function(e){ e.matches ? oppna() : aterstall(); });
     }
   })();
-
 })();

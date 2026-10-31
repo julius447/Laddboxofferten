@@ -1,4 +1,4 @@
-/* genererad av bygg.py, redigera inte */
+
 var IMGS = {
   "ampy-logga": "assets/img/ampy-logga.png",
   "batteri-dyness": "assets/img/batteri-dyness.webp",

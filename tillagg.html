@@ -6,6 +6,7 @@
 <title>Din tilläggsoffert</title>
 <meta name="description" content="Tilläggsoffert: varje del med sitt pris och totalen längst ner.">
 <meta name="robots" content="noindex, nofollow">
+<script>(function(){var h=document.documentElement;h.className+=(h.className?" ":"")+"js-pa";setTimeout(function(){var o=document.querySelector(".offer");if(o&&!o.classList.contains("js-redo"))o.classList.add("js-trasig");},1200);})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
@@ -15,43 +16,21 @@
 </head>
 <body>
 <div class="offer" id="offer">
-
   <p class="o-utanjs">Den här sidan visar ditt tillägg och tar emot ditt svar i webbläsaren, och den delen kunde inte startas. Därför kan varken artiklarna eller priset visas just nu. Ladda om sidan, slå på JavaScript om det är avstängt, eller ring oss på
     <a href="tel:+46102657979">010-265 79 79</a>.</p>
-
   <header class="o-top">
     <img class="o-logo" src="assets/img/ampy-logga.png" alt="Ampy" width="1600" height="468">
-    <!-- TILLAGGETS EGET OFFERTNUMMER, agarbeslut 4 den 26 oktober: "Da det ar
-         en ny offert ser jag aven att det ar viktigt att den har sitt egna
-         nummer sa att vi kan sarskilja dem." Numret star som literal har, som
-         i laddboxens och elcentralens body.html, och bygget laser det harifran
-         till de delade skarmarnas offertnummer. urval.json bar samma tal
-         for CRM:et, och oraklet kraver att de tva ar lika.
-         BARA ETT CHIP, och det ar matt: vid 375 px kraver tva chip 322 px i en
-         lada pa 241 och sidan far scrollWidth 427 i stallet for 375, alltsa en
-         vagrat rullist. .o-ref ar white-space:nowrap och kan inte vika. Vilken
-         offert tillagget hor till star pa bada skarmarna i stallet. -->
     <div class="o-topmeta"><span class="o-ref">Offert #2026-0644</span></div>
   </header>
-
   <main class="o-main">
     <div class="o-colA">
-
-      <!-- 1 HALSNINGEN. Samma hjalte som de andra mallarna: namnet i rubriken,
-           en mening under. Inget produktkort: tillagget ar listan i kortet
-           nedanfor, och den ska synas pa en gang. -->
       <section class="o-sec o-hero">
         <div class="intro">
           <h1 class="t-display">Hej Anders, här kommer en offert på den tjänst eller produkt du har efterfrågat</h1>
           <p class="t-body" style="color:var(--muted);">I offerten ser du tydligt vad som ingår, priset för varje del och totalpriset längst ned. Hör gärna av dig om du har frågor. Inget binds förrän du har accepterat.</p>
         </div>
       </section>
-
     </div>
-
-    <!-- 2 TILLAGGET. Ett kort: raderna, totalen, raden om moms och avdrag,
-         acceptera, avboj. Summeringskortet ur systemet, med paketkortens
-         punktlista som rader: samma bock, samma rytm, i brodtextgrad. -->
     <div class="o-colB">
       <section class="o-sum" id="summering">
         <span class="t-micro" style="font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Ditt tillägg</span>
@@ -60,10 +39,6 @@
           <span>Att betala</span>
           <span class="o-sumpris"><b class="kr" id="sumTotal" aria-live="polite">5 295 kr</b></span>
         </div>
-        <!-- Ingen inline-style: en inline-margin slar varje regel i stil.css, och
-           den gamla "margin-top:calc(var(--s3) * -1)" gjorde just det. Uppmatt:
-           regeln i stil.css raknade fram 4 px under totalen, sidan visade 12,
-           och inget sa ifran. Bade fargen och marginalen bor i stil.css nu. -->
         <p class="t-micro" id="pottrad">inkl. moms, efter skattereduktion. Avdragen dras direkt på fakturan.</p>
         <div class="o-sumact" style="display:flex;flex-direction:column;gap:var(--s2);">
           <button class="o-btn primary" id="acceptBtn">Acceptera tillägget <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
@@ -79,9 +54,6 @@
         </div>
       </section>
     </div>
-
-    <!-- 3 VILLKOR. Samma fold och samma tva rader som elcentralmallen.
-         Kopvillkoren kontrollerade 19 okt: alla fem star pa ampy.se/kopvillkor. -->
     <div class="o-colC">
       <section class="o-sec" id="villkor">
         <details class="o-fold">
@@ -92,19 +64,15 @@
         </details>
       </section>
     </div>
-
     <footer class="o-fot">
       <p class="t-micro">Ampy Nordic AB, org.nr 559254-9819, <a href="tel:+46102657979">010-265&nbsp;79&nbsp;79</a></p>
     </footer>
   </main>
-
         <div class="o-skarm" id="skarmAccept" hidden>
 <div class="oa">
   <svg class="oa__aurora oa__aurora--top" xmlns="http://www.w3.org/2000/svg" width="399" height="308" viewBox="0 0 399 308" fill="none" aria-hidden="true"><path opacity="0.55" d="M398.501 19.1624V307.416C377.203 307.609 355.83 302.624 342.317 293.968C312.351 274.723 324.249 243.073 290.832 225.49C271.296 215.211 241.478 212.776 213.863 212.505C186.248 212.274 157.751 213.588 131.605 208.757C82.3243 199.637 54.8562 166.596 75.5674 141.361C85.1886 129.652 102.742 120.339 116.035 109.712C129.329 99.0458 138.436 85.3657 128.668 73.6951C108.838 50.0062 34.0715 54.798 7.77845 32.9254C-4.04606 23.1097 -1.54896 10.2412 9.61455 0.0390625H391.001L398.501 19.1624Z" fill="url(#at_p0t)"></path><path opacity="0.6" d="M398.499 0V241.34C355.859 222.68 321.444 193.856 302.503 160.131C293.654 144.379 284.851 125.261 262.485 120.588C244.078 116.765 225.536 124.967 208.24 130.948C190.9 136.928 167.201 139.967 155.151 129.052C133.764 109.64 178.361 77.2222 157.196 57.6797C143.857 45.3595 116.646 50.4248 97.2152 43.8562C76.1396 36.6993 69.2478 15.8497 77.9626 0H398.499Z" fill="url(#at_p1t)"></path><defs><radialGradient id="at_p0t" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(322.819 40.5771) scale(663.35 349.037)"><stop offset="0.5" stop-color="#b6f2ff"></stop><stop offset="1" stop-color="#f5f9ff"></stop></radialGradient><radialGradient id="at_p1t" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(372.244 23.8562) scale(378.832 278.434)"><stop stop-color="#5cc5b6"></stop><stop offset="0.5" stop-color="#00a991"></stop><stop offset="0.87" stop-color="#5cc5b6"></stop></radialGradient></defs></svg>
   <svg class="oa__aurora oa__aurora--bottom" xmlns="http://www.w3.org/2000/svg" width="270" height="226" viewBox="0 0 270 226" fill="none" aria-hidden="true"><path opacity="0.55" d="M1.26485e-06 210.532L1.96698e-05 0.00397235C14.4308 -0.137147 28.9113 3.50376 38.0674 9.82597C58.37 23.8816 50.3087 46.9971 72.95 59.8391C86.1865 67.3467 106.39 69.1248 125.1 69.3224C143.81 69.4917 163.117 68.5321 180.832 72.0602C214.222 78.7211 232.833 102.853 218.8 121.283C212.281 129.835 200.389 136.637 191.382 144.399C182.375 152.188 176.205 162.18 182.823 170.703C196.258 188.005 246.915 184.505 264.73 200.48C272.741 207.649 271.05 217.047 263.486 224.499L14.5 225L1.26485e-06 210.532Z" fill="url(#at_p0b)"></path><path opacity="0.6" d="M3.05544e-05 225.579L3.06452e-05 50C28.9339 63.6081 52.2862 84.628 65.139 109.223C71.143 120.71 77.1168 134.652 92.2928 138.06C104.784 140.848 117.365 134.866 129.101 130.505C140.868 126.144 156.949 123.927 165.125 131.887C179.638 146.043 149.376 169.685 163.737 183.936C172.789 192.921 191.253 189.227 204.438 194.017C218.739 199.237 223.416 214.441 217.502 226L3.05544e-05 225.579Z" fill="url(#at_p1b)"></path><defs><radialGradient id="at_p0b" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(51.2778 194.892) rotate(-180) scale(449.445 254.921)"><stop offset="0.5" stop-color="#a0fbc9"></stop><stop offset="1" stop-color="#f5f9ff"></stop></radialGradient><radialGradient id="at_p1b" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(17.8152 208.603) rotate(-180) scale(257.059 203.052)"><stop stop-color="#5cc5b6"></stop><stop offset="0.5" stop-color="#00a991"></stop><stop offset="0.87" stop-color="#5cc5b6"></stop></radialGradient></defs></svg>
-
   <main class="oa__card">
-    <!-- 1 · confirmation -->
     <section class="oa__section oa__head">
       <div class="oa__check" aria-hidden="true">
         <span class="oa__halo"></span>
@@ -115,57 +83,14 @@
       </div>
       <h1 class="oa__title">Ditt tillägg är nu accepterat!</h1>
       <span class="oa__ref">Offert <span data-oa="offert.referens">#2026-0644</span></span>
-      <!-- SKARMEN BEKRAFTADE INGENTING. Uppmatt: en konfigurerad order pa
-           11 845 kr, och noll forekomster av "kr" pa hela skarmen. Kunden
-           tryckte acceptera pa ett belopp och fick tillbaka en bock utan tal.
-           Rutan fylls av skriptet vid accept, ur samma varden som
-           summeringen, sa de kan inte dra isar. -->
       <p class="oa__kvitto" id="oaKvitto" hidden>
         <span class="oa__kvitto-rad"><span id="oaPaket">Paket</span><b class="kr" id="oaTotal"></b></span>
         <span class="oa__kvitto-not">inkl. moms, efter skattereduktion</span>
       </p>
-      <!-- RADERNA, DATUMET OCH FOLDARNA fylls av gemensamt/block/acceptkvitto.js
-           ur sidans EGNA element: raderna ur #sumRows, foldarna ur sidans egna
-           <details>. Ingen text ar avskriven hit, for en avskrift ar en andra
-           sanning. Tomma och dolda tills skarmen oppnas. -->
       <div class="oa__rader" id="oaRader" hidden></div>
       <p class="oa__datum" id="oaDatum" hidden></p>
     </section>
-
-    <!-- SA HAR GAR VI VIDARE AR BORTTAGEN. AGARORDER 29 OKTOBER, ORDAGRANT:
-         "SAHAR GAR VI VIDARE och alla dess 1/2/3 steg och copy tar vi bort
-         helt och hallet fran alla acceptera mallarna."
-
-         Beslutet togs i motet 29 okt: "de har ju accepterat offerten...
-         Din offert ar nu accepterad. Ja, men det kanske racker."
-         Och: "for oss pingar det ju till sa fort en offert ar godkand. Sen
-         tar ju vi action pa det. Jag tror inte manga ar sa har, jaha, nu da.
-         De kommer ju fa en bokningsbekraftelse snart."
-
-         DET UPPHAVER tva saker: det delade blockets steg 2 namngav bokaren
-         (data-oa="bokare.namn"), och tillaggsmallen skrev om steg 2 och tog
-         bort steg 3 lokalt for att elektrikern redan star hos kunden. Bada
-         de lokala ratningarna ar nu onodiga och borttagna i sina
-         offert.py-filer.
-
-         OCH AVBOJSSKARMENS EGEN REMSA AR OCKSA BORTA, 30 OKTOBER. Har stod
-         till i dag att den "star KVAR", med skalet att agarordern gallde
-         acceptskarmen och att den som avbojer inte far nagon
-         bokningsbekraftelse. Agaren har tagit stallning till precis det:
-         agarsvar 11, ordagrant, "Ta aven bort den." Remsan ar borttagen ur
-         gemensamt/block/skarm-avboj.html, och oraklet
-         skarmarna_lovar_ingen_bokning() i gemensamt/orakel.py provar nu BADA
-         skarmarna i stallet for bara den har. Raden star rattad och inte
-         raderad, for den gamla lydelsen ar lardomen: en kommentar som
-         forklarar ett UNDANTAG blir falsk den dag undantaget upphor, och den
-         har kommentaren foljer med i varje byggd sida, alltsa i bytes kunden
-         kan lasa i Visa kallkod.
-    -->
-
-    <!-- 2 · kostnaderna, forberedelserna och villkoren, klonade ur sidan -->
     <section class="oa__section oa__folds" id="oaFolds" hidden></section>
-
-    <!-- 3 · trust + contact + close -->
     <section class="oa__section">
       <div class="oa__trust">
         <span class="oa__trust-item">
@@ -184,16 +109,11 @@
   </main>
 </div>
         </div>
-
         <div class="o-skarm" id="skarmAvboj" hidden>
 <div class="oa">
   <svg class="oa__aurora oa__aurora--top" xmlns="http://www.w3.org/2000/svg" width="399" height="308" viewBox="0 0 399 308" fill="none" aria-hidden="true"><path opacity="0.55" d="M398.501 19.1624V307.416C377.203 307.609 355.83 302.624 342.317 293.968C312.351 274.723 324.249 243.073 290.832 225.49C271.296 215.211 241.478 212.776 213.863 212.505C186.248 212.274 157.751 213.588 131.605 208.757C82.3243 199.637 54.8562 166.596 75.5674 141.361C85.1886 129.652 102.742 120.339 116.035 109.712C129.329 99.0458 138.436 85.3657 128.668 73.6951C108.838 50.0062 34.0715 54.798 7.77845 32.9254C-4.04606 23.1097 -1.54896 10.2412 9.61455 0.0390625H391.001L398.501 19.1624Z" fill="url(#at_p0t_av)"></path><path opacity="0.6" d="M398.499 0V241.34C355.859 222.68 321.444 193.856 302.503 160.131C293.654 144.379 284.851 125.261 262.485 120.588C244.078 116.765 225.536 124.967 208.24 130.948C190.9 136.928 167.201 139.967 155.151 129.052C133.764 109.64 178.361 77.2222 157.196 57.6797C143.857 45.3595 116.646 50.4248 97.2152 43.8562C76.1396 36.6993 69.2478 15.8497 77.9626 0H398.499Z" fill="url(#at_p1t_av)"></path><defs><radialGradient id="at_p0t_av" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(322.819 40.5771) scale(663.35 349.037)"><stop offset="0.5" stop-color="#ffd9d3"></stop><stop offset="1" stop-color="#f5f9ff"></stop></radialGradient><radialGradient id="at_p1t_av" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(372.244 23.8562) scale(378.832 278.434)"><stop stop-color="#e58a80"></stop><stop offset="0.5" stop-color="#d94f45"></stop><stop offset="0.87" stop-color="#e58a80"></stop></radialGradient></defs></svg>
   <svg class="oa__aurora oa__aurora--bottom" xmlns="http://www.w3.org/2000/svg" width="270" height="226" viewBox="0 0 270 226" fill="none" aria-hidden="true"><path opacity="0.55" d="M1.26485e-06 210.532L1.96698e-05 0.00397235C14.4308 -0.137147 28.9113 3.50376 38.0674 9.82597C58.37 23.8816 50.3087 46.9971 72.95 59.8391C86.1865 67.3467 106.39 69.1248 125.1 69.3224C143.81 69.4917 163.117 68.5321 180.832 72.0602C214.222 78.7211 232.833 102.853 218.8 121.283C212.281 129.835 200.389 136.637 191.382 144.399C182.375 152.188 176.205 162.18 182.823 170.703C196.258 188.005 246.915 184.505 264.73 200.48C272.741 207.649 271.05 217.047 263.486 224.499L14.5 225L1.26485e-06 210.532Z" fill="url(#at_p0b_av)"></path><path opacity="0.6" d="M3.05544e-05 225.579L3.06452e-05 50C28.9339 63.6081 52.2862 84.628 65.139 109.223C71.143 120.71 77.1168 134.652 92.2928 138.06C104.784 140.848 117.365 134.866 129.101 130.505C140.868 126.144 156.949 123.927 165.125 131.887C179.638 146.043 149.376 169.685 163.737 183.936C172.789 192.921 191.253 189.227 204.438 194.017C218.739 199.237 223.416 214.441 217.502 226L3.05544e-05 225.579Z" fill="url(#at_p1b_av)"></path><defs><radialGradient id="at_p0b_av" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(51.2778 194.892) rotate(-180) scale(449.445 254.921)"><stop offset="0.5" stop-color="#ffcfc7"></stop><stop offset="1" stop-color="#f5f9ff"></stop></radialGradient><radialGradient id="at_p1b_av" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(17.8152 208.603) rotate(-180) scale(257.059 203.052)"><stop stop-color="#e58a80"></stop><stop offset="0.5" stop-color="#d94f45"></stop><stop offset="0.87" stop-color="#e58a80"></stop></radialGradient></defs></svg>
-
-  
   <main class="oa__card">
-    <!-- 1 · mottagningsbekräftelse. Samma disc som accepterad-sidan, men bocken
-         betyder här "vi har tagit emot ditt svar", inte "affär". -->
     <section class="oa__section oa__head">
       <div class="oa__check" aria-hidden="true">
         <span class="oa__halo"></span>
@@ -205,43 +125,12 @@
       <h1 class="oa__title">Tack, du har nu avböjt tillägget</h1>
       <span class="oa__ref">Offert <span data-oa="offert.referens">#2026-0644</span></span>
     </section>
-
-    <!-- 2 · STEGREMSAN AR BORTTAGEN, 30 OKTOBER.
-         AGARSVAR 11, ORDAGRANT, pa fragan om avbojsskarmens egen
-         "Vad som hander nu" ska bort den ocksa: "Ta aven bort den."
-
-         Den 29 oktober togs remsan bort ur ACCEPTSKARMEN pa alla fem
-         mallarna, och den har stod kvar for att ordern gallde
-         acceptmallarna. Skalet som holl den uppe var att den som avbojer
-         inte far nagon bokningsbekraftelse som berattar vad som hander
-         sedan. Agaren har tagit stallning till just det och svarat nej.
-
-         Vad som gick med remsan: tre steg, varav steg 3 lovade att
-         offerten "ligger kvar om du andrar dig". Det loftet har ingen pa
-         Ampy gett for en avbojd offert, och kontaktraden nedanfor sager
-         redan det som ar sant: ring oss om du andrade dig.
-
-         Reglerna for .oa__next, .oa__steps, .oa__step, .oa__node och
-         .oa__step-text star kvar i gemensamt/system.css tills nagon mater
-         dem som doda: de ar skrivna "#skarmAvboj .oa__*" och trafar
-         ingenting nar markupen ar borta. Oraklet
-         skarmarna_lovar_ingen_bokning() i gemensamt/orakel.py stoppar
-         bygget om nagon av klasserna kommer tillbaka pa NAGON av de tva
-         skarmarna. -->
-    <!-- 3 · trust + kontakt -->
     <section class="oa__section">
-      <!-- Betygsblocket är BORTTAGET här, till skillnad från den accepterade
-           sidan. Fem gyllene stjärnor 200px under meningen "vi hör inte av oss
-           mer" riktar ett säljbudskap mot någon som just sagt nej, och läser
-           som att kunden gjort ett misstag. Det ligger för nära
-           confirmshaming för att stå kvar. ÄGARGRIND: vill du ha kvar det
-           säger du till, blocket finns kvar i oap/index.html rad 57-68. -->
       <p class="oa__contact">Vill du ha en ny offert, eller ändrade du dig? Ring <a href="tel:+46102657979">010-265 79 79</a></p>
     </section>
   </main>
 </div>
         </div>
-
 </div>
 <script src="assets/js/pottext.js"></script>
 <script src="assets/js/tillagg.js"></script>

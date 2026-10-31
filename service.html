@@ -6,6 +6,7 @@
 <title>Din offert</title>
 <meta name="description" content="Serviceoffert: allt som ingår, när du vill ha det gjort, och ditt pris.">
 <meta name="robots" content="noindex, nofollow">
+<script>(function(){var h=document.documentElement;h.className+=(h.className?" ":"")+"js-pa";setTimeout(function(){var o=document.querySelector(".offer");if(o&&!o.classList.contains("js-redo"))o.classList.add("js-trasig");},1200);})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
@@ -17,63 +18,21 @@
 </head>
 <body>
 <div class="offer" id="offer">
-
   <p class="o-utanjs">Den här offerten räknar ditt pris i webbläsaren, och räknaren kunde inte startas. Därför kan varken din summering eller ditt pris visas, och dina val registreras inte. Ladda om sidan, slå på JavaScript om det är avstängt, eller ring oss på <a href="tel:+46102657979">010-265 79 79</a> så går vi igenom offerten tillsammans.</p>
-
   <header class="o-top">
     <img class="o-logo" src="assets/img/ampy-logga.png" alt="Ampy" width="1600" height="468">
     <div class="o-topmeta"><span class="o-ref">Offert #2026-0643</span></div>
   </header>
-
   <main class="o-main">
     <div class="o-colA">
-
-      <!-- 1 HJALTEN. AGARENS ORDNING 24 OKT (E3), ORDAGRANT:
-           "nar man kommer in har vi rubriken, paragraftexten, det som ingar
-           och sen priset. 'Arbete och material ingar i priset'. Sen
-           'Inklusive moms efter skattereduktion'. Vi har vem som har raknat
-           pa jobbet. Fem av fem i betyg pa Google."
-           Det ar exakt den ordning elementen star i har, och oraklet
-           hjaltens_ordning i offert.py haller den.
-
-           E2: produktraden "Byte av strombrytare och uttag / 4 punkter, allt
-           som ingar star nedan" ar borta. Agaren: "Det ar en for komplex
-           logik." Jobbets namn bor i summeringen, dar det ar radens etikett,
-           och i acceptkvittot. Oraklet ingen_produktrad haller det.
-
-           t-h1 och t-lead FANNS INTE i typskalan, och en klass som inte finns
-           faller tyst igenom: h1 renderade vikt 700 och radhojd 36 ur
-           .offer h1 dar .t-display sager 800 och 34,2. Skalan heter
-           .t-display / .t-h2 / .t-h3 / .t-body / .t-small / .t-micro.
-           .o-hero och .intro ar laddboxmallens egen rytm: 8 px mellan rubrik
-           och ingress, 24 mellan grupperna. -->
       <section class="o-sec o-hero" id="hjalte">
         <div class="intro">
           <h1 class="t-display">Hej Anders, här är din offert</h1>
           <p class="t-body" style="color:var(--muted);">Allt du behöver för att bestämma dig står på den här sidan. Inget är bindande förrän du accepterar.</p>
         </div>
-
         <div class="o-card o-prodcard">
-          <!-- INGET FOTO I HJALTEN. Agarsvar 5 (25 okt, "Bara teambilden")
-               slappte in teambilden har, och agaren sag resultatet samma dag
-               och svarade: "Ta bort team bilden behovs ej - bara bild pa
-               Rasmus." Kortet visade da TVA ansikten, ett namnlost portratt
-               hogst upp och den namngivna bokaren nedanfor.
-               Systrarnas .o-prodimg visar PRODUKTEN kunden koper. Service har
-               ingen enskild produkt, vilket ar varfor rutan stod tom fran
-               borjan; ett ansikte dar ar inte samma sak som en produkt.
-               Bokarens foto star kvar i .o-booker, dar systrarna ocksa har
-               det. Oraklet ingen_hjaltebild haller rutan borta. -->
-          <!-- DET SOM INGAR, FORE PRISET. Jobbets rader, de som bokaren skrev,
-               i samma listkomponent som paketkorten. Ingen fold, ingen rubrik
-               emellan: kunden laser vad hon far och sedan vad det kostar. -->
           <ul class="o-ingar o-ingar--huvud" id="ingar" aria-label="Det som ingår"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span>Byte av 6 strömbrytare inklusive brytare och erforderligt installationsmaterial</span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span>Montering av vägguttag inklusive Schneider Electric Exxact-uttag och erforderligt installationsmaterial</span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span>Ny jordad grupp till köksbänken inklusive kabel, dvärgbrytare och märkning</span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span>Håltagning och återställning inklusive erforderligt installationsmaterial</span></li></ul>
           <div class="o-calc">
-            <!-- AGARDIREKTIV 23 OKTOBER: ROT-avdragets BELOPP far aldrig sta
-                 pa en sida. Priset ar netto, och under det star vad talet ar.
-                 Ordet ar agarens (E3, 24 okt): "Inklusive moms efter
-                 skattereduktion". Samma strang i summeringen, och prisbaren
-                 bar slutet av den; oraklet kvalificering_identisk haller det. -->
             <div class="o-calcfinal"><span id="calcFinalEtikett">Ditt pris</span><span class="t-price kr" id="calcNet">7 400 kr</span></div>
             <p class="o-ingartext">Arbete och material ingår i priset.</p>
             <p class="t-micro" id="calcRotNot" style="color:var(--faint);">inkl. moms, efter skattereduktion</p>
@@ -83,7 +42,6 @@
             <div><b>Rasmus L</b><span>Har räknat på ditt jobb</span></div>
           </div>
         </div>
-
         <a class="o-betyg" id="googleBetyg"
            href="https://www.google.com/maps/place/Ampy/@59.3576299,17.9842061,17z/data=!3m1!4b1!4m6!3m5!1s0x2bec1ce5c4ed9ce9:0xfce1752e84a1bfee!8m2!3d59.3576272!4d17.986781!16s%2Fg%2F11ypjy9rrm"
            target="_blank" rel="noopener noreferrer"
@@ -92,63 +50,24 @@
           <span class="o-betyg__text"><b data-google="betyg">5 av 5</b> på Google</span>
         </a>
       </section>
-
-      <!-- 2 DET HAR INGAR ALLTID (E4). Agaren 24 okt: "kanske som den har ett-,
-           tva-, tre-listan: 'Det har ingar alltid'. Om vi kollar pa till
-           exempel elcentralsofferten sa har vi 'Det har gor vi', punkt nummer
-           ett, tva och tre. Vi hade kunnat skapa en egen sadan variation med
-           'Installation av vara egna elektriker', 'Driftsattning',
-           'Avprovning' och 'Arbete och material ingar i priset'."
-           Samma komponent som elcentralens och laddboxens steg (.o-steps i
-           gemensamt/system.css), rubrikerna ar agarens fyra ordagrant, och
-           ikonerna ar husets egna glyfer ur laddbox/ikoner.json och
-           elcentral/ikoner.json: ingen ar ritad har. Oraklet alltid_stegen
-           haller allt det. Inline under rubriken, aldrig i en fold (E5). -->
       <section class="o-sec" id="alltid">
         <h2 class="t-h2">Det här ingår alltid</h2>
         <div class="o-steps"><div class="o-step"><span class="o-stepico"><svg viewBox="8 7 112 112" width="100%" height="100%" fill="currentColor" aria-hidden="true"><path d="M28.3369 93.0864V85.3531C28.3369 83.6412 28.774 82.067 29.6481 80.631C30.5222 79.1947 31.7422 78.0753 33.3078 77.2724C36.1264 75.8094 39.2798 74.6008 42.7679 73.6467C46.2561 72.6923 49.9268 72.2151 53.7807 72.2151C57.6343 72.2151 61.305 72.6923 64.7928 73.6467C68.281 74.6008 71.4344 75.8094 74.2529 77.2724C75.8185 78.0753 77.0385 79.1947 77.9127 80.631C78.7873 82.067 79.2246 83.6412 79.2246 85.3531V93.0864H28.3369ZM33.4257 87.8691H74.1358V85.3531C74.1358 84.5596 73.9258 83.8793 73.5059 83.313C73.0862 82.7466 72.5566 82.285 71.9171 81.9284C69.8382 80.8404 67.2015 79.8188 64.0068 78.8647C60.812 77.9103 57.4036 77.4331 53.7807 77.4331C50.1575 77.4331 46.7487 77.9103 43.5541 78.8647C40.3595 79.8188 37.7226 80.8404 35.6436 81.9284C35.0041 82.285 34.4746 82.7466 34.055 83.313C33.6355 83.8793 33.4257 84.5596 33.4257 85.3531V87.8691ZM45.3547 63.0601C43.0562 60.7027 41.907 57.756 41.907 54.2191H41.1242C40.6803 54.2191 40.3193 54.0765 40.0411 53.7913C39.7629 53.5061 39.6238 53.1357 39.6238 52.6809C39.6238 52.226 39.7629 51.856 40.0411 51.5702C40.3193 51.285 40.6803 51.1424 41.1242 51.1424H41.907C41.9505 48.957 42.4419 46.9827 43.3811 45.2191C44.3208 43.4547 45.6559 41.9415 47.3868 40.6793V43.9841C47.3868 44.4392 47.5262 44.8093 47.8048 45.0945C48.0829 45.3804 48.4442 45.5233 48.888 45.5233C49.3314 45.5233 49.692 45.3804 49.9702 45.0945C50.2491 44.8093 50.3882 44.4392 50.3882 43.9841V39.3548C50.875 39.1809 51.4069 39.0394 51.9837 38.9304C52.5597 38.8209 53.1588 38.7661 53.7807 38.7661C54.4029 38.7661 55.002 38.8209 55.578 38.9304C56.1541 39.0394 56.686 39.1809 57.1732 39.3548V43.9841C57.1732 44.4392 57.3123 44.8093 57.5905 45.0945C57.8687 45.3804 58.23 45.5233 58.6737 45.5233C59.1175 45.5233 59.4784 45.3804 59.7566 45.0945C60.0348 44.8093 60.1739 44.4392 60.1739 43.9841V40.6793C61.9268 41.9415 63.2675 43.4547 64.1957 45.2191C65.125 46.9827 65.6111 48.957 65.6545 51.1424H66.4375C66.8809 51.1424 67.2419 51.285 67.5204 51.5702C67.7986 51.856 67.9377 52.226 67.9377 52.6809C67.9377 53.1357 67.7986 53.5061 67.5204 53.7913C67.2419 54.0765 66.8809 54.2191 66.4375 54.2191H65.6545C65.6545 57.756 64.5051 60.7027 62.206 63.0601C59.9076 65.4171 57.0993 66.5953 53.7807 66.5953C50.4625 66.5953 47.6538 65.4171 45.3547 63.0601ZM58.6049 59.3676C59.9123 58.0271 60.5657 56.3781 60.5657 54.4201H46.9956C46.9956 56.3781 47.649 58.0271 48.9558 59.3676C50.263 60.7074 51.8714 61.3773 53.7807 61.3773C55.6903 61.3773 57.2984 60.7074 58.6049 59.3676ZM79.2901 73.3518L78.9118 70.8098C78.5292 70.6939 78.1441 70.5356 77.7567 70.3349C77.3693 70.1342 77.0236 69.8777 76.7193 69.5652L74.41 70.5019L72.9094 67.7728L74.8408 66.1675C74.7974 65.9488 74.7753 65.7414 74.7753 65.5447V64.3178C74.7753 64.1328 74.7974 63.9197 74.8408 63.6786L72.9094 62.0733L74.41 59.3442L76.7193 60.2806C76.989 60.0041 77.3262 59.7567 77.7302 59.5379C78.1353 59.3195 78.5292 59.1522 78.9118 59.0363L79.2901 56.4943H82.2908L82.6691 59.0363C83.0517 59.1522 83.4456 59.3195 83.8503 59.5379C84.2547 59.7567 84.5916 60.0041 84.8613 60.2806L87.1709 59.3442L88.6711 62.0733L86.7401 63.6786C86.7835 63.9197 86.8052 64.1328 86.8052 64.3178V65.5447C86.8052 65.7414 86.7835 65.9488 86.7401 66.1675L88.6711 67.7728L87.1709 70.5019L84.8613 69.5652C84.5567 69.8777 84.211 70.1342 83.8242 70.3349C83.4368 70.5356 83.0517 70.6939 82.6691 70.8098L82.2908 73.3518H79.2901ZM82.7674 66.9503C83.3198 66.3839 83.5959 65.708 83.5959 64.9229C83.5959 64.1381 83.3198 63.4622 82.7674 62.8958C82.2151 62.3294 81.556 62.0462 80.7903 62.0462C80.0249 62.0462 79.3658 62.3294 78.8135 62.8958C78.2612 63.4622 77.9847 64.1381 77.9847 64.9229C77.9847 65.708 78.2612 66.3839 78.8135 66.9503C79.3658 67.5167 80.0249 67.7999 80.7903 67.7999C81.556 67.7999 82.2151 67.5167 82.7674 66.9503ZM87.288 55.2229L86.8052 52.039C86.2316 51.8871 85.6619 51.6473 85.0964 51.3197C84.5309 50.9914 84.0569 50.598 83.6739 50.1389L80.6335 51.2893L78.7158 47.9177L81.273 45.7774C81.1601 45.4649 81.0926 45.177 81.0712 44.9138C81.0491 44.6507 81.0379 44.363 81.0379 44.051C81.0379 43.7391 81.0491 43.4515 81.0712 43.1883C81.0926 42.9251 81.1601 42.6373 81.273 42.3247L78.7158 40.1845L80.6335 36.8128L83.6739 37.9634C84.0569 37.5042 84.5309 37.1105 85.0964 36.7823C85.6619 36.4548 86.2316 36.2151 86.8052 36.0631L87.288 32.8793H91.1239L91.6074 36.0631C92.1814 36.2151 92.751 36.4548 93.3165 36.7823C93.882 37.1105 94.356 37.5042 94.7387 37.9634L97.7794 36.8128L99.6968 40.1845L97.1399 42.3247C97.2529 42.6373 97.3204 42.9251 97.3417 43.1883C97.3638 43.4515 97.3746 43.7391 97.3746 44.051C97.3746 44.363 97.3638 44.6507 97.3417 44.9138C97.3204 45.177 97.2529 45.4649 97.1399 45.7774L99.6968 47.9177L97.7794 51.2893L94.7387 50.1389C94.356 50.598 93.882 50.9914 93.3165 51.3197C92.751 51.6473 92.1814 51.8871 91.6074 52.039L91.1239 55.2229H87.288ZM92.3639 47.2889C93.2168 46.4146 93.6429 45.3353 93.6429 44.051C93.6429 42.7668 93.2168 41.6876 92.3639 40.8133C91.5113 39.939 90.459 39.5018 89.2065 39.5018C87.9539 39.5018 86.9016 39.939 86.0487 40.8133C85.1962 41.6876 84.7697 42.7668 84.7697 44.051C84.7697 45.3353 85.1962 46.4146 86.0487 47.2889C86.9016 48.1632 87.9539 48.6003 89.2065 48.6003C90.459 48.6003 91.5113 48.1632 92.3639 47.2889Z"/></svg></span><div class="o-steptext"><h3><span class="o-stepnr" aria-hidden="true">1</span>Installation av våra egna elektriker</h3><p>Ampys egna elektriker kommer hem till dig och gör jobbet.</p></div></div><div class="o-step"><span class="o-stepico"><svg viewBox="0 0 112 112" width="100%" height="100%" fill="currentColor" aria-hidden="true"><path d="M78.033 81.3333L60.4517 63.752L63.8131 60.3906L81.3944 77.9719L78.033 81.3333ZM34.0282 81.3333L30.6668 77.9719L52.6997 55.939L43.2971 46.5974L41.5673 48.3272L38.5653 45.2634V50.9634L36.8355 52.6932L28.5356 44.3926L30.2646 42.6636H35.9646L32.9199 39.6798L39.7773 32.8224C40.5078 32.0914 41.3073 31.5494 42.1761 31.1963C43.0453 30.8432 43.971 30.6667 44.9532 30.6667C45.936 30.6667 46.8617 30.8432 47.7304 31.1963C48.5991 31.5494 49.399 32.0914 50.1299 32.8224L44.9168 38.0355L48.3883 41.5062L46.6585 43.236L56.0611 52.5776L64.1606 44.4781C63.6651 43.7756 63.3209 43.057 63.1283 42.3224C62.9351 41.5877 62.8386 40.7818 62.8386 39.9046C62.8386 37.3185 63.735 35.1293 65.5279 33.337C67.3202 31.5446 69.5094 30.6485 72.0955 30.6485C72.6434 30.6485 73.1722 30.687 73.682 30.764C74.1913 30.8411 74.6935 30.9973 75.1886 31.2327L68.6304 37.7917L74.2085 43.3698L80.7674 36.8116C81.015 37.3066 81.1741 37.8088 81.2448 38.3181C81.3161 38.828 81.3517 39.3568 81.3517 39.9046C81.3517 42.4907 80.4555 44.68 78.6632 46.4723C76.8709 48.2652 74.6816 49.1616 72.0955 49.1616C71.2184 49.1616 70.4124 49.0682 69.6778 48.8813C68.9431 48.6945 68.2245 48.3472 67.5221 47.8395L34.0282 81.3333Z"/></svg></span><div class="o-steptext"><h3><span class="o-stepnr" aria-hidden="true">2</span>Driftsättning</h3><p>När allt är monterat kopplar vi in det och sätter det i drift.</p></div></div><div class="o-step"><span class="o-stepico"><svg viewBox="0 0 112 112" width="100%" height="100%" fill="currentColor" aria-hidden="true"><path d="M67.6668 80.045L55.8077 68.1858L58.1668 65.8267L67.6668 75.3267L86.6285 56.365L88.9877 58.7242L67.6668 80.045ZM82.6668 49.3333H79.3335V34.7183C79.3335 34.205 79.1199 33.7347 78.6927 33.3075C78.2654 32.8803 77.7952 32.6667 77.2818 32.6667H69.3335V40.1025H42.6668V32.6667H34.7185C34.2052 32.6667 33.7349 32.8803 33.3077 33.3075C32.8804 33.7347 32.6668 34.205 32.6668 34.7183V77.2817C32.6668 77.795 32.8804 78.2653 33.3077 78.6925C33.7349 79.1197 34.2052 79.3333 34.7185 79.3333H52.6668V82.6667H34.7185C33.2268 82.6667 31.9563 82.1422 30.9068 81.0933C29.8579 80.0439 29.3335 78.7733 29.3335 77.2817V34.7183C29.3335 33.2267 29.8579 31.9561 30.9068 30.9067C31.9563 29.8578 33.2268 29.3333 34.7185 29.3333H50.1735C50.4852 28.03 51.1774 26.935 52.2502 26.0483C53.3229 25.1611 54.5729 24.7175 56.0002 24.7175C57.4529 24.7175 58.7127 25.1611 59.7793 26.0483C60.8454 26.935 61.5343 28.03 61.846 29.3333H77.2818C78.7735 29.3333 80.0441 29.8578 81.0935 30.9067C82.1424 31.9561 82.6668 33.2267 82.6668 34.7183V49.3333ZM57.9268 32.67C58.4374 32.1594 58.6927 31.5172 58.6927 30.7433C58.6927 29.97 58.4374 29.3281 57.9268 28.8175C57.4157 28.3069 56.7735 28.0517 56.0002 28.0517C55.2268 28.0517 54.5846 28.3069 54.0735 28.8175C53.5629 29.3281 53.3077 29.97 53.3077 30.7433C53.3077 31.5172 53.5629 32.1594 54.0735 32.67C54.5846 33.1806 55.2268 33.4358 56.0002 33.4358C56.7735 33.4358 57.4157 33.1806 57.9268 32.67Z"/></svg></span><div class="o-steptext"><h3><span class="o-stepnr" aria-hidden="true">3</span>Avprovning</h3><p>Innan vi lämnar provar vi av allt vi har gjort, så att det fungerar som det ska.</p></div></div><div class="o-step"><span class="o-stepico"><svg viewBox="0 0 112 112" width="100%" height="100%" fill="currentColor" aria-hidden="true"><path d="M52.5875 65.2877L68.7002 49.175L66.3813 46.8561L52.5875 60.6499L45.6374 53.6998L43.3185 56.0187L52.5875 65.2877ZM56 85.1249C49.4707 83.1873 44.0468 79.2321 39.7281 73.2591C35.4094 67.2862 33.25 60.5581 33.25 53.075V35.4998L56 27.0003L78.75 35.4998V53.075C78.75 60.5581 76.5906 67.2862 72.2719 73.2591C67.9532 79.2321 62.5292 83.1873 56 85.1249ZM56 81.675C61.6333 79.8875 66.2917 76.3125 69.975 70.95C73.6583 65.5875 75.5 59.6292 75.5 53.075V37.7188L56 30.4688L36.5 37.7188V53.075C36.5 59.6292 38.3417 65.5875 42.025 70.95C45.7083 76.3125 50.3667 79.8875 56 81.675Z"/></svg></span><div class="o-steptext"><h3><span class="o-stepnr" aria-hidden="true">4</span>Arbete och material ingår i priset</h3><p>Talet du ser är hela priset för jobbet, med både arbetstiden och materialet inräknat.</p></div></div></div>
       </section>
-
-      <!-- 3 NAR VILL DU HA JOBBET GJORT. Agaren 24 okt (E6): bra, ror den inte. -->
       <section class="o-sec" id="tid">
         <h2 id="rub-tid" class="t-h2">När vill du ha jobbet gjort?</h2>
         <div class="o-opts" role="radiogroup" aria-labelledby="rub-tid"><label class="o-opt"><input type="radio" name="tid" value="0" checked><span class="mark"></span><span class="txt"><b>Standard</b><span>7 till 14 dagar</span></span><span class="amt kr">+0 kr</span></label><label class="o-opt"><input type="radio" name="tid" value="1500"><span class="mark"></span><span class="txt"><b>Prioritet</b><span>3 till 5 dagar</span></span><span class="amt kr">+1 500 kr</span></label><label class="o-opt"><input type="radio" name="tid" value="2500"><span class="mark"></span><span class="txt"><b>Express</b><span>24 till 72 timmar</span></span><span class="amt kr">+2 500 kr</span></label></div>
       </section>
     </div>
-
     <div class="o-colB">
-      <!-- 4 DIN SUMMERING. Agaren 24 okt (E6): bra, ror den inte. -->
-      <!-- .o-sum AR kortet i systemet: den bar sin egen kant, radie och
-           padding. En .o-card till inuti gav tva kanter, tva radier och 48 px
-           padding, alltsa ett kort i ett kort. Laddboxmallen har bara .o-sum. -->
       <section class="o-sum" id="summering">
-          <!-- .t-eyebrow ar 10,5 px och ligger utanfor skalan 30/24/20/17/15/13/11.
-               Laddbox-, elcentral- och batterimallen anvander den inte: de gor
-               ogonbrynet av .t-micro (11) med vikt, spärr och versaler inline, och
-               far darfor sju storlekar. Service hade nio. Samma markup som
-               laddboxmallens summering. -->
           <span class="t-micro" style="font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);">Din summering</span>
-          <!-- .o-sumrows AR raden: utan klassen fick raderna 0 px emellan sig dar
-               systrarna har 8 (uppmatt 23 okt med Prioritet valt). -->
           <div class="o-sumrows" id="sumRows"></div>
           <div class="o-sumtot">
             <span class="o-sumetikett">Att betala</span>
             <span class="o-sumpris"><b class="kr" id="sumTotal" aria-live="polite">7 400 kr</b></span>
           </div>
-          <!-- SAMMA ORD UNDER SAMMA TAL. Hjalten, summeringen och prisbaren bar
-               en och samma strang, och oraklet kvalificering_identisk haller den.
-               Den negativa marginalen ar laddboxmallens: 4 px fran talet, inte 16. -->
           <p class="t-micro" style="color:var(--faint);margin-top:calc(var(--s3) * -1);">inkl. moms, efter skattereduktion</p>
-          <!-- INGET ROT-VILLKOR HAR. Till 25 oktober stod en mening pa den
-               har raden om vad ROT forutsatter hos kunden, och ett orakel
-               kravde den exakt en gang. Agaren tog bort den ur alla fem
-               offerterna och ur orderbekraftelsen samma dag (svar 25 och 48):
-               det ar kundens ansvar, det star i kopvillkoren, och att namna
-               det skapar osakerhet. Regeln ar vand och bor nu i
-               gemensamt/orakel.py, som FORBJUDER meningen aven i en
-               kommentar: en HTML-kommentar ar skickade bytes och gar att lasa
-               i Visa kallkod. Meningen star ordagrant i
-               uppdrag/2026-10-25-svaren.md, och ingen annanstans. -->
           <div class="o-sumact" style="display:flex;flex-direction:column;gap:var(--s2);">
             <button class="o-btn primary" id="acceptBtn">Acceptera offert <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
             <button class="o-btn ghost" id="fraga" aria-expanded="false" aria-controls="fragaPanel">Fråga eller ändra något</button>
@@ -172,177 +91,22 @@
           </div>
       </section>
     </div>
-
-    <!-- 5 OVRIGA TJANSTER OCH 6 VILLKOR.
-         EN sektion for bada foldarna, som i laddbox- och elcentralmallen. Lag
-         de i var sin .o-sec fick de kolumnens --rytm-sektion emellan sig:
-         uppmatt 48 px vid bade 375 och 1180, dar laddboxmallen har 16. Det var
-         det agaren kallade superstort. En sektion ager luften INNE i sig
-         (--rytm-block), kolumnen ager luften MELLAN sektioner. -->
     <div class="o-colC">
       <section class="o-sec" id="villkor">
         <details class="o-fold" id="ovrigt">
           <summary>Övriga tjänster</summary>
-          <div class="body"><div class="o-tjanstgrupp"><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-lb"><span class="o-stepnr" aria-hidden="true">1</span>Laddbox och installation</h3><p class="t-small" style="color:var(--muted);">Tre paket på samma jobb. Skillnaden är effekten och hur mycket huset styr laddningen.</p><div class="o-pkgs" role="radiogroup" aria-labelledby="rub-tj-lb"><label class="o-pkg" data-pkg="bas"><input type="radio" name="laddboxpkg" value="4450"><div class="pbody"><figure class="pbild"><img src="assets/img/paket-bas-zaptec-go.webp" alt="Allt som ingår i paketet Bas" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Bas</b></span><span class="pprice kr">4 450 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Go</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class="utan"><span class="o-bock o-bock--utan"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 6h5.4"/></svg></span><span><b>Lastbalansering</b><span>tillval</span></span></li><li class="utan"><span class="o-bock o-bock--utan"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 6h5.4"/></svg></span><span><b>Kabelhållare</b><span>tillval</span></span></li><li class="utan"><span class="o-bock o-bock--utan"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 6h5.4"/></svg></span><span><b>Laddkabel</b><span>tillval</span></span></li></ul></div></label><label class="o-pkg" data-pkg="plus"><input type="radio" name="laddboxpkg" value="5740"><span class="ribbon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17l-6.2 3.9 1.6-7L2 9.2l7.1-.6Z"/></svg> Vår rekommendation</span><div class="pbody"><figure class="pbild"><img src="assets/img/paket-plus-zaptec-go.webp" alt="Allt som ingår i paketet Plus" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Plus</b></span><span class="pprice kr">5 740 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Go</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Sense</b><span>lastbalansering</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Chill</b></span></li><li class="utan"><span class="o-bock o-bock--utan"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 6h5.4"/></svg></span><span><b>Laddkabel</b><span>tillval</span></span></li></ul><div class="o-ptiles"><figure class="o-ptile"><img src="assets/img/zaptec-go.webp" alt="Zaptec Go" loading="lazy" decoding="async"><figcaption><b>Zaptec Go</b></figcaption></figure><figure class="o-ptile"><img src="assets/img/zaptec-sense.webp" alt="Zaptec Sense" loading="lazy" decoding="async"><figcaption><b>Zaptec Sense</b><span>lastbalansering</span></figcaption></figure><figure class="o-ptile"><img src="assets/img/kabelhallare.webp" alt="Zaptec Chill" loading="lazy" decoding="async"><figcaption><b>Zaptec Chill</b></figcaption></figure></div></div></label><label class="o-pkg" data-pkg="premium"><input type="radio" name="laddboxpkg" value="9170"><span class="ribbon fakta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 2 5 13.5h5L9.5 22 19 10.5h-5L14.5 2Z"/></svg> Maximal prestanda</span><div class="pbody"><figure class="pbild"><img src="assets/img/paket-premium-zaptec-go.webp" alt="Allt som ingår i paketet Premium" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Premium</b></span><span class="pprice kr">9 170 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Go</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>22 kW</b><span>laddeffekt</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Perific Max</b><span>lastbalansering</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Chill</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Laddkabel 22 kW</b><span>5 meter</span></span></li></ul><div class="o-ptiles o-ptiles--4"><figure class="o-ptile"><img src="assets/img/zaptec-go.webp" alt="Zaptec Go" loading="lazy" decoding="async"><figcaption><b>Zaptec Go</b></figcaption></figure><figure class="o-ptile"><img src="assets/img/perific-max.webp" alt="Perific Max" loading="lazy" decoding="async"><figcaption><b>Perific Max</b><span>lastbalansering</span></figcaption></figure><figure class="o-ptile"><img src="assets/img/kabel22.webp" alt="Laddkabel 22 kW" loading="lazy" decoding="async"><figcaption><b>Laddkabel 22 kW</b><span>5 meter</span></figcaption></figure><figure class="o-ptile"><img src="assets/img/kabelhallare.webp" alt="Zaptec Chill" loading="lazy" decoding="async"><figcaption><b>Zaptec Chill</b></figcaption></figure></div></div></label></div></section><button type="button" class="o-rensa__btn" data-rensa="laddboxpkg" hidden>Ta bort laddboxen ur offerten</button></div><div class="o-tjanstgrupp"><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-ec"><span class="o-stepnr" aria-hidden="true">2</span>Byte av elcentral</h3><p class="t-small" style="color:var(--muted);">Har du en äldre central med skruvsäkringar är det här läget att byta, medan elektrikern ändå är hos dig.</p><figure class="o-feblock"><div class="o-fe" style="--fe:50;"><div class="o-febild"><img class="efter" src="assets/img/elcentral-efter.webp" alt="Elcentralen efter bytet" draggable="false" loading="lazy" decoding="async"><img class="fore" src="assets/img/elcentral-fore.webp" alt="Elcentralen före bytet" draggable="false" loading="lazy" decoding="async"><span class="o-fesom" aria-hidden="true"><i></i></span><span class="o-fechip v">Före</span><span class="o-fechip h">Efter</span></div><input type="range" class="o-fereglage" id="feReglage" min="0" max="100" value="50" step="1" aria-label="Dra åt sidan för att jämföra före och efter"></div></figure><div class="o-pkgs" role="radiogroup" aria-labelledby="rub-tj-ec"><label class="o-pkg" data-pkg="liten"><input type="radio" name="elcentralpkg" value="5850"><div class="pbody"><figure class="pbild"><img src="assets/img/hager-liten.webp" alt="Hager-central, 2 × 13 moduler" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Liten</b></span><span class="pprice kr">5 850 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hager gamma, förmonterad kapsling</b><span>2 × 13 moduler</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Huvudbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Jordfelsbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Dvärgbrytare</b><span>upp till 7 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Täcklock</b><span>på återstående modulplatser</span></span></li></ul></div></label><label class="o-pkg" data-pkg="medel"><input type="radio" name="elcentralpkg" value="9750"><div class="pbody"><figure class="pbild"><img src="assets/img/hager-mellan.webp" alt="Hager-central, 4 × 13 moduler i 2 kapslingar" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Medel</b></span><span class="pprice kr">9 750 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hager gamma, förmonterad kapsling</b><span>4 × 13 moduler i 2 kapslingar</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Huvudbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Jordfelsbrytare</b><span>2 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Dvärgbrytare</b><span>upp till 20 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Täcklock</b><span>på återstående modulplatser</span></span></li></ul></div></label><label class="o-pkg" data-pkg="stor"><input type="radio" name="elcentralpkg" value="17250"><div class="pbody"><figure class="pbild"><img src="assets/img/hager-stor.webp" alt="Hager-central, 4 × 18 moduler i 2 kapslingar" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Stor</b></span><span class="pprice kr">17 250 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hager gamma, förmonterad kapsling</b><span>4 × 18 moduler i 2 kapslingar</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Huvudbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Jordfelsbrytare</b><span>2 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Personskyddsautomat, 10 A</b><span>1 st, för kyl- och frysgrupp</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Överspänningsskydd</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Dvärgbrytare</b><span>upp till 36 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Täcklock</b><span>på återstående modulplatser</span></span></li></ul></div></label></div></section><button type="button" class="o-rensa__btn" data-rensa="elcentralpkg" hidden>Ta bort elcentralen ur offerten</button></div><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-bat"><span class="o-stepnr" aria-hidden="true">3</span>Solcellsbatteri</h3><p class="t-small" style="color:var(--muted);">Lagrar solel till kvällen och kan ladda bilen på din egen el. Vad ett batteri kostar beror på hur många kilowattimmar du behöver, och det går inte att svara på utan att se ditt tak och din förbrukning. Kryssa i det du vill veta mer om, så hör Rasmus av sig. <b style="color:var(--ink);font-weight:600;">Det här påverkar inte summan.</b></p><div class="o-rader"><label class="o-rad"><input type="checkbox" class="intresse" data-grupp="batteri-saj" data-name="Solcellsbatteri SAJ HS3" data-intresse="1" data-fran="fr. 35 625 kr"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/batteri-saj.webp" alt="SAJ HS3 solcellsbatteri" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">SAJ HS3</span><span class="o-radspec">5 till 40 kWh</span><span class="o-radpris" data-grupp="batteri-saj">fr. 35 625 kr</span></span></label><label class="o-rad"><input type="checkbox" class="intresse" data-grupp="batteri-eway" data-name="Solcellsbatteri Eway" data-intresse="1" data-fran="fr. 42 000 kr"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/batteri-eway.webp" alt="Eway solcellsbatteri" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Eway</span><span class="o-radspec">15,36 till 63,4 kWh</span><span class="o-radpris" data-grupp="batteri-eway">fr. 42 000 kr</span></span></label><label class="o-rad"><input type="checkbox" class="intresse" data-grupp="batteri-dyness" data-name="Solcellsbatteri Dyness" data-intresse="1" data-fran="fr. 45 925 kr"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/batteri-dyness.webp" alt="Dyness solcellsbatteri" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Dyness</span><span class="o-radspec">15,36 till 61,44 kWh</span><span class="o-radpris" data-grupp="batteri-dyness">fr. 45 925 kr</span></span></label></div></section><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-spotlights"><span class="o-stepnr" aria-hidden="true">4</span>Spotlights</h3><p class="t-small" style="color:var(--muted);">Material och installation ingår</p><div class="o-rader"><label class="o-rad"><input type="checkbox" class="add" data-grupp="spotlight" data-name="Spotlights" data-rot="1" data-styck="800" value="800"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/spotlight.webp" alt="Monterad spotlight i tak" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Spotlights</span><span class="o-radspec">pris per styck</span><span class="o-radpris kr" data-grupp="spotlight">+800 kr</span></span><span class="o-radantal"><select data-antal="spotlight" aria-label="Antal spotlights"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option></select></span></label></div></section><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-golvvrmetermostat"><span class="o-stepnr" aria-hidden="true">5</span>Golvvärmetermostat</h3><p class="t-small" style="color:var(--muted);">Smart termostat för elektrisk golvvärme. Gör det möjligt att styra uppvärmningen efter schema och elpris, beroende på systemets funktioner och vald tjänst.</p><div class="o-rader"><label class="o-rad"><input type="checkbox" class="add" data-grupp="termostat" data-name="Golvvärmetermostat, Plejd-termostat" data-rot="1" data-styck="2150" value="2150"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/plejd-trm01.webp" alt="Plejd-termostat för elektrisk golvvärme" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Plejd-termostat</span><span class="o-radspec">pris per styck</span><span class="o-radpris kr" data-grupp="termostat">+2 150 kr</span></span><span class="o-radantal"><select data-antal="termostat" aria-label="Antal golvvärmetermostat"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option></select></span></label></div></section><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-dimmer"><span class="o-stepnr" aria-hidden="true">6</span>Dimmer</h3><p class="t-small" style="color:var(--muted);">Smart dimmer som kan styras via app och återfjädrande tryckknapp. Gör det möjligt att dimra belysning samt skapa och styra scenarier.</p><div class="o-rader"><label class="o-rad"><input type="checkbox" class="add" data-grupp="dimmer" data-name="Dimmer, Plejd-dimmer" data-rot="1" data-styck="1350" value="1350"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/plejd-dim01.webp" alt="Plejd-dimmer, dosdimmer med återfjädrande tryckknapp" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Plejd-dimmer</span><span class="o-radspec">pris per styck</span><span class="o-radpris kr" data-grupp="dimmer">+1 350 kr</span></span><span class="o-radantal"><select data-antal="dimmer" aria-label="Antal dimmer"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option></select></span></label></div></section><p class="t-micro o-tjanstnot" style="color:var(--faint);">Priserna är inkl. moms, efter skattereduktion.</p></div>
+          <div class="body"><div class="o-tjanstgrupp"><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-lb"><span class="o-stepnr" aria-hidden="true">1</span>Laddbox och installation</h3><p class="t-small" style="color:var(--muted);">Tre paket på samma jobb. Skillnaden är effekten och hur mycket huset styr laddningen.</p><div class="o-pkgs" role="radiogroup" aria-labelledby="rub-tj-lb"><label class="o-pkg" data-pkg="bas"><input type="radio" name="laddboxpkg" value="4450"><div class="pbody"><figure class="pbild"><img src="assets/img/paket-bas-zaptec-go.webp" alt="Allt som ingår i paketet Bas" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Bas</b></span><span class="pprice kr">4 450 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Go</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class="utan"><span class="o-bock o-bock--utan"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 6h5.4"/></svg></span><span><b>Lastbalansering</b><span>tillval</span></span></li><li class="utan"><span class="o-bock o-bock--utan"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 6h5.4"/></svg></span><span><b>Kabelhållare</b><span>tillval</span></span></li><li class="utan"><span class="o-bock o-bock--utan"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 6h5.4"/></svg></span><span><b>Laddkabel</b><span>tillval</span></span></li></ul></div></label><label class="o-pkg" data-pkg="plus"><input type="radio" name="laddboxpkg" value="5740"><span class="ribbon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 2.9 6.6 7.1.6-5.4 4.7 1.6 7L12 17l-6.2 3.9 1.6-7L2 9.2l7.1-.6Z"/></svg> Vår rekommendation</span><div class="pbody"><figure class="pbild"><img src="assets/img/paket-plus-zaptec-go.webp" alt="Allt som ingår i paketet Plus" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Plus</b></span><span class="pprice kr">5 740 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Go</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>11 kW</b><span>laddeffekt</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Sense</b><span>lastbalansering</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Chill</b></span></li><li class="utan"><span class="o-bock o-bock--utan"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 6h5.4"/></svg></span><span><b>Laddkabel</b><span>tillval</span></span></li></ul><div class="o-ptiles"><figure class="o-ptile"><img src="assets/img/zaptec-go.webp" alt="Zaptec Go" loading="lazy" decoding="async"><figcaption><b>Zaptec Go</b></figcaption></figure><figure class="o-ptile"><img src="assets/img/zaptec-sense.webp" alt="Zaptec Sense" loading="lazy" decoding="async"><figcaption><b>Zaptec Sense</b><span>lastbalansering</span></figcaption></figure><figure class="o-ptile"><img src="assets/img/kabelhallare.webp" alt="Zaptec Chill" loading="lazy" decoding="async"><figcaption><b>Zaptec Chill</b></figcaption></figure></div></div></label><label class="o-pkg" data-pkg="premium"><input type="radio" name="laddboxpkg" value="9170"><span class="ribbon fakta"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 2 5 13.5h5L9.5 22 19 10.5h-5L14.5 2Z"/></svg> Maximal prestanda</span><div class="pbody"><figure class="pbild"><img src="assets/img/paket-premium-zaptec-go.webp" alt="Allt som ingår i paketet Premium" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Premium</b></span><span class="pprice kr">9 170 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Go</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>22 kW</b><span>laddeffekt</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Perific Max</b><span>lastbalansering</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Zaptec Chill</b></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Laddkabel 22 kW</b><span>5 meter</span></span></li></ul><div class="o-ptiles o-ptiles--4"><figure class="o-ptile"><img src="assets/img/zaptec-go.webp" alt="Zaptec Go" loading="lazy" decoding="async"><figcaption><b>Zaptec Go</b></figcaption></figure><figure class="o-ptile"><img src="assets/img/perific-max.webp" alt="Perific Max" loading="lazy" decoding="async"><figcaption><b>Perific Max</b><span>lastbalansering</span></figcaption></figure><figure class="o-ptile"><img src="assets/img/kabel22.webp" alt="Laddkabel 22 kW" loading="lazy" decoding="async"><figcaption><b>Laddkabel 22 kW</b><span>5 meter</span></figcaption></figure><figure class="o-ptile"><img src="assets/img/kabelhallare.webp" alt="Zaptec Chill" loading="lazy" decoding="async"><figcaption><b>Zaptec Chill</b></figcaption></figure></div></div></label></div></section><button type="button" class="o-rensa__btn" data-rensa="laddboxpkg" hidden>Ta bort laddboxen ur offerten</button></div><div class="o-tjanstgrupp"><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-ec"><span class="o-stepnr" aria-hidden="true">2</span>Byte av elcentral</h3><p class="t-small" style="color:var(--muted);">Har du en äldre central med skruvsäkringar är det här läget att byta, medan elektrikern ändå är hos dig.</p><figure class="o-feblock"><div class="o-fe" style="--fe:50;"><div class="o-febild"><img class="efter" src="assets/img/elcentral-efter.webp" alt="Elcentralen efter bytet" draggable="false" loading="lazy" decoding="async"><img class="fore" src="assets/img/elcentral-fore.webp" alt="Elcentralen före bytet" draggable="false" loading="lazy" decoding="async"><span class="o-fesom" aria-hidden="true"><i></i></span><span class="o-fechip v">Före</span><span class="o-fechip h">Efter</span></div><input type="range" class="o-fereglage" id="feReglage" min="0" max="100" value="50" step="1" aria-label="Dra åt sidan för att jämföra före och efter"></div></figure><div class="o-pkgs" role="radiogroup" aria-labelledby="rub-tj-ec"><label class="o-pkg" data-pkg="liten"><input type="radio" name="elcentralpkg" value="5990"><div class="pbody"><figure class="pbild"><img src="assets/img/hager-liten.webp" alt="Hager-central, 2 × 13 moduler" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Liten</b></span><span class="pprice kr">5 990 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hager gamma, förmonterad kapsling</b><span>2 × 13 moduler</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Huvudbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Jordfelsbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Dvärgbrytare</b><span>upp till 7 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Täcklock</b><span>på återstående modulplatser</span></span></li></ul></div></label><label class="o-pkg" data-pkg="medel"><input type="radio" name="elcentralpkg" value="9750"><div class="pbody"><figure class="pbild"><img src="assets/img/hager-mellan.webp" alt="Hager-central, 4 × 13 moduler i 2 kapslingar" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Medel</b></span><span class="pprice kr">9 750 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hager gamma, förmonterad kapsling</b><span>4 × 13 moduler i 2 kapslingar</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Huvudbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Jordfelsbrytare</b><span>2 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Dvärgbrytare</b><span>upp till 20 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Täcklock</b><span>på återstående modulplatser</span></span></li></ul></div></label><label class="o-pkg" data-pkg="stor"><input type="radio" name="elcentralpkg" value="17250"><div class="pbody"><figure class="pbild"><img src="assets/img/hager-stor.webp" alt="Hager-central, 4 × 18 moduler i 2 kapslingar" loading="lazy" decoding="async"></figure><div class="prow"><span class="mark"></span><span class="pname"><b>Stor</b></span><span class="pprice kr">17 250 kr</span></div><ul class="o-ingar"><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Hager gamma, förmonterad kapsling</b><span>4 × 18 moduler i 2 kapslingar</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Huvudbrytare</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Jordfelsbrytare</b><span>2 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Personskyddsautomat, 10 A</b><span>1 st, för kyl- och frysgrupp</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Överspänningsskydd</b><span>1 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Dvärgbrytare</b><span>upp till 36 st</span></span></li><li class="prod"><span class="o-bock"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.6 6.45 4.7 8.65 9.4 3.85"/></svg></span><span><b>Täcklock</b><span>på återstående modulplatser</span></span></li></ul></div></label></div></section><button type="button" class="o-rensa__btn" data-rensa="elcentralpkg" hidden>Ta bort elcentralen ur offerten</button></div><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-bat"><span class="o-stepnr" aria-hidden="true">3</span>Solcellsbatteri</h3><p class="t-small" style="color:var(--muted);">Lagrar solel till kvällen och kan ladda bilen på din egen el. Vad ett batteri kostar beror på hur många kilowattimmar du behöver, och det går inte att svara på utan att se ditt tak och din förbrukning. Kryssa i det du vill veta mer om, så hör Rasmus av sig. <b style="color:var(--ink);font-weight:600;">Det här påverkar inte summan.</b></p><div class="o-rader"><label class="o-rad"><input type="checkbox" class="intresse" data-grupp="batteri-saj" data-name="Solcellsbatteri SAJ HS3" data-intresse="1" data-fran="fr. 35 625 kr"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/batteri-saj.webp" alt="SAJ HS3 solcellsbatteri" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">SAJ HS3</span><span class="o-radspec">5 till 40 kWh</span><span class="o-radpris" data-grupp="batteri-saj">fr. 35 625 kr</span></span></label><label class="o-rad"><input type="checkbox" class="intresse" data-grupp="batteri-eway" data-name="Solcellsbatteri Eway" data-intresse="1" data-fran="fr. 42 000 kr"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/batteri-eway.webp" alt="Eway solcellsbatteri" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Eway</span><span class="o-radspec">15,36 till 63,4 kWh</span><span class="o-radpris" data-grupp="batteri-eway">fr. 42 000 kr</span></span></label><label class="o-rad"><input type="checkbox" class="intresse" data-grupp="batteri-dyness" data-name="Solcellsbatteri Dyness" data-intresse="1" data-fran="fr. 45 925 kr"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/batteri-dyness.webp" alt="Dyness solcellsbatteri" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Dyness</span><span class="o-radspec">15,36 till 61,44 kWh</span><span class="o-radpris" data-grupp="batteri-dyness">fr. 45 925 kr</span></span></label></div></section><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-spotlights"><span class="o-stepnr" aria-hidden="true">4</span>Spotlights</h3><p class="t-small" style="color:var(--muted);">Material och installation ingår</p><div class="o-rader"><label class="o-rad"><input type="checkbox" class="add" data-grupp="spotlight" data-name="Spotlights" data-rot="1" data-styck="800" value="800"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/spotlight.webp" alt="Monterad spotlight i tak" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Spotlights</span><span class="o-radspec">pris per styck</span><span class="o-radpris kr" data-grupp="spotlight">+800 kr</span></span><span class="o-radantal"><select data-antal="spotlight" aria-label="Antal spotlights"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option></select></span></label></div></section><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-golvvrmetermostat"><span class="o-stepnr" aria-hidden="true">5</span>Golvvärmetermostat</h3><p class="t-small" style="color:var(--muted);">Smart termostat för elektrisk golvvärme. Gör det möjligt att styra uppvärmningen efter schema och elpris, beroende på systemets funktioner och vald tjänst.</p><div class="o-rader"><label class="o-rad"><input type="checkbox" class="add" data-grupp="termostat" data-name="Golvvärmetermostat, Plejd-termostat" data-rot="1" data-styck="2150" value="2150"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/plejd-trm01.webp" alt="Plejd-termostat för elektrisk golvvärme" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Plejd-termostat</span><span class="o-radspec">pris per styck</span><span class="o-radpris kr" data-grupp="termostat">+2 150 kr</span></span><span class="o-radantal"><select data-antal="termostat" aria-label="Antal golvvärmetermostat"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option></select></span></label></div></section><section class="o-tjanst"><h3 class="o-tjansttitel" id="rub-tj-dimmer"><span class="o-stepnr" aria-hidden="true">6</span>Dimmer</h3><p class="t-small" style="color:var(--muted);">Smart dimmer som kan styras via app och återfjädrande tryckknapp. Gör det möjligt att dimra belysning samt skapa och styra scenarier.</p><div class="o-rader"><label class="o-rad"><input type="checkbox" class="add" data-grupp="dimmer" data-name="Dimmer, Plejd-dimmer" data-rot="1" data-styck="1350" value="1350"><span class="mark sq"></span><figure class="o-radbild"><img src="assets/img/plejd-dim01.webp" alt="Plejd-dimmer, dosdimmer med återfjädrande tryckknapp" loading="lazy" decoding="async"></figure><span class="o-radtext"><span class="o-radnamn">Plejd-dimmer</span><span class="o-radspec">pris per styck</span><span class="o-radpris kr" data-grupp="dimmer">+1 350 kr</span></span><span class="o-radantal"><select data-antal="dimmer" aria-label="Antal dimmer"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option></select></span></label></div></section><p class="t-micro o-tjanstnot" style="color:var(--faint);">Priserna är inkl. moms, efter skattereduktion.</p></div>
         </details>
-
         <details class="o-fold">
           <summary>Villkor</summary>
           <div class="body"><ul class="o-forbered o-sarskilda"><li class="t-small">Offert baseras på att cykelställning är nedmonterad innan installationen utförs.</li><li class="t-small">Betongplatta måste gjutas i 40x40 cm på installationsplats innan installationen utförs.</li></ul><p class="t-small"><a class="o-villkor" href="https://ampy.se/kopvillkor" target="_blank" rel="noopener">Läs våra köpvillkor</a></p></div>
         </details>
       </section>
     </div>
-
-    <!-- 7 REKOMMENDERA och 8 VAD SAGER DINA GRANNAR. Agaren 24 okt (E6): bra.
-         Direkta barn till .o-main, som i laddbox- och elcentralmallen.
-         Systemets regler for omdomesbandet ar skrivna
-         ".offer .o-main > .ampy-testimonials", sa inne i .o-colC gallde de
-         inte alls: bandet matte 343 px vid 375 dar laddboxmallens matte 375. -->
-                <!-- GRANNREKOMMENDATIONEN, byggd om 25 oktober (uppdrag 4).
-
-                 AGARENS LASTA HIERARKI, ordagrant ur uppdraget:
-                   1. Rubrik: "Rekommendera och fa rabatt"  (utan belopp)
-                   2. Paragraf (ny, fanns inte fore 25 okt)
-                   3. KORT: gront kreditkort, Ampy-logotyp, beloppet som text
-                   4. "Sa funkar det" med sina tre punkter, OFORANDRADE
-                   5. "Skicka inbjudningar" med sin not, OFORANDRAD
-
-                 "Kortet ar fokuset. Kortet ar egentligen det viktigaste, och
-                 det som vi maste gora stilrent, eftersom ogat laser kort och
-                 bilder snabbare an rubriker och paragraftexter."
-
-                 Fore: kortet var last till 204 px hojd medan bredden foljde
-                 spalten, alltsa 295x204 (1,45:1) vid 375 och 636x204 (3,12:1)
-                 vid 1180. Ett riktigt kort ar 1,59:1. Det slutade lasa som
-                 ett kort och blev en kupong. Kortet bar nu ID-1-formatet och
-                 ett tak, sa det ar ETT KORT i varje bredd.
-
-                 BELOPPET AR EN PARAMETER, aldrig en literal.
-                 1 000 satts av bygget ur mallens META. Paragrafen,
-                 kortet och steg 3 harleder alla talet.
-
-                 SKALET STAR INTE HAR, OCH DET AR AVSIKTLIGT. Den har filen
-                 klistras in i varje levererad sida, sa varje tecken i den har
-                 kommentaren ar skickade bytes som kunden kan lasa i Visa
-                 kallkod. Uppmatt 27 oktober: 35 kommentarer i
-                 offert-zaptec-go.html. Agarens ord, uttakningen bakom talen och
-                 risken han vager star i beslut/grann-texterna.md och
-                 implementation/01-owner-decisions.md, som aldrig skickas till en
-                 kund. Lagg inte tillbaka dem har.
-
-                 BESLUT 15, 26 oktober, ordagrant: "Vem som helst, skriv om
-                 blocket." Erbjudandet galler den kunden vill bjuda in, inte
-                 bara en granne. Ordet GRANNE bar bade VEM och VARFOR det ar
-                 latt att fraga, och inget enskilt ord ersatter det rent, sa
-                 blocket bytte inte ett ord utan tva ramar:
-                   VALET   "vem du vill"  (agarens egna ord i beslutet),
-                           i steg 1. Kortets rad bar det inte langre: agaren
-                           strok hela mottagarledet 26 okt, se nedan.
-                   PARTEN  "person" / "personen", agarens EGET ord i hans
-                           forsta utkast till paragrafen 25 okt ("for varje
-                           person du rekommenderar"). Beslut 15 lamnar
-                           tillbaka det ordet.
-                 Steg 2 sager "den du bjod in", for det ar det enda stallet
-                 som behover peka tillbaka pa steg 1.
-                 Agarens rubrik, hierarkin och finstiltens MENING ar ororda.
-
-                 BESLUT 16, samma dag, ordagrant: "Ta bort guld chipet och ha
-                 istallet ampys logotyp centralt." Chipet ar borta ur markupen
-                 och ur systemets CSS, och kortets innehall ar en centrerad
-                 stapel: logotyp, belopp, rad. Formen ar oforandrad,
-                 aspect-ratio 85.6/54, matt 1,585:1 vid sex bredder fore och
-                 efter.
-
-                 AGARENS GRANSKNING 26 OKTOBER kl 15 andrar tre saker, och
-                 bara de tre. Hans ord i sin helhet star i
-                 uppdrag/2026-10-26-agarfeedback-ordagrant.md; hans beslut i
-                 den har rundan:
-                   LAYOUTEN  "Kor alternativ A. Fast ha aven: Blocket
-                             'namn@exempel.se' och 'Skicka inbjudan'
-                             centraliserat!"  Tvaspalten fran samma formiddag
-                             ar backad, panelen ar en centrerad spalt, faltet
-                             och knappen centrerade.
-                   KORTET    "en rand igenom kortet, likt vi hade det forut",
-                             logotypen, beloppet "lite mindre", och
-                             "containern och textfargen" i raden. Randen ar
-                             matt ur hans referensbild; se kommentaren vid
-                             kortet nedan.
-                   RADEN     "sen ska det bara sta 'fran Anders', inte 'till
-                             vem du vill'. Bara 'fran Anders'."
-                 "Kortet kan behalla nuvarande farg och storlek" galler: ingen
-                 token, ingen gradient och ingen aspect-ratio ar rord.
-                 Hierarkin, rubriken och finstilten likasa. -->
             <section class="o-sec">
               <div class="o-ref-panel">
-                <!-- EN CENTRERAD SPALT, I VARJE BREDD. Agarens val 26
-                     oktober, ordagrant: "Kor alternativ A. Fast ha aven:
-                     Blocket 'namn@exempel.se' och 'Skicka inbjudan'
-                     centraliserat!"
-
-                     DET AR EN ANDRING AV SAMMA DAGS TIDIGARE VAL. Pa
-                     formiddagen sa han "A:s kort med B:s tvaspalt pa desktop",
-                     och blocket byggdes da med tva <div class="o-ref-kol">.
-                     Nu ar det A RAKT AV: en spalt pa bade mobil och desktop,
-                     och omslagen ar BORTA, inte bortkommenterade. En spalt som
-                     inte finns kan inte komma tillbaka av misstag.
-                     Oraklets krav 5 flyttade med beslutet: det som bevakade
-                     att omslagen FANNS bevakar nu att de ar borta och att de
-                     sex delarna star i agarens ordning.
-
-                     Panelen ar riktning A:s egen: taket --s8 x 7 = 448 px,
-                     centrerad, allt innehall centrerat. Enda tillagget ar hans
-                     mening ovan: adressfaltet och knappen lag vansterstallda i
-                     A:s render och ar centrerade nu. -->
                 <h2 class="t-h2 o-ref-titel">Rekommendera och få rabatt</h2>
-                <!-- AGARENS EGEN MENING (beslut 2), med ETT tillagg:
-                     villkoret. Hans formulering var "... for varje person du
-                     rekommenderar", och det lovar en rabatt per
-                     rekommendation. Rabatten kommer nar den inbjudna
-                     BESTALLER, vilket blockets egen finstilt och steg 2 redan
-                     sager, sa candour-grinden stoppar den lydelsen.
-                     SUBSTANTIVET ar hans eget igen: copywritern bytte
-                     "person" mot "granne" 25 okt med skalet att fem av
-                     blockets strangar sa granne. Beslut 15 river det skalet,
-                     och da star agarens ord kvar oforandrat. -->
                 <p class="t-body o-ref-ingress">Ge bort 1 000&nbsp;kr rabatt och få 1 000&nbsp;kr rabatt själv för varje person som beställer.</p>
-
-                <!-- KORTET, ritat om 26 oktober efter agarens referensbild
-                     (uppdrag/referens/wispr-kortet-stort.png). Hans ord:
-                     "Kortet vill jag att vi ska designa precis som bifogat
-                     nummer ett. Det vill saga, vi vill ha en rand igenom
-                     kortet, likt vi hade det forut. Sen har vi Ampy-
-                     logotypen. Sen har vi da 500 kronor rabatt. Och sen ska
-                     det bara sta 'fran Anders'."
-                     Och: "Kortet kan behalla nuvarande farg och storlek."
-
-                     STRIMMAN ar randen. Uppmatt ur hans bild, kolumn for
-                     kolumn ur de lila pixlarna (kortet 652 x 396, alltsa
-                     1,646:1):
-                       in vid vanster kant pa  13,8 % av hojden
-                       kron vid  22 % av bredden,  8,0 % av hojden
-                       dal  vid  83 % av bredden, 30,3 % av hojden
-                       ut vid hoger kant pa    10,2 % av hojden
-                       tjocklek 9 px = 2,27 % av hojden
-                     Banan har ar de talen i vart eget format. viewBox:en
-                     856 x 540 AR kortets ratio (85,6/54), sa svg:n fyller
-                     kortet utan brevladekanter och strecket skalar likformigt
-                     med bredden: ingen px-langd, ingen @media, ingen
-                     @container. Banan borjar vid x = -26 och slutar vid
-                     x = 882, alltsa utanfor bada kanterna, sa kortets
-                     overflow:hidden klipper den och ingen andpunkt syns inne
-                     pa ytan. Det var precis det den GAMLA svepen inte gjorde:
-                     den bar en egen hojd i px (64) som inte kom ur nagon
-                     skala, och darfor togs den bort 25 okt till forman for en
-                     gradient. Agaren vill ha randen tillbaka; den kommer
-                     tillbaka utan px.
-
-                     Fargen ar husets egen ljusbla, --ikonplatta #a0e3fa, inte
-                     referensens lila #ecd8fc. Agaren: "vi vill ha den har
-                     ljusbla linjen". I hans bild bar randen OCH pillret samma
-                     kulor, och det ar darfor de hor ihop; samma sak har.
-
-                     Beslut 16 (chipet bort, logotypen centralt) star kvar
-                     oforandrat. -->
                 <div class="o-ref-kort">
                   <svg class="o-ref-strimma" viewBox="0 0 856 540" fill="none"
                        aria-hidden="true" focusable="false">
@@ -354,34 +118,10 @@
                     </span>
                     <div class="o-ref-kortfot">
                       <p class="o-ref-varde">1 000&nbsp;kr rabatt</p>
-                      <!-- NAMNRADEN SAGER BARA GIVAREN, fran 26 oktober.
-                           Agaren, ordagrant: "sen ska det bara sta 'fran
-                           Anders', inte 'till vem du vill'. Bara 'fran
-                           Anders'."
-                           Mottagarledet ar alltsa struket. Riktningen
-                           (beslut 14) ar oforandrad och blev snarare
-                           tydligare: kortet ar en gava som lasaren ger, och
-                           raden ar signaturen. Oraklets krav flyttade med:
-                           det kravde "Till <nagon>" och kraver nu att raden
-                           namner en GIVARE och INGEN mottagare, alltsa samma
-                           sanning fran andra hallet.
-
-                           UTAN FORNAMN SAGER RADEN "fran dig", och det ar
-                           hela losningen pa att fornamnet inte ar garanterat.
-                           Markupen bar den namnlosa formen; grann.js byter
-                           ordet "dig" mot fornamnet nar ett gar att lita pa
-                           (window.__kundfornamn, annars sidans egen halsning
-                           "Hej <Fornamn>," hogst upp pa samma sida). Gor den
-                           inte det star "FRAN DIG" kvar, vilket ar sant pa
-                           kundens egen sida, och kortet byter varken form
-                           eller hojd. Inget namn hittas nagonsin pa, och
-                           kortet kan aldrig visa ett ANNAT namn an sidan
-                           redan visar hogst upp. -->
                       <p class="o-ref-till" id="refTill">Från <span id="refGivare">dig</span></p>
                     </div>
                   </div>
                 </div>
-
                 <h3 class="o-ref-rubrik">Så funkar det</h3>
                 <ul class="o-ref-steg">
                   <li>
@@ -390,11 +130,6 @@
                   </li>
                   <li>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 3.5l8.5 7"/><path d="M5.5 9.9V20h13V9.9"/><rect x="10" y="13" width="4" height="7" rx="1"/></svg>
-                    <!-- STEG 2 ar det enda steg varje mall skriver om till
-                         sin egen vara (offerter/batteri/offert.py raknar pa
-                         den har strangen ordagrant). Byts lydelsen har maste
-                         bytet dar flyttas med, annars faller byggets byt()
-                         pa att strangen inte finns. -->
                     <span>Den du bjöd in beställer av oss</span>
                   </li>
                   <li>
@@ -402,52 +137,22 @@
                     <span>Ni får 1 000&nbsp;kr rabatt var</span>
                   </li>
                 </ul>
-
                 <div class="o-ref-falt">
-                  <!-- FALTET HADE GRUPPENS RUBRIK SOM SITT NAMN. Raden var
-                       <label for="refMejl">Skicka inbjudningar</label>, sa en
-                       skarmlasare laste upp "Skicka inbjudningar" pa ett falt
-                       som samlar EN adress, och knappen under hette samma sak.
-                       Rubriken ar kvar ordagrant, agarens punkt 5, men den ar
-                       inte langre faltets namn: den ar ett span, och faltet
-                       har en egen etikett som bara skarmlasaren hor.
-                       Copywriterns strang, avsnitt 4. -->
                   <span class="o-ref-etikett">Skicka inbjudningar</span>
                   <p class="t-micro o-ref-hjalp" id="refHjalp">Tryck enter efter varje adress. Inget skickas förrän du trycker på knappen.</p>
                   <label class="o-dold" for="refMejl">Mejladress till den du bjuder in</label>
                   <div class="o-chips" id="refChips">
-                    <!-- PLATSHALLAREN sa "granne@exempel.se" och namngav
-                         alltsa mottagaren. Beslut 15 tog bort det villkoret,
-                         sa platshallaren visar bara FORMEN; vem adressen
-                         tillhor sager etiketten och rubriken. -->
                     <input type="email" id="refMejl" placeholder="namn@exempel.se" autocomplete="off" aria-describedby="refHjalp refFel">
                   </div>
-                  <!-- EN ADRESS SOM INTE GAR IGENOM FICK TYSTNAD, bara
-                       aria-invalid. role="status" ar husets monster for samma
-                       sak (fragaHint, avbojHint i mallarnas body.html).
-                       Copywriterns strang, avsnitt 4; grann.js skriver den. -->
                   <p class="t-small o-ref-fel" id="refFel" role="status"></p>
                   <div class="o-ref-rad">
-                    <!-- "Skicka inbjudan", inte "Skicka inbjudningar". grann.js
-                         kor rita() vid laddning och satter da knappen till
-                         "Skicka inbjudan", eftersom listan ar tom. Markupen sa
-                         nagot annat, sa sidan bar tva sanningar om samma knapp
-                         och bara en kund UTAN JavaScript fick se den har.
-                         Copywriterns rattelse, avsnitt 4. -->
                     <button type="button" class="o-ref-knapp mork" id="refSkicka" disabled>Skicka inbjudan</button>
                   </div>
                   <ul class="o-ref-lista" id="refLista"></ul>
                 </div>
               </div>
-
-              <!-- FINSTILTEN ar agarens egen, last 25 okt (svar 50, dar "ditt
-                   pris" blev "ditt ordinarie pris"). Den ar enda stallet
-                   villkoret star, enligt doseringsdirektivet 2026-08-15.
-                   Beslut 15 byter SUBSTANTIVET och ingenting annat: "grannen"
-                   blir "personen", tva ganger, samma mening. -->
               <p class="t-micro o-ref-fin">Rabatten dras på fakturan när personen har beställt. Hoppar personen av behåller du ditt ordinarie pris.</p>
             </section>
-
             <section class="ampy-testimonials" aria-label="Omdömen från Ampys kunder">
           <div class="ampy-testimonials__inner">
             <header class="att-head">
@@ -509,23 +214,10 @@
           </ul>
           </div>
         </section>
-
-    <!-- FOTEN SIST I MAIN, SOM SYSTRARNA. Utanfor main fick den 15 px dar
-         systrarna har t-micro 11, 97 px luft fran omdomesbandet dar systrarna
-         har 48, och prisbaren tackte den med 56 px i botten (uppmatt 23 okt vid
-         375). Systemets .o-main reserverar barens hojd under sitt sista barn,
-         och det barnet ska vara foten. -->
     <footer class="o-fot">
       <p class="t-micro">Ampy Nordic AB, org.nr 559254-9819, <a href="tel:+46102657979">010-265&nbsp;79&nbsp;79</a></p>
     </footer>
   </main>
-
-  <!-- PRISBAREN I SYSTRARNAS FORM: textkolumnen .bt med talet och etiketten
-       under, knappen .go till hoger. Forut lag talet ensamt (49 px) bredvid en
-       56 px primarknapp som tog 282 av 343 px, och etiketten saknades helt.
-       Knappen heter och gor det systrarnas gor: "Summering", och leder dit
-       (CMO-granskningen 23 okt, fynd 5c: ett tryck i den klibbiga baren
-       accepterade en serviceoffert utan att kunden sett summeringen). -->
   <div class="o-bar" id="prisbar">
     <div class="bt">
       <span class="btrad"><span class="o-dold">Att betala: </span><b class="kr" id="barTotal" aria-live="polite">7 400 kr</b></span>
@@ -533,33 +225,6 @@
     </div>
     <button class="go" id="barGo">Summering <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg></button>
   </div>
-
-<!-- FORBEREDELSEN, HARLEDD UR ARBETE- OCH MATERIALKOLUMNEN.
-     AGARSVAR 15, 30 OKTOBER, ORDAGRANT: "Den ska baseras pa arbete/material
-     kolummnen som alltid anvands, oavsett om den ar offert eller
-     direktbokad."
-
-     DARFOR EN EGEN PLATSHALLARE OCH INTE SYSTRARNAS, den som heter
-     FORBEREDELSER (skriven utan klamrar HAR MED FLIT: bygg.py letar pa
-     stracksoken och ersatter den aven inne i en HTML-kommentar.
-     Uppmatt 30 oktober: med klamrarna kvar skrev bygget katalogpostens
-     sju NYCKELNAMN som sju <li> rakt in i den har kommentaren, och
-     ingenting sa ifran. Samma familj som "allt efter </style> kastas
-     tyst" i FALLOR.md: en kommentar ar bytes som bygget laser).
-     bygg.py:forberedelsefolden() renderar en LISTA ur
-     katalog/forberedelser.json, och de tre produkttexterna ar just listor,
-     agarens egna ord punkt for punkt. Servicens ar ingen lista: den
-     RAKNAS FRAM ur bokarens kolumn vid varje bygge, sa den hor hemma i
-     mallens egen rendera() dar kolumnen finns. Ramen (rubrik, inledning,
-     avslutning) star anda i katalogen, sa ingen text bor i en body.html.
-
-     Syns INTE pa offertsidan, precis som systrarnas: acceptkvitto.js klonar
-     in mallelementet oaForbered (skrivet utan vinkelparenteser av samma skal
-     som ovan: oraklet forberedelserna_ar_katalogens letar pa stracksoken och
-     matchade kommentaren i stallet for folden, och klarade sig den gangen pa
-     ren tur) pa den godkanda offerten, mellan kostnaderna och villkoren.
-     Service har ingen kostnadsfold (agarsvar 21), sa dar hamnar den mellan
-     raderna och villkoren. -->
   <template id="oaForbered"><details class="o-fold">
     <summary>Vad behöver du göra före installationen?</summary>
     <div class="body">
@@ -569,24 +234,11 @@
       </ul>
     </div>
   </details></template>
-
-<!-- ACCEPT- OCH AVBOJSKARMEN LIGGER INNE I .offer, som pa systrarna.
-     De stod efter </div> som stanger .offer, alltsa UTANFOR, och service var
-     enda mallen dar det var sa. .offer ar bade containern och det som
-     definierar --s*-skalan, sa utanfor den var --s7 ODEFINIERAD medan den ar
-     48 px pa de fyra andra, brodtexten blev 16 px i stallet for husets 15,
-     och @container (max-width:560px) kunde aldrig sla till. Uppmatt
-     25 oktober pa alla sex bredder: iOffer false pa service, true pa de
-     andra. Skarmarna ar hidden tills kunden accepterar, vilket ar skalet
-     att ingen sett det. Laddboxen har dem mellan </main> och .o-bar;
-     nu gor service det ocksa. -->
         <div class="o-skarm" id="skarmAccept" hidden>
 <div class="oa">
   <svg class="oa__aurora oa__aurora--top" xmlns="http://www.w3.org/2000/svg" width="399" height="308" viewBox="0 0 399 308" fill="none" aria-hidden="true"><path opacity="0.55" d="M398.501 19.1624V307.416C377.203 307.609 355.83 302.624 342.317 293.968C312.351 274.723 324.249 243.073 290.832 225.49C271.296 215.211 241.478 212.776 213.863 212.505C186.248 212.274 157.751 213.588 131.605 208.757C82.3243 199.637 54.8562 166.596 75.5674 141.361C85.1886 129.652 102.742 120.339 116.035 109.712C129.329 99.0458 138.436 85.3657 128.668 73.6951C108.838 50.0062 34.0715 54.798 7.77845 32.9254C-4.04606 23.1097 -1.54896 10.2412 9.61455 0.0390625H391.001L398.501 19.1624Z" fill="url(#at_p0t)"></path><path opacity="0.6" d="M398.499 0V241.34C355.859 222.68 321.444 193.856 302.503 160.131C293.654 144.379 284.851 125.261 262.485 120.588C244.078 116.765 225.536 124.967 208.24 130.948C190.9 136.928 167.201 139.967 155.151 129.052C133.764 109.64 178.361 77.2222 157.196 57.6797C143.857 45.3595 116.646 50.4248 97.2152 43.8562C76.1396 36.6993 69.2478 15.8497 77.9626 0H398.499Z" fill="url(#at_p1t)"></path><defs><radialGradient id="at_p0t" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(322.819 40.5771) scale(663.35 349.037)"><stop offset="0.5" stop-color="#b6f2ff"></stop><stop offset="1" stop-color="#f5f9ff"></stop></radialGradient><radialGradient id="at_p1t" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(372.244 23.8562) scale(378.832 278.434)"><stop stop-color="#5cc5b6"></stop><stop offset="0.5" stop-color="#00a991"></stop><stop offset="0.87" stop-color="#5cc5b6"></stop></radialGradient></defs></svg>
   <svg class="oa__aurora oa__aurora--bottom" xmlns="http://www.w3.org/2000/svg" width="270" height="226" viewBox="0 0 270 226" fill="none" aria-hidden="true"><path opacity="0.55" d="M1.26485e-06 210.532L1.96698e-05 0.00397235C14.4308 -0.137147 28.9113 3.50376 38.0674 9.82597C58.37 23.8816 50.3087 46.9971 72.95 59.8391C86.1865 67.3467 106.39 69.1248 125.1 69.3224C143.81 69.4917 163.117 68.5321 180.832 72.0602C214.222 78.7211 232.833 102.853 218.8 121.283C212.281 129.835 200.389 136.637 191.382 144.399C182.375 152.188 176.205 162.18 182.823 170.703C196.258 188.005 246.915 184.505 264.73 200.48C272.741 207.649 271.05 217.047 263.486 224.499L14.5 225L1.26485e-06 210.532Z" fill="url(#at_p0b)"></path><path opacity="0.6" d="M3.05544e-05 225.579L3.06452e-05 50C28.9339 63.6081 52.2862 84.628 65.139 109.223C71.143 120.71 77.1168 134.652 92.2928 138.06C104.784 140.848 117.365 134.866 129.101 130.505C140.868 126.144 156.949 123.927 165.125 131.887C179.638 146.043 149.376 169.685 163.737 183.936C172.789 192.921 191.253 189.227 204.438 194.017C218.739 199.237 223.416 214.441 217.502 226L3.05544e-05 225.579Z" fill="url(#at_p1b)"></path><defs><radialGradient id="at_p0b" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(51.2778 194.892) rotate(-180) scale(449.445 254.921)"><stop offset="0.5" stop-color="#a0fbc9"></stop><stop offset="1" stop-color="#f5f9ff"></stop></radialGradient><radialGradient id="at_p1b" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(17.8152 208.603) rotate(-180) scale(257.059 203.052)"><stop stop-color="#5cc5b6"></stop><stop offset="0.5" stop-color="#00a991"></stop><stop offset="0.87" stop-color="#5cc5b6"></stop></radialGradient></defs></svg>
-
   <main class="oa__card">
-    <!-- 1 · confirmation -->
     <section class="oa__section oa__head">
       <div class="oa__check" aria-hidden="true">
         <span class="oa__halo"></span>
@@ -597,57 +249,14 @@
       </div>
       <h1 class="oa__title">Din offert är nu accepterad!</h1>
       <span class="oa__ref">Offert <span data-oa="offert.referens">#2026-0643</span></span>
-      <!-- SKARMEN BEKRAFTADE INGENTING. Uppmatt: en konfigurerad order pa
-           11 845 kr, och noll forekomster av "kr" pa hela skarmen. Kunden
-           tryckte acceptera pa ett belopp och fick tillbaka en bock utan tal.
-           Rutan fylls av skriptet vid accept, ur samma varden som
-           summeringen, sa de kan inte dra isar. -->
       <p class="oa__kvitto" id="oaKvitto" hidden>
         <span class="oa__kvitto-rad"><span id="oaPaket">Paket</span><b class="kr" id="oaTotal"></b></span>
         <span class="oa__kvitto-not">inkl. moms, efter skattereduktion</span>
       </p>
-      <!-- RADERNA, DATUMET OCH FOLDARNA fylls av gemensamt/block/acceptkvitto.js
-           ur sidans EGNA element: raderna ur #sumRows, foldarna ur sidans egna
-           <details>. Ingen text ar avskriven hit, for en avskrift ar en andra
-           sanning. Tomma och dolda tills skarmen oppnas. -->
       <div class="oa__rader" id="oaRader" hidden></div>
       <p class="oa__datum" id="oaDatum" hidden></p>
     </section>
-
-    <!-- SA HAR GAR VI VIDARE AR BORTTAGEN. AGARORDER 29 OKTOBER, ORDAGRANT:
-         "SAHAR GAR VI VIDARE och alla dess 1/2/3 steg och copy tar vi bort
-         helt och hallet fran alla acceptera mallarna."
-
-         Beslutet togs i motet 29 okt: "de har ju accepterat offerten...
-         Din offert ar nu accepterad. Ja, men det kanske racker."
-         Och: "for oss pingar det ju till sa fort en offert ar godkand. Sen
-         tar ju vi action pa det. Jag tror inte manga ar sa har, jaha, nu da.
-         De kommer ju fa en bokningsbekraftelse snart."
-
-         DET UPPHAVER tva saker: det delade blockets steg 2 namngav bokaren
-         (data-oa="bokare.namn"), och tillaggsmallen skrev om steg 2 och tog
-         bort steg 3 lokalt for att elektrikern redan star hos kunden. Bada
-         de lokala ratningarna ar nu onodiga och borttagna i sina
-         offert.py-filer.
-
-         OCH AVBOJSSKARMENS EGEN REMSA AR OCKSA BORTA, 30 OKTOBER. Har stod
-         till i dag att den "star KVAR", med skalet att agarordern gallde
-         acceptskarmen och att den som avbojer inte far nagon
-         bokningsbekraftelse. Agaren har tagit stallning till precis det:
-         agarsvar 11, ordagrant, "Ta aven bort den." Remsan ar borttagen ur
-         gemensamt/block/skarm-avboj.html, och oraklet
-         skarmarna_lovar_ingen_bokning() i gemensamt/orakel.py provar nu BADA
-         skarmarna i stallet for bara den har. Raden star rattad och inte
-         raderad, for den gamla lydelsen ar lardomen: en kommentar som
-         forklarar ett UNDANTAG blir falsk den dag undantaget upphor, och den
-         har kommentaren foljer med i varje byggd sida, alltsa i bytes kunden
-         kan lasa i Visa kallkod.
-    -->
-
-    <!-- 2 · kostnaderna, forberedelserna och villkoren, klonade ur sidan -->
     <section class="oa__section oa__folds" id="oaFolds" hidden></section>
-
-    <!-- 3 · trust + contact + close -->
     <section class="oa__section">
       <div class="oa__trust">
         <span class="oa__trust-item">
@@ -670,11 +279,7 @@
 <div class="oa">
   <svg class="oa__aurora oa__aurora--top" xmlns="http://www.w3.org/2000/svg" width="399" height="308" viewBox="0 0 399 308" fill="none" aria-hidden="true"><path opacity="0.55" d="M398.501 19.1624V307.416C377.203 307.609 355.83 302.624 342.317 293.968C312.351 274.723 324.249 243.073 290.832 225.49C271.296 215.211 241.478 212.776 213.863 212.505C186.248 212.274 157.751 213.588 131.605 208.757C82.3243 199.637 54.8562 166.596 75.5674 141.361C85.1886 129.652 102.742 120.339 116.035 109.712C129.329 99.0458 138.436 85.3657 128.668 73.6951C108.838 50.0062 34.0715 54.798 7.77845 32.9254C-4.04606 23.1097 -1.54896 10.2412 9.61455 0.0390625H391.001L398.501 19.1624Z" fill="url(#at_p0t_av)"></path><path opacity="0.6" d="M398.499 0V241.34C355.859 222.68 321.444 193.856 302.503 160.131C293.654 144.379 284.851 125.261 262.485 120.588C244.078 116.765 225.536 124.967 208.24 130.948C190.9 136.928 167.201 139.967 155.151 129.052C133.764 109.64 178.361 77.2222 157.196 57.6797C143.857 45.3595 116.646 50.4248 97.2152 43.8562C76.1396 36.6993 69.2478 15.8497 77.9626 0H398.499Z" fill="url(#at_p1t_av)"></path><defs><radialGradient id="at_p0t_av" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(322.819 40.5771) scale(663.35 349.037)"><stop offset="0.5" stop-color="#ffd9d3"></stop><stop offset="1" stop-color="#f5f9ff"></stop></radialGradient><radialGradient id="at_p1t_av" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(372.244 23.8562) scale(378.832 278.434)"><stop stop-color="#e58a80"></stop><stop offset="0.5" stop-color="#d94f45"></stop><stop offset="0.87" stop-color="#e58a80"></stop></radialGradient></defs></svg>
   <svg class="oa__aurora oa__aurora--bottom" xmlns="http://www.w3.org/2000/svg" width="270" height="226" viewBox="0 0 270 226" fill="none" aria-hidden="true"><path opacity="0.55" d="M1.26485e-06 210.532L1.96698e-05 0.00397235C14.4308 -0.137147 28.9113 3.50376 38.0674 9.82597C58.37 23.8816 50.3087 46.9971 72.95 59.8391C86.1865 67.3467 106.39 69.1248 125.1 69.3224C143.81 69.4917 163.117 68.5321 180.832 72.0602C214.222 78.7211 232.833 102.853 218.8 121.283C212.281 129.835 200.389 136.637 191.382 144.399C182.375 152.188 176.205 162.18 182.823 170.703C196.258 188.005 246.915 184.505 264.73 200.48C272.741 207.649 271.05 217.047 263.486 224.499L14.5 225L1.26485e-06 210.532Z" fill="url(#at_p0b_av)"></path><path opacity="0.6" d="M3.05544e-05 225.579L3.06452e-05 50C28.9339 63.6081 52.2862 84.628 65.139 109.223C71.143 120.71 77.1168 134.652 92.2928 138.06C104.784 140.848 117.365 134.866 129.101 130.505C140.868 126.144 156.949 123.927 165.125 131.887C179.638 146.043 149.376 169.685 163.737 183.936C172.789 192.921 191.253 189.227 204.438 194.017C218.739 199.237 223.416 214.441 217.502 226L3.05544e-05 225.579Z" fill="url(#at_p1b_av)"></path><defs><radialGradient id="at_p0b_av" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(51.2778 194.892) rotate(-180) scale(449.445 254.921)"><stop offset="0.5" stop-color="#ffcfc7"></stop><stop offset="1" stop-color="#f5f9ff"></stop></radialGradient><radialGradient id="at_p1b_av" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(17.8152 208.603) rotate(-180) scale(257.059 203.052)"><stop stop-color="#e58a80"></stop><stop offset="0.5" stop-color="#d94f45"></stop><stop offset="0.87" stop-color="#e58a80"></stop></radialGradient></defs></svg>
-
-  
   <main class="oa__card">
-    <!-- 1 · mottagningsbekräftelse. Samma disc som accepterad-sidan, men bocken
-         betyder här "vi har tagit emot ditt svar", inte "affär". -->
     <section class="oa__section oa__head">
       <div class="oa__check" aria-hidden="true">
         <span class="oa__halo"></span>
@@ -686,37 +291,7 @@
       <h1 class="oa__title">Tack, du har nu avböjt offerten</h1>
       <span class="oa__ref">Offert <span data-oa="offert.referens">#2026-0643</span></span>
     </section>
-
-    <!-- 2 · STEGREMSAN AR BORTTAGEN, 30 OKTOBER.
-         AGARSVAR 11, ORDAGRANT, pa fragan om avbojsskarmens egen
-         "Vad som hander nu" ska bort den ocksa: "Ta aven bort den."
-
-         Den 29 oktober togs remsan bort ur ACCEPTSKARMEN pa alla fem
-         mallarna, och den har stod kvar for att ordern gallde
-         acceptmallarna. Skalet som holl den uppe var att den som avbojer
-         inte far nagon bokningsbekraftelse som berattar vad som hander
-         sedan. Agaren har tagit stallning till just det och svarat nej.
-
-         Vad som gick med remsan: tre steg, varav steg 3 lovade att
-         offerten "ligger kvar om du andrar dig". Det loftet har ingen pa
-         Ampy gett for en avbojd offert, och kontaktraden nedanfor sager
-         redan det som ar sant: ring oss om du andrade dig.
-
-         Reglerna for .oa__next, .oa__steps, .oa__step, .oa__node och
-         .oa__step-text star kvar i gemensamt/system.css tills nagon mater
-         dem som doda: de ar skrivna "#skarmAvboj .oa__*" och trafar
-         ingenting nar markupen ar borta. Oraklet
-         skarmarna_lovar_ingen_bokning() i gemensamt/orakel.py stoppar
-         bygget om nagon av klasserna kommer tillbaka pa NAGON av de tva
-         skarmarna. -->
-    <!-- 3 · trust + kontakt -->
     <section class="oa__section">
-      <!-- Betygsblocket är BORTTAGET här, till skillnad från den accepterade
-           sidan. Fem gyllene stjärnor 200px under meningen "vi hör inte av oss
-           mer" riktar ett säljbudskap mot någon som just sagt nej, och läser
-           som att kunden gjort ett misstag. Det ligger för nära
-           confirmshaming för att stå kvar. ÄGARGRIND: vill du ha kvar det
-           säger du till, blocket finns kvar i oap/index.html rad 57-68. -->
       <p class="oa__contact">Vill du ha en ny offert, eller ändrade du dig? Ring <a href="tel:+46102657979">010-265 79 79</a></p>
     </section>
   </main>

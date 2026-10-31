@@ -1,28 +1,4 @@
-/* ===========================================================================
-   @container, inte @media, och cqw, inte vw.
-   Blocket är byggt för en egen sida där fönstret ÄR blocket. Här ligger det
-   inuti .offer, som är en container. I granskningsramen är offerten 390 px
-   bred i ett 1400 px fönster: varenda @media-fråga läste då fönstret, så
-   mobilreglerna slog aldrig till och desktoplayouten pressades in i 390 px.
-   Det var det som såg trasigt ut, inte koden. Fristående är utfallet exakt
-   detsamma som förut, för där är offerten lika bred som fönstret.
-   hover, pointer, reduced-motion och print är kvar som @media: de handlar om
-   enheten, inte om bredden.
-   =========================================================================== */
-/* ============================================================================
-   AMPY TESTIMONIALS — produktions-CSS (FluentSnippets / Bricks)
-   Version 1 (låst 2026-07-19). ALLA selektorer WRAPPER-SCOPADE under
-   .ampy-testimonials så inget läcker ut i temat och inget annat block krockar.
-   Komponentreglerna ligger på .ampy-testimonials .att-* (specificitet 0,2,0) så
-   de alltid vinner över de defensiva element-resetsen (0,1,1).
 
-   BEROENDEN (finns globalt i Ampys Bricks-tema — importeras EJ här):
-   • Outfit (self-hostad i temat)  •  (10px=10px)
-   • ap*-tokens + --brightgreen/--color-2/--radius/--apmidnight-blue m.fl.
-   Blocket gör AVSIKTLIGT inga externa font-requests och sätter aldrig html/body.
-   ============================================================================ */
-
-/* Wrapper: tokens + defensiva resets (skyddar mot att temat skriver över) */
 .ampy-testimonials {
   --att-fill-a: var(--brightgreen, #1BD365);
   --att-fill-b: #00ad48;
@@ -37,8 +13,6 @@
 .ampy-testimonials button { appearance: none; -webkit-appearance: none; font: inherit; color: inherit; }
 .ampy-testimonials figure, .ampy-testimonials blockquote, .ampy-testimonials figcaption { margin: 0; }
 .ampy-testimonials__inner { max-width: 1200px; margin: 0 auto; }
-
-/* Rubrik */
 .ampy-testimonials .att-head { text-align: center; max-width: 720px; margin: 0 auto var(--apspace-l, 32px); }
 .ampy-testimonials .att-heading {
   margin: 0 0 var(--apspace-2xs, 9px);
@@ -47,58 +21,16 @@
   color: var(--apmidnight-blue, #090b32);
 }
 .ampy-testimonials .att-sub { margin: 0; font-size: 17px; font-weight: 300; color: rgba(9, 11, 50, 0.68); }
-
-/* ===== DET GAMLA KORTET, KARUSELLEN OCH BETYGET AR BORTTAGNA 30 OKTOBER =====
-   Hit hor 48 regler och 5 186 B, 53 procent av den har filen, som skeppades
-   till var och en av de 21 sidorna utan att traffa ett enda element.
-
-   VAD SOM ERSATTE DEM, OCH NAR:
-
-   * KORTET `.att-card*` -> `.o-ref-kort` / `.o-bibkort`, 25 oktober
-     (uppdrag 4, riktning A). Det nya kortet bor i `gemensamt/system.css`
-     och i `gemensamt/block/grann.html`.
-   * KARUSELLEN `.att-slider`, `.att-nav`, `.att-dot*` och Splides
-     `.splide__track` / `.splide__list` -> `.o-cit`, `.o-cit__nav`,
-     `.o-cit__prick` och `.o-cit__item` med klassen `pa` pa det aktiva
-     citatet, drivna av `gemensamt/block/omdomen.js`. Splide sjalvt ar
-     borta: `omdomen.js` rad 2 sager varfor ("Ersatter Splide, som var
-     34 kB"), och ingen sida laddar ett karusellbibliotek fran ett CDN.
-     Sonden `gemensamt/verktyg/sonder/karusell.js` ar domen pa den nya:
-     den trycker pa varje `.o-cit__prick` och kraver att citatet byts.
-   * BETYGET `.att-rating` / `.att-badge*` -> `.o-betyg`,
-     `.o-betyg__stjarnor` och `.o-betyg__text` i `gemensamt/block/tillit.html`.
-
-   RUBRIKEN STAR KVAR och ska sta kvar: `.ampy-testimonials`,
-   `.ampy-testimonials__inner`, `.att-head`, `.att-heading` och `.att-sub`
-   ar de sex som fortfarande traffar.
-
-   ATERINFOR INTE. Mats med `python3 gemensamt/verktyg/dodcss.py`.
-   =========================================================================== */
-
 .ampy-testimonials :focus:not(:focus-visible) { outline: none; }
-
-/* Tablet 760–1024: 2-upp */
 @container (max-width: 1024px) and (min-width: 760px) {
   .ampy-testimonials { padding: var(--apspace-xl, 44px) var(--apspace-m, 24px); }
 }
-/* Kompakt 1-upp ≤759: ingen subline, lättare rubrik, fullbredds-kort */
 @container (max-width: 759px) {
   .ampy-testimonials { padding: var(--apspace-xl, 44px) var(--apspace-s, 16px); }
   .ampy-testimonials .att-heading { font-size: 24px; font-weight: 400; }
   .ampy-testimonials .att-sub { display: none; }
   .ampy-testimonials .att-head { margin-bottom: 32px; }
 }
-/* REDUCERAD RORELSE OCH PRINT hade var sin regel har, och bada rorde bara
-   det gamla kortet och den gamla prickraden: prickens transition och den
-   morka kortbakgrunden som blir olasbar pa vitt papper. Borta 30 oktober med
-   kortet. Det NYA citatkortet ar ljust och bar sina print- och
-   rorelseregler i `gemensamt/system.css`, dar resten av offerten bar sina.
-   En tom @media ar ingen neutral rest: den antyder att nagot ska dar. */
-
-/* ===== Lyft över offertens nollställning =====
-   .offer p, .offer h1..h4 och .offer ul nollställer margin och väger
-   tyngre än blockets egna regler. Samma regler igen, med .offer framför.
-   Rotens egen marginal lyfts INTE: den styrs av fullbreddsregeln. */
 .offer .ampy-testimonials .att-heading{margin: 0 0 var(--apspace-2xs, 9px);}
 .offer .ampy-testimonials .att-head{margin-bottom: 32px;}
 .offer .ampy-testimonials .att-head{margin: 0 auto var(--apspace-l, 32px);}

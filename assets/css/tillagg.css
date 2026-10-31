@@ -1,29 +1,5 @@
 html{scroll-behavior:smooth;}
 @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
-
-/* EN REGEL, INTE TIO SELEKTORER. Reducerad rorelse slacktes till 25 oktober
-   pa tio namngivna stallen: .o-fold>summary::after, .o-rad, .o-opt, .o-pkg,
-   .o-mer>summary::after, .o-plats, och acceptskarmens tre delar i tva
-   skarmar. En handskriven lista som ska racka upp ALLT ar den vanligaste
-   orsaken till falskt gront i det har repot, och nasta animerade element
-   hade inte stott pa den.
-
-   Uppmatt samma dag: 26 element pa elcentralsidan bar en transition, och
-   under reducerad rorelse var det 0. Listan var alltsa komplett just da.
-   Den har regeln gor att den inte kan bli ofullstandig.
-
-   TRANSITION:NONE OCH INTE DURATION:.01ms. Den populara snutten satter
-   transition-duration pa varje element, och eftersom CSS forval for
-   transition-property ar "all" FAR da varje element en overgang det inte
-   hade forut. Uppmatt direkt efter bytet: ett klick pa elcentralsidan satte
-   igang 25 overgangar pa element som tidigare inte hade nagon alls. Kortare
-   an ogat ser, men det ar att lagga till rorelse i det lage dar kunden har
-   bett om mindre. none tar bort den i stallet.
-
-   Risken med animation:none ar en animation med fill:both som bar
-   slutlaget: slacks den star elementet kvar i sitt utgangslage. Husets tre
-   oa-animationer gor inte det (acceptskarmen ar uppmatt synlig med
-   reducerad rorelse pa), och sonden rorelse.js bevakar just det. */
 @media (prefers-reduced-motion: reduce){
   .offer *, .offer *::before, .offer *::after{
     animation:none !important;
@@ -31,41 +7,25 @@ html{scroll-behavior:smooth;}
     scroll-behavior:auto !important;
   }
 }
-/* 68 var toppradens höjd. Inget ligger längre över sidan, så ett ankare
-   behöver bara sin egen luft. */
 .offer .o-sec,.offer .o-steg{scroll-margin-top:var(--s4);}
 .offer{
-  /* SPACING. Enda tillåtna värden för gap, padding och margin. */
   --s0:2px; --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:64px;
-  /* STORLEKAR. Komponenters egna mått, aldrig spacing. 44 är träffytans golv. */
   --z1:16px; --z2:20px; --z3:24px; --z4:32px; --z5:44px; --z6:48px; --barh:73px;
   --bg:#f5f9ff; --card:#ffffff; --ink:#090b32; --body:#333333;
   --muted:#565e82; --faint:#5c6482; --line:#e3eaf5; --line-2:#cfdaee;
-  /* UPPMÄTT 19 okt: #9aa5c0 ger 2,47:1 mot vitt och 2,33 mot sidbotten, inte
-     3,0 som det stod här. Kommentaren var fel i tolv veckor.
-     --kant är kvar som KORTENS kant, där formen och ytan bär igenkänningen.
-     --kant-kontroll är markörernas kant, och där är linjen det ENDA som
-     skiljer ovalt från valt, så den måste klara 1.4.11. 3,97:1 mot vitt. */
   --kant:#9aa5c0;
   --kant-kontroll:#767f9c;
-  --stjarna:#f5a623;     /* betygsstjärnor */
+  --stjarna:#f5a623;     
   --teal:#00a991; --teal-ink:#017666; --teal-soft:#e4f6f2; --teal-line:rgba(0,169,145,.32);
-  /* ikonerna, ritade i Figma, fliken Offer: Icons */
   --ikonplatta:#a0e3fa; --ikonglyf:#000000;
-  /* stegremsan. Ikonplattan utblandad till 55 procent mot vitt, så remsan och
-     ikonerna bär samma kulör. Grönt drog åt sig blicken från priset. */
   --steg-bla:#cbf0fc;
   --r1:10px; --r2:14px; --r3:20px; --r4:28px;
-  /* RYTM. Fyra nivåer, allt vertikalt avstånd kommer härifrån. */
-  --rytm-sektion:var(--s7);  /* 48, mellan kapitel */
-  --rytm-grupp:var(--s5);    /* 24, mellan grupper i ett kapitel */
-  --rytm-block:var(--s4);    /* 16, mellan block i en grupp */
-  --rytm-rad:var(--s2);      /* 8, mellan rader i en lista */
-  --rytm-nara:var(--s3);     /* 12, rubrik till sitt eget innehåll */
+  --rytm-sektion:var(--s7);  
+  --rytm-grupp:var(--s5);    
+  --rytm-block:var(--s4);    
+  --rytm-rad:var(--s2);      
+  --rytm-nara:var(--s3);     
   container-type:inline-size;
-  /* Bakgrunden. Samma geometri som originalet, men kulörerna utbytta mot sidans
-     egna neutraler. Teal, cyan och mint drog blicken till kanterna i stället för
-     till priset. Nu en mjuk blågrå anstrykning som bara antyder en kant. */
   background:
     radial-gradient(115% 85% at 14% -12%, rgba(86,94,130,.06) 0%, rgba(86,94,130,0) 46%),
     radial-gradient(105% 75% at 94% 6%,  rgba(207,218,238,.40) 0%, rgba(207,218,238,0) 44%),
@@ -78,8 +38,6 @@ html{scroll-behavior:smooth;}
   font-size:15px; line-height:1.55; min-height:100%;
 }
 .offer *{box-sizing:border-box;}
-/* Text som bara skärmläsaren ska höra. clip-path och 1 px, aldrig
-   display:none: det senare tar bort den ur tillgänglighetsträdet också. */
 .o-dold{position:absolute;width:1px;height:1px;overflow:hidden;
   clip-path:inset(50%);white-space:nowrap;}
 .offer h1,.offer h2,.offer h3,.offer h4{color:var(--ink);margin:0;line-height:1.2;font-weight:700;}
@@ -88,12 +46,6 @@ html{scroll-behavior:smooth;}
 .offer button{font-family:inherit;}
 .offer img{display:block;max-width:100%;}
 .kr{font-variant-numeric:tabular-nums;white-space:nowrap;}
-
-/* typskala.
-   .offer OCH klassen, alltid: .offer h1..h4 och .offer p väger 0,1,1 och slår
-   en ensam klass på 0,1,0. Uppmätt 19 okt: h1 renderade vikt 700 fast
-   .t-display säger 800, i tolv veckor. Elva fler par låg latenta, alltså
-   samma värde i dag men tysta vid nästa ändring. */
 .offer .t-display{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.14;}
 .offer .t-h2{font-size:24px;font-weight:700;letter-spacing:-.02em;line-height:1.2;}
 .offer .t-h3{font-size:17px;font-weight:600;}
@@ -103,16 +55,6 @@ html{scroll-behavior:smooth;}
 .offer .t-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-ink);}
 .offer input,.offer textarea,.offer select,.offer label{font-size:15px;}
 .t-price{font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.15;}
-
-/* BETYGSRADEN I HJÄLTEN.
-   Socialt bevis vid det första talet, inte 9 000 px längre ner. En rad på
-   38 px i stället för ett block på 200. Samma tal som omdömesblockets badge
-   och samma länk; de får aldrig säga olika.
-   Talet står i markup med en krok, data-google="betyg", så att det kan fyllas
-   live ur Google-profilen vid utskick. Ett betyg i en offert är ett påstående
-   med ett datum, och det ska vara dagens. */
-/* Träffytan var 22 px hög, alltså under golvet 44. Paddingen lyfter den
-   utan att flytta stjärnorna eller texten. */
 .o-betyg{display:flex;align-items:center;justify-content:center;gap:var(--s2);
   padding-block:var(--s3);margin-top:var(--s1);text-decoration:none;color:var(--muted);font-size:13px;}
 .o-betyg__stjarnor{display:inline-flex;gap:2px;}
@@ -120,13 +62,6 @@ html{scroll-behavior:smooth;}
 .o-betyg__text b{font-weight:700;color:var(--ink);}
 .o-betyg:focus-visible{outline:2px solid var(--teal-ink);outline-offset:3px;border-radius:var(--r1);}
 @media (hover:hover){ .o-betyg:hover .o-betyg__text b{text-decoration:underline;} }
-
-/* topprad */
-/* Toppanelen. Originalets egen, ur offert-mall: ett flytande rundat kort med
-   den svarta ordbilden, inte en fastklistrad list med en teal-färgad bokstav.
-   Den rullar bort med sidan. En offert läses uppifrån och ner en gång; ett
-   kort som följer med stjäl 76 px av varje skärm för en logotyp och ett
-   offertnummer kunden redan har läst. Ägarorder 18 okt. */
 .o-top{margin:var(--s2) var(--s3) 0;
   background:rgba(255,255,255,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border:1px solid rgba(255,255,255,.7);border-radius:18px;
@@ -137,76 +72,19 @@ html{scroll-behavior:smooth;}
 .o-ref{font-size:13px;font-weight:600;letter-spacing:.01em;font-variant-numeric:tabular-nums;
   color:var(--teal-ink);background:rgba(0,169,145,.08);border:1px solid rgba(0,169,145,.18);
   border-radius:999px;padding:var(--s1) var(--s2);white-space:nowrap;}
-/* Giltighetsdatumet låg här och tvingade raden att vika i två vid 375.
-   Ägarorder 18 okt: bara ordbilden och offertnumret. Datumet står kvar där
-   det hör hemma, i finstilten under totalen. Raden är en rad igen vid 360. */
 @container (min-width: 520px){
-  /* TOPPRADEN FOLJER INNEHALLETS BREDD, inte sidans. .o-main ar capad till
-     680 px harifran och upp till desktopgransen, men baren hade ingen cap
-     alls i det bandet. UPPMATT 25 OKTOBER:
-
-       768 px   baren 720 bred over ett innehall pa 680, 20 px utanfor
-       1024 px  baren 976 bred over 680, LOGOTYPEN 148 PX UTANFOR RUBRIKEN
-       1039 px  baren 991 bred over 680, 156 px
-
-     1024 ar en vanlig laptop och en iPad Pro i staende lage. Det ar det
-     agaren beskrev 25 oktober som att "menyn ser lite konstig ut".
-
-     Rattningen fanns redan, men bara till halften: kommentaren nedanfor
-     berattar att nagon loste exakt samma sak vid 1040 och uppat och lamnade
-     bandet darunder. En halv rattning ser ut som en hel tills nagon mater
-     mellan brytpunkterna.
-
-     TVA TAL TILL, BADA UPPMATTA 25-26 OKTOBER, OCH BADA RATTADE HAR:
-
-     1. SIDOPADDINGEN. Baren hade --s5 (24) och .o-main --s4 (16), alltsa
-        9 px skillnad med barens 1 px kant, pa det som ogat laser som samma
-        marginal: logotypen stod 9 px INNANFOR rubriken under sig. Nu samma
-        token som .o-main. Kvar ar barens egen 1 px kant, och den ar en
-        ritad linje, inte luft. Tillaggsmallen gjorde exakt det har pa
-        desktop den 25:e (offerter/tillagg/stil.css); nu gor huset det.
-
-     2. KORTETS INFATTNING AR INTE RATTAD, OCH DET AR ETT AGARBESLUT.
-        Fynd 5b: med max-width + margin-inline:auto ar baren kant i kant med
-        fonstret i varje band dar taket inte biter. Uppmatt vid 700 px och i
-        hela 1024 till 1180: vit yta x 0..1179, 8 px sidbakgrund OVER kortet
-        och 0 vid sidorna. Over 1180 flyter den fritt (130..1310 vid 1440).
-
-        JAG PROVADE ATT RATTA DET OCH TOG TILLBAKA DET, for de tva fynden
-        drar isar. width:min(tak, 100cqw - 2 x --s3) ger samma 12 px
-        infattning som vid 375 pa varje bredd, UPPMATT, men skjuter da in
-        barens innehall 12 px och punkt 1 gar fran -7 till +13. Tre vagar,
-        alla uppmatta, och ingen av dem gratis:
-
-          A  baren kant i kant i bandet, innehallet i linje   logga  +1 px
-          B  baren infattad 12 px, innehallet ur linje        logga +13 px
-          C  hela .o-main infattad 12 px nar taket inte biter logga  +1 px
-             och kortet infattat, men .o-colA gar 684 -> 660 vid 1180
-
-        C ar den enda som ger bada, och den andrar en pixel-godkand
-        desktoprendering. Det ar inte mitt beslut. A ar byggd. */
   .o-top{margin-inline:auto;max-width:680px;min-height:64px;padding-inline:var(--s4);}
 }
-/* Toppraden slutade aldrig växa. Uppmätt vid 2000 px: baren 1 952 bred över
-   ett innehåll på 1 180, med logotypen på x=49 och offertnumret på x=1798,
-   alltså 1 749 px isär på en sida som är 1 180 bred. Den delar sidans mått nu.
-   Kvar är kortets egen indragning på 25 px, som är vad som gör det till ett
-   kort och inte en list. Se fynd 5b i 520-blocket ovan: kortet ligger kant i
-   kant med fönstret i bandet 1024 till 1180, och det är en ägarfråga. */
 @container (min-width: 1024px){
   .o-top{max-width:1180px;margin-inline:auto;padding-inline:var(--s6);}
   .o-logo{height:24px;}
   .o-ref{font-size:13px;padding:5px 12px;}
 }
-
 .o-main{padding:var(--s5) var(--s4) calc(var(--barh) + var(--s5));display:flex;flex-direction:column;gap:var(--rytm-sektion);max-width:680px;margin-inline:auto;}
 .o-colA,.o-colB,.o-colC{display:flex;flex-direction:column;gap:var(--rytm-sektion);min-width:0;}
-/* --g är sektionens egen lucka, publicerad så barnen kan räkna med den. */
 .o-sec{--g:var(--rytm-block);display:flex;flex-direction:column;gap:var(--g);}
 .o-sechead{--g:var(--s2);display:flex;flex-direction:column;gap:var(--g);}
 .o-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r3);padding:var(--s5);}
-
-/* hero */
 .o-hero{display:flex;flex-direction:column;gap:var(--s5);}
 .intro h1 + p{margin-top:var(--s1);}
 .o-hero .intro{display:flex;flex-direction:column;gap:var(--s2);}
@@ -216,9 +94,6 @@ html{scroll-behavior:smooth;}
 .o-calcrow.ded{color:var(--teal-ink);}
 .o-calcfinal{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:var(--s3);margin-top:var(--s1);}
 .o-calcfinal > span:first-child{font-size:15px;font-weight:600;color:var(--ink);}
-
-/* stegen med egna ikoner */
-/* processen: svarta ikoner på vit platta, siffran i rubriken, en skena som binder ihop stegen */
 .o-steps{display:flex;flex-direction:column;gap:var(--s5);}
 .o-step{display:flex;gap:var(--s4);align-items:flex-start;position:relative;}
 .o-stepico{width:var(--z6);height:var(--z6);flex:none;border-radius:var(--r2);background:var(--ikonplatta);
@@ -230,8 +105,6 @@ html{scroll-behavior:smooth;}
 .o-step h3{font-size:20px;font-weight:600;line-height:1.3;display:flex;gap:var(--s2);align-items:baseline;}
 .o-stepnr{font-size:17px;font-weight:700;color:var(--faint);font-variant-numeric:tabular-nums;flex:none;}
 .o-step p{font-size:17px;font-weight:300;color:var(--body);line-height:1.6;}
-
-/* fällbar panel, generisk */
 .o-fold{background:var(--card);border:1px solid var(--line);border-radius:var(--r2);overflow:hidden;}
 .o-fold>summary{list-style:none;cursor:pointer;padding:var(--s3) var(--s4);display:flex;justify-content:space-between;align-items:center;gap:var(--s3);font-size:15px;font-weight:600;color:var(--ink);min-height:48px;}
 .o-fold>summary::-webkit-details-marker{display:none;}
@@ -241,45 +114,17 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-fold[open]>summary::after{transform:rotate(-135deg);margin-top:var(--s1);}
 @media (prefers-reduced-motion: reduce){ .o-fold>summary::after{transition:none;} }
 .o-fold .body{padding:0 var(--s4) var(--s4);}
-/* FORBEREDELSELISTAN i folden "Vad behöver du göra före installationen?".
-   Punkterna är korta instruktioner, inte en innehållslista, så de bär ingen
-   bock: en bock betyder "det här ingår" på den här sidan, och det här är
-   tvärtom något kunden ska göra. Prick i teal, samma gap som folden i övrigt.
-   Listan ligger i en <template> på offertsidan och renderas först inne i
-   #skarmAccept, där tokens är omdefinierade men --teal är samma värde. */
 .o-forbered{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--s3);}
 .o-forbered li{position:relative;padding-left:var(--s4);color:var(--muted);}
 .o-forbered li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--teal);}
 #skarmAccept .o-forbered li{font-size:13.5px;line-height:1.5;}
-/* EN BOCK, INTE TVÅ. Ägarorder 18 okt: varje rad bär samma symbol, den
-   ifyllda brickan med svart bock. En lista med två sorters bockar läser som
-   två sorters sanning, och allt i listan är lika mycket "ingår".
-   Brickan är CSS, inte svg: border-radius ger en perfekt rund cirkel vid
-   varje storlek, medan en svg-cirkel med r = halva viewBoxen får sin ytterkant
-   utjämnad mot kanten och ser tillplattad ut. Bara bocken är vektor, och den
-   är ritad i ett rutnät på 12 som renderas i 10 px: hela tal, skarp kant. */
 .o-bock{width:var(--z1);height:var(--z1);flex:none;margin-top:2px;
   border-radius:50%;background:var(--ikonplatta);display:grid;place-items:center;}
 .o-bock svg{width:10px;height:10px;display:block;}
 .o-bock path{fill:none;stroke:var(--ikonglyf);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
-
-/* Stegmarkören, så att längden slutar vara ett hot.
-   Den ligger i luckan MELLAN två kapitel och ska dela den mitt itu: 24 över,
-   24 under, alltid. Luckan över är alltid --rytm-sektion (48) och luckan under
-   är sektionens egen gap, som varje .o-sec publicerar som --g. Därför är
-   marginalerna uträknade och inte skrivna: samma regel håller i alla fem
-   sektionerna utan en enda undantagsrad. Förut: 48 över, 16 under. */
-/* .offer .o-steg och inte .o-steg: remsan ÄR ett p, och .offer p{margin:0}
-   väger 0,1,1 mot 0,1,0. Den nollställde hela marginalen tyst. Samma fälla
-   som tog .o-info och .ampy-cert__text. Två klasser väger 0,2,0 och vinner. */
 .offer .o-steg{display:block;background:var(--steg-bla);color:var(--ink);border-radius:var(--r1);
   padding:var(--s3) var(--s4);text-align:center;font-size:15px;font-weight:700;letter-spacing:-.005em;
   margin:calc(var(--s5) - var(--rytm-sektion)) 0 calc(var(--s5) - var(--g,var(--rytm-block)));}
-
-/* informationsknappen och dess ruta */
-/* Ikonen var ett kursivt textglyf i en cirkel. Georgia blev överskriven av
-   sidans typsnitt, och då satt bokstaven lågt och snett. Ett glyf beror på fontladdning,
-   kursivstil, baslinje och line-height. En svg beror på ingenting. */
 .o-info{width:var(--z3);height:var(--z3);margin-left:var(--s2);padding:0;flex:none;border:0;border-radius:50%;
   background:var(--ink);color:#fff;cursor:pointer;display:inline-grid;place-items:center;
   vertical-align:-4px;position:relative;}
@@ -287,7 +132,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-info::after{content:"";position:absolute;inset:calc(var(--s3) * -1);}
 .o-info:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
 .o-modal{width:min(94%,400px);max-height:80vh;border:0;border-radius:var(--r3);padding:var(--s5);
-  background:var(--card);color:var(--body);overflow:auto;position:fixed;inset:0;margin:auto;}
+  background:var(--card);color:var(--body);overflow:auto;overscroll-behavior:contain;
+  position:fixed;inset:0;margin:auto;}
 .o-modal::backdrop{background:rgba(9,11,50,.44);}
 .o-modal form{margin:0;}
 .o-modal h3{font-size:17px;font-weight:800;color:var(--ink);margin:0 var(--z6) var(--s3) 0;letter-spacing:-.01em;}
@@ -304,69 +150,15 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   background:none;color:var(--muted);font-size:30px;line-height:1;cursor:pointer;border-radius:var(--r1);}
 .o-modalstang:hover{background:var(--bg);color:var(--ink);}
 .o-modalstang:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
-
-/* GRANNKOPET OCH DEN GAMLA OMDOMESLISTAN AR BORTTAGNA 30 OKTOBER.
-   Sjutton regler, 1 857 B, pa var och en av de 22 sidorna utan ett element
-   att traffa.
-
-   `.o-granne` och `.o-grannsteg*` var grannkopets forsta form: ett kort med
-   en numrerad trestegslista. Ersatt av `.o-ref-*` i
-   `gemensamt/block/grann.html`, kortet byggt om 25 oktober (uppdrag 4,
-   riktning A), och blocket slutade saga "granne" 26 oktober (8457285):
-   `.o-ref-kort`, `.o-ref-steg`, `.o-ref-panel`, `.o-ref-falt`.
-
-   `.o-omdlista`, `.o-omd*`, `.o-stjarnor*`, `.o-init`, `.o-omdkalla` och
-   `.o-bevis*` var omdomena som en vagratt scroller med flera kort samtidigt.
-   Ersatta 18-19 oktober av tillitsblocket, ETT citat i taget (036bf59,
-   "Tillitsblocket: ett citat, tre ytor att valja mellan"): `.o-cit`,
-   `.o-cit__lista`, `.o-cit__item` med klassen `pa`, `.o-cit__stjarnor`,
-   `.o-cit__namn` och `.o-cit__foto`, se `gemensamt/block/tillit.html`.
-   Initialrundeln `.o-init` blev ett riktigt foto.
-
-   ATERINFOR INTE. Mats med `python3 gemensamt/verktyg/dodcss.py`. */
 .o-marken{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s5);align-items:center;justify-items:center;}
-/* Logotyperna i sina egna färger. opacity .8 hörde till gråskalan: en
-   nedtonad färglogotyp ser trasig ut, inte diskret. Höjden är satt per märke
-   efter hur stor ordbilden är, inte efter hur stor rutan är: Elsäkerhetsverkets
-   enradiga märke har text på en tiondel av sin bredd och måste vara bredare
-   för att läsa lika stort som ID06. */
 .o-marken img{width:100%;object-fit:contain;object-position:center;justify-self:center;}
 .o-marken img[alt="Elsäkerhetsverket"]{max-width:150px;}
 .o-marken img[alt="ID06"]{max-width:72px;}
 .o-marken img[alt="Installatörsföretagen"]{max-width:118px;}
 .o-marken img[alt="Trygg Hansa"]{max-width:124px;}
-
 @container (min-width: 520px){ .o-marken{grid-template-columns:repeat(4,1fr);} }
-
-/* GRANNMODULEN AR BORTTAGEN 30 OKTOBER. Fjorton regler, 1 180 B, som
-   skeppades till 22 sidor utan att traffa nagot.
-   Formen var "en granne i taget, med riktiga falt": `.o-grannar`,
-   `.o-granne`, `.o-grannhuvud`, `.o-grannbort`, `.o-grannfalt` och
-   `.o-grannklar`. Ersatt av rekommendationspanelen i
-   `gemensamt/block/grann.html`: `.o-ref-panel`, `.o-ref-falt`,
-   `.o-ref-rad`, `.o-ref-etikett`, `.o-ref-knapp`, `.o-ref-lista`,
-   `.o-ref-fel`, `.o-ref-klar`. Kortet byggdes om 25 oktober och blocket
-   slutade saga "granne" 26 oktober (8457285).
-   ATERINFOR INTE. Mats med `python3 gemensamt/verktyg/dodcss.py`. */
 .o-btn.ghost svg{width:18px;height:18px;}
-
-/* radkomponenten, byggd efter elbilsvaruhusets mobildesign: kryss, stor bild,
-   och rubrik, väljare och pris staplade i en egen kolumn. Vit platta, en tunn ram. */
 .o-rader{display:flex;flex-direction:column;gap:var(--rytm-block);}
-/* HIDDEN MASTE VINNA OVER DISPLAY.
-
-   Webblasarens egen regel ar [hidden]{display:none}, men den har lagst
-   tankbara specificitet och slas av VARJE forfattarregel som satter display.
-   .o-rad{display:flex} gjorde alltsa att JS:ens kort.hidden=true inte dolde
-   nagonting: raden var 176 px hog och gick att klicka.
-
-   Foljden pa den har sidan: en Bas- eller Pluskund kunde valja laddkabel
-   22 kW utan att ha uppgraderat installationen, alltsa en kabel som inte
-   laddar snabbare i en 11 kW-installation. Uppmatt i webblasaren:
-   hidden=true, display=flex, offsetHeight=176.
-
-   Regeln galler varje element i offerten som gar att gomma, inte bara raden,
-   for samma falla finns i varje block som satter display. */
 [hidden]{display:none !important;}
 .o-rad{display:flex;align-items:center;gap:var(--s4);background:var(--card);
   border:1.5px solid var(--kant);border-radius:var(--r2);padding:var(--s4);
@@ -379,36 +171,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 }
 .o-rad:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
 .o-rad > input{position:absolute;opacity:0;width:1px;height:1px;}
-/* `background:transparent` stod har och var bade overflodig, det ar
-   initialvardet, och vilseledande: den laste som ett beslut att fotot INTE
-   har en ruta, vilket det nu har. Tagen bort sa filen bara har ett stalle
-   som bestammer radbildens botten. */
 .o-radbild{margin:0;width:104px;height:104px;flex:none;display:grid;place-items:center;}
-/* PRODUKTBILDEN INNANFOR BOXEN. AGAREN 30 OKTOBER, ORDAGRANT:
-   "Designen for overspanningsskyddet, likt den pa skarmbilden, maste fixas
-    sa att overspanningsskyddet ar innanfor boxen."
-
-   UPPMATT 30 OKTOBER, fore rattningen, vid 375 px pa elcentralsidan: ingen
-   enda .o-radbild i huset hade en egen ruta. Varje produktfoto lag naket pa
-   kortets vita botten, medan .o-radikon i SAMMA lista bar sin glyf i en
-   platta med 14 px radie. Tva rader isar i en och samma lista, alltsa tva
-   svar pa vad en tillvalsrad ar: "Lock till elcentral" fritt i luften,
-   "Anpassning av huvudsakring" i en ruta.
-
-   Rutan ar husets egen och inte en ny form: .o-ptile img, produktbrickan i
-   paketkorten, bar redan background var(--bg) + radie + padding. Samma
-   behandling flyttas hit, med .o-radikons radie (--r2) sa de tva rutorna i
-   listan far samma horn.
-
-   EN VIT PRODUKT PA EN VIT RUTA SYNS INTE ar samma fynd fran andra hallet:
-   SAJ HS3 ar en hog vit skap fotograferad rakt framifran utan skuggning,
-   uppmatt 1,65 procent black pa duken, varav 28 procent halvtransparent, och
-   lastes i raden som en tom ruta bredvid tva riktiga produktfoton. Regeln lag
-   darfor forut pa `:has(input[data-intresse])` allena, och var DOD: raden vid
-   "INTRESSERADENS BILD STAR FRITT" langre ner i den har filen (0,4,1) slog den
-   (0,3,1) och nollstallde alla tre egenskaperna. Agarbeskedet 24 oktober om
-   intresseraderna star kvar och ar undantaget; kopbara tillvalsrader far
-   rutan. Oraklet `produktbilden_i_boxen` haller bada halvorna. */
 .offer .o-rad > .o-radbild{
   background:var(--bg);border-radius:var(--r2);
   padding:var(--s2);box-sizing:border-box;}
@@ -416,11 +179,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   display:block;overflow:hidden;color:var(--ikonglyf);}
 .o-radikon svg{width:100%;height:100%;display:block;}
 .o-radbild.tom{visibility:hidden;}
-/* max-width krymper bara, den förstorar aldrig. Zaptec Go 2 låg på en duk
-   760 x 510 där produkten tog 31 procent av bredden, och renderade 32 x 43 px
-   i en ruta där alla andra låg på 58 till 88. Två fel, två åtgärder: duken är
-   beskuren till innehållet (nu 421 x 421, samma andel som Zaptec Go), och
-   bilden fyller rutan i stället för att bara få lov att krympa i den. */
 .o-radbild img{width:100%;height:100%;object-fit:contain;display:block;}
 .o-radtext{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:var(--s2);}
 .o-radnamn{font-size:17px;font-weight:700;color:var(--ink);line-height:1.3;letter-spacing:-.008em;min-height:calc(17px * 1.3 * 2);display:flex;align-items:center;}
@@ -430,32 +188,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%23090b32' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right var(--s3) center;background-size:12px;padding-right:var(--s6);}
 .o-variant:focus-visible{outline:2px solid var(--teal-ink);outline-offset:1px;}
-
-/* ANTALSVALJAREN. Lag forut bara i elcentralmallen. Agaren ville ha den
-   overallt: "den dropdown-logiken vill jag implementera pa laddboxofferten,
-   for just nu ar den valdigt ful". En kompakt sifferruta slar en lista med
-   fasta klumpar som "4 stycken, 6 stycken", for kunden vill ha SITT antal. */
 .o-radantal{margin-left:auto;flex:none;}
-
-/* ANTALSVALJAREN LAG OVANPA RADNAMNET PA SMALA SKARMAR.
-   Uppmatt pa alla sju modellerna: vid 360 tackte .o-radantal 49 px av
-   "Spotlights", som lastes "Spotl", 12 px av Plejd TRM-01 och 6 px av
-   DIM-01. Vid 375 trettiofyra px, vid 390 nitton. Pa elcentralen holl
-   krocken i sig anda till 414 ("Overspanningsskydd" 66 px) och gav dessutom
-   8 px sidledes scroll vid 360.
-
-   Raknat pa 360: rutan ar 328 bred, mark 24, bild 104, antalsvaljaren 66,
-   tre mellanrum a 16, kvar at namnet 18 px. Namnet behover 83. Det gar inte
-   att losa genom att krympa nagon del, for ingen del har 65 px att ge.
-
-   Alltsa OMLAGGNING, inte nerskalning: namnet far hela textspalten och
-   antalsvaljaren flyttar ner under den. Bildrutan krymper till 72 px, samma
-   tal som elcentralvalen redan anvander i smalt lage, sa de tva mallarna ser
-   likadana ut dar. */
-/* 430 px rackte for laddboxen men inte for elcentralen: dar kom krocken med
-   "Overspanningsskydd" tillbaka mellan 431 och 467 px containerbredd, 36 px
-   vid 431. Namnet ar langre dar, sa granslen maste folja det langsta namnet
-   och inte den smalaste mallen. 480 ger marginal at bada. */
 @container (max-width: 480px){
   .offer .o-rad:has(.o-radantal){
     display:grid;
@@ -467,62 +200,15 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer .o-rad:has(.o-radantal) > .o-radtext{grid-column:3;grid-row:1;}
   .offer .o-rad:has(.o-radantal) > .o-radantal{grid-column:3;grid-row:2;margin-left:0;}
 }
-/* RADEN PA DESKTOP. .o-rad var den enda radkomponenten som aldrig fick en
-   desktoplayout: den stod kvar i mobilstapeln med namn och pris under
-   varandra i vanstra halvan.
-
-   UPPMATT 25 OKTOBER vid 1180, black och inte lador (en flex:1-spalt nar
-   hogerkanten aven nar texten slutar mitt i raden, sa en ladmatning sager
-   100 procent pa varje rad):
-
-     .o-rad   43 till 59 procent av raden, 264 till 373 px dott till hoger
-     .o-opt   95 procent, 17 px dott      <- systerkomponenten, samma jobb
-     .o-pkg   96 procent, 25 px dott
-
-   Vid 375 ar alla tre jamna, 82 till 92 procent. Tva agenter hittade det var
-   for sig i desktoppasset, pa fyra av fem mallar.
-
-   RATTNINGEN FOLJER SYSTERN. .o-opt lagger priset sist i raden, sa det hamnar
-   i hogerkant. Har ligger priset inne i .o-radtext, som ar en kolumn, sa det
-   hamnar under namnet. Pa desktop blir .o-radtext ett rutnat med tva spalter:
-   namn, spec och rullgardin till vanster, priset till hoger, lodratt centrerat
-   over hela hojden. Mobilen ror sig inte: regeln ligger bakom 712 px, alltsa
-   den bredd dar .o-main slutar vara capad till 680 (se bandblocket vid
-   rad 578). Vid 375 och 390 galler ingenting av det har.
-
-   FRAN 712 OCH INTE 1024, UPPMATT 26 OKTOBER. Rattningen lag forst bakom
-   husets desktopgrans och slutade darfor vid den. Dod yta till hoger om
-   blacket, bladmatt och inte ladmatt:
-
-                 834 och 1024 fore   vid 1180   efter, hela bandet
-     elcentral   397 px              0          0
-     batteri     234 px              0          0
-     laddbox     261 px (median 224) 0          0
-
-   Och riktning C gjorde det VARRE innan den har raden flyttades: med ytan
-   vaxt till 834 men raden kvar i mobilform gick elcentralen 397 -> 519,
-   laddboxen 261 -> 383 och batteriet 234 -> 356, och laddboxsidan blev
-   183 px LANGRE. En bredare spalt utan radens desktopform ar alltsa inte en
-   halv forbattring, det ar en forsamring. De tva raderna hor ihop. */
 @container (min-width: 712px){
   .offer .o-rad > .o-radtext{
     display:grid;grid-template-columns:minmax(0,1fr) auto;
     align-items:center;column-gap:var(--s5);}
   .offer .o-rad > .o-radtext > .o-radpris{
     grid-column:2;grid-row:1 / -1;justify-self:end;}
-  /* TVA RESERVERADE TEXTRADER BEHOVS INTE NAR PRISET STAR BREDVID. Pa
-     mobilen haller min-height raderna lika hoga nar ett namn bryter till tva
-     rader; pa desktop ar spalten dubbelt sa bred, namnen far plats pa en rad,
-     och reservationen blir 22 px dott over och under. */
   .offer .o-rad > .o-radtext > .o-radnamn{min-height:0;}
 }
-
 .o-radantal select{
-  /* SAMMA RUTA SOM .o-variant, inklusive pilen. appearance:none tar bort
-     webblasarens egen pil, och utan en egen i stallet laser rutan som ett
-     textfalt. Det ar det agaren menat med att dropdownen ar ful: den SER inte
-     ut som en dropdown. Pilen ar samma svg som .o-variant pa rad 327, sa alla
-     dropdowns i bada mallarna ar en och samma ruta. */
   font:inherit;font-size:15px;font-weight:600;color:var(--ink);
   font-variant-numeric:tabular-nums;text-align:left;
   width:auto;min-width:5.5ch;min-height:44px;
@@ -536,8 +222,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 }
 .o-radantal select:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
 .o-rad.ingar .o-radantal select,.o-rad.utesluten .o-radantal select{opacity:.5;}
-
-
 .o-opt{display:flex;gap:var(--s4);align-items:center;position:relative;background:var(--card);border:1.5px solid var(--kant);border-radius:var(--r2);padding:var(--s4);cursor:pointer;min-height:96px;transition:border-color .18s ease;}
 @media (prefers-reduced-motion: reduce){ .o-opt{transition:none;} }
 .o-opt input{position:absolute;opacity:0;width:1px;height:1px;}
@@ -546,22 +230,17 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-rad > .mark{width:var(--z3);height:var(--z3);border-radius:50%;border:1.5px solid var(--kant-kontroll);background:#fff;flex:none;position:relative;}
 .o-rad > .mark.sq{border-radius:10px;}
 .o-opt figure{margin:0;width:64px;height:64px;flex:none;overflow:hidden;background:transparent;display:grid;place-items:center;}
-/* Texten var indragen 80 px som om det fanns en bild till vänster. Det finns
-   ingen bild i tidsvalen, så den indragningen centrerade texten mot ingenting. */
 .o-opt .txt{margin-left:0;flex:1;min-width:0;}
 .o-opt figure img{width:100%;height:100%;object-fit:cover;}
 .o-opt .txt{flex:1;min-width:0;}
 .o-opt .txt b{display:block;font-size:15px;font-weight:600;color:var(--ink);}
 .o-opt .txt span{display:block;font-size:13px;color:var(--muted);margin-top:var(--s0);}
-
 .o-opt .amt{font-size:15px;font-weight:600;color:var(--muted);flex:none;font-variant-numeric:tabular-nums;}
 .o-opt input:checked ~ .mark,.o-rad input:checked ~ .mark{border-color:var(--teal-ink);background:var(--teal-ink);}
 .o-opt input:checked ~ .mark::after,.o-rad input:checked ~ .mark::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;}
 .o-opt input:checked ~ .mark.sq::after,.o-rad input:checked ~ .mark.sq::after{inset:0;border:0;border-radius:inherit;transform:none;background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5.5 12.4l4.3 4.3 8.7-9.4' fill='none' stroke='white' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:72%;}
 .o-opt:has(input:checked){border-color:var(--teal-ink);}
 .o-opt:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
-
-/* knappar */
 .o-btn{display:flex;align-items:center;justify-content:center;gap:var(--s2);width:100%;border:0;border-radius:var(--r2);
   padding:var(--s4);font-size:17px;font-weight:700;cursor:pointer;text-align:center;min-height:56px;}
 .o-btn svg{width:20px;height:20px;flex:none;}
@@ -571,8 +250,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line-2);font-weight:600;font-size:15px;}
 .o-btn.link{background:none;color:var(--muted);font-weight:500;font-size:13px;min-height:44px;padding:var(--s3);text-decoration:underline;text-underline-offset:3px;}
 .o-btn:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
-
-/* summering */
 .o-sum{background:var(--card);border:1.5px solid var(--ink);border-radius:var(--r3);padding:var(--s5);display:flex;flex-direction:column;gap:var(--rytm-block);}
 .o-sumrows{display:flex;flex-direction:column;gap:var(--s2);}
 .o-sumrow{display:flex;justify-content:space-between;gap:var(--s3);font-size:13px;}
@@ -580,28 +257,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-sumrow.disc{color:var(--teal-ink);font-weight:600;}
 .o-sumtot{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--ink);padding-top:var(--s3);}
 .o-sumtot span{font-size:15px;font-weight:600;color:var(--ink);}
-/* SIDANS VIKTIGASTE TAL ARVDE BRODTEXTENS RADHOJD. Uppmatt pa laddboxsidan,
-   alltsa den mall agaren kallar perfekt: hjaltens pris ar 30 px med 34,5 px
-   radhojd, och summeringens IDENTISKA 30 px hade 46,5. Tolv pixlar osynlig
-   luft runt talet kunden ska acceptera, och de kom fran den arvda 1,55.
-   Tre mallar hade rattat det lokalt, tva inte. Regeln hor hit: samma tal i
-   samma grad ska sitta likadant pa alla fem sidorna. */
 .o-sumtot b{font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.03em;line-height:1.15;}
-
-/* bottenrad */
 .o-bar{position:sticky;bottom:0;z-index:40;min-height:var(--barh);margin-top:calc((var(--barh) + var(--s5)) * -1);background:rgba(255,255,255,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:var(--s3) var(--s4);display:flex;align-items:center;gap:var(--s3);box-shadow:0 -6px 24px -16px rgba(9,11,50,.55);}
-/* PRISBAREN.
-   Uppmätt före ändringen vid 375: textytan fick 130 px och behövde 148 i det
-   minsta läget och 171 i det största, så talen bröt ALLTID till två rader och
-   läste som två lika tunga priser i stället för ett pris med en referens.
-   Knappen tog 201 px av 343, alltså 59 procent av baren för ett ord.
-   Tre ändringar: ordet Sammanställning blev Summering, som dessutom är exakt
-   vad sektionen heter dit den leder; knappens sidopadding gick från 24 till
-   16; och det överstrukna talet från 15 till 13. Textytan behöver då 172 i
-   sitt största läge och får 189.
-   Etiketten under: ett överstruket pris som syns på alla 12,8 skärmar läser
-   som en rabatt. Det är inte en rabatt, det är bruttot före grön teknik, och
-   nu står det. Candour-grinden gäller även i en 73 px hög list. */
 .o-bar .bt{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:var(--s0);}
 .o-bar .btrad{display:flex;align-items:baseline;gap:var(--s2);min-width:0;}
 .o-bar .bt s{font-size:13px;font-weight:400;color:var(--faint);text-decoration-thickness:1.5px;}
@@ -609,188 +266,39 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-bar .bt b{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.02em;}
 .o-bar .go{display:flex;align-items:center;justify-content:center;gap:var(--s2);flex:none;border:0;border-radius:var(--r2);padding:0 var(--s4);min-height:var(--z6);background:var(--teal-ink);color:#fff;font:inherit;font-size:15px;font-weight:700;cursor:pointer;}
 .o-bar .go svg{width:18px;height:18px;flex:none;}
-
-/* tvåspalt */
 @container (min-width: 1024px){
   .o-main{display:grid;grid-template-columns:minmax(0,1fr) 384px;gap:var(--rytm-sektion) var(--s7);align-items:start;max-width:1180px;margin-inline:auto;padding:var(--s6) var(--s6) var(--s7);}
   .o-colA{grid-column:1;}
-    /* 73 var toppradens höjd plus luft. Nu finns ingen topprad att hålla sig
-     undan för, så summeringen klibbar en vanlig sektionslucka från kanten. */
   .o-colB{grid-column:2;grid-row:1 / span 2;position:sticky;top:var(--s5);gap:var(--rytm-block);}
   .o-colC{grid-column:1;}
   .o-bar{display:none;}
   .t-display{font-size:30px;}
 }
-
-/* ============================================================
-   BANDET 712 TILL 1023: EN SPALT, MEN EN SPALT SOM ANVANDER SIN YTA.
-   Riktning C ur granskning/2026-10-25-ipad-bandet/RIKTNINGAR.md, byggd
-   26 oktober tillsammans med riktning A (desktopgransen 1040 -> 1024).
-   A tacker iPad liggande och uppat, C tacker iPad staende. De bits inte:
-   A styr 1024 och uppat, C styr 712 till 1023.
-
-   VARFOR 712. .o-main ar capad till 680 och har 16 px sidopadding, sa
-   680 + 32 = 712 ar exakt den bredd dar taket borjar bita och den tomma
-   sidbakgrunden fods. Riktningen borjar precis dar problemet borjar.
-
-   VARFOR 960 SOM TAK. Over 960 tar A over vid 1024, och mellan dem ska ytan
-   inte vaxa forbi den punkt dar tvaspalten anda kommer. 960 ar husets eget
-   steg mellan 680 och 1180.
-
-   VARFOR 32 I SIDOPADDING. Samma token som desktopens (--s6, rad 567).
-   Huset har da TVA sidmarginaler, 16 under 712 och 32 over, inte tre.
-   Uppmatt vid 834: .o-main 834, spalten 770, alltsa 834 - 2 x 32.
-
-   OCH VARFOR LASMATTET LASES SEPARAT. Uppmatt 25 oktober, forsta radens
-   teckenantal binarsokt och inte uppskattat: ingressen bar 88 tecken vid 834
-   och elcentralens 96, mot ett tak omkring 75. 680 px ar alltsa inget misstag,
-   det ar ett lastak som redan ar fullt. En yta som vaxer till 834 utan att
-   prosan hallas tillbaka gor en sida som redan ar pa gransen samre, och det
-   ar matbart. Darfor --las nedan.
-
-   --LAS HOR PA .o-main, INTE PA .offer. En container-fraga matchar aldrig
-   containern sjalv, sa .offer{--las:...} inne i det har blocket hade gallt
-   ALDRIG: taket hade sett ut att finnas och inte funnits. Och deklarationen
-   far inte flytta UT ur fragan: da arver varje element pa en telefon en
-   custom property den inte hade, vilket ar tre avvikelser per element i
-   ekvivalens.py och noll i geometrin. Bada fallorna ar provade 25 oktober.
-   ============================================================ */
 @container (min-width: 712px) and (max-width: 1023px){
   .o-main{max-width:960px;padding-inline:var(--s6);
-    /* Harlett, inte valt: 680 - 2 x --s4 - --z6 - --s4 = 584, alltsa exakt
-       den bredd stegtexten HAR i dag. Uppmatt med 648 i stallet blev
-       stegtexten 80 till 83 tecken, alltsa samre an nulaget. */
     --las:584px;}
-  /* TOPPRADEN FOLJER INNEHALLETS BREDD. Utan den har raden ar baren 680 bred
-     over ett innehall pa 834, alltsa exakt det fel 520-regeln en gang rattade
-     i andra riktningen. Sidopaddingen foljer .o-main ovan: annars star
-     logotypen 7 px utanfor rubriken under sig, vilket ar fynd 5 i
-     granskning/2026-10-25-designgranskning/FYND.md. */
   .o-top{max-width:960px;padding-inline:var(--s6);}
-  /* PROSAN. Bara stycken nagon ska LASA, aldrig en rad med ett tal i
-     hogerkant: ett tak pa en sadan rad skapar dod yta i stallet for att ta
-     bort den. */
   .offer .o-hero .intro p,
   .offer .o-step p,
   .offer .o-sechead p{max-width:var(--las);}
 }
-
-
-/* ============================================================
-   UTSKRIFT. Offerten är en handling och ska gå att skriva ut.
-   Uppmätt före: noll regler rörde .offer, fem foldar var stängda så
-   34 procent av texten föll bort, nio textsträngar var vita på färgad
-   botten och blev osynliga, och kundens egna val ritades enbart med
-   bakgrundsfärg, som Chrome inte skriver ut. Sjutton markörer blev då
-   omöjliga att skilja åt: man kunde inte se vad kunden hade valt.
-   ============================================================ */
 @media print{
-  /* ALLT SOM BINDER KUNDEN SKA MED PA PAPPERET, OCH REGELN NEDAN RACKTE INTE.
-     Uppmatt i en riktig utskrifts-PDF: villkoren, kostnaderna som kan
-     tillkomma, "245 kr per meter", "Markror" och "Haltagning" saknades helt,
-     och sida 9 visade tre tomma rubriker. display:block pa .body ar sant men
-     verkningslost, for en STANGD <details> doljer sitt innehall genom
-     ::details-content med content-visibility:hidden, och det biter ingen
-     display-regel pa barnet. Summan gick med. Det som binder kunden gjorde
-     det inte.
-     Skriptet oppnar dessutom varje fold vid beforeprint och stanger dem igen
-     efterat, sa papperet blir ratt aven i en webblasare utan
-     ::details-content. */
   .offer .o-fold::details-content{content-visibility:visible !important;
     block-size:auto !important;}
   .offer .o-fold > .body{display:block !important;}
   .offer .o-fold > summary::after{display:none;}
-  /* prisbaren hör till skärmen och lägger sig annars över innehållet */
   .offer .o-bar{display:none !important;}
   .offer .o-cit__namn,.offer .o-cit__text{color:var(--ink) !important;}
   .offer .o-sec{break-inside:auto;}
-
-  /* ETT ARK FOR EN RAD PA 49 TECKEN.
-     Uppmatt 26 oktober i riktiga PDF:er: tillagget slutade med sida 2 av 2
-     som bar 0,11 procent black och 49 tecken, servicemallen med sida 13 av 13
-     pa 0,52 procent. Raden ar bolagsremsan,
-     "Ampy Nordic AB, org.nr 559254-9819, 010-265 79 79", alltsa sidans
-     avsandare och ingenting annat. Och nar kontrollerna ovan forsvann fran
-     papperet blev det VARRE, inte battre: innehallet kortades, foten foll
-     over kanten, och fyra av fem mallar fick ett eget ark for en rad.
-     break-before:avoid drar remsan tillbaka till foregaende sida nar den
-     ryms. Ryms den inte bryter den anda, och det ar ratt.
-
-     HALVVAGS, OCH JAG SAGER DET RAKT UT. Uppmatt efter, riktiga PDF:er:
-     tillagget gar fran 49 tecken / 0,11 procent black till 70 / 0,21 (foten
-     star nu bredvid kopvillkorsraden), laddboxen fran 210 / 2,30 till
-     94 / 1,10, och arken sammanlagt fran 59 till 57. Men service och
-     batteri slutar fortfarande med ett ark som bar bara avsandarraden,
-     49 tecken och 0,55 respektive 0,51 procent. Skalet ar matt: blocket fore
-     foten ar certifikatbandet, det fyller sin sida, och break-before:avoid
-     kan bara halla ihop tva element som BADA ryms. Jag provade ocksa
-     margin-top:0 pa foten i utskrift: noll skillnad pa alla fem, sa den
-     raden finns inte kvar. Resten ar en innehallslangd, inte en CSS-regel,
-     och den avgors av agaren. */
   .offer .o-fot{break-inside:avoid;break-before:avoid;}
-
-  /* EN KONTROLL HOR TILL SKARMEN. PAPPERET AR EN HANDLING.
-     Regeln ovan fanns for prisbaren och stannade dar. Uppmatt 26 oktober i
-     riktiga utskrifts-PDF:er (pdftotext -layout) pa alla fem mallarna:
-
-       Acceptera offert / Acceptera tillagget            alla fem
-       Avboj offerten / Avboj tillagget                  alla fem
-       granne@exempel.se                                 fyra
-       Skicka inbjudan                                   fyra
-       Tryck enter efter varje adress. Inget skickas ... fyra
-
-     Pa papperet star da en ifylld e-postadress som inte ar kundens, en
-     instruktion om att trycka enter, och knappar som inte gar att trycka pa.
-     Det far en noggrann offert att se slarvig ut i exakt det ogonblick nagon
-     ANNAN an kunden granskar den.
-
-     KOMPONENT, INTE STRANG. Grannblocket skrivs om just nu, sa dess texter
-     byts ut. Darfor valjs kontrollen pa VAD DEN AR och aldrig pa vad det star
-     i den: button, textfalt, textarea. En ny knapp i morgon tacks av samma
-     rad utan att nagon minns den har. "En struktur som gor buggen omojlig
-     slar ett orakel for den" (FALLOR.md).
-
-     TRE UNDANTAG, var och ett for att papperet skulle TAPPA information
-     annars:
-       - radio och kryssruta bar kundens egna val, och print-regeln langre
-         ner ritar dem med flit sa valet syns pa papperet.
-       - select bar ett valt varde, till exempel antalet.
-       - input[type=range] ar fore-och-efter-reglaget. Det ar en kontroll och
-         gar bort, men bara reglaget: bilderna och deras .o-fe-ruta star kvar,
-         for de ar innehall. Darfor traffar gruppregeln nedan bara textfalt. */
   .offer button,
   .offer input:not([type="radio"]):not([type="checkbox"]):not([type="file"]),
   .offer textarea{display:none !important;}
-  /* OCH FALTGRUPPEN RUNT ETT TEXTFALT. Etiketten, hjalpraden och knappraden
-     finns bara for faltet, och hjalpraden ar inte sjalv en kontroll.
-     Gruppen valjs pa att den INNEHALLER ett textfalt, pa djup ett eller tva,
-     aldrig pa ett klassnamn: grannblockets .o-ref-falt > .o-chips > input
-     matchas av den andra raden, och en plattare ombyggnad av den forsta.
-     RESERVATIONEN RAKT UT: nastlar nagon faltet djupare an tva niva ar
-     kontrollen fortfarande borta, men hjalpraden kan komma tillbaka.
-     OCH DEN SMALNADES EFTER EN MATNING: forsta versionen hade `> div >
-     textarea` ocksa, och traffade da .o-sumact, alltsa HELA acceptblocket
-     med bada knapparna, pa fyra mallar. Allt i det blocket ar kontroller sa
-     papperet blev ratt av fel skal, och en regel som rattar av fel skal
-     doljer nasta rad nagon lagger dit. Nu traffar gruppregeln bara textfalt;
-     knapparna gommer sig sjalva pa raden ovan. */
   .offer div:has(> input[type="email"], > input[type="text"], > input[type="tel"],
                  > input[type="search"], > input[type="number"], > textarea),
   .offer div:has(> div > input[type="email"], > div > input[type="text"],
                  > div > input[type="tel"]){display:none !important;}
 }
-
-
-/* ============================================================
-   UTAN JAVASCRIPT.
-   Uppmätt 19 okt: med skripten borttagna kryssar kunden i Premium, det
-   SYNS att det är valt, och priset står kvar på 4 490 kr i hjälten, i
-   baren och i summeringen. Rätt pris är 9 540. Sidan visade alltså ett
-   pris 5 050 kr för lågt med kundens egen bock bredvid sig, utan ett ord
-   om att något var fel. Summeringsraderna, innehållslistan och alla tre
-   leveransdatum var dessutom tomma.
-   En offert får hellre säga att den inte kan räkna än säga fel tal.
-   ============================================================ */
 .o-utanjs{display:none;}
 @media screen{
   .offer .o-utanjs{margin:var(--s3);padding:var(--s4);border-radius:var(--r2);
@@ -798,14 +306,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
     font-size:15px;line-height:1.55;}
   .offer .o-utanjs a{color:inherit;font-weight:600;}
 }
-
-/* ===== tillägg till offertens system, samma spacingskala ===== */
-/* `.o-qty` och `.qbtn` BORTTAGNA 30 okt, 486 B pa 22 sidor utan traff.
-   Antalsvaljaren som anvands ar `.o-radantal` inne i radkomponenten, med
-   `.o-btn.ghost` som knappar.
-   `.o-stepper` STAR KVAR MED FLIT: `verktyg/lagringsval.py` skriver den, och
-   den sidan ar avpublicerad med flit (se publicera.py) men kvar som protokoll
-   over de tre riktningarna. dodcss.py domer den GRINDAD, inte dod. */
 .offer .o-stepper{display:flex;align-items:center;gap:var(--s1);background:#fff;border:1.5px solid var(--line-2);border-radius:var(--r1);padding:var(--s1);}
 .offer .o-stepper input{width:var(--z6);height:var(--z5);border:0;background:none;text-align:center;font-family:inherit;font-size:17px;font-weight:700;color:var(--ink);-moz-appearance:textfield;}
 .offer .o-stepper input::-webkit-outer-spin-button,.offer .o-stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
@@ -817,12 +317,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-priceline{display:flex;justify-content:space-between;gap:var(--s3);font-size:13px;color:var(--muted);}
 .offer .o-priceline span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink);font-weight:500;}
 .offer .o-sumnote{font-size:13px;font-weight:300;color:var(--muted);line-height:1.45;background:var(--teal-soft);border-radius:var(--r1);padding:var(--s2) var(--s3);}
-/* `.o-grannline` BORTTAGEN 30 okt, 258 B. Rabattens egen summeringsrad,
-   ersatt 26 okt (8457285) av `.o-sumrow.disc` + `.o-sumnote`. */
 .offer #moreWrap[hidden]{display:none;}
 .offer .o-villkor{display:inline-flex;align-items:center;min-height:var(--z5);color:var(--teal-ink);font-weight:600;}
-
-/* ===== anteckningarna under ramen, utanför offerten ===== */
 .notes{max-width:1180px;margin:64px auto 0;padding:0 24px 64px;}
 .notes h2{font-size:24px;font-weight:800;color:#090b32;letter-spacing:-.02em;margin:0 0 24px;}
 .notegrid{display:grid;grid-template-columns:1fr;gap:16px;}
@@ -832,34 +328,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .nt h3{margin:0;font-size:15px;font-weight:700;color:#090b32;line-height:1.3;}
 .nt p{margin:0;font-size:13.5px;font-weight:300;color:#333;line-height:1.55;}
 .nt code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:#f0f4fb;padding:1px 4px;border-radius:4px;color:#017666;}
-
-/* ===== De två riktiga sidorna, ur Ampy-nordic/offert-mall =====
-   Acceptera och Avböj leder till sina egna sidor i produktion. Prototypen
-   visade en inline-rad i stället, vilket dolde att flödet finns. Sidorna
-   ligger nu här med sin egen CSS skalad under respektive id, så inget läcker
-   in i offerten och inget läcker mellan skärmarna. vh ersatt med container-
-   höjden: skärmen sitter i en scroller, inte i en viewport.
-
-   OCH VARJE vw AR NU cqw, 26 LANGDER, 13 PER SKARM.
-   Det ar husets egen regel ("allt som beror pa bredd fragar @container, alla
-   langder cqw"), och de tva skarmarna var det enda stallet dar den inte holls.
-   Det ar ocksa SVARET pa varfor just de har tva skarmarna aldrig hade blivit
-   granskade: granskningssidan ar en <div style="width:375px"> i ett 1400 px
-   fonster, INGEN iframe (FALLOR.md, tabellen om de tva ramarna), sa vw laste
-   1400 medan cqw laste 375. Verktyget for att titta pa skarmarna visade alltsa
-   fel sak. Uppmatt 26 oktober, acceptskarmen, fore:
-
-                        riktig telefon 390   granskningssidan "Mobil 375"
-     rubriken           27 px                31 px
-     sektionspadding    28 / 24 px           40 / 48 px
-     .oa padding        48 / 16,9 px         48 / 28 px
-     auroran uppe       200 px               400 px, bredare an skarmen
-     kortet             356 x 746            319 x 942
-     utanfor sin yta    0 element            2 element
-
-   EFTER ar de tva kolumnerna lika sa nar som pa de 15 px bredden skiljer.
-   Mats i BADA ramarna, for en rattning som bara syns i den ena ar ingen
-   rattning. 100vh och 100dvh star kvar: de handlar om hojd, inte bredd. */
 .o-skarm{display:none;}
 .o-skarm[hidden]{display:none;}
 .o-skarm.syns{display:block;min-height:100%;}
@@ -886,9 +354,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 }
 #skarmAccept .oa *, #skarmAccept .oa *::before, #skarmAccept .oa *::after{ box-sizing:border-box; }
 #skarmAccept .oa__aurora{ position:absolute; z-index:0; pointer-events:none; user-select:none; opacity:.8; height:auto; }
-/* ACCEPTSKARMENS RADER, DATUM OCH FOLDAR. Raderna ar klonade ur summeringen
-   och bar darfor .o-sumrow med sin egen styling; har satts bara avstanden sa
-   de laser som ett kvitto under beloppet i stallet for som en andra lista. */
 #skarmAccept .oa__rader{ margin-top:var(--s4); display:flex; flex-direction:column; }
 #skarmAccept .oa__rader .o-sumrow{ padding-block:3px; }
 #skarmAccept .oa__rader .o-sumrow.disc span:last-child{ white-space:nowrap; }
@@ -897,11 +362,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   margin:var(--s4) 0 0; text-align:center; font-size:13px; color:var(--faint);
   font-variant-numeric:tabular-nums;
 }
-/* Foldarna far sidans egen foldform, men utan den undre linjen: de star sist
-   i sin sektion och sektionen bar redan en avgransare. */
 #skarmAccept .oa__folds{ display:flex; flex-direction:column; gap:var(--s2); }
 #skarmAccept .oa__folds details.o-fold{ margin:0; }
-
 #skarmAccept .oa__aurora--top{ top:0; right:0; width:clamp(200px,30cqw,400px); }
 #skarmAccept .oa__aurora--bottom{ bottom:0; left:0; width:clamp(150px,22cqw,280px); }
 #skarmAccept .oa__card{
@@ -932,10 +394,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 #skarmAccept .oa__ref{ display:inline-block; font-size:13px; font-weight:600; letter-spacing:.01em;
   color:var(--teal-ink); background:rgba(0,169,145,.08); border:1px solid rgba(0,169,145,.16);
   padding:6px 13px; border-radius:999px; }
-/* STEGREMSANS REGLER AR BORTTAGNA. Agarorder 29 oktober tog bort
-   'Sa har gar vi vidare' ur acceptskarmen, och darmed oa__next, oa__eyebrow,
-   oa__steps, oa__step, oa__node och oa__step-text. Reglerna for #skarmAvboj
-   star kvar: avbojsskarmen behaller sin 'Vad som hander nu'. */
 #skarmAccept .oa__trust{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 18px; text-align:center; }
 #skarmAccept .oa__trust-item{ display:inline-flex; align-items:center; gap:7px; font-size:13.5px; color:var(--ink-soft); }
 #skarmAccept .oa__stars{ display:inline-flex; gap:2px; }
@@ -1041,10 +499,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   min-height:44px; padding:0 10px; margin:0 -6px;
   color:var(--teal-deep); font-weight:600; white-space:nowrap;
   text-decoration:underline; text-underline-offset:3px; }
-/* `.oa__back` BORTTAGEN 30 okt, 213 B. Avbojsskarmen hade en
-   tillbaka-till-offerten-lank under kortet; den finns inte i
-   `gemensamt/block/skarm-avboj.html` langre. Skarmens egen vag tillbaka ar
-   `.oa__next`. */
 #skarmAvboj .oa a:focus-visible{ outline:3px solid #090b32; outline-offset:3px; border-radius:12px; }
 @container (max-width:560px){#skarmAvboj .oa__trust-item{ font-size:14px; }
 #skarmAvboj .oa__title{ font-size:clamp(27px,6.5cqw,31px); }}
@@ -1057,371 +511,56 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
     background:#fff; -webkit-backdrop-filter:none; backdrop-filter:none; }
 #skarmAvboj .oa__tick{ stroke-dashoffset:0 !important; animation:none !important; }
 #skarmAvboj .oa__disc{ animation:none !important; opacity:1 !important; transform:none !important; }}
-/* Sidorna är byggda för en viewport. Här sitter de i en scroller, så 100vh
-   blir scrollerns hela höjd och kortet hamnar tusentals pixlar ner.
-   Samma specificitet som originalregeln, men senare i filen. */
 #skarmAccept .oa, #skarmAvboj .oa{min-height:0;padding-block:var(--s7);}
-
-/* ===== Grannrabatten, byggd efter Wispr Flows referral-panel =====
-   Uppmätt ur referensbilden: en ljus innerpanel som håller ihop allt, ett
-   mörkt presentkort överst med ett ljust svep, tre ikonrader under rubriken
-   "Så funkar det", och två fält med var sin knapp. Ampys egen mörka teal i
-   stället för Wisprs gröna, Ampys alternativa märke i stället för deras. */
-/* Panelen omfamnar rubriken också, på ägarorder 18 okt. Förut stod rubriken
-   utanför den gråa ytan och hörde visuellt ihop med sektionen före. Finstilten
-   under står kvar utanför: den är ett villkor, inte en del av erbjudandet. */
-/* ===== EN CENTRERAD SPALT, I VARJE BREDD =====
-   Agarens val 26 oktober, ordagrant: "Kor alternativ A. Fast ha aven: Blocket
-   'namn@exempel.se' och 'Skicka inbjudan' centraliserat!"
-
-   DET UPPHAVER SAMMA DAGS TIDIGARE VAL, "A:s kort med B:s tvaspalt pa
-   desktop". Blocket byggdes da med tva .o-ref-kol, och den layouten ar nu
-   backad: panelen ar riktning A rakt av, alltsa EN spalt pa bade mobil och
-   desktop, och .o-ref-kol finns varken i markupen eller har.
-
-   RIKTNING A:S EGNA TAL, oforandrade: taket --s8 x 7 = 448, margin-inline
-   auto, align-items + text-align center, padding --s5 --s5 --s6. Den sista
-   siffran byttes till --s5 runt om nar tvaspalten byggdes, med skalet att
-   agaren klagade pa tomrum. Skalet gallde en panel pa 684 px med 68 procent
-   tomrum. Panelen ar 448 nu, alltsa smalare an den var i hans klagan, och han
-   sade "kor alternativ A" om den har renderingen. Da ar A:s tal A:s tal.
-
-   GAPET --s5 LAG PA SPALTEN och ligger pa panelen nu. Samma tal, samma
-   rakning: ingressens och stegremsans marginal -16 mot gapet 24 ger
-   --rytm-rad 8. Det ar skalet att gapet inte far bli --s4 har (riktning B
-   gjorde det, och da blir samma marginal 0 utan att nagon bestamt det).
-
-   INGEN BREDDFRAGA STALLS, lika lite som nar brytningen var intrinsisk: en
-   enspaltig flexkolumn med ett tak beter sig likadant i de tva ramarna i
-   FALLOR.md (riktig iframe mot <div class="frame"> i granskningssidan) och i
-   utskriften. Uppmatt panelbredd: 343 vid sidan 375, 358 vid 390, 448 fran
-   834 och uppat, alltsa taket binder fran och med 496 px tillganglig bredd.
-
-   width:100% AR INTE OVERFLODIGT, och det kostade en matning att se.
-   .o-sec ar en flexkolumn, panelen ar alltsa ett flexobjekt, och ett
-   flexobjekt med AUTO-MARGINAL i tvarriktningen slutar stracka sig: det
-   sizeas till fit-content och marginalerna ater resten. Uppmatt utan
-   width:100%: max-width svarade 448 px medan offsetWidth var 442, och de 442
-   kom inte ur nagon token utan ur hjalptextens enda rad ("Tryck enter efter
-   varje adress...", 394 px plus 2 x --s5). Panelens bredd hangde alltsa pa en
-   menings langd. Riktning A hade samma defekt och renderade 444; skillnaden
-   mot taket ar 3 px per sida, osynlig, men ett tal som kommer ur en strang
-   flyttar sig nasta gang strangen gor det. */
 .offer .o-ref-panel{background:#f1f3f8;border-radius:var(--r3);
   padding:var(--s5) var(--s5) var(--s6);
   width:100%;max-width:calc(var(--s8) * 7);margin-inline:auto;
   display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s5);}
-/* RUBRIKENS RADBRYTNING PA MOBIL. Agaren: "jag tycker i sadana fall att det
-   borde sta 'rekommendera och fa' pa rad ett och sen 'rabatt' pa rad tva. For
-   rubriken har inte liksom en perfekt logik."
-   Orsaken var EN deklaration. text-wrap:balance jamnar ut radlangderna och
-   lagger darfor brytningen mitt i frasen. Uppmatt vid 375, rubriken 295 px:
-     balance -> "Rekommendera" / "och fa rabatt"      det han klagar pa
-     pretty  -> "Rekommendera och" / "fa rabatt"      inte heller hans
-     wrap    -> "Rekommendera och fa" / "rabatt"      exakt hans
-   Agarens ord rors inte, bara brytningen. Vid 414 och uppat ryms hela
-   rubriken pa en rad och deklarationen gor ingenting. */
 .offer .o-ref-titel{text-wrap:wrap;text-align:center;max-width:calc(var(--s8) * 6);}
-/* INGRESSEN, ny 25 oktober. Agaren: "vi maste aven lagga till en
-   paragraftext, som vi inte har nu (...) rubriktexten vi har just nu ar ratt
-   storlek."
-   .offer p{margin:0} vager 0,1,1 och nollstaller varje enklassregel tyst; det
-   har hant fem ganger i det har repot. .offer .o-ref-ingress vager 0,2,1 och
-   vinner darfor. Den negativa marginalen ar samma grepp som .o-ref-steg redan
-   anvander har nere: panelen har gap --s5 (24), och 24 - 16 ger 8,
-   alltsa --rytm-rad mellan rubriken och dess egen paragraf. Gapet ar MED FLIT
-   ETT ENDA tal i varje bredd: byts det till --s4 pa desktop (som riktning B
-   gjorde) blir samma marginal 0 i stallet for 8, och rytmen mellan rubrik och
-   paragraf skiljer sig mellan telefonen och skarmen utan att nagon har
-   bestamt det.
-   TAKET 384 (--s8 x 6) binder forst vid 432 px innehallsbredd. Panelen star
-   pa 448 fran 834 och uppat, alltsa 400 inuti, och vid 375 ar den 295 inuti:
-   taket binder inte i nagon bredd huset mater. Lastak, inte layout. */
 .offer .o-ref-ingress{margin:calc(var(--s4) * -1) 0 0;color:var(--muted);
   line-height:1.5;text-wrap:pretty;text-align:center;max-width:calc(var(--s8) * 6);}
-/* Länken är 24 tecken och rymdes inte vid 15 px i ett fält på 174. 13 är
-   finstiltsgraden, och en adress man kopierar är finstilt. */
 .offer #refLank{font-size:13px;}
-/* ===== KORTET, byggt om 25 oktober (uppdrag 4, riktning A) =====
-   Agaren: "kortet, alltsa sjalva kreditkortet, ser lite konstigt ut pa
-   desktop (...) kortet ar fokuset (...) ogat laser kort och bilder snabbare
-   an rubriker och paragraftexter."
-
-   UPPMATT FORE, varfor det sag konstigt ut:
-     ett riktigt kort (ID-1)   85,6 x 54 mm   1,59 : 1
-     .o-ref-kort vid 375 px      295 x 204    1,45 : 1
-     .o-ref-kort vid 1180 px     636 x 204    3,12 : 1
-   Hojden var last till 204 medan bredden foljde spalten, sa kortet var
-   kortformat pa mobilen och nastan dubbelt sa utdraget pa desktop.
-
-   EFTER: formen kommer ur formatet, inte ur spalten. aspect-ratio skrivs
-   85.6 / 54, alltsa matten sjalva, sa talet gar att harleda tillbaka till
-   standarden och inte till nagons smak. Hojden foljer bredden av sig sjalv,
-   och det kravs darfor VARKEN @media ELLER @container for att kortet ska
-   sitta ratt i varje bredd: en form som inte kan bli fel slar en regel som
-   bevakar att den inte blir det.
-
-   TAKET. Utan tak hade kortet vid 1180 blivit 636 x 401, alltsa ratt form
-   men en affisch. calc(var(--s8) * 5) = 320 px ur husets egen skala, och
-   320 / 1,5852 = 202 px hogt, tva pixlar fran de 204 kortet redan hade. Det
-   ar inte en lycklig slump som fick valja talet, men det ar skalet att 5 och
-   inte 6 blev multipeln: blocket byter form utan att byta hojd, sa ingenting
-   under det flyttar sig pa desktop.
-
-   FARGERNA AR BLOCKETS EGNA. Skissen i granskning/2026-10-25-grannkortet/
-   bar en gulddetalj och en morkare botten (#013f34); bada hade varit nya
-   kulorer i ett hus dar teal ar enda accenten. Kortet bygger darfor pa de
-   tva som redan fanns har: tealgradienten och #b6f2ff. */
 .offer .o-ref-kort{position:relative;overflow:hidden;
-  /* Radien ar ID-1:s 3,18 mm skalad: 11,9 px vid 320 brett, 10,9 vid 295.
-     Skalan har 10 och 14. --r1 (10) ar knapparnas radie, och knapparna star
-     tre rader under kortet; ett kort med knappens radie laser som en knapp. */
   border-radius:var(--r2);
   background:linear-gradient(160deg,#017666 0%,#015648 100%);
   box-shadow:0 10px 26px rgba(1,86,72,.26);
-  aspect-ratio:85.6 / 54;              /* ID-1: 85,6 x 54 mm */
+  aspect-ratio:85.6 / 54;              
   width:100%;max-width:calc(var(--s8) * 5);}
-/* ===== STRIMMAN, 26 oktober =====
-   Agaren, ordagrant: "vi vill ha en rand igenom kortet, likt vi hade det
-   forut", och "vi vill ha den har ljusbla linjen som gar igenom kortet".
-
-   RANDEN FANNS, OCH TOGS BORT 25 OKT. Da var den ett SVG-element med en egen
-   hojd i px (64) som inte kom ur nagon skala, och den ersattes av ett
-   radialljus uppe till hoger. Agaren vill ha randen tillbaka. Den kommer
-   tillbaka UTAN px: svg:ns viewBox 856 x 540 AR kortets ratio (85,6/54), sa
-   elementet fyller kortet exakt (meet ger inga brevladekanter nar ratiot
-   stammer) och strecket skalar likformigt med bredden. Ingen @media, ingen
-   @container, ingen langd i px. Uppmatt streckbredd: 12 anvandarenheter av
-   540 ger 4,1 px i ett 295 px brett kort, mot 9 px av 652 i agarens bild,
-   alltsa 4,07 px omraknat. Samma streck.
-
-   RADIALLJUSET AR BORTA, inte nedtonat. Kortet ska bara ETT grepp, och
-   referensbilden har en platt yta med en rand. Tva dekorer pa samma 320 x 202
-   hade varit tva.
-
-   FARGEN AR HUSETS, inte hans. --ikonplatta #a0e3fa dar hans bild har #ecd8fc.
-   I hans bild bar randen OCH pillret samma kulor, och det ar det som binder
-   ihop dem; samma sak har, med husets enda ljusbla. */
 .offer .o-ref-strimma{position:absolute;inset:0;width:100%;height:100%;
   pointer-events:none;stroke:var(--ikonplatta);stroke-width:12;
   stroke-linecap:round;fill:none;}
-/* Marginalen inne pa kortet ar inte en smaksak heller: ett riktigt kort bar
-   cirka 4 mm av 54, alltsa 7,4 procent, och 7,4 procent av 202 ar 15 px.
-   --s4 ar 16.
-
-   CENTRERAD STAPEL, BESLUT 16 (26 okt): "Ta bort guld chipet och ha istallet
-   ampys logotyp centralt." Innehallet var forut tryckt mot kortets tva
-   kortandar med justify-content:space-between, for logotypen satt uppe till
-   vanster och chipet uppe till hoger. Utan chipet har den fordelningen ingen
-   motvikt: logotypen hade blivit ett ensamt horn over ett tomt falt.
-   Stapeln ar nu centrerad i bada riktningar, och .o-ref-kortrad ar borta
-   eftersom den bara fanns for att halla logotyp och chip isar.
-   HOJDEN RACKER MED MARGINAL: 20 (logotyp) + 16 + 23 (belopp) + 12 + 28
-   (pillret) = 99 i ett utrymme pa 138 vid 295 px kort och 154 vid 320.
-   Kortets form kommer ur aspect-ratio och ror sig inte: uppmatt 1,585:1 vid
-   375, 390, 834, 1024, 1180 och 1440 bade fore och efter.
-
-   STAPELN STAR LAGT, INTE MITT I, fran 26 oktober. Uppmatt i agarens
-   referensbild, band for band i procent av kortets hojd:
-     ordmarket  33,8 .. 50,5      tomrum under pillret  18,7 %
-     raden      58,6 .. 62,4
-     pillret    71,7 .. 81,3
-   Och i vart kort med justify-content:center: 25,3 .. 74,2, alltsa 25,8
-   procent tomrum under pillret och mindre over logotypen. Det var precis den
-   sortens tomrum agaren klagar pa, bara inne pa kortet i stallet for i
-   panelen. flex-end plus --s6 i underkant ger 33,9 .. 81,9 vid 295 px kort,
-   alltsa agarens bild. Oversta gapet bar variationen mellan 186 och 202 px
-   kort, och det ar ratt hall: randens dal ligger pa 30,3 procent, sa mer luft
-   dar betyder mer luft mellan randen och logotypen, aldrig mindre. */
 .offer .o-ref-kortinre{position:relative;z-index:1;height:100%;box-sizing:border-box;
   padding:var(--s4) var(--s4) var(--s6);display:flex;flex-direction:column;
   align-items:center;justify-content:flex-end;gap:var(--s4);text-align:center;}
-/* Primära ordbilden, inte märket plus ordet Ampy satt i Inter. Filen är
-   svart på genomskinligt; brightness(0) invert(1) gör varje täckande pixel vit
-   och rör inte alfakanalen, så vi slipper en andra logotypfil att hålla i takt.
-   HOJDEN AR EN NU, inte 20 pa mobil och 30 over 520 px. Kortet har ett tak,
-   sa det ar lika brett pa en telefon som pa en skarm, och en logotyp som
-   vaxer i ett kort som inte gor det ar bara en logotyp som blir for stor. */
 .offer .o-ref-logga{display:flex;align-items:center;}
 .offer .o-ref-logga img{height:var(--z2);width:auto;display:block;filter:brightness(0) invert(1);}
-/* CHIPET AR BORTA, BESLUT 16 (26 okt), agarens ord: "Ta bort guld chipet och
-   ha istallet ampys logotyp centralt."
-   Det stod har som ett medvetet undantag: guldet var husets enda kulor
-   utanfor tokensetet, forsvarat med att bara det fick ytan att lasa som ETT
-   KORT vid en blick (tre varianter renderade 25 okt,
-   granskning/2026-10-25-grannkortet/chipval.png). Agaren har nu avgjort
-   fragan, och da ar undantaget inte langre ett undantag utan bara en kulor
-   utanfor tokensetet. Reglerna ar borta har OCH i print-blocket nedan, inte
-   bortkommenterade: en kulor som inte finns i filen kan inte komma tillbaka
-   av misstag. Kortet bars darmed helt av tealgradienten och #b6f2ff. */
-/* GAPET MELLAN BELOPPET OCH PILLRET AR --s3, inte --s1, fran 26 oktober.
-   Uppmatt i agarens referensbild: 9,3 procent av kortets hojd mellan raden
-   och plattan, alltsa 17 px pa ett kort av var hojd. Ett gap pa 4 px satte
-   plattan sa tatt under talet att de last som en enda klump, och plattan ar
-   ett EGET objekt pa hans kort. --s3 (12) ger 6,5 procent; --s4 hade gett 8,6
-   och da ar avstandet nedat lika stort som det uppat, vilket gor stapeln till
-   tre lika delar i stallet for ett tal med en signatur under. */
 .offer .o-ref-kortfot{display:flex;flex-direction:column;align-items:center;gap:var(--s3);}
-/* 20, inte 24, fran 26 oktober. Agaren om beloppet: "Vi har 500 kronor
-   rabatt. Det kan vi gora lite mindre."
-   ETT STEG NER I HUSETS SJU STORLEKAR (30/24/20/17/15/13/11), inte ett tal
-   mellan tva. Uppmatt vad steget gor med hierarkin pa kortet: ordbilden ar
-   20 px hog och 68 px bred, beloppet "500 kr rabatt" gar fran 150 till 125 px
-   brett, sa logotypen vinner mark utan att talet slutar vara det tyngsta
-   (vikt 800 mot en bildyta). I agarens referens ar ordmarket storst och raden
-   under det liten; det har ar samma ordning, ett steg narmare.
-   Klassnamnet star kvar fran det delade kortet med vilje: tre mallar bar
-   ".offer .o-ref-varde{color:var(--ink) !important}" i sina egna
-   utskriftsregler, och de ligger i filer det har uppdraget inte ager. */
 .offer .o-ref-varde{margin:0;font-size:20px;font-weight:800;letter-spacing:-.02em;
   line-height:1.15;text-transform:none;color:#fff;}
-/* ===== PILLRET, ritat om 26 oktober =====
-   Agaren, ordagrant: "sen ska det bara sta 'fran Anders', inte 'till vem du
-   vill'. Bara 'fran Anders'." Och: "Dar skulle jag vilja att containern och
-   textfargen ser bra ut."
-
-   RADEN KORTADES FRAN TVA LED TILL ETT, och det var pillrets storsta problem.
-   Uppmatt fore, med bada leden: 259 px pillerbredd i ett 295 px brett kort,
-   alltsa 87,8 procent. En platta som nastan nuddar bada kanterna ar inte ett
-   piller, den ar en list. I agarens referensbild ar plattan 24,5 procent av
-   kortets bredd. Med bara givarledet ar den har 41,7 procent vid 375
-   ("FRAN ANDERS"), vilket ar kort for att strangen ar kort och inte for att
-   nagon satt ett tal.
-
-   FARGEN AR RANDENS. I agarens bild bar randen och plattan EXAKT samma kulor
-   (uppmatt i pixlarna: #ecd8fc i bada), och det ar det som gor dem till ett
-   grepp i stallet for tva. Har: --ikonplatta #a0e3fa i bada. Plattan var en
-   94-procentig vit yta till i dag, alltsa en tredje kulor pa kortet.
-
-   TEXTFARGEN AR MATT, INTE BEDOMD, och det var inte sjalvklart:
-     var(--kant)      #9aa5c0 pa plattan   2,47:1   underkant, och provat forut
-     var(--teal-ink)  #017666 pa plattan   3,93:1   referensens eget grepp
-                                                    (plattans text = kortets
-                                                    farg) och det FALLER
-     var(--ink)       #090b32 pa plattan  13,44:1   den som star har
-   13 px kraver 4,5. Midnight ar husets textfarg och den enda av de tre som
-   klarar kravet med marginal. Talen ar WCAG 2.1 relativ luminans, raknade pa
-   de renderade kulorerna i webblasaren och inte pa kallan: agarpunkt 106
-   raknar om samma kvot vid varje korning och faller under 4,5.
-
-   Teckenmellanrummet ar .06em, satt nar plattan kom till: plattan lagger till
-   2 x --s3 i bredd, och .08em hade brutit raden nar den bar bada leden. Den
-   bar ett led nu, men .06em star kvar: raden ar versal och liten, och det ar
-   den graden som behover spärren. */
 .offer .o-ref-till{font-size:13px;font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;color:var(--ink);
   background:var(--ikonplatta);padding:var(--s1) var(--s3);
   border-radius:999px;}
 @media print{
-  /* Mallarnas utskriftsregler gor kortet vitt med mork text och tar bort
-     logotypens invertering. Varje vit text pa kortet maste folja med, annars
-     star raden over tomrum. .o-ref-varde tacks av mallarna; .o-ref-till ar ny
-     och namns bara har, vilket racker eftersom ingen mall namnger den.
-     Chipets display:none stod har tills beslut 16 tog bort chipet helt. Det
-     ar en regel mindre att komma ihag, och det ar skalet att elementet togs
-     bort och inte bara avfargades: en dekor som inte finns behover ingen
-     undantagsregel i en andra kontext.
-     PILLERPLATTAN MASTE OCKSA BORT HAR. Mallarnas utskriftsregler gor kortet
-     vitt, och plattan ar ljusbla: kvar hade blivit en ljusbla bricka pa en
-     vit ruta, alltsa en dekor utan bakgrund att sitta mot. Bada
-     deklarationerna namns, inte bara fargen. */
   .offer .o-ref-till{color:var(--ink) !important;background:none;padding:0;}
-  /* OCH STRIMMAN. Samma skal: kortet ar vitt pa papperet, och #a0e3fa pa
-     vitt ger 1,07:1. Den ar dekor, inte information, sa den gar bort i
-     stallet for att bli en blek smuts tvars over kortet. En rad. */
   .offer .o-ref-strimma{display:none !important;}
-  /* EN REGRESSION JAG SJALV HADE GJORT, hittad 25 okt genom att lasa de
-     byggda css-filernas print-block i stallet for att anta. Fram till i dag
-     stod ".offer .o-ref-halva .o-ref-varde{color:var(--ink)}" HAR, i
-     systemet, och tackte darfor varje mall. Nar halvorna foll bort tog jag
-     regeln med dem och lamnade beloppet till mallarnas egna print-block.
-     Laddbox, batteri och service har ett; ELCENTRAL HAR INGET. Dess kort
-     hade darfor skrivit ut vitt belopp pa vitt papper, alltsa den ena raden
-     agaren sager ar hela poangen med kortet, osynlig.
-     Regeln hor hemma har: tre mallar sager redan samma sak, sa den krockar
-     inte med nagon, och den fjarde slipper komma ihag den.
-     Samma sak med logotypen: brightness(0) invert(1) gor ordbilden vit, och
-     utan bakgrundsgrafik ar vitt pa vitt ingenting. Den regeln har aldrig
-     funnits i systemet, sa elcentralens utskrivna kort har varit utan
-     logotyp hela tiden. Den stod inte pa min lista; den kostar en rad. */
   .offer .o-ref-varde{color:var(--ink) !important;}
   .offer .o-ref-logga img{filter:none !important;}
 }
 .offer .o-ref-rubrik{font-size:17px;font-weight:700;color:var(--ink);margin:0;text-align:center;}
-/* STEGREMSAN ar centrerad som BLOCK och vansterstalld som TEXT. Spaltens
-   align-items:center krymper ul:en till sitt innehall och stallar den i
-   mitten; ikon och text inuti star kvar pa sin rad. Tre ikoner i en lodrat
-   linje ar sjalva poangen med en stegremsa, och centrerad text hade lagt dem
-   pa tre olika x. */
 .offer .o-ref-steg{list-style:none;margin:calc(var(--s4) * -1) 0 0;padding:0;display:flex;flex-direction:column;gap:var(--s3);text-align:left;}
 .offer .o-ref-steg li{display:flex;align-items:center;gap:var(--s3);font-size:15px;color:var(--body);}
 .offer .o-ref-steg svg{width:var(--z2);height:var(--z2);flex:none;color:var(--ikonglyf);}
-/* FALTGRUPPEN STRACKER SIG, resten av panelen centreras. Utan den har raden
-   krymper adressfaltet till sitt innehall (panelens align-items:center) och
-   blir en springa pa nagra tiotal pixlar i stallet for hela panelens bredd.
-   Faltet ar alltsa centrerat genom att FYLLA spalten, inte genom att flyta i
-   den: 295 px vid sidan 375 och 400 vid 448 px panel, i bada fallen med
-   samma avstand till vanster och hoger kant. */
 .offer .o-ref-falt{display:flex;flex-direction:column;gap:var(--s2);align-self:stretch;}
 .offer .o-ref-etikett{font-size:15px;font-weight:600;color:var(--ink);text-align:center;}
-/* ===== AGARENS ANDRA MENING, 26 oktober =====
-   "Fast ha aven: Blocket 'namn@exempel.se' och 'Skicka inbjudan'
-   centraliserat!"
-
-   Tva saker, och han namnger dem bada. I riktning A:s render star adressfalt
-   och knapp SIDA VID SIDA i panelens vanstra kant, under en i ovrigt helt
-   centrerad spalt. Uppmatt i A vid 1180: knappens mitt 167 px fran panelens
-   mitt.
-
-   KNAPPEN centreras av justify-content pa sin rad.
-   FALTET ar en textruta som fyller spalten, sa boxen ar redan centrerad; det
-   enda som hanger at vanster i den ar TEXTEN, och det ar precis det ordet
-   han pekade pa ("blocket 'namn@exempel.se'", alltsa platshallaren).
-   Darfor text-align:center pa inputen, och justify-content:center pa .o-chips
-   sa att inlagda chips samlas i mitten i stallet for att borja vid vanster
-   kant. Regeln ar ankrad i .o-ref-falt och ror alltsa inte det delade
-   .o-chips-monstret nagon annanstans.
-
-   AVVAGNINGEN, rakt ut: en centrerad input flyttar markoren medan man
-   skriver. Det ar en kand nackdel. I vila visar faltet bara platshallaren,
-   och det ar den vyn agaren tittade pa och klagade pa. */
 .offer .o-ref-rad{display:flex;gap:var(--s2);margin-top:var(--s2);justify-content:center;}
 .offer .o-ref-falt .o-chips{justify-content:center;}
 .offer .o-ref-falt .o-chips input{text-align:center;}
-/* Hjalptexten, knappraden och finstilten bar sina marginaler i style-
-   attribut fram till 24 okt. En inline-marginal vager mer an varje regel
-   har och star dar ingen letar. Nu klasser. */
 .offer .o-ref-hjalp{color:var(--faint);margin:0 0 var(--s2);text-align:center;}
-/* FELRADEN under adressfaltet. Samma form som husets ovriga hint-rader
-   (fragaHint, avbojHint i mallarnas body.html): var(--ink) och vikt 600, sa
-   ingen ny kulor tillkommer for ett tillstand som intraffar sallan.
-   :empty ar inte kosmetik. .o-ref-falt ar en flexkolumn med gap --s2, och en
-   TOM p ar fortfarande ett flexobjekt: raden hade lagt atta pixlar mellan
-   faltet och knappen pa varje sida, aven nar ingenting ar fel. display:none
-   tar bort den ur layouten tills den har nagot att saga. */
 .offer .o-ref-fel{color:var(--ink);font-weight:600;margin:0;text-align:center;}
 .offer .o-ref-fel:empty{display:none;}
-/* FINSTILTEN star UTANFOR panelen, och har darfor TAKET TILLBAKA. Taket togs
-   bort nar panelen var 684 px bred: da blev raden tva rader i stallet for en,
-   alltsa 16 px mer av precis det tomrum agaren klagade pa. Panelen ar 448 nu.
-   En finstilt som loper bredare an panelen den hor till ser ut att hora till
-   nagot annat, och 448 ar samma tak som panelen, sa de tva kanterna star i
-   linje. Det ar ocksa riktning A:s eget val, i den rendering agaren sade
-   "kor alternativ A" om. Kostnaden ar fortfarande tva rader i stallet for
-   en; den star kvar och den ar betald med att blocket slutar bli brett. */
 .offer .o-ref-fin{color:var(--faint);text-align:center;
   max-width:calc(var(--s8) * 7);margin-inline:auto;}
-/* GOLVET LAG I EN SELEKTOR SOM FALTET HADE FLYTTAT UT UR. Mejlfaltet bor i
-   .o-chips sedan chipsen infordes, medan min-height:var(--z5) stod kvar pa
-   .o-ref-rad input. Resultatet var ett 31 px hogt faltet i ett hus dar 44
-   ar golvet, i tre mallar samtidigt, och audit.js sag det inte for att dess
-   selektorlista inte raknade input alls. Bada platserna namns nu. */
-/* RUTA I RUTA, uppmatt 24 okt: regeln ovan galde 'det gamla lankfaltet OCH
-   chipsfaltets input', sa inputen i .o-chips fick en egen kant, egen vit
-   botten och egen radie INUTI den ram .o-chips redan ritar. Tva kanter runt
-   samma falt, pa alla fem sidorna. Lankfaltet ar borta sedan 21 okt, sa
-   regeln ar borta med det. Golvet 44 pa inputen star kvar, i .o-chips input
-   langre ner, dar faltet bor. */
 .offer .o-ref-knapp{flex:none;border:0;border-radius:var(--r1);padding:0 var(--s4);
   min-height:var(--z5);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;}
 .offer .o-ref-knapp.ljus{background:#e3e7ef;color:var(--ink);}
@@ -1430,76 +569,23 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-ref-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s1);}
 .offer .o-ref-lista li{display:flex;align-items:center;justify-content:center;gap:var(--s2);font-size:13px;color:var(--muted);}
 .offer .o-ref-lista svg{width:var(--z1);height:var(--z1);flex:none;color:var(--ikonglyf);}
-
-/* ===== De två lånade blocken =====
-   De är byggda som fullbreddssektioner, kant till kant. Att trycka in dem i
-   offertens spalt gjorde dem till främmande lådor med marginal runt. De ligger
-   nu som egna barn till .o-main och bleder ut till offertens kant.
-   .offer är en container, så 100cqw är offertens bredd, och 50% är halva
-   .o-mains innehållsyta. Skillnaden är exakt den marginal som ska bort. */
-/* LUFTEN RUNT ETT BAND ÄGS AV SIDAN, INTE AV BANDET.
-   Ett band bär sin paus i sin egen padding: 44 px i omdömena, 34 i
-   certifikatet. Ovanpå det låg sidans sektionsrytm på 48 OCH blockets egen
-   rotmarginal på 30, så samma paus räknades tre gånger: uppmätt 48 över, 78
-   mellan banden och 77 under. Nu nollas blockets rotmarginal och halva
-   sektionsluckan dras in från vardera sidan: 24 in till bandet, 0 mellan de
-   två banden. De är ett kapitel om tillit, inte två. */
 .offer .o-main > .ampy-testimonials{
   margin-block:calc(var(--rytm-sektion) / -2);
-  /* KANT TILL KANT VID VARJE BREDD.
-     Att avbryta .o-mains padding räckte under 712. Över det slår max-width in
-     (680, och 1180 på desktop) och .o-main centreras, så bandet lämnade kvar
-     44 px sidbakgrund vid 768, 180 vid 1039 och 130 vid 1440. Samma block såg
-     alltså olika ut i tre olika bredder. Nu räknas hela förskjutningen: 50 %
-     är halva behållaren, 50cqw halva offerten, mellanskillnaden är exakt den
-     marginal som ska bort. cqw och inte vw: vw räknar in rullisten och spiller
-     ut åt höger, cqw mäter .offer som redan är utan den. */
   width:100cqw;
   max-width:none;
   margin-inline:calc(50% - 50cqw);
   overflow-x:hidden;
 }
-/* I tvåspalten spänner de över båda kolumnerna, på egna rader, så de aldrig
-   krockar med .o-colB som ligger i kolumn 2 på rad 1 och 2. */
 @container (min-width: 1024px){
-  /* I rutnätet styr row-gap avståndet, inte marginaler. Banden ligger på egna
-     rader, så de ska inte dra ihop sig mot grannraderna. */
-  /* Rutnätets ordning följer DOM:en: kolumn 1 bär hjälten, villkoren och
-     grannrabatten, kolumn 2 bär den klibbande summeringen över rad 1 och 2.
-     OMDÖMENA LIGGER I KOLUMN 1, inte över båda. Fullbredd och en klibbande
-     sidospalt går inte ihop: bandet är centrerat i hela offertens bredd, och
-     dess mittlinje hamnar under den fastnålade summeringen. Uppmätt, svept
-     över hela dokumentet i steg om 200 px: citatkortet överlappade
-     summeringen med 39 719 px² vid scroll 9000, lika i 1180, 1440 och 1920.
-     Layouttestet missade det, för krocken finns bara medan sticky är igång. */
   .offer .o-main > .ampy-testimonials{margin-block:0;grid-column:1;grid-row:4;
     width:auto;max-width:none;margin-inline:0;}
   .offer .o-main > .o-colC{grid-column:1;grid-row:2;}
   .offer .o-main > .o-sec{grid-column:1;grid-row:3;}
 }
-/* .offer h1..h4 sätter färg OCH vikt. Blockets rubrik är w400 i originalet,
-   offertens regel gjorde den w700. */
 .offer .ampy-testimonials .att-heading{color:var(--ink);font-weight:400;}
-
-/* ===========================================================================
-   FOTEN. Bolagsremsan satt tidigare inne i summeringsspalten, direkt efter
-   Villkor-folden: alltsa mitt i beslutsytan, dar den konkurrerade med
-   Att betala om blicken. Den hor hemma sist pa sidan, efter allt som gar att
-   valja, som sidans avsandare och ingenting annat. Agarorder 19 okt.
-   LUFTEN. Omdomesbandet bar margin-block -24 for att sitta tatt mot sidans
-   sektionsrytm pa 48. Utan kompensation hade foten hamnat 24 px under bandet,
-   alltsa narmare an tva stycken i samma kapitel. +24 har ger de 48 som skiljer
-   tva kapitel at. I rutnatet styr row-gap i stallet och marginalen nollas.
-   SPECIFICITET. .offer p{margin:0} vager 0,1,1 och slar .o-fot p pa 0,1,0.
-   Darfor .offer .o-fot p pa 0,2,1. Samma falla som stegremsan gick i.
-   =========================================================================== */
 .offer .o-fot{
   margin-top:calc(var(--rytm-sektion) / 2);
   padding-top:var(--rytm-grupp);
-  /* .o-main reserverar barh + 24 under innehallet och prisbaren laggs tillbaka
-     med exakt lika stor negativ marginal, sa barens ovankant hamnar precis vid
-     fotens underkant: sidans sista rad lag dikt an mot en flytande list.
-     24 px har skiljer dem at. Pa desktop finns ingen bar och ingen padding. */
   padding-bottom:var(--rytm-grupp);
   border-top:1px solid var(--line);
   text-align:center;
@@ -1512,10 +598,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   color:inherit;
   text-decoration:underline;
   text-underline-offset:2px;
-  /* TRAFFYTAN, INTE RUTAN. Numret ar 14 px hogt som text och huset kraver 44
-     pa allt som gar att trycka pa. En osynlig overlay ger de 44 utan att
-     flytta en enda pixel i typografin: raden runt om ar 11 px med 24 px
-     padding over och under, sa 15 px ut at bada hall ryms inne i foten. */
   position:relative;
 }
 .offer .o-fot a::before{
@@ -1533,162 +615,15 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   border-radius:3px;
 }
 @container (min-width: 1024px){
-  /* FOTEN LIGGER UR AXEL, OCH DET AR EN AGARFRAGA, INTE EN BUGG.
-     Den spanner 1 / -1 och ar text-align:center, sa texten centreras pa hela
-     rutnatets 1116 px, alltsa x 590, medan allt ovanfor ligger i den 684 px
-     breda forsta spalten med mitten pa x 374.
-
-     UPPMATT 25 OKTOBER vid 1180: 216 px snett pa service, laddbox, elcentral
-     och batteri. Tillaggsofferten ar 0 snett, for den har bara en spalt.
-
-     JAG PROVADE ATT RATTA DET och tog tillbaka det. Att lagga fotens
-     innehall i spalt ett gav 0 snett pa de fyra, men bret tillagget till
-     -216: dess .o-main ar en flexkolumn med flit, och en rutnatsregel pa
-     foten far da fel spaltbredd att rakna med. Att i stallet satta
-     grid-column:1 pa foten kortar linjen fran 1116 till 684, och den breda
-     linjen ar vad agaren sag som RATT nar han jamforde elcentralen med
-     tillagget.
-
-     Bada vagarna andrar alltsa nagot han inte bett om. Tva agenter kom
-     oberoende till samma slutsats: det ar husets monster och ett designval.
-     Det star som matvarde och vantar pa hans besked. */
-  /* FOTEN PA SPALTENS AXEL, MEN MED LINJEN KVAR I FULL BREDD.
-     Foten spanner 1 / -1 och ar text-align:center, sa texten centrerades pa
-     rutnatets 1116 px (x 590) medan allt ovanfor ligger i den 684 px breda
-     forsta spalten (x 374). UPPMATT 25 OKTOBER: 216 px snett pa fyra mallar.
-     Sett pa sidan slutar certifikatmarkena vid x 694 och fottexten driver ivag
-     at hoger under dem.
-
-     LINJEN AR DET AGAREN GILLADE nar han jamforde elcentralen med tillagget,
-     sa den behaller sin bredd. Bara texten flyttar in, genom en hogerpadding
-     lika stor som hogerspalten plus dess lucka. Tva andra vagar provades och
-     togs tillbaka: att lagga innehallet i spalt ett bret tillagget, och
-     grid-column:1 kortar linjen fran 1116 till 684.
-
-     TILLAGGSMALLEN VALJER EN SPALT och nollar darfor den har paddingen i sin
-     egen stil.css, pa samma stalle som den valjer en spalt. De tva besluten
-     hor ihop och ska lasas ihop.
-
-     AGAREN 26 OKTOBER: fottexten ar inte centrerad pa desktop. Han hade ratt,
-     och hogerpaddingen ovan var orsaken: text-align:center centrerar i en
-     LADA, och ladan var sjalv forskjuten 432 px at vanster. Uppmatt, blackets
-     mitt mot sidans:
-         375 px    187 mot 188      1 px fel
-         1180 px   374 mot 590    216 px fel
-         1440 px   504 mot 720    216 px fel
-     Paddingen skyddade mot en krock som inte kan intraffa: vid fotens hojd
-     ligger summeringen pa y 24..400 och foten pa 858..900, alltsa ingen lodrat
-     overlappning alls. Och texten ar bara 284 px bred, sa centrerad pa sidan
-     slutar den 32 px FORE panelens kant vid bade 1180 och 1440.
-     Linjen behaller sin bredd, for det var den agaren gillade. */
-  .offer .o-main > .o-fot{grid-column:1 / -1;grid-row:5;margin-top:0;padding-bottom:0;}
+  .offer .o-main > .o-fot{grid-column:1;grid-row:5;margin-top:0;padding-bottom:0;}
 }
-
-/* ===========================================================================
-   ÖVRIGA TJÄNSTER. Fyra numrerade tjänster i en dropdown under summeringen.
-   Allt vi har fast pris på bor här, och ingenting av det tvingar sig på
-   kunden under scrollningen.
-   =========================================================================== */
-/* Folden öppnar rakt in i en rubrik. 12 px mellan summaryraden och "1 Byte av
-   elcentral" läste som en enda klump. Kapitel inne i en fold behöver samma
-   luft som kapitel på sidan. */
 .offer #ovrigt > .body{padding-top:var(--s5);display:flex;flex-direction:column;gap:var(--rytm-sektion);}
-/* Den tredje raden i ett radtext-block: en spec som varken är namn eller pris. */
 .offer .o-radspec{display:block;font-size:13px;color:var(--muted);}
-/* Intresseanmälan bär inget plustecken: krysset betyder berätta mer. */
 .offer .o-rad:has(input[data-intresse]) .o-radpris{color:var(--muted);font-weight:400;}
-/* Ett foto i radrutan fyller den och får samma hörn som brickorna. De andra
-   radbilderna är frilagda produkter och ska fortsätta ligga i luft. */
 .offer .o-radbild.foto img{width:100%;height:100%;object-fit:cover;border-radius:var(--r1);}
 .offer .o-sumrow.grp{font-weight:600;color:var(--ink);padding-top:var(--s2);}
-/* Platsen som paketet INTE fyller. Samma bricka, annan fyllning och ett
-   streck i stället för en bock: frånvaro ska inte bära samma tecken som
-   närvaro, men den ska bära samma form. */
 .offer .o-bock--utan{background:var(--line);}
 .offer .o-bock--utan path{stroke:var(--kant);stroke-width:1.9;}
-
-/* EN STJÄRNA, EN FÄRG.
-   Uppmätt 19 okt: samma symbol i tre kulörer på samma sida. Hjälten bar
-   #f5a623 (sidans token), kortet #55ff9a (neonmint ur blockets eget system)
-   och badgen #fbbc04 (Googles eget guld). Tre färger på ett tecken läser som
-   tre olika betyg. Sidan har en stjärntoken och nu bär alla den.
-   Googles guld hade ett argument, det är deras märke, men G-logotypen bär
-   redan varumärket och vi lånar ingen annan Google-färg någonstans. */
-/* STJARNTOKENEN SATTS NU BARA PA `.o-cit__stjarnor`. Lyften for det gamla
-   kortets och den gamla badgens stjarnor (`.att-card__stars svg`,
-   `.att-badge__stars svg`) ar borttagna 30 okt, 117 B: bada elementen gick
-   ur markupen med kortet och badgen. */
-
-/* ===========================================================================
-   OMDÖMESKORTETS YTA ÄR LJUS. ÄGARVAL 29 OKTOBER, OCH DET RIVER DET GAMLA.
-
-   Ordagrant: "den här mörkblåa bakgrundsfärgen [passar] inte in med resten av
-   designen på våra fackmallar (...) Det kan vara en ljus färg med svart text.
-   Det spelar ingen roll. Den måste bara vara bättre. Den mörka kontrasten
-   passar inte in i vår annars väldigt moderna offertmall." Allt utom färgen
-   ska vara kvar: citattecknet, texten, namnet, linjen, de fem stjärnorna,
-   layouten, radien, bredden.
-
-   DET HÄR UPPHÄVER ÄGARVALET 19 OKTOBER, "A Kortet, mörkt kort på den ljusa
-   sidan". Den journalen stod här och förklarade varför varje färg i kortet
-   förutsatte en mörk yta. Den färgen finns inte kvar, så journalen är omskriven
-   i stället för bevarad: en kommentar som beskriver gårdagens beslut är en
-   andra sanning. Bytet går dessutom TILLBAKA till husregeln, inte emot den
-   (ägardirektiv 14 sept: ljusa ytor i nya verktyg och block, midnight bara
-   som text).
-
-   VARFÖR EN RITAD KANT OCH INTE EN TONAD PLATTA. När ytan blir ljus försvinner
-   det som skilde kortet från sidan. Sidan är --bg #f5f9ff och husets kort är
-   --card #ffffff, så ett vitt kort på en ljus sida har nästan ingen egen kant.
-   Tre riktningar mättes mot varandra 29 okt (sonden omdomeskort-riktningar.js,
-   som injicerar varje riktning i den byggda sidan och läser om kulörerna):
-     R1 tonplattan   --teal-soft som yta. Skiljer sig genom TON. Brödtext
-                     16,97:1, men ytan mot sidan bara 1,06:1 i luminans: i
-                     gråskala och på papper finns kortet inte. Stjärnan sämst
-                     av alla tre, 1,81:1.
-     R2 kortkanten   vitt --card + 1 px --line-2. VALD. Skiljer sig genom en
-                     RITAD gräns, inte genom ton, så den syns även där kulören
-                     inte gör det. Högst kontrast på varje textdel.
-     R3 ljusa bandet tonad sektion, vitt kort inuti. Håller vid 375, men faller
-                     vid 1180: bandet är fullbredd under 1024 och bara kolumn 1
-                     över, så "bandet" slutar mitt på sidan vid x=716. Samma fel
-                     som raden ovanför redan bokfört: samma block såg olika ut i
-                     tre bredder.
-
-   --line-2 OCH INTE --kant, trots att --kant mäter mer. Uppmätt mot sidbotten:
-   --kant 2,33:1, --line-2 1,33:1. Mätningen pekar på --kant, husets grammatik
-   på --line-2, och grammatiken vinner: varje --kant-kantad låda i offerten är
-   något kunden VÄLJER (.o-pkg, .o-opt, .o-variant, markörerna), och ett omdöme
-   går inte att välja. --line-2 är husets passiva kort, exakt som .o-granne
-   (#fff + 1 px --line-2 + --r2) och de fyra certrutorna direkt under det här
-   kortet. En starkare kant hade gjort citatet till ett paketkort.
-
-   MÄTT PÅ PLAN #ffffff (sonden omdomeskort.js, 375 och 1180, samma tal):
-   ink-text 19,00:1, namnet 19,00:1, citattecknet i teal-ink #017666 5,55:1,
-   linjen i kortet 1,41:1 (mörka ytans rgba gav 1,48 — paritet), kanten mot
-   sidan 1,33:1. Stjärnan #f5a623 faller från 9,37:1 till 2,03:1, och det är
-   priset för ägarvalet. Det är INTE en ny defektklass: husets eget hjältebetyg
-   .o-betyg__stjarnor ligger redan på 1,92:1 mot samma sidbotten på varje sida
-   som skeppas, så kortet går in i en standard som redan gäller i stället för
-   att hitta på en sämre. Stjärnan behåller sin token (EN STJÄRNA, EN FÄRG,
-   raden ovanför) och meningen bärs av aria-label "5 av 5 stjärnor".
-
-   TVÅ TOKEN BYTER HÅLL, inte för att de var fel utan för att planet är ett
-   annat. teal-ink #017666 gav 3,42:1 mot midnatt och dög därför inte till
-   tecknet DÄR; mot vitt ger den 5,55:1 och full teal #00a991 bara 2,96:1. Det
-   som var rätt på mörkt är fel på ljust, åt båda hållen.
-
-   DE TVÅ MÖRKA VARIANTERNA FINNS KVAR, nedtill, och bara granskningsramen
-   växlar dem (listvarianter.js, som bara granskning.html laddar). De är de
-   riktningar ägaren nu vänder, och de måste därför SJÄLVA sätta sin vita text,
-   sitt fulla teal och sin ljusa linje: basen bär ljusytans kulörer nu.
-     B Bandet  hela sektionen mörk, kant till kant, radie 0, inget kort inuti.
-               Ingen token ger 3:1 mot midnatt, så en mörk box i ett mörkt band
-               går inte att rita. Bandet ÄR kortet.
-     C Fotot   huset i skymning under slöja. Slöjans sämsta punkt gav 2,53:1
-               mot vit text, alltså 56 procent av kravet; 0,62 ger 6,19:1 och
-               då syns huset knappt. Finns kvar så priset går att se.
-   =========================================================================== */
 .offer .ampy-testimonials .o-cit{
   position:relative;margin:0;border-radius:var(--r3);overflow:hidden;isolation:isolate;
   background:var(--card);border:1px solid var(--line-2);
@@ -1696,51 +631,15 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .ampy-testimonials .o-cit__foto{display:none;}
 .offer .ampy-testimonials .o-cit__inner{position:relative;z-index:2;padding:var(--s5);}
 @container (min-width: 760px){ .offer .ampy-testimonials .o-cit__inner{padding:var(--s6);} }
-/* Citattecknet är en RITAD FORM, inte ett glyf. Inters ” bär omkring 0,24 em
-   bläck, så vid den största tillåtna graden 30 px syns 7 px tecken. Originalet
-   behövde 72 px för att synas, och 72 finns inte i skalan. En form på 32 x 32
-   ger 24 px bläck på under halva ytan.
-   TEAL-INK PÅ LJUS YTA, full opacitet. Mot vitt ger --teal 2,96:1 och
-   --teal-ink 5,55:1, alltså tvärtom mot den mörka ytan där --teal gav 6,41 och
-   --teal-ink 3,42. Tecknet byter token för att planet bytte, inte för att
-   valet var fel. Ingen genomskinlighet: ett tecken på 0,55 komponeras till en
-   fläck och halverar kontrasten på vilket plan som helst. */
 .offer .ampy-testimonials .o-cit__tecken{display:block;width:var(--z4);height:var(--z4);fill:var(--teal-ink);}
 .offer .ampy-testimonials .o-cit__text{margin:var(--s4) 0 0;font-size:20px;font-weight:400;line-height:1.45;
   letter-spacing:-.01em;color:var(--ink);}
 @container (min-width: 760px){ .offer .ampy-testimonials .o-cit__text{max-width:48ch;} }
-/* --ink, inte --body och inte --muted. Ägaren bad om "svart text", och husets
-   svarta är --ink: 19,00:1 mot vitt. --body #333333 ger 12,63 och --muted
-   #565e82 6,33, båda över AA, men en signatur dämpas med grad och vikt, inte
-   med en tredje gråton. Samma regel som gällde på den mörka ytan, andra kulör.
-   cite är kursiv och inline som standard. Inters kursiv är en lutad variant
-   som tappar upplevd stamvikt, och en inline-signatur tar inte emot
-   marginalen över citatet. */
 .offer .ampy-testimonials .o-cit__namn{display:block;font-style:normal;
   margin-top:var(--s4);font-size:15px;font-weight:600;color:var(--ink);}
-/* Linjen följer med ytan: rgba(227,234,245,.16) var ritad för att ligga PÅ
-   midnatt och mäter 1,03:1 mot vitt, alltså borta. --line-2 ger 1,41:1 mot
-   vitt mot den gamla linjens 1,48:1 på midnatt. Samma optiska vikt, ny yta. */
 .offer .ampy-testimonials .o-cit__linje{border:0;height:1px;background:var(--line-2);margin:var(--s5) 0;}
-/* Stjärnorna är kortets sista slag och står centrerade. Ingen skugga: den
-   fanns för att bära stjärnan mot ett foto och blir smuts mot ljust, precis
-   som certrutornas skuggor. Stjärnan faller från 9,37:1 på midnatt till
-   2,03:1 på vitt och behåller ändå sin token: husets hjältebetyg ligger redan
-   på 1,92:1 mot sidbotten, och EN STJÄRNA, EN FÄRG står kvar. */
 .offer .ampy-testimonials .o-cit__stjarnor{display:flex;justify-content:center;gap:var(--s1);}
 .offer .ampy-testimonials .o-cit__stjarnor svg{width:var(--z1);height:var(--z1);fill:var(--stjarna);display:block;}
-/* OMDÖMENA I KORTET. Två lägen, mätta mot varandra.
-   Kortets höjd varierar 174 px vid 375 och 87 vid 1180 mellan kortaste och
-   längsta omdömet, 2 till 8 rader. Det talet avgör skillnaden:
-     användarstyrt  bara det valda finns, höjden följer texten. Kortet ändrar
-                    storlek, men bara när kunden själv bytt, och ett hopp man
-                    orsakat läses inte som ett hopp som hände en.
-     byter själv    alla fem staplade i samma rutnätsruta, så höjden är den
-                    högsta textens och ingenting rör sig utom opaciteten.
-                    Priset är upp till 174 px död yta under det kortaste.
-   WCAG 2.2.2: innehåll som uppdateras automatiskt i mer än fem sekunder måste
-   gå att pausa. Därför paus-knappen, och därför stänger reduced-motion av
-   bytet helt i stället för att bara ta bort nedtoningen. */
 .offer .ampy-testimonials .o-cit__item{display:none;}
 .offer .ampy-testimonials .o-cit__item.pa{display:block;}
 .offer.c-auto .ampy-testimonials .o-cit__lista{display:grid;}
@@ -1750,13 +649,8 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 @media (prefers-reduced-motion: reduce){
   .offer.c-auto .ampy-testimonials .o-cit__item{transition:none;}
 }
-/* Prickarna ligger UTANFÖR kortet, på den ljusa sidan. 8 px synlig prick med
-   en träffyta på 44 via ::after, samma golv som allt annat på sidan. */
 .offer .ampy-testimonials .o-cit__nav{display:flex;justify-content:center;align-items:center;
   gap:0;margin-top:var(--s2);}
-/* Prickarna var 8 px med en träffyta på 44 via ::after, men grannens yta låg
-   över: fyra av fem fick 20 x 44 i praktiken. Nu är KNAPPEN 44 x 44 och
-   pricken ritas inuti. Fem knappar à 44 blir 220 px av 343 och ryms. */
 .offer .ampy-testimonials .o-cit__prick{position:relative;width:var(--z5);height:var(--z5);
   padding:0;border:0;background:none;cursor:pointer;flex:none;}
 .offer .ampy-testimonials .o-cit__prick::before{content:"";position:absolute;
@@ -1772,59 +666,25 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer.t-b .ampy-testimonials .o-cit__prick::before{background:rgba(227,234,245,.28);}
 .offer.t-b .ampy-testimonials .o-cit__prick.pa::before{background:var(--teal);}
 .offer.t-b .ampy-testimonials .o-cit__paus{color:#aeb8d4;}
-
 .offer .ampy-testimonials .o-marken__ogonbryn{font-size:11px;font-weight:700;letter-spacing:.12em;
   text-transform:uppercase;color:var(--faint);margin-top:var(--s7);}
 .offer .ampy-testimonials .o-marken__ogonbryn + .ampy-cert__marks{margin-top:var(--s4);}
-/* Rutorna stod ensamma i ett fullbreddsband men bar kvar sin spalt på 492 px
-   från tiden då de låg bredvid en textkolumn. Fyra i bredd från 760, där det
-   finns plats, och taket på 1 000 så de inte glesnar ut till fyra öar. */
 @container (min-width: 760px){
-  /* Blocket har en mittaxel: rubriken, citatspalten och stjärnorna står på
-     den. Ögonbrynet och väggen gör det också, annars blir det tre axlar. */
   .offer .ampy-testimonials .o-marken-ljus{grid-template-columns:repeat(4,minmax(0,1fr));
     max-width:1000px;margin-inline:auto;}
   .offer .ampy-testimonials .o-marken__ogonbryn{text-align:center;}
 }
-
-/* LAGET "SOM I DAG" HAR INGENTING ATT VISA. De sex reglerna som tande den
-   gamla karusellen, prickraden och badgen i `t-nu` ar borttagna 30 okt
-   (283 B): alla tre gick ur markupen 18-25 okt. Uppmatt 30 okt pa
-   offert-easee-max vid 375: knappen tar bandet 940 -> 416 px, slacker det
-   levande citatkortet och tander NOLL gamla element. AGARBESLUT KVAR:
-   knappen ur body.html rad 15, eller en fryst jamforelseyta tillbaka. */
 .offer.t-nu .o-cit,.offer.t-nu .o-marken__ogonbryn{display:none;}
-
-/* B BANDET. Hela sektionen blir ytan. Innehållet håller sin bredd, ytan gör
-   det inte: utan den lodräta paddingen läser sömmen mot sidan som en
-   beskärning i stället för ett band. */
 .offer.t-b .ampy-testimonials{background:var(--ink);}
 .offer.t-b .att-heading,.offer.t-b .att-sub{color:#fff;}
-/* Citatet behåller sin spalt på 640 även utan kort. Utan taket blev det en
-   vänsterställd textremsa i ett 1132 px brett band, med rubriken centrerad
-   ovanför: två olika axlar i samma block. */
 .offer.t-b .ampy-testimonials .o-cit{background:transparent;border-radius:0;border:0;}
 .offer.t-b .ampy-testimonials .o-cit__inner{padding-inline:0;}
 .offer.t-b .ampy-testimonials .o-marken__ogonbryn{color:#aeb8d4;}
-
-/* C FOTOT. Slöjan ligger på 0,62 och inte på originalets 0,32, för 0,32 mäter
-   2,53:1 mot vit text på den här bilden. 0,62 ger 6,19:1. Priset är att huset
-   knappt syns, vilket är hela poängen med att visa varianten. */
 .offer.t-c .ampy-testimonials .o-cit__foto{display:block;position:absolute;inset:0;z-index:0;
-  background-image:url("assets/img/hem-skymning.webp");background-size:cover;background-position:62% 46%;}
+  background-image:url("../img/hem-skymning.webp");background-size:cover;background-position:62% 46%;}
 .offer.t-c .ampy-testimonials .o-cit__foto::after{content:"";position:absolute;inset:0;
   background:linear-gradient(103deg, rgba(9,11,50,.92) 0%, rgba(9,11,50,.86) 40%, rgba(9,11,50,.62) 100%);}
-/* C har ingen ritad kant: slöjan möter sidan direkt, och en --line-2-hårlinje
-   runt ett mörkt foto läser som en ram, inte som en kortkant. */
 .offer.t-c .ampy-testimonials .o-cit{border:0;}
-
-/* DE MÖRKA VARIANTERNAS EGNA KULÖRER, B OCH C. Basen bär ljusytans kulörer
-   sedan 29 okt, så de två mörka ytorna måste sätta tillbaka sina egna: vit
-   text, fullt --teal i tecknet och den ljusa rgba-linjen. Utan den här
-   blocket blev B och C ink-på-midnatt, alltså oläsliga, och det är precis
-   den sortens följdfel ett ytbyte lämnar efter sig.
-   Mätt på plan #090b32: vit text 19,00:1, --teal 6,41:1, stjärnan 9,37:1,
-   linjen 1,48:1. --teal-ink ger bara 3,42:1 här och duger inte till tecknet. */
 .offer.t-b .ampy-testimonials .o-cit__text,
 .offer.t-b .ampy-testimonials .o-cit__namn,
 .offer.t-c .ampy-testimonials .o-cit__text,
@@ -1833,23 +693,11 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer.t-c .ampy-testimonials .o-cit__tecken{fill:var(--teal);}
 .offer.t-b .ampy-testimonials .o-cit__linje,
 .offer.t-c .ampy-testimonials .o-cit__linje{background:rgba(227,234,245,.16);}
-
-/* ===========================================================================
-   MÄRKENA. Ägarval 19 okt: A:s design i C:s placering.
-   Certifikatbandet med gradient och rubrik är borta. De fyra rutorna bor i
-   omdömesblocket, direkt under Google-raden, och hela blocket ligger efter
-   villkoren. Ingenting står längre mellan sista valet och Acceptera.
-   =========================================================================== */
 .offer .ampy-cert__marks{
-  /* Korthöjden satt på .ampy-cert, och det elementet finns inte kvar. */
   --ampy-cert-card-h:96px;
   max-width:none;
   margin-top:var(--rytm-grupp);
 }
-/* Rutorna är ritade som vita kort mot en mörk gradient och bär en inre
-   hårlinje på 7 procents midnatt. Mot sidbakgrunden mäter den 1,04:1 och
-   försvinner. Kanten höjs till sidans egen linjefärg, och de tunga skuggorna
-   tas bort: de bar djup mot mörkt och blir smuts mot ljust. */
 .offer .ampy-cert__mark{box-shadow:none;border:1px solid var(--line-2);background:#fff;}
 .offer .ampy-cert__mark:hover{transform:none;}
 .o-prodimg{background:transparent;border-radius:var(--r2);overflow:hidden;display:grid;place-items:center;}
@@ -1859,45 +707,16 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-prodtop .o-prodimg{width:96px;flex:none;}
 .o-prodname{font-size:20px;font-weight:700;letter-spacing:-.015em;color:var(--ink);}
 .o-prodspec{font-size:13px;color:var(--muted);margin-top:var(--s0);}
-
-/* bokare */
 .o-booker{display:flex;align-items:center;gap:var(--s3);background:var(--bg);border:0;border-radius:var(--r2);padding:var(--s3) var(--s4);}
 .o-booker img{width:var(--z5);height:var(--z5);border-radius:50%;object-fit:cover;flex:none;}
 .o-booker b{display:block;font-size:15px;color:var(--ink);font-weight:600;}
 .o-booker span{font-size:13px;color:var(--faint);}
-/* Vid 320 px, som är WCAG 1.4.10:s testbredd, är jämförelsetabellen 327 px i
-   en spalt på 286. Utan en rullande behållare försvann 41 px av
-   Premiumkolumnen, och folden klipper med overflow:hidden. */
 .o-fold .body:has(.o-cmp){overflow-x:auto;}
-/* GOLVET VAR ETT TAL RITAT FOR EN TABELL. 327 px kom ur elcentralens fyra
-   kolumner (etikett plus tre storlekar). Batterimallens tabell har tre,
-   behover darfor inte 327, och fick 18 px sidledes rullning inne i folden
-   for ett golv som inte var dess. Golvet hor till KOLUMNEN, inte till
-   tabellen: da raknar tabellen ut sin egen bredd ur hur manga den har. */
 .o-cmp th:not(:first-child),.o-cmp td:not(:first-child){min-width:5.5ch;}
-
-/* Se allt som ingår bär samma listkomponent som paketkorten, .o-ingar.
-   Bocken var ritad med två kantlinjer: 6 x 3 px roterade 45 grader inuti en
-   16 px bricka. Glyfen blev 1,5 px hög, satt 1,5 px ovanför brickans mitt och
-   föll ihop till en fläck. En bock är en form, inte två kanter. Nu en svg. */
-
-/* paketkort */
 .o-pkgs{display:flex;flex-direction:column;gap:var(--s3);}
-
 .o-pkg{display:block;position:relative;background:var(--card);border:1.5px solid var(--kant);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:border-color .18s ease;}
 @media (prefers-reduced-motion: reduce){ .o-pkg{transition:none;}}
 .o-pkg input{position:absolute;opacity:0;width:1px;height:1px;}
-/* PAKETRABATTEN. Ett element under priset, inte en lada bredvid det.
-
-   Den bor i prisets egen kolumn och inte i kortet, sa den arver prisets
-   hogerkant. Da far de tre korten en ren kantlinje nerfor sidan i stallet for
-   tva olika hogermarginaler, vilket ar hela skillnaden mellan en bricka som
-   ser placerad ut och en som ser pahangd ut.
-
-   11 px mot prisets 17: liten nog att vara en notering, stor nog att lasa pa
-   en telefon. Tabulara siffror sa 5 och 10 star pa samma stallen. Teal-soft
-   och inte en fylld platta: en rabatt som skriker later som nagot som behover
-   overtyga. */
 .o-pkg .pcol{display:flex;flex-direction:column;align-items:flex-end;gap:var(--s1);flex:none;}
 .o-pkg .pcol .pprice{flex:none;}
 .o-pkg .o-rabatt{
@@ -1913,74 +732,34 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-pkg .pname b{display:block;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}
 .o-pkg .pname span{display:block;font-size:13px;color:var(--muted);margin-top:var(--s0);}
 .o-pkg .pprice{font-size:17px;font-weight:700;color:var(--ink);flex:none;}
-/* PUNKTLISTAN. Kortets kärna, och den enda plats där paketen går att skilja
-   åt på en halv sekund. Två nivåer, inte sex:
-     .prod  hårdvaran du får hem  -> ifylld bricka, svart text
-     resten jobbet vi utför       -> tunn grå bock, grå text
-   Hårdvaran står först och är exakt samma tre saker som brickorna längst ner
-   i kortet, för båda genereras ur src/paket.json. 13 px med Inter: x-höjden
-   är 7,10 mot Outfits 6,73 vid 15, så raden läser större än den gjorde förut. */
 .o-ingar{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--s2);}
 .o-ingar li{font-size:13px;line-height:1.5;color:var(--muted);font-weight:300;
   display:flex;align-items:flex-start;gap:var(--s3);}
 .o-ingar li.prod{color:var(--ink);font-weight:600;}
 .o-ingar li.prod b{font-weight:600;}
 .o-ingar li.prod b + span{font-weight:300;color:var(--muted);}
-/* Gruppbilden överst i kortet: allt du får hem, i en bild.
-   De tre filerna är beskurna till sitt innehåll och är alla 318 px höga, så
-   laddboxen renderar exakt lika stor i Bas, Plus och Premium. Därför styr
-   HÖJDEN och inte bredden: 128 px ger 95 / 253 / 282 px breda bilder, och
-   även den bredaste får plats i kortet vid 375 (292 px innermått). */
 .o-pkg .pbild{margin:0;background:var(--bg);border-radius:var(--r1);
   padding:var(--s4) var(--s3);display:flex;justify-content:center;align-items:center;min-height:160px;}
-/* RAMEN MATCHAR DUKEN. Bundlebilderna ar 760x510, alltsa 3:2. I en ram pa
-   269x128 (2,1:1) binder bredden forst och laddboxen renderas 80 px hog. Med
-   en ram i samma forhallande renderas den 112 px, alltsa lika stor i alla tre
-   korten OCH storre. Uppmatt 20 okt, se gemensamt/BUNDLEBILDER.md. */
 .o-pkg .pbild img{width:auto;height:auto;max-width:100%;max-height:180px;}
-/* "Arbete och material ingar i priset." Rasmus, head of laddbox, 20 okt:
-   det ar den vanligaste kundfragan och ska framga direkt i offerten, inte
-   ligga i en fold. Darfor star den vid talet och inte i finstilten under. */
 .offer .o-ingartext{margin:0;font-size:15px;line-height:1.45;color:var(--ink);font-weight:600;}
 .o-pkg input:checked ~ .pbody .mark{border-color:var(--teal-ink);background:var(--teal-ink);}
 .o-pkg input:checked ~ .pbody .mark::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff;}
 .o-pkg:has(input:checked){border-color:var(--teal-ink);}
-
-/* :focus-within tänds även av ett musklick, så varje valt kort fick en teal
-   ring utanför sin egen kant: två kanter i stället för en. :has(:focus-visible)
-   tänds bara när någon tabbar dit, vilket är vad en fokusring är till för. */
 .o-pkg:has(:focus-visible){outline:2px solid var(--teal-ink);outline-offset:2px;}
-
-/* jämförelse */
 .o-cmp{width:100%;border-collapse:collapse;font-size:15px;}
 .o-cmp th,.o-cmp td{padding:var(--s2) var(--s1);text-align:center;border-bottom:1px solid var(--line);}
+@container (max-width: 400px){
+  .o-cmp th,.o-cmp td{padding-inline:var(--s0);}
+  .o-cmp thead th{font-size:11px;}
+}
 .o-cmp th:first-child,.o-cmp td:first-child{text-align:left;color:var(--faint);width:30%;}
 .o-cmp thead th{font-size:13px;font-weight:700;color:var(--ink);padding-bottom:var(--s3);}
 .o-cmp tbody tr:last-child td{border-bottom:0;font-weight:700;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums;}
-/* Tabellen hade teal på varje unik cell, så hela rutan skrek. Nu bär grått
-   allt vanligt och svart bär det som skiljer paketen åt. En färg mindre. */
 .o-cmp tbody td{color:var(--muted);font-weight:300;}
 .o-cmp .yes{color:var(--ink);font-weight:700;}
 .o-cmp .no{color:var(--muted);font-weight:300;}
-
-/* val, radio och kryss */
 .o-opts{display:flex;flex-direction:column;gap:var(--rytm-block);}
-
-/* före och efter: ett reglage som klipper den ena bilden */
-/* FORE-OCH-EFTER-RAMEN. <figure> arver webblasarens egen margin: 1em 40px,
-   och 80 px i sidled gor reglaget smalare an kortet det ligger i.
-
-   UPPMATT 25 OKTOBER, EFTER MIN EGEN ANDRING SAMMA DAG: reglaget var 229 px
-   i ett 309 px kort vid 375 och 570 i 650 vid 1180, pa service och batteri.
-   Laddboxen var hel, for den hade en egen .o-feblock-regel i sin stil.css.
-   Nar markupen flyttade till gemensamt/bitar.py:elcentral_fore_efter() foljde
-   CSS:en inte med, sa de tva mallar som FICK blocket den dagen fick det
-   trasigt. En delad markup utan sin delade CSS ar en halv flytt.
-
-   Regeln bor har och inte i en mall: blocket renderas nu av en funktion som
-   fyra mallar anropar. */
 .offer .o-feblock{margin:0;display:flex;flex-direction:column;}
-
 .o-fe{position:relative;border-radius:var(--r2);overflow:hidden;}
 .o-febild{position:relative;aspect-ratio:4/3;background:var(--bg);}
 .o-febild img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
@@ -2009,19 +788,14 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 @container (min-width: 1024px){
   .o-prodtop .o-prodimg{width:150px;}}
 @media print{
-  /* VALET måste synas. Bakgrundsfärg skrivs inte ut, en form gör det. */
   .offer input:checked ~ .mark::before,
   .offer input:checked ~ .pbody .mark::before{
     content:"";position:absolute;inset:3px;border-radius:50%;
     border:3px solid var(--ink);box-sizing:border-box;}
   .offer .o-pkg:has(input:checked){outline:2px solid var(--ink);}
-  /* ingenting ska brytas mitt itu */
   .offer .o-pkg,.offer .o-rad,.offer .o-opt,.offer .o-tjanst,.offer .o-sum{break-inside:avoid;}}
 .offer .o-reasons{display:flex;flex-direction:column;}
 .offer .o-reasons label{display:flex;align-items:center;gap:var(--s3);font-size:15px;padding:var(--s2) 0;cursor:pointer;min-height:44px;}
-/* accent-color låter operativsystemet rita radion, och macOS ritar en mörk
-   ring runt den fyllda punkten. Vi ritar den själva i stället, som alla andra
-   markörer på sidan. */
 .offer .o-reasons input{appearance:none;-webkit-appearance:none;margin:0;flex:none;
   width:var(--z3);height:var(--z3);border-radius:50%;border:1.5px solid var(--kant);
   background:#fff;cursor:pointer;display:grid;place-items:center;}
@@ -2029,132 +803,26 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-reasons input:checked::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--teal-ink);}
 .offer .o-reasons input:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
 .offer .o-optdesc:empty{display:none;}
-/* REMSAN, DELAD. Lag i offerter/laddbox/stil.css, och darfor ritades
-   bitar.tjanstekort()s remsa som naken text over kortkanten pa de fyra
-   andra mallarna. Elcentralsbygget sa [GAP] och hoppade remsan helt, med
-   skalet utskrivet i loggen, vilket var ratt gjort: en remsa utan regel ar
-   ett designfel, inte ett tomrum. Nu bor regeln dar korten fods. */
-/* Remsan satt ovanpå hjältebilden. Bilden är borta, så remsan tar sin egen
-   rad överst i kortet, som AG1:s BEST VALUE. */
 .o-pkg .ribbon{display:flex;align-items:center;gap:var(--s2);background:var(--teal-ink);color:#fff;
   padding:var(--s2) var(--s5);font-size:13px;font-weight:600;letter-spacing:.01em;line-height:1.4;}
 .o-pkg .ribbon svg{width:14px;height:14px;flex:none;color:#fff;}
-/* TVÅ DOMAR PÅ TRE KORT TAR UT VARANDRA. "Vår rekommendation" och "Bäst
-   värde" sa båda välj mig, i samma teal, och då säger ingen av dem något.
-   En remsa är en dom och bär husets teal. Den andra är ett FAKTUM och bär
-   ikonspråkets blå: Premium bär 22 kW, den högsta laddeffekt sidan säljer,
-   och är det enda paketet som gör det. Kontrollerat i bygget. Ett faktum
-   säljer det dyra paketet bättre än ett andra beröm.
-   Remsan hette "Allt ingår" till 19 okt, då ägaren döpte om den till
-   "Maximal prestanda". Bocken följde med namnet: en bock betyder ingår, och
-   under de nya orden hade den sagt fel sak. Blixten är husets egen geometri
-   och betyder effekt. */
 .o-pkg .ribbon.fakta{background:var(--steg-bla);color:var(--ink);}
 .o-pkg .ribbon.fakta svg{color:var(--ikonglyf);}
-
-/* TJANSTEKORTETS BILDRUTA, DELAD. Matten ar raknade ur duken och valjs
-   med :has() pa de kanoniska gruppnamnen, sa de galler varje mall som
-   fodar ett kort ur bitar.tjanstekort(). De lag i laddboxens egen
-   stil.css och nadde darfor en av fem sidor. */
-/* BILDRUTAN HAR EN HOJD, INTE EN MIN-HEIGHT.
-   Systemet satter min-height:160 och lamnar bilden fri upp till 180. Da vaxer
-   rutan nar bilden landar, och tre kort i rad hoppar olika mycket. En hojd
-   reserverar plats fore laddningen, och eftersom tjanstekort() inte satter
-   width/height pa bilden ar det har det enda stallet som kan gora det.
-   Hojden ar bildens egen plus rutans 2 x 16 px padding, per sektion:
-     elcentral  Hager-bilderna ar 300 x 790, alltsa portratt. Vid 200 px hojd
-                renderas de 76 px breda, mot 72 x 168 i den gamla radformen.
-                Alla tre delar samma duk, sa storleksordningen ar sann.
-     batteri    420 x 420, kvadrat. 180 px ger 180 x 180.
-   :has() och inte en klass: tjanstekort() ager sectionens klassattribut, och
-   en delad funktion ska inte bara fem mallars varianter. */
-/* RUTAN AR KORTETS BREDD, BILDEN RYMS INUTI. Forsta versionen satte rutans
-   BREDD till bildens egen renderade bredd, vilket gav en 100 px smal spalt i
-   ett 324 px kort: 31 procent, mot nordstjarnans egna paketkort som ligger pa
-   86. Agaren sag det direkt och kallade det "extremt fula". Reservationen av
-   HOJDEN var ratt och star kvar; det var bredden som var fel storhet att
-   binda. Ett korsforsaljningskort ska se ut som ett eget paketkort, for det
-   ar samma sak: ett paket med en bild, ett namn och ett pris. */
 .offer .o-tjanst .o-pkg .pbild{min-height:0;width:100%;
   height:var(--tjbild,212px);}
 .offer .o-tjanst .o-pkg .pbild img{max-height:100%;max-width:100%;}
-/* BÅDA MÅTTEN ÄR RÄKNADE UR DUKEN, inte valda.
-   Rutan bär 2 x 16 px padding i höjd och 2 x 12 i bredd (--s4 / --s3), så
-   innermåttet är rutan minus det.
-     elcentral  duk 300 x 790. Höjd 232 - 32 = 200 innerhöjd, och
-                200 x 300/790 = 75,9 px bred. Ruta 76 + 24 = 100.
-     batteri    duk 420 x 420. Höjd 212 - 32 = 180, kvadrat, alltså 180 bred.
-                Ruta 180 + 24 = 204.
-   Första versionen satte bara höjden och lät bredden bli width:max-content.
-   Det gav rätt mått EFTER att bilden landat, men före det har en <img> utan
-   width-attribut ingen egen bredd, så rutan var 24 px bred och växte till 100
-   när bilden kom. tjanstekort() sätter inga width/height på bilden, och det är
-   delat av fem mallar, så reservationen måste ligga här. */
 .offer .o-tjanst:has(input[name="elcentralpkg"]){--tjbild:232px;}
 .offer .o-tjanst:has(input[name="batteripkg"]){--tjbild:212px;}
-
-/* TJANSTEGRUPPEN OCH VAGEN TILLBAKA, DELADE. En radiogrupp gar inte att
-   avmarkera med musen, sa varje mall med korsforsaljningskort behover
-   knappen. Den lag i batterimallens egen stil.css. */
 .offer .o-tjanstgrupp{display:flex;flex-direction:column;gap:var(--rytm-block);}
-
-/* --- VAGEN TILLBAKA UR ETT PAKETKORT -----------------------------------------
-   Tre radioknappar gar att valja mellan men inte att avmarkera med musen, sa
-   utan den har knappen kan kunden lagga till en laddbox och aldrig ta bort
-   den igen. En textknapp och inte en primarknapp: att ta bort nagot ur sin
-   egen offert ska inte konkurrera med att valja. Traffytan ar 44 px via
-   min-height och inte via en storre skrift, och knappen ar hidden tills nagot
-   ar valt, sa den tar ingen plats och ingen gap nar den inte behovs. */
 .offer .o-rensa__btn{align-self:flex-start;font:inherit;font-size:13px;font-weight:600;
   color:var(--teal-ink);background:none;border:0;cursor:pointer;
   min-height:var(--z5);padding:0 var(--s2);margin-left:calc(var(--s2) * -1);
   border-radius:var(--r1);text-align:left;
   text-decoration:underline;text-underline-offset:3px;}
-
-/* PRISBLOCKET UTAN RAKNERADER, DELAT. Bade .o-calc och .o-calcfinal ritar
-   en linje. Med tva rakerader emellan laser de som en tabells kanter;
-   utan dem blir det tva linjer 21 px isar med ingenting mellan, alltsa
-   agarens "dubbelrader". Galler varje mall vars pris inte raknas fram. */
 .offer .o-calc:not(:has(.o-calcrow)) .o-calcfinal{border-top:0;padding-top:0;margin-top:0;}
-/* INTRESSERADENS BILD STAR FRITT, utan platta och utan kant. Originalets
-   form, och agaren 24 oktober om dagens: "Bilderna ar inte centrerade och
-   ser bedrovliga ut." En rad som ar en INTRESSEANMALAN och inte ett kop bar
-   produkten sjalv, inte en inramad miniatyr. Regeln lag i elcentralens egen
-   stil.css och nadde darfor en av de tre mallar som visar batteriraderna.
-
-   DET HAR AR UNDANTAGET fran "PRODUKTBILDEN INNANFOR BOXEN" hogre upp i
-   filen (agaren 30 oktober). Raden vinner pa specificitet, (0,4,1) mot
-   (0,3,0), och det ar med flit: tva agarbesked om tva olika sorters rad,
-   och det senare gallde den kopbara. Rivs den har raden far batteriraderna
-   en ruta de uttryckligen blivit av med. */
 .offer .o-rad:has(input[data-intresse]) .o-radbild{background:transparent;border:0;padding:0;}
-
-/* PRODUKTBRICKORNA, DELADE. Lag i laddboxens egen stil.css, vilket gjorde att
-   ett korsforsaljningskort pa en annan mall inte kunde visa vad som ingar i
-   ett paket utan att kopiera reglerna dit. Nu bor de i systemet, for alla fem
-   mallarna visar samma sorts kort. */
-/* Produktbrickorna sist i kortet, som AG1. Tre lika stora rutor i varje paket,
-   så en bricka i Bas är exakt lika stor som en i Premium. */
 .o-ptiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s3);}
-/* På desktop blev en bricka 203 px bred, vilket är en produktbild och inte en
-   miniatyr längre. AG1 håller sina runt 130. Taket gäller bara från 520. */
-/* TREBRICKSRADEN HANGDE VANSTER. Fran 520 px blir spalterna 140 px fasta i
-   stallet for 1fr, och utan justify-content klumpar de ihop sig till vanster.
-   UPPMATT 25 OKTOBER vid 1180: 444 px black i en 634 px rad, 190 px dott till
-   hoger, medan fyrbricksraden pa raden under har justify-content:center och
-   lamnar 19 px. Tva varianter av samma komponent, tva svar. Vid 375 fyller
-   bada, sa regeln syns bara fran 520 och mobilen ror sig inte. */
 @container (min-width: 520px){ .o-ptiles{grid-template-columns:repeat(3,minmax(0,140px));justify-content:center;}}
-/* Premium bär fyra delar. Fyra i ett rutnät med tre spalter blir tre plus en
-   ensam, och fyra spalter ger 64 px brickor vid 375 där etiketterna bryter.
-   Två gånger två vid 375, fyra i bredd från 520 där de ryms.
-   Spåret är uträknat som en tredjedel, inte som en halva: då är en bricka i
-   Premium exakt lika bred som en i Plus, och rutnätet blir två tredjedelar
-   brett i stället för att fylla kortet och börja konkurrera med gruppbilden. */
-/* Fyra brickor i två rader bildar ett block på två tredjedelars bredd. Till
-   vänster i kortet läste det som en ofärdig rad; centrerat läser det som ett
-   block. Bas har en enda bricka och står kvar till vänster, för där finns
-   ingen rad att centrera. */
 .o-ptiles--4{grid-template-columns:repeat(2,minmax(0,calc((100% - var(--s3) * 2) / 3)));justify-content:center;}
 @container (min-width: 520px){ .o-ptiles--4{grid-template-columns:repeat(4,minmax(0,140px));}}
 .o-ptile{margin:0;display:flex;flex-direction:column;gap:var(--s2);min-width:0;}
@@ -2162,67 +830,21 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   background:var(--bg);border-radius:var(--r1);padding:var(--s3);}
 .o-ptile figcaption{font-size:11px;line-height:1.35;color:var(--muted);text-align:center;}
 .o-ptile figcaption b{display:block;font-weight:600;color:var(--ink);}
-
 .offer .o-tjanst{display:flex;flex-direction:column;gap:var(--rytm-block);}
 .offer .o-tjansttitel{display:flex;align-items:center;gap:var(--s3);font-size:17px;font-weight:600;color:var(--ink);}
 .offer .o-tjansttitel .o-stepnr{flex:none;}
-/* Luften hör till ETIKETTRADEN, inte till övergången hårdvara-jobb.
-   Den gamla regeln, li.prod + li:not(.prod), delade listan efter första
-   produktraden. I Bas-kortet, där bara en av fyra platser är fylld, lade den
-   24 px mitt i en lista med fyra likadana rader. Och i folden Se allt som
-   ingår delade den en platt kvittolista där allt ingår lika mycket, alltså en
-   skillnad utan skillnad. Uppmätt: fold 23 px efter produktraden, Bas 24 px
-   efter rad ett. Nu 8 överallt, och 24 bara före raden om grundinstallationen. */
 .o-ingar li.rubrik{margin-top:var(--s4);}
 .o-ingar li.prod b+span::before,.o-ingar li.utan b+span::before{content:", ";}
 .o-radpris.ingarpris{font-size:13px;font-weight:600;color:var(--teal-ink);}
-
-/* ===========================================================================
-   PUNKTLISTANS TRE VARIANTER. Bara granskningsramen växlar; offert.html visar
-   lv1. Mätt på tre tal: rader per kort, upprepningar, och rader till första
-   skillnaden mot grannpaketet.
-     lv1 Parallell  samma fyra platser i alla tre kort, det som skiljer är
-                    VÄRDET på raden. Lika långa listor går att jämföra rad för
-                    rad, och en tom plats är den starkaste anledningen att
-                    välja nästa paket. Tre av fyra uppmätta prissidor håller
-                    listorna lika långa (Slack 10/10/10/10, Figma 3/3/3/3).
-     lv2 Delta      Notions mönster, "Allt i Bas, och dessutom". Kortast, men
-                    toppkortet blir tunnast, vilket är fel kort att göra tunt.
-     lv3 Som i dag  allt i varje kort: 24 rader varav 12 upprepningar.
-   =========================================================================== */
 .offer .lv{display:none;}
 .offer .lv1{display:flex;}
-/* Den tomma platsen säger VAD den är och att den går att få: "tillval".
-   En rad med bara ett streck och ett ord går att läsa som något som ingår
-   med en annan markör. Uppmätt risk, inte antagen: en granskare läste
-   Bas-kortets tre tomma rader som tre saker som ingår. */
 .offer .o-ingar li.utan{color:var(--faint);}
 .offer .o-ingar li.utan b{font-weight:400;color:var(--faint);}
-/* ORDET SOM SAGER VAD KUNDEN INTE FAR VAR SIDANS SVAGASTE TEXT.
-   "tillval" stod i var(--kant), alltsa kortens KANTFARG, #9aa5c0, som ger
-   2,47 : 1 mot vitt. WCAG AA kraver 4,5 for text i den har storleken, och
-   det har var det enda stallet i hela systemet dar --kant anvandes som
-   textfarg. --faint ger 4,83 och ar redan radens egen farg.
-
-   Det ar inte bara ett tillganglighetsfel. Candour-grinden sager att vi
-   aldrig gommer det kunden inte far, och har var exklusionen tonad ljusare
-   an allt annat pa sidan. Villaagaren som laser offerten for att leta efter
-   haken ska kunna lasa just det ordet. Uppmatt 25 oktober. */
 .offer .o-ingar li.utan b + span{color:var(--faint);}
-/* Etikettraden: en mening om det som är lika, utan markör att läsa som ett val. */
 .offer .o-ingar li.rubrik{display:block;color:var(--muted);font-size:13px;line-height:1.45;}
 .offer .o-ingar li.prod + li.rubrik,.offer .o-ingar li.utan + li.rubrik{margin-top:var(--s4);}
-
-/* --- CHIPS-FALTET FOR GRANNINBJUDNINGAR ---------------------------------
-   Agaren: "om jag lagger till en mejladress och sedan trycker Enter, sparas
-   den sa att jag kan skicka flera mejl och inte behover skicka ett i taget.
-   Det ar en sadan UX-detalj som finns pa Keyword Planner."
-   Forut kravdes kommatecken mellan adresser, och "folk fattar inte det". */
 .o-chips{
   display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2);
-  /* 2 px lodrat, inte 8: inputen inuti ar sjalv 44 (golvet, matt av
-     audit.js pa inputen och inte pa ramen), sa 8 + 44 + 8 gav en ram pa
-     60 dar husets falt ar 48. */
   min-height:var(--z6);padding:var(--s0) var(--s2);
   border:1.5px solid var(--kant);border-radius:var(--r1);background:#fff;
   cursor:text;
@@ -2241,8 +863,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   max-width:100%;
 }
 .o-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-/* Krysset ar 24 px synligt men har 44 px traffyta via ::before, for
-   traffytan ar inte rutan. Att blasa upp rutan hade brutit skalan. */
 .o-chip button{
   position:relative;flex:none;width:24px;height:24px;padding:0;
   border:0;border-radius:50%;background:transparent;color:inherit;
@@ -2254,9 +874,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .o-chip button svg{width:12px;height:12px;pointer-events:none;}
 @media (prefers-reduced-motion:no-preference){ .o-chip{animation:chipIn .16s ease-out;} }
 @keyframes chipIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
-
-/* Kvittoraden i acceptskarmen. Ett tal, inte ett kort: skarmen ar en
-   bekraftelse och inte en andra offert. */
 #skarmAccept .oa__kvitto{display:flex;flex-direction:column;gap:4px;margin:14px auto 0;
   max-width:440px;padding:12px 16px;background:#fff;border:1px solid #d5d9e4;border-radius:10px;}
 #skarmAccept .oa__kvitto-rad{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
@@ -2264,269 +881,42 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 #skarmAccept .oa__kvitto-rad b{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;}
 #skarmAccept .oa__kvitto-not{font-size:12px;font-weight:400;color:#5b6480;}
 @media print{ #skarmAccept .oa__kvitto{break-inside:avoid;} }
-
-/* NOSCRIPT RACKER INTE. Det slar till nar JavaScript ar AVSTANGT, inte nar
-   skriptet inte laddar: en annonsblockerare, ett tappat paket, en gammal
-   cache. Uppmatt i det laget: Plus valt och Zaptec Chill ikryssad, och alla
-   tre prisytorna visade 4 450 kr, alltsa Baspriset, med kundens egna bockar
-   bredvid. Samma klass av fel som en gang visade ett pris 5 050 kr for lagt.
-   Prisytorna visas darfor forst nar skriptet SJALVT har sagt att det kor. */
-/* Bannern galler bada fallen nu, sa den visas aven nar skriptet inte kom
-   igang. Skriptet satter js-redo synkront sist i body, alltsa fore forsta
-   malningen, sa den blinkar inte forbi i det normala fallet. */
-.offer:not(.js-redo) .o-utanjs{display:block;}
+html:not(.js-pa) .offer .o-utanjs,
+.offer.js-trasig .o-utanjs{display:block;}
 .offer:not(.js-redo) .o-calc,
 .offer:not(.js-redo) .o-sum,
 .offer:not(.js-redo) .o-bar{display:none;}
-
-/* --- PRISET STAR MITT I TILLAGGSRADEN (agaren 26 oktober) --------------------
-   AGARENS ORD, ORDAGRANT: "Dar tycker jag att vi har gjort det javligt daligt i
-   form av tillaggsrutornas pris pa desktop. Ser vi typ elcentral sa har vi en
-   viss design pa liksom priset. Det har plus 30 000 kronor ar centrerat i
-   rutan. Det ar det inte pa o-drift. Och sen har vi mer lagring dar vi har en
-   dropdown. Den, det priset, fjortontusen sextiotva, ar inte heller centrerat."
-
-   ORSAKEN ar en rad i gemensamt/system.css, och den traffar fler mallar an
-   batteriet. Systemet ger priset `grid-row:1 / -1` inne i .o-radtext. Pa ett
-   IMPLICIT rutnat resolverar -1 till den sista EXPLICITA linjen, alltsa linje
-   1, sa spannet faller ihop till rad ETT i stallet for att tacka alla rader.
-   Bar raden ingen spec finns bara en rad och felet syns inte. Bar den en spec
-   finns tva rader, och priset rider upp med namnet.
-
-   UPPMATT 26 OKTOBER vid 1180 OCH 1440, prisets mitt minus radens mitt:
-     rad utan spec   (elcentral och batteri)                    -1,5 px
-     rad med spec    (batteriets O-drift, och elcentralens      -15,5 px
-                      SAJ, Eway och Dyness under Ovriga tjanster)
-     Mer lagring, vars spec bryter till tva rader               -25,5 px
-   .o-radtext:s radspar: elcentral "23.25px", batteriet "23.25px 20.1406px".
-   FLYTTAD TILL SYSTEMET 26 OKTOBER. Den lag forst i offerter/batteri/stil.css,
-   och agenten som skrev den sa sjalv att rattningen horde hemma har. Uppmatt
-   samma dag efter flytten, prisets mitt minus radens mitt vid 1180:
-     elcentral SAJ/Eway/Dyness   -14,1  ->  0
-     service   SAJ/Eway/Dyness   -14,1  ->  0
-     batteri   alla rader            0  ->  0  (ororda)
-   TVA KOPIOR AV SAMMA SANNING DRIVER ALLTID ISAR. Regeln ar generisk,
-   alltsa hor den i systemet, och batteriets kopia ar borttagen.
-
-   EN REGEL, INTE EN PUFF PER RAD. Tva explicita radspar gor linje -1 till
-   linje 3, och da spanner systemets EGEN grid-row:1/-1 bada raderna, precis
-   som den var skriven for att gora. Radgapet nollas och flyttas till specens
-   margin-top, sa att en rad UTAN spec inte vaxer 8 px av ett tomt spar.
-   :has(> .o-radspec) gor att regeln bara ror de rader som bar felet.
-
-   UPPMATT EFTER, alla tre modellerna, bada bredderna, varje rad: -1,5 px,
-   alltsa exakt det varde de rader har som agaren pekar ut som ratt. Prisets
-   hogerkant (18 / 100 / 249) och rullgardinens lage (-1) ar oforandrade, och
-   raderna utan spec ar oforandrade i allt.
-
-   TVA EXPLICITA SPAR AR ETT TAL OM MARKUPEN och far inte skrivas av: oraklet
-   tillaggsradens_pris i offert.py raknar barnen i varje .o-radtext i den
-   renderade sidan och stoppar bygget om nagon rad bar fler an tva utover
-   priset. Brytpunkten 712 ar systemets egen for radens desktopform.
-
-   LADDBOXENS RADER BAR SAMMA FEL, MEN DET SAGS INTE AV `.o-radspec`.
-   Agarbeslut 6 den 26 oktober: "Ja, ratta den."
-
-   Raderna Laddkabel 11 kW, Laddkabel 22 kW, Perific lastbalansering,
-   Frontkapa och RFID-taggar bar ingen spec utan en `<select class="o-variant">`
-   i textspalten. Alltsa samma implicita rutnat, samma hopfallna spann, och
-   ett STORRE utslag: rullgardinen ar 48 px hog dar specen ar 20.
-
-   UPPMATT 26 OKTOBER, prisets mitt minus radens mitt, FORE, pa alla sju
-   laddboxmodellerna vid bade 1180 och 1440:
-     rad utan spec och utan rullgardin          -1,5 px
-     rad med spec (Zaptec Go 2, Sense, Tibber)  -1,5 px   (rattad ovan)
-     rad med rullgardin i textspalten          -29,5 px   <- felet
-   Elcentral, service och batteri har ingen rad av den sorten och ror sig inte.
-
-   EN REGEL FOR KLASSEN, INTE EN PER BARNTYP. Klassen ar inte "spec" och inte
-   "rullgardin", den ar "textspalt med nagot MELLAN namnet och priset". Det ar
-   precis det som gor rutnatet tvaradigt, och alltsa precis det `-1` maste
-   kunna rakna till. `:not(.o-radnamn):not(.o-radpris)` sager den meningen.
-   Raknat over alla tretton byggda sidor den 26 oktober finns tre former av
-   textspalt och inga fler: namn+pris (132 rader), namn+spec+pris (108) och
-   namn+rullgardin+pris (52). En fjarde barntyp i morgon far regeln gratis.
-
-   `.o-radspec` star kvar namnd sist i marginalregeln. Den ar redundant mot
-   raden ovanfor och det ar med flit: batteriets orakel tillaggsradens_pris
-   letar efter precis strangen `.o-radspec{margin-top:var(--s`, och den filen
-   ags inte av den har andringen. Ett orakel som vaktar VAR en sanning star
-   i stallet for VAD den gor har stoppat rattningen fjorton ganger har. */
 @container (min-width: 712px){
   .offer .o-rader .o-rad > .o-radtext:has(> :not(.o-radnamn):not(.o-radpris)){grid-template-rows:auto auto;row-gap:0;}
   .offer .o-rader .o-rad > .o-radtext > :not(.o-radnamn):not(.o-radpris),
   .offer .o-rader .o-rad > .o-radtext > .o-radspec{margin-top:var(--s2);}
 }
-
-/* --- ARTIKELRADERNA --------------------------------------------------------
-   Paketkortens punktlista, .o-ingar, i summeringskortet. Samma bock ur
-   bitar.py, samma ', ' mellan namn och spec, samma rytm. Listan ar i 13 px i
-   korten, dar den ar en detalj under ett pris. Har AR listan offerten, och
-   13 ar finstilt: brodtext ar 15 eller 17. Raden far 15, och bocken flyttas
-   fran 2 till 4 px sa den star mitt for den hogre raden. */
-/* INGA BILDER BETYDER ATT TYPOGRAFIN BAR ALLT.
-   Uppmatt 23 okt pa den forsta versionen: sex av elva textroller pa sidan lag
-   pa 15 px. Artikelnamnet, specen, priset, "Att betala" och
-   villkorsrubriken, alltsa allt utom de tva 30-talen och de tva 11-talen.
-   Enda kontrasten var vikt 600 mot 300. Pa en sida med noll bilder ar det
-   hela hierarkin, och da finns ingen.
-
-   Skalan har ar fyra steg ur husets sju, och varje steg har ett jobb:
-     30  totalen, det kunden ska betala
-     17  artikelnamnet och dess pris, alltsa raden kunden accepterar
-     13  specen under namnet
-     11  etiketten och finstilten
-   17 ar brodtext i huset. 13 ar finstilt och ska inte bara ett artikelnamn,
-   vilket var precis vad det gjorde.
-
-   RADHOJDERNA AR PIXLAR, INTE FAKTORER. 15 x 1,45 ger 21,75 px, sa varje
-   radgrans landade mellan tva pixlar och de uppmatta luckorna blev 12, 12
-   och 11 dar alla tre ar 12. Heltal pa 8-rutnatet i stallet: 24 / 20 / 16. */
 .offer .o-sum .o-art{gap:var(--s3);}
 .offer .o-sum .o-art li{font-size:17px;line-height:24px;align-items:flex-start;}
-/* Bocken ar 16 px (--z1) och ska sta mitt for den FORSTA raden, inte mitt for
-   hela blocket: (24 - 16) / 2 = 4. */
 .offer .o-sum .o-art .o-bock{margin-top:var(--s1);}
 .offer .o-art__text{flex:1;min-width:0;}
-/* BARA NAMNET. Agarbesked D2 24 okt: "Forklaringarna under kan du ta bort.
-   Vi vill bara ha punkterna." Specen renderas inte langre, och de tva reglerna
-   som gav den egen rad (b + span, och nollningen av systemets ", " framfor
-   den) ar borta med den. En regel for ett element som inte finns laser som att
-   elementet finns, och nasta person som vill veta hur raden ser ut tror da att
-   den har tva rader.
-   Antalet, "(x 2)", star INNE i <b> av samma skal: lades det i ett eget span
-   hade systemets regel .o-ingar li.prod b+span::before skjutit in ett
-   kommatecken framfor det, alltsa precis den form specen hade. */
-/* BARA PRISET AR FETMARKERAT. Agaren 25 okt, om mobilen: "Alla rubriker ar
-   fetmarkerade. Det tycker jag att vi kan ta bort. Bara priset behover vara
-   fetmarkerat." Systemet satter 600 pa TVA stallen, .o-ingar li.prod och
-   .o-ingar li.prod b, sa en overskrivning av bara den ena lamnar kvar den
-   andra: <b> arver li:ns 600 om b-regeln sanks, och li:ns egen text (antalet)
-   star kvar i 600 om bara b sanks. Bada, darfor, var och en i sin egen regel
-   sa ingen selektor star tva ganger i filen.
-   400 och inte 300: 300 ar husets brodtextvikt och ar satt for prosa, och
-   artikelnamnet ar ett namn pa en vara i en priskolumn. Kontrasten mot priset
-   ar 400 mot 700, alltsa tre steg, och det ar den enda vikt-kontrasten kvar
-   i kortet. */
 .offer .o-sum .o-art li.prod{font-weight:400;}
 .offer .o-sum .o-art li.prod b{display:block;font-weight:400;color:var(--ink);}
-/* PRISKOLUMNEN SKA VARA EN KOLUMN. Priset lag i 15/600 var(--ink), alltsa
-   exakt samma yta som namnet bredvid, sa fyra priser nerfor kortet gick inte
-   att lasa som en kolumn. 17/700 och tabulara siffror ur .kr, hogerstallt mot
-   kortets kant: uppmatt hogerkant 334 px vid 375 och 889 vid 1180, alltsa
-   samma for alla fyra raderna. */
 .offer .o-art__pris{flex:none;font-size:17px;line-height:24px;font-weight:700;color:var(--ink);}
-/* Pottmarkningen finns bara nar raderna hor till olika potter. Da sager
-   raden under totalen 'efter gron teknik och ROT', och den har sager vilken
-   som galler var. En pott: ingen markning, raden under totalen racker. */
 .offer .o-art__pott{display:block;font-size:11px;line-height:16px;letter-spacing:.02em;font-weight:400;color:var(--faint);margin-top:var(--s0);}
-
-/* --- INGEN PRISBAR -----------------------------------------------------------
-   Sidan ar under tva skarmar hog pa en telefon och totalen star i det enda
-   kortet. En klibbande bar hade lagt sig over kortet den pekar pa. .o-main
-   reserverar barens hojd plus 24 i botten; utan bar ska bara de 24 vara kvar.
-   Pa desktop satter systemet redan en egen padding utan bar. */
 @container (max-width: 1023px){
   .offer .o-main{padding-bottom:var(--s5);}
 }
-
-/* --- EN SPALT PA VARJE BREDD -----------------------------------------------
-   Systemets desktopgrid (fran 1024) ar ritat for ett langt kopflode med
-   summeringen klibbande till hoger, och raderna 3 och 4 ar reserverade for
-   tjanstefoldarna och tillitsbandet. Tillagget har inget flode: en halsning,
-   ett kort och en villkorsfold. Uppmatt vid 1280 med gridet: ingressen slutar
-   pa 224 och Villkor borjar pa 443, alltsa 219 px tomrum, och foten ligger
-   314 px under Villkor, for tva tomma rader bar var sin sektionslucka. Kortet
-   stod till hoger om tre rader text och lastes som en annan sak. Samma spalt
-   som pa mobilen, 680 bred, uppifran och ner. Toppraden foljer med: 1180 bred
-   over ett innehall pa 680 ar samma fel som systemet en gang rattade.
-   FRAN 712 OCH INTE 1024, 26 oktober: systemets nya band 712 till 1023
-   (riktning C) later .o-main vaxa till 960, och tillagget sade nej till det
-   en gang redan vid husets desktopgrans. Ett kort och en villkorsfold i en
-   896 px spalt ar samma fel som i en 1180 px. Samma svar pa bada sidor om
-   1024: en spalt pa 680, uppifran och ner. Uppmatt med systembandet utan den
-   har raden: .o-main 834 och spalten 770 vid 834, och ingressen gick fran
-   79 till 72 tecken pa forsta raden eftersom --las foljde med. Taket pa
-   prosan behaller tillagget i bandet: 72 tecken ar inom 45 till 75 och 79
-   ar utanfor. Over 1024 gar den tillbaka till 79, och DET ar en sprickan
-   jag lamnar till agaren i stallet for att andra desktop pa eget bevag. */
 @container (min-width: 712px){
-  /* TOPPRADENS INNERKANT DELAR INNEHALLETS. Systemet ger .o-top 24 px
-     sidopadding och .o-main 16, en skillnad pa 8 som ingen ser nar baren ar
-     1180 bred over ett innehall pa 1116. Har ar bada 680, och da star
-     logotypen bredvid rubriken under den utan att dela kant med den:
-     uppmatt vid 1180 logotyp v=275 mot h1 v=266, och chipets hogerkant 905
-     mot rubrikens 914. Det var "menyn ser lite konstig ut". Samma 16 som
-     .o-main, sa sidan har tva lodrata linjer, inte fyra. */
   .offer .o-top{max-width:680px;padding-inline:var(--s4);}
-  /* ALIGN-ITEMS AR KRYSSAXELN, OCH I EN FLEXKOLUMN AR KRYSSAXELN BREDDEN.
-     Systemets desktopgrid satter align-items:start (system.css rad 487).
-     Raden nedan byter display till flex men arvde starten, och da krympte
-     VARJE barn till sitt innehall i stallet for att fylla spalten. Uppmatt
-     likadant vid 1180 och 1440, i en spalt som ar 648 bred:
-       .o-colA 648 | .o-colB 446 | .o-colC 101 | .o-fot 283
-     Kortet slutade alltsa 203 px fore rubriken ovanfor, Villkor blev en
-     101 px bred bricka, och fotens linje en 283 px stump mot elcentralens
-     1116. Det var agarens egen jamforelse: "kolla hur vi har skrivit var
-     footer ... och jamfor mellan elcentral och tillaggsofferten". Pa 375 ar
-     align-items normal, alltsa stretch, och dar var allt redan 343 brett.
-     Ett ord rattar alla fyra, och det ar hela skillnaden mot mobilen. */
   .offer .o-main{display:flex;flex-direction:column;align-items:stretch;max-width:680px;padding:var(--s6) var(--s4) var(--s7);}
-  /* OCH DARFOR INGEN HOGERPADDING PA FOTEN. Systemet skjuter in fottexten med
-     bredden pa hogerspalten plus dess lucka, sa den hamnar pa innehallets axel
-     i tvaspaltsgridet. Har finns ingen hogerspalt, sa den paddingen hade
-     flyttat texten 432 px at vanster i stallet. Raden hor ihop med raden
-     ovanfor: valjer mallen en spalt faller hela tvaspaltsjusteringen bort. */
   .offer .o-main > .o-fot{padding-inline-end:0;}
   .offer .o-colB{position:static;}
 }
-/* Foten: systemets +24 kompenserar tillitsbandets -24. Utan band blev
-   avstandet Villkor till fot 72 px vid 390, en lucka och en halv. 48, som
-   mellan tva kapitel. */
 .offer .o-fot{margin-top:0;}
-
 @media print{
-  /* vitt pa fargat blir osynligt utan bakgrundsgrafik */
   .offer .o-btn.primary{background:#fff !important;color:var(--ink) !important;border:1px solid var(--kant) !important;}
 }
-
-/* --- RYTMEN I KORTET ---------------------------------------------------------
-   Kortet ar tre grupper: vad tillagget ar, vad det kostar, och vad du svarar.
-   Systemets .o-sum ger varje barn 16 px, alltsa blockrytmen, sa alla fem
-   elementen lag lika langt fran varandra och grupperna fanns inte. Uppmatt
-   fore: 16 / 16 / 3 / 16.
-   Rytmen i huset ar sektion 48, grupp 24, block 16, rad 8, nara 12. Har:
-     etikett -> listan   12   rubrik till sitt eget innehall
-     listan  -> totalen  24   ny grupp
-     totalen -> potraden  4   finstilten hor TILL talet, inte efter det
-     potraden -> knappar 24   ny grupp
-   De tva negativa marginalerna ar rakenskap mot gapet, inte nudgning:
-   12 - 24 = -12 och 4 - 24 = -20. */
 .offer .o-sum{gap:var(--rytm-grupp);}
 .offer .o-sum > span:first-child{margin-bottom:calc(var(--rytm-nara) - var(--rytm-grupp));}
 .offer .o-sum #pottrad{margin-top:calc(var(--s1) - var(--rytm-grupp));color:var(--faint);}
-/* ATT BETALA star i samma grad som raderna ovanfor, sa kolumnen halls ihop
-   hela vagen ner till strecket. Talet ar och forblir 30. */
 .offer .o-sumtot span{font-size:17px;line-height:24px;}
 .offer .o-sumtot b{line-height:40px;}
-
-/* --- DE TVA SVAREN ----------------------------------------------------------
-   Agaren: kunden ska kunna acceptera ELLER avboja. Da ar bada forstahandsval.
-   Avbojet lag i 13 px, som ar husets finstiltsgrad: "13 ar finstilt och
-   smaetiketter, aldrig text nagon ska lasa". En knapp ar text nagon ska lasa,
-   och ett avboj i finstilt ar ett avboj vi gommer. 15, som systemets ghost.
-   Hierarkin finns kvar i form och vikt: 17/700 fylld mot 15/500 understruken.
-   Scopad till .o-sumact sa de delade accept- och avbojskarmarnas egna knappar
-   inte foljer med. */
 .offer .o-sumact .o-btn.link{font-size:15px;}
-
-/* --- INGRESSEN --------------------------------------------------------------
-   Den enda paragraf kunden laser for att forsta vad sidan ar. 15/300 ar
-   husets t-body, satt for sidor dar en bild och ett produktkort redan har
-   sagt vad det handlar om. Har finns ingen bild. 17/26 ar brodtext.
-   Moderraden under star kvar i 13: den ar en referens, inte en mening. */
 .offer .o-hero .t-body{font-size:17px;line-height:26px;}
-
-/* fristående fyller offerten sin behållare, i ramen är den ramens bredd */
 .offer{width:100%;}
-

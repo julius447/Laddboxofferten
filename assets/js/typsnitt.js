@@ -1,10 +1,7 @@
-/* Fyller typsnittsjämförelsen. Varje prov byggs med samma text och samma
-   storlekar som sidan faktiskt använder, så skillnaden är typsnittet och
-   inget annat. Mätvärdena räknas ut i webbläsaren, inte av mig. */
+
 (function () {
   var kort = document.querySelectorAll(".typ-kort");
   if (!kort.length) return;
-
   var ROLLER = [
     ["H1  hjälterubrik", 30, 700, "Hej Anders, här är din laddboxoffert"],
     ["H2  kapitelrubrik", 24, 700, "Var ska laddboxen sitta?"],
@@ -15,7 +12,6 @@
   var BROD = "Allt du behöver för att bestämma dig står på den här sidan. Ingenting är bindande förrän du accepterar, och priset ändras inte efteråt.";
   var SIFFROR = [["hjältepris", 30, 800, "4 490 kr"], ["baren", 20, 800, "34 109 kr"], ["radpris", 15, 600, "+1 849 kr"]];
   var VIKTER = [300, 400, 500, 600, 700, 800];
-
   function el(tag, klass, text) {
     var e = document.createElement(tag);
     if (klass) e.className = klass;
@@ -37,16 +33,13 @@
     r.appendChild(s);
     return r;
   }
-
   kort.forEach(function (k) {
     var font = k.getAttribute("data-font");
     k.style.fontFamily = '"' + font + '", system-ui, sans-serif';
     var prov = k.querySelector(".typ-prov");
-
     var a = block("Rubriker");
     ROLLER.forEach(function (r) { a.appendChild(rad(r[1] + "/" + r[2], r[3], r[1], r[2])); });
     prov.appendChild(a);
-
     var b = block("Brödtext");
     [[17, 300], [15, 300], [13, 300]].forEach(function (p) {
       var r = el("div", "typ-rad");
@@ -59,19 +52,13 @@
       b.appendChild(r);
     });
     prov.appendChild(b);
-
     var c = block("Siffror, tabulära");
     SIFFROR.forEach(function (s) { c.appendChild(rad(s[1] + "/" + s[2], s[3], s[1], s[2], "typ-siffra")); });
     c.appendChild(rad("24/700", "0123456789", 24, 700, "typ-siffra"));
     c.appendChild(rad("24/700", "0O 1lI 5S 8B", 24, 700, "typ-siffra"));
     prov.appendChild(c);
-
-    k._viktblock = prov;   /* vikterna ritas efter fonts.ready, se vikter() */
+    k._viktblock = prov;   
   });
-
-  /* Vikterna kan inte ritas förrän typsnitten är laddade. Innan dess faller
-     allt tillbaka på systemtypsnittet och varje vikt mäter lika brett, vilket
-     såg ut som att alla fyra saknade vikter. */
   function vikter() {
     var c = document.createElement("canvas").getContext("2d");
     kort.forEach(function (k) {
@@ -101,13 +88,10 @@
       prov.appendChild(dd);
     });
   }
-
-  /* ---- mätning ---- */
   function matt(font) {
     var p = el("div");
     p.style.cssText = "position:absolute;left:-9999px;top:0;visibility:hidden;font-family:\"" + font + "\",system-ui,sans-serif;";
     document.body.appendChild(p);
-
     function bredd(text, px, vikt) {
       var s = el("span", null, text);
       s.style.cssText = "font-size:" + px + "px;font-weight:" + vikt + ";white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-.02em;";
@@ -129,32 +113,27 @@
       s.style.cssText = "font-size:100px;font-weight:400;line-height:0;display:inline-block;";
       p.appendChild(s);
       var r = s.getBoundingClientRect();
-      /* x-höjden via canvas, mer exakt än rect */
       var c = document.createElement("canvas").getContext("2d");
       c.font = '400 100px "' + font + '", system-ui, sans-serif';
       var mx = c.measureText("x"), mH = c.measureText("H");
       p.removeChild(s);
       return (mx.actualBoundingBoxAscent / mH.actualBoundingBoxAscent) * 100;
     })();
-
     var ut = { xhojd: xh, pris: bredd("34 109 kr", 30, 800), styckehojd: hojd(BROD, 15) };
     document.body.removeChild(p);
     return ut;
   }
-
   function rita() {
     var fonter = [].map.call(kort, function (k) { return k.getAttribute("data-font"); });
     var data = fonter.map(matt);
     var tbody = document.querySelector(".typ-tabell tbody");
     tbody.innerHTML = "";
-
     var huvud = el("tr");
     huvud.appendChild(el("th", null, ""));
     fonter.forEach(function (f) { huvud.appendChild(el("th", null, f)); });
     var thead = document.createElement("thead");
     thead.appendChild(huvud);
     tbody.parentNode.insertBefore(thead, tbody);
-
     var RAD = [
       ["X-höjd, % av versalhöjd", function (d) { return d.xhojd; }, 1, "hogre"],
       ["Prisbredd vid 30/800, px", function (d) { return d.pris; }, 0, "lagre"],
@@ -172,7 +151,6 @@
       tbody.appendChild(tr);
     });
   }
-
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () { setTimeout(function () { vikter(); rita(); }, 120); });
   } else {

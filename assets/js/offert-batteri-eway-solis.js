@@ -1,9 +1,5 @@
 (function(){
   "use strict";
-  /* Samma form som bitar.kr(): hardspatie mellan tusental OCH fore kr, sa ett
-     belopp aldrig bryts mitt itu vid radslut (agarbeslut 24 okt A8).
-     toLocaleString ger olika avgransare i olika webblasare, och ett tal som
-     ser olika ut pa tva stallen laser som tva olika tal. */
   var kr=function(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g," ")+" kr"; };
   var $=function(i){ return document.getElementById(i); };
   var val=function(n){ var e=document.querySelector('input[name="'+n+'"]:checked'); return e?e.value:"0"; };
@@ -12,20 +8,11 @@
   var POTT=100000;
   var PERSONER=2;
   var GRANNRABATT=3000;
-  var CEN={"5850": "Byte av elcentral, liten central", "9750": "Byte av elcentral, medel central", "17250": "Byte av elcentral, stor central"};
+  var CEN={"5990": "Byte av elcentral, liten central", "9750": "Byte av elcentral, medel central", "17250": "Byte av elcentral, stor central"};
   var BOCK="<span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span>";
   var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
   var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Montering och installation, egna elektriker", "Anslutning till elcentral och dina solceller", "Upp till 10 meter kabel, frakt hem till dig", "För- och färdiganmälan, driftsättning, test", "Kontrollmätning, genomgång av appen, 10 års produktgaranti"]};
   var ST=MODELL.storlekar, BAS=ST[FORVAL];
-  /* GRON TEKNIK AR HALVA BRUTTOT, MEN HOGST POTTEN.
-     Modellfilen bar BRUTTO per storlek sedan 24 okt: det fysiska priset,
-     inklusive moms, fore avdrag. Potten ar 50 000 kr per person i hushallet
-     med gron teknik, och personantalet ar en parameter per offert
-     (innehall.json: personer, 2 som forval, agarsvar 38). Nettot harleds, och
-     da ar "priset i listan det kunden betalar" sant for varje personantal
-     (agarfeedback 24 okt A1). Samma rad som offert.py:s _netto, ord for ord,
-     och oraklet jamfor dem: tva definitioner av ett pris ar hur taket en gang
-     blev osynligt pa korten. */
   function netto(b){ return b - Math.min(Math.floor(b/2), POTT); }
   function kwh(v){ return String(v).replace(".",","); }
   function rader(){ return [].slice.call(document.querySelectorAll(".o-rad")); }
@@ -44,18 +31,6 @@
     var s=r.querySelector(".o-variant");
     return s ? n+", "+s.options[s.selectedIndex].text : n;
   }
-
-  /* ---- MER LAGRING. Agarfeedback 24 okt F4. ------------------------------
-     Lagringen ar inte langre en egen sektion utan en kryssrad med en
-     rullgardin, som laddboxens laddkabelrad. Varje alternativ bar data-steg:
-     hur manga rader UPP i prislistans trappa fran forvalet. Ar raden
-     ikryssad ar den EFFEKTIVA storleken ST[FORVAL+steg], och det ar DEN
-     storlekens brutto som gar in i avdraget, for det ar samma fysiska
-     produkt som en storre rad i prislistan. Radens eget value ar skillnaden
-     i vad kunden betalar mellan de tva storlekarna, potten inraknad, och det
-     ar det talet som star pa raden och i summeringen. Oraklet i offert.py
-     raknar varje alternativ ur modellfilen pa disk och stoppar bygget om
-     value eller texten avviker. */
   function lagringSteg(){
     var i=document.querySelector('input.add[data-grupp="lagring"]');
     if(!i || !i.checked) return 0;
@@ -63,23 +38,6 @@
     var o=s && s.options[s.selectedIndex];
     return o ? (+o.getAttribute("data-steg") || 0) : 0;
   }
-
-  /* HARDVARAN I HJALTEN: foljer den EFFEKTIVA storleken, alltsa det som
-     faktiskt installeras nar Mer lagring ar ikryssad.
-
-     TVA ANDRINGAR 29 OKTOBER, bada agarbeslut.
-     1. Funktionen returnerar BARA hardvaran. Jobbledet beror inte pa vald
-        storlek, star statiskt i markupen ur bygget (#incJobb) och rors aldrig
-        harifran. Darfor behover skriptet ingen $()-uppslagning for det, vilket
-        ocksa haller det generiska oraklet js_id nojt utan att nagot laggs i
-        villkorliga.
-     2. MED BOCK IGEN, 30 OKTOBER. Agaren skickade servicemallens lista som
-        forlaga: bla rund bock, en rad per post. Bocken togs bort 29 oktober
-        for att spara 24 px, och det var mitt designval, inte hans beslut.
-     MARKUPEN HAR MASTE VARA ORD FOR ORD DEN SOM offert.py:_ingar_hardvara
-     bygger. Bygget renderar listan statiskt sa att den finns utan JavaScript,
-     och den har raden skriver om den: drar de tva isar byter raden utseende i
-     det ogonblick skriptet kor. */
   function ingarLista(s){
     var mod = s.moduler ? ", "+s.moduler+(s.moduler===1?" modul à ":" moduler à ")+kwh(MODELL.modul_kwh)+" kWh" : "";
     function fyll(t){
@@ -91,30 +49,11 @@
       return '<li class="prod">'+BOCK+'<span><b>'+fyll(h.namn)+'</b>'+(spec?'<span>'+spec+'</span>':'')+'</span></li>';
     }).join("");
   }
-
   function render(){
-    /* Skriptet kor. Nu far prisytorna visas, se js-redo i system.css. */
     var _o=document.querySelector('.offer'); if(_o) _o.classList.add('js-redo');
-
     var steg=lagringSteg(), s=ST[FORVAL+steg];
-
-    /* TVA POTTER, HALLNA ISAR. Batteriet, o-driften och laddboxen ar gron
-       teknik. Elcentralen, spotlights, termostat och dimmer ar ROT pa
-       arbetskostnaden och bar data-rot. Allt som ar ROT raknas bort ur gron
-       teknik-basen, annars raknas samma krona tva ganger. Inget ROT-belopp
-       raknas eller visas: bara vad tjansterna kostar, efter avdrag.
-       PAKETKORTEN. Laddboxen och elcentralen ar tva radiogrupper med pris,
-       fodda ur gemensamt/bitar.py:tjanstekort. Namnet ar gruppen plus "pkg".
-       Potten star ocksa i innehall.json, och offert.py stoppar bygget om de
-       tva drar isar. */
     var cenInp=document.querySelector('input[name="elcentralpkg"]:checked');
     var cen=cenInp?+cenInp.value:0, lb=+val("laddboxpkg");
-    /* GRON TEKNIK-BASEN AR BRUTTO. Batteriets brutto star i modellfilen.
-       Laddboxpaketets pris ar laddboxmallens netto vid 50 procent, och
-       o-driftens 30 000 ar kundens pris netto (innehall.json odrift_pott), sa
-       deras brutto ar det dubbla. Summan av brutton far EN gang halva, upp
-       till potten: taket biter ocksa pa KOMBINATIONER (SAJ 35 kWh plus
-       o-drift passerar 100 000 fast ingen enskild rad gor det). */
     var gtBrutto=s.brutto + 2*lb, rot=cen, rotNamn=[], valda=[], lagringRad=null;
     if(cenInp) rotNamn.push(CEN[String(cen)]);
     rader().forEach(function(r){
@@ -124,44 +63,19 @@
       if(pr && !inp.disabled) pr.textContent="+"+kr(radVarde(r));
       if(!inp.checked) return;
       var v=radVarde(r), namn=radNamn(r), arRot=inp.hasAttribute("data-rot");
-      /* Lagringsraden lagger inte sitt value pa bruttot: den storre storlekens
-         brutto ligger redan i s.brutto ovan. Raden ar en summeringsrad. */
       if(inp.getAttribute("data-grupp")==="lagring"){ lagringRad={namn:namn, pris:v}; return; }
-      /* BRUTTOT STAR PA RADEN. value ar nettot kunden laser, data-brutto ar
-         det som gar in i avdraget; bygget skriver bada ur prisformen i
-         innehall.json och oraklet raknar om dem fran disk. Ett pris som
-         halveras ser ut som ett pris (koordinatorn 24 okt), sa skriptet
-         gissar inte: saknas data-brutto ar raden ett fel, inte ett netto. */
       var bru=+inp.getAttribute("data-brutto");
       if(!arRot && !bru) throw new Error("tillaggsraden "+inp.getAttribute("data-grupp")+" saknar data-brutto");
       valda.push({namn:namn, pris:v, rot:arRot, brutto:bru});
       if(arRot){ rot+=v; rotNamn.push(namn); } else { gtBrutto+=bru; }
     });
-    /* SIDAN FAR INTE LOVA MER AN POTTEN. Uppmatt 23 okt fore taket fanns:
-       "Gron teknik, 50 procent, minus 107 531 kr" pa SAJ HS3 40 kWh, ett
-       avdrag kunden inte kan fa, och det ar KUNDEN som star for det mot
-       Skatteverket. */
     var harRot=rotNamn.length>0;
     var gtAvdrag=Math.min(Math.floor(gtBrutto/2), POTT);
     var gtNetto=gtBrutto-gtAvdrag;
     var takBiter=gtAvdrag<Math.floor(gtBrutto/2);
     var brutto=gtBrutto, total=gtNetto+rot;
-
-    /* HJALTEN. Specen bar inget kWh-tal sedan 29 oktober. Agaren, ordagrant:
-       "Ta bort 20 kWtimmar ... dar det star kilowatt och vi vill bara ha
-       monterad och driftsatt." Strangen ar darfor konstant och identisk med
-       den bygget skriver i markupen: vore bara den ena andrad skulle det gamla
-       talet blinka forbi innan den har raden kor. Oraklet i offert.py (punkt
-       3c) kraver bada, och forbjuder kWh i bada. Den effektiva storleken star
-       pa hardvaruraden nedanfor, dar agaren vill ha den. */
     $("prodSpec").textContent="Monterad och driftsatt";
     $("calcGross").textContent=kr(brutto);
-    /* ETIKETTEN MASTE FOLJA TALET. Nar taket biter ar avdraget potten och
-       inte halva bruttot, och raden far inte saga "50 procent" da. Kunden kan
-       dividera. OCH DEN KORTA ETIKETTEN FAR INTE VARA LANGRE AN DEN LANGA:
-       "Gron teknik, taket for tva personer" brot till tva rader i hjaltens
-       209 px och flyttade sidan 20 px under fingret. Vad taket betyder star i
-       summeringen, bredvid raden som bar mellanskillnaden. */
     $("calcDedNamn").textContent = takBiter ? "Avdrag för grön teknik"
                                             : "50 % avdrag för grön teknik";
     $("calcDed").textContent="−"+kr(gtAvdrag);
@@ -171,24 +85,9 @@
       $("calcCen").textContent=kr(rot);
     }
     $("calcNet").textContent=kr(total);
-
     var lista=ingarLista(s);
     if($("incList").innerHTML!==lista) $("incList").innerHTML=lista;
-
-    /* Summeringen. VARJE RAD SAGER DET RADEN PA SIDAN SAGER. Batteriraden ar
-       grundaffaren, forvalets storlek med sitt eget netto. Mer lagring star
-       direkt under den med sitt eget tal, sa de tva tillsammans ar exakt den
-       storre storlekens netto. En annan gron teknik-rad visar sitt eget netto,
-       en ROT-rad ar redan netto. gtRader ar summan av det kunden LASER, och
-       skillnaden mot totalen ar takraden nedanfor: nar potten ar forbrukad av
-       batteriet far o-driften inget avdrag alls, och det ska sta som en rad
-       med sitt skal, inte gommas i totalen. Kunden kan rakna. */
     var gtRader=netto(BAS.brutto);
-    /* FORSTA RADEN BAR MODELLNAMNET OCH INGET KWH-TAL (agarbeslut 29 okt,
-       ordagrant: "pa din summering har vi ocksa i det har fallet 20 kW. Det
-       vill vi ocksa ta bort."). Talet var obevakat: jag tog bort det innan
-       oraklet fanns och bygget sa ingenting. Punkt 3e i offert.py laser den
-       har raden nu. */
     var rows='<div class="o-sumrow"><span>'+MODELL.namn+'</span><span class="kr">'+kr(netto(BAS.brutto))+'</span></div>';
     if(lagringRad){ gtRader+=lagringRad.pris;
       rows+='<div class="o-sumrow sub"><span>'+lagringRad.namn+'</span><span class="kr">'+kr(lagringRad.pris)+'</span></div>'; }
@@ -201,51 +100,14 @@
       rows+='<div class="o-sumrow sub"><span>'+LBP[String(lb)]+'</span><span class="kr">'+kr(netto(2*lb))+'</span></div>'; }
     if(cen) rows+='<div class="o-sumrow sub"><span>'+CEN[String(cen)]+'</span><span class="kr">'+kr(cen)+'</span></div>';
     var takTillagg = gtNetto - gtRader;
-    /* AGARSVAR 53, 25 OKTOBER. Tva lydelser om taket togs bort har, och
-       agarens ord star ordagrant i uppdrag/2026-10-25-svaren.md och i
-       gemensamt/orakel.py:STRUKNA_FRASER. De star INTE har: en kommentar i
-       skriptet ar skickade bytes, lasbara i Visa kallkod, och en struken
-       formulering ska inte ga att hitta pa den publicerade sidan.
-
-       RADEN MASTE FINNAS KVAR, bara inte med den lydelsen. Den bar
-       mellanskillnaden mellan vad raderna visar och vad totalen sager; utan
-       den summerar kolumnen inte, och fem rader summerade en gang till
-       115 623 kr under en total pa 118 856. Etiketten sager nu vad raden ar
-       utan att namna taket och utan att skriva ut potten: potten ar det
-       utrymme kunden har kvar hos Skatteverket, och agarsvar 25 sager att
-       det ar kundens ansvar och aldrig var text. */
     if(takTillagg > 0) rows+='<div class="o-sumrow sub"><span>Del utan grön teknik-avdrag</span><span class="kr">'+kr(takTillagg)+'</span></div>';
     if(takBiter) rows+='<div class="o-sumnote">Räknat på '+(PERSONER===1?'en person':'två personer')+' i hushållet.</div>';
-    /* Grannrabatten raknas pa SKICKADE inbjudningar, som laddboxen och
-       elcentralen gor. Raden andrar inte talet kunden betalar i dag: rabatten
-       dras pa fakturan nar grannen har bestallt. Beloppet ar mallens eget. */
     var grannar=document.querySelectorAll("#refLista li").length;
     if(grannar) rows+='<div class="o-sumrow disc"><span>Rekommendationsrabatt, '+grannar+(grannar>1?' personer inbjudna':' person inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
-      /* Talet kommer ur bygget, aldrig en literal: GRANNRABATT satts av
-         js_data() ur mallens META, samma kalla som markupen ovanfor. */
       +'<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML=rows;
-    /* POTTRADEN SKRIVS INTE HAR, DEN HAMTAS. Meningen bor i
-       gemensamt/block/pottext.js och ar husets enda. Agaren, uppgift 3:
-       "Det borde sta 'inklusive moms efter gron teknik och ROT' nar jag
-       lagger till en elcentral", och om Plejd och spotlights: "da gar det
-       aterigen under ROT, sa dar maste det uppdateras."
-       BAREN FAR SAMMA MENING UTAN SIN INLEDNING. Pa mobilen ar baren den yta
-       som bar "Att betala", och den sa "efter gron teknik" aven med en
-       elcentral i: samma defekt, andra ytan. Hela meningen far inte plats i
-       baren vid 375 px, sa baren hamtar SVANSEN ur samma harledning,
-       window.ampyPottsvans. Ingen andra mening och ingen kapning: den gamla
-       raden kapade "inkl. moms, " ur hela meningen, vilket haller tills
-       nagon andrar inledningen i pottext.js. Oraklet pottraden_ar_harledd i
-       offert.py kraver bada halvorna, och mutationer-pottraden.py visar att
-       det stoppar bygget bade nar baren skriver sin egen svans och nar en
-       replace kommer tillbaka ovanpa accessorn. */
     var pott=window.ampyPottext("grön teknik", harRot);
     $("sumPott").textContent=pott;
-    /* SVANSEN UR SAMMA HARLEDNING, inte ur en kapning. Raden kapade
-       "inkl. moms, " ur hela meningen, vilket fungerar tills nagon andrar
-       inledningen; da far baren en stympad mening och ingenting sager
-       ifran. ampyPottsvans kom till for just det. */
     $("barPott").textContent=window.ampyPottsvans("grön teknik", harRot);
     $("sumTotal").textContent=kr(total);
     $("sumBrutto").textContent=kr(brutto+rot);
@@ -253,17 +115,9 @@
     $("barBrutto").textContent=kr(brutto+rot);
     rensningsknappar();
   }
-
-  /* ---- LYSSNARNA. Ett val ar ett val oavsett vilken vag det gjordes. ---- */
   document.querySelectorAll('input[name="elcentralpkg"], input[name="laddboxpkg"], input.add').forEach(function(i){
     i.addEventListener("change", render);
   });
-
-  /* VAGEN TILLBAKA UR EN RADIOGRUPP. Tre paketkort gar att valja mellan men
-     inte att avmarkera med musen, sa utan den har knappen kan kunden lagga
-     till en laddbox och aldrig ta bort den igen. Knappen syns bara nar nagot
-     ar valt, och nar den gommer sig sjalv flyttas fokus till forsta kortet i
-     gruppen: ett gomt element som har fokus tappar fokus till body. */
   function rensningsknappar(){
     document.querySelectorAll("[data-rensa]").forEach(function(b){
       b.hidden = !document.querySelector('input[name="'+b.getAttribute("data-rensa")+'"]:checked');
@@ -278,7 +132,6 @@
       if(inp[0]){ try{ inp[0].focus({preventScroll:true}); }catch(_){} }
     });
   });
-  /* andrar man antalet ar det ett val, sa rutan kryssas i */
   document.querySelectorAll("[data-antal]").forEach(function(sel){
     sel.addEventListener("change", function(){
       var i=this.closest(".o-rad").querySelector("input.add");
@@ -287,8 +140,6 @@
     });
     sel.addEventListener("click", function(e){ e.stopPropagation(); });
   });
-  /* byter man alternativ i en rullgardin ar det ett val, sa rutan kryssas i:
-     mer lagring och laddboxpaketet i Ovriga tjanster gar samma vag */
   document.querySelectorAll(".o-variant").forEach(function(s){
     s.addEventListener("change", function(){
       var i=this.closest(".o-rad").querySelector("input.add");
@@ -297,21 +148,14 @@
     });
     s.addEventListener("click", function(e){ e.stopPropagation(); });
   });
-
-  /* FOKUSRYCKNINGEN. Ett tryck pa en etikett flyttar fokus till den dolda
-     kryssrutan och webblasaren drar in den i vyn. Fokus tas sjalv pa
-     pointerdown med preventScroll, i fangstfasen, sa webblasarens egen fokus
-     inte rullar. */
   document.addEventListener("pointerdown", function(e){
     var lab=e.target.closest && e.target.closest("label.o-opt, label.o-rad, label.o-pkg");
     if(!lab) return;
     var i=lab.querySelector("input");
     if(i && !i.disabled){ try{ i.focus({preventScroll:true}); }catch(_){} }
   }, true);
-
   var mjukt = !window.matchMedia || !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function scrollTill(el,block){ if(el) el.scrollIntoView(mjukt?{behavior:"smooth",block:block||"start"}:{block:block||"start"}); }
-
   function panel(btnId,panelId,other){
     var b=$(btnId), p=$(panelId);
     b.addEventListener("click", function(){
@@ -322,18 +166,12 @@
   }
   panel("fraga","fragaPanel","avbojPanel");
   panel("avboj","avbojPanel","fragaPanel");
-
-  /* I produktion ar accept och avboj egna sidor. Prototypen visar dem som
-     egna skarmar, sa flodet gar att granska. Samma funktion som laddboxen. */
   function visaSkarm(id){
     var sk=$(id);
     if(!sk) return;
     document.querySelector(".offer").classList.add("visarSkarm");
     sk.hidden=false; sk.classList.add("syns");
     if(id==="skarmAccept"){
-      /* KVITTOT. Samma tal som summeringen just visade, last ur DOM:en i
-         stallet for omraknat, sa de inte kan dra isar. Storleken ar den
-         effektiva: det som installeras. */
       var kv=$("oaKvitto");
       if(kv){
         var s=ST[FORVAL+lagringSteg()];
@@ -342,10 +180,8 @@
         $("oaPaket").textContent=MODELL.namn+", "+kwh(s.kwh)+" kWh"+(od?", med ö-drift":"");
         kv.hidden=false;
       }
-      /* Ett ikryssat skal bakom en acceptskarm ar ett svar sidan aldrig fick. */
       document.querySelectorAll('input[name="skal"]:checked').forEach(function(e){ e.checked=false; });
     }
-    /* EN SKARMLASARE MASTE FA VETA ATT KOPET GICK IGENOM. */
     sk.setAttribute("tabindex","-1");
     if(!sk.getAttribute("role")) sk.setAttribute("role","status");
     try{ sk.focus({preventScroll:true}); }catch(e){ try{ sk.focus(); }catch(e2){} }
@@ -361,8 +197,6 @@
     this.disabled=true; ta.readOnly=true;
   });
   $("barGo").addEventListener("click", function(){ scrollTill($("summering")); });
-
-  /* informationsrutan om tillaggen */
   document.querySelectorAll(".o-info").forEach(function(b){
     b.addEventListener("click", function(e){
       e.preventDefault(); e.stopPropagation();
@@ -371,14 +205,6 @@
       if(m&&m.showModal) m.showModal();
     });
   });
-
-  /* Fore och efter: handlaren bor i gemensamt/block/foreefter.js och
-     laggs pa varje sida av bygget. Tva kopior hade redan drivit isar
-     och servicemallen hade ingen alls. */
-
-  /* UTSKRIFTEN. En stangd <details> tar inte med sitt innehall pa papperet.
-     Foldarna oppnas fore utskrift och aterstalls efterat, med sparren mot
-     att oppnaren fyrar tva ganger. */
   (function(){
     var fore=[];
     function oppna(){
@@ -398,10 +224,6 @@
       if(lyssna) lyssna(function(e){ e.matches?oppna():aterstall(); });
     }
   })();
-
-  /* grann.js i gemensamt behover kunna rakna om summan. Potten exponeras sa
-     att en sond (offerter/batteri/sonder/tillagg.js) kan prova takregeln i
-     den riktiga webblasaren utan att lasa skriptets kalla. */
   window.__render = render;
   window.__pott = POTT;
   render();

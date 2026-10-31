@@ -1,4 +1,4 @@
-/* ============ PRESENTATIONSRAM ============ */
+
 :root{
   color-scheme: light;
   --ground:#eef2f9; --surface:#ffffff; --surface-2:#e5ecf7;
@@ -39,9 +39,6 @@ header.top{padding-block:64px 28px;}
 .switch button{appearance:none;border:0;background:transparent;font-family:inherit;font-size:.875rem;font-weight:500;color:var(--muted);padding:7px 15px;border-radius:999px;cursor:pointer;}
 .switch button[aria-pressed="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(9,11,50,.12);}
 .switch button:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
-/* Scenen scrollar i sidled i stället för att ramen skalas ner. En ram som
-   skalas ljuger om renderingen, och getBoundingClientRect ljuger för allt
-   inuti den som mäter sig själv. Splide mäter sig själv. */
 .stagewrap{padding-block:28px 0;display:flex;justify-content:center;overflow-x:auto;}
 .stage{position:relative;}
 .frame{background:#fff;border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:var(--shadow);transform-origin:top center;}
@@ -49,20 +46,11 @@ header.top{padding-block:64px 28px;}
 .meta{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-top:20px;font-size:.875rem;color:var(--muted);}
 .meta b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums;}
 section.notes{padding-block:64px 0;}
-/* ANTECKNINGSKORTEN OCH TABELLOMSLAGET AR BORTTAGNA 30 OKTOBER, 674 B.
-   `.cards`, `.ncard*` och `.tablewrap` var ramens forsta notformat. Ersatta
-   av `.notegrid` + `.nt` som bor i `gemensamt/system.css` (rad 817-823), och
-   det ar dar de ska bo: ramen ager sin krom, inte offertens innehall.
-   `.measure` star kvar, den traffar. */
 .measure{max-width:42rem;}
 table.doc{border-collapse:collapse;width:100%;font-size:.9375rem;}
 table.doc th,table.doc td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top;}
 table.doc th{font-weight:600;color:var(--ink);font-size:.8125rem;letter-spacing:.04em;text-transform:uppercase;background:var(--surface-2);white-space:nowrap;}
 table.doc tbody tr:last-child td{border-bottom:0;}
-
-
-/* ============ TYPSNITTSJÄMFÖRELSEN ============
-   Sitter bara i granskningsramen, aldrig i offerten. */
 .typ{margin-top:72px;display:flex;flex-direction:column;gap:28px;}
 .typ-topp{max-width:60ch;display:flex;flex-direction:column;gap:12px;}
 .typ-topp h2{font-size:clamp(26px,3.2vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.15;color:var(--ink);}
@@ -75,7 +63,6 @@ table.doc tbody tr:last-child td{border-bottom:0;}
 .typ-flagga{color:#b4421f;font-weight:700;}
 .typ-gap{font-size:.875rem;font-weight:300;color:var(--muted);line-height:1.7;border-top:1px solid var(--line);padding-top:18px;}
 .typ-gap b{color:var(--ink);font-weight:600;}
-
 .typ-kort{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;}
 .typ-huvud{padding:24px 28px;border-bottom:1px solid var(--line);background:var(--ground);display:flex;flex-direction:column;gap:10px;}
 .typ-huvud > div{display:flex;align-items:center;gap:12px;}
@@ -84,7 +71,6 @@ table.doc tbody tr:last-child td{border-bottom:0;}
 .typ-mark{font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
   background:var(--surface-2);border-radius:999px;padding:4px 10px;}
 .typ-mark.nu{color:#8a5a00;background:#fdf1d6;}
-
 .typ-prov{padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;}
 .typ-block{display:flex;flex-direction:column;gap:10px;min-width:0;}
 .typ-etikett{font-size:.6875rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);}
@@ -100,7 +86,6 @@ table.doc tbody tr:last-child td{border-bottom:0;}
 .typ-vikter span.sakn{opacity:.45;}
 .typ-vikter span.sakn i{color:#b4421f;}
 .typ-saknas{font-size:.75rem;font-weight:400;color:#b4421f;line-height:1.6;background:#fdeee9;border-radius:10px;padding:10px 12px;}
-
 .typ-matt{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:16px;}
 .typ-matt h3{font-size:1.0625rem;font-weight:700;color:var(--ink);}
 .typ-tabellskal{overflow-x:auto;}

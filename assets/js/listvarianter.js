@@ -1,4 +1,4 @@
-/*! Växlar punktlistans tre varianter. Bara granskningsramen laddar den. */
+
 (function () {
   'use strict';
   var grupp = document.querySelector('.switch-lista');
@@ -14,7 +14,6 @@
       o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
     });
   });
-
   var tg = document.querySelector('.switch-trust');
   if (tg) tg.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-t]');
@@ -27,7 +26,6 @@
       o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
     });
   });
-
   grupp.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-l]');
     if (!b) return;
