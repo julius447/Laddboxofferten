@@ -615,7 +615,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   border-radius:3px;
 }
 @container (min-width: 1024px){
-  .offer .o-main > .o-fot{grid-column:1;grid-row:5;margin-top:0;padding-bottom:0;}
+  .offer .o-main > .o-fot{grid-column:1 / -1;grid-row:5;margin-top:0;padding-bottom:0;}
 }
 .offer #ovrigt > .body{padding-top:var(--s5);display:flex;flex-direction:column;gap:var(--rytm-sektion);}
 .offer .o-radspec{display:block;font-size:13px;color:var(--muted);}
