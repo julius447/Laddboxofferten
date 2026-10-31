@@ -726,7 +726,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   border-radius:999px;padding:2px 8px;white-space:nowrap;
 }
 .o-pkg .pbody{padding:var(--s5);display:flex;flex-direction:column;gap:var(--rytm-block);}
-.o-pkg .prow{display:flex;align-items:center;gap:var(--s3);}
+.o-pkg .prow{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);}
 .o-pkg .mark{width:var(--z3);height:var(--z3);border-radius:50%;border:1.5px solid var(--kant-kontroll);background:#fff;flex:none;position:relative;}
 .o-pkg .pname{flex:1;min-width:0;}
 .o-pkg .pname b{display:block;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}

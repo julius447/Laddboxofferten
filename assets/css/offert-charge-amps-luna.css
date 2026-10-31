@@ -726,7 +726,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   border-radius:999px;padding:2px 8px;white-space:nowrap;
 }
 .o-pkg .pbody{padding:var(--s5);display:flex;flex-direction:column;gap:var(--rytm-block);}
-.o-pkg .prow{display:flex;align-items:center;gap:var(--s3);}
+.o-pkg .prow{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s3);}
 .o-pkg .mark{width:var(--z3);height:var(--z3);border-radius:50%;border:1.5px solid var(--kant-kontroll);background:#fff;flex:none;position:relative;}
 .o-pkg .pname{flex:1;min-width:0;}
 .o-pkg .pname b{display:block;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.01em;}
@@ -994,26 +994,27 @@ html:not(.js-pa) .offer .o-utanjs,
   .offer .o-main > .o-brygga{grid-column:1;grid-row:5;}
   .offer .o-main > .o-fot{grid-row:6;}
 }
-.offer .o-bib{width:min(92cqw,720px);padding:var(--s5);}
+.offer .o-bib{width:min(100cqw - 2 * var(--s2), 720px);max-width:calc(100cqw - 2 * var(--s2));padding:var(--s5) var(--s3);}
+@container (min-width: 736px){
+  .offer .o-bib{padding:var(--s5);}
+}
 .offer .o-bib h3{margin-right:var(--z6);}
 .offer .o-bib:focus,
 .offer .o-bib:focus-visible{outline:none;}
-.offer .o-bib > p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.6;}
+.offer .o-bib > p{font-size:13px;font-weight:300;color:var(--muted);line-height:1.6;margin-top:var(--s5);}
 .offer .o-bib .o-modalknapp{width:100%;}
 .offer .o-biblista{
+  --bibnamn:139px;
+  --bibgolv:calc(var(--bibnamn) + 2 * var(--s2) + 2 * 1.5px);
   list-style:none;margin:var(--s4) 0 0;padding:0;
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3);
-}
-@container (min-width: 520px){
-  .offer .o-biblista{grid-template-columns:repeat(3,minmax(0,1fr));}
-}
-@container (min-width: 1024px){
-  .offer .o-biblista{grid-template-columns:repeat(4,minmax(0,1fr));}
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,var(--bibgolv)),1fr));
+  gap:var(--s3) var(--s2);
 }
 .offer .o-bibkort{
   display:flex;flex-direction:column;gap:var(--s2);
   background:var(--card);border:1.5px solid var(--line-2);border-radius:var(--r2);
-  padding:var(--s3);
+  padding:var(--s3) var(--s2);
 }
 .offer .o-bibkort.ardin{border-color:var(--teal-ink);}
 .offer .o-bibbild{
@@ -1042,6 +1043,7 @@ html:not(.js-pa) .offer .o-utanjs,
 .offer .o-brygga--hylla{display:block;}
 .offer .o-bibhylla{
   grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:46%;
+  column-gap:var(--s3);
   overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:var(--s2);
   min-width:0;
 }
