@@ -907,7 +907,6 @@ html:not(.js-pa) .offer .o-utanjs,
 @container (min-width: 712px){
   .offer .o-top{max-width:680px;padding-inline:var(--s4);}
   .offer .o-main{display:flex;flex-direction:column;align-items:stretch;max-width:680px;padding:var(--s6) var(--s4) var(--s7);}
-  .offer .o-main > .o-fot{padding-inline-end:0;}
   .offer .o-colB{position:static;}
 }
 .offer .o-fot{margin-top:0;}

@@ -1055,4 +1055,26 @@ html:not(.js-pa) .offer .o-utanjs,
 .offer .o-bibhylla > .o-bibkort{scroll-snap-align:start;}
 .offer .o-brygga--fold{display:block;}
 .offer .o-bibfold .o-biblista{margin-top:var(--s3);}
+@container (max-width: 375px){
+  .offer .o-cmp{min-width:0;}
+  .offer .o-cmp,.offer .o-cmp thead,.offer .o-cmp tbody{display:block;}
+  .offer .o-cmp thead th:first-child{display:none;}
+  .offer .o-cmp thead tr,.offer .o-cmp tbody tr{
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    column-gap:var(--s1);
+  }
+  .offer .o-cmp th,.offer .o-cmp td{border-bottom:0;}
+  .offer .o-cmp tbody tr{
+    padding-block:var(--s2);border-bottom:1px solid var(--line);
+  }
+  .offer .o-cmp tbody tr:last-child{border-bottom:0;}
+  .offer .o-cmp tbody td:first-child{
+    grid-column:1 / -1;width:auto;
+    padding:0 0 var(--s1);
+    font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--muted);
+  }
+  .offer .o-cmp tbody td{padding:0;text-align:left;}
+  .offer .o-cmp thead th{padding:0 0 var(--s2);text-align:left;}
+}
 .offer{width:100%;}
