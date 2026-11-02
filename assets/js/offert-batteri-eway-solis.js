@@ -102,9 +102,6 @@
     var takTillagg = gtNetto - gtRader;
     if(takTillagg > 0) rows+='<div class="o-sumrow sub"><span>Del utan grön teknik-avdrag</span><span class="kr">'+kr(takTillagg)+'</span></div>';
     if(takBiter) rows+='<div class="o-sumnote">Räknat på '+(PERSONER===1?'en person':'två personer')+' i hushållet.</div>';
-    var grannar=document.querySelectorAll("#refLista li").length;
-    if(grannar) rows+='<div class="o-sumrow disc"><span>Rekommendationsrabatt, '+grannar+(grannar>1?' personer inbjudna':' person inbjuden')+'</span><span class="kr">dras när de beställt</span></div>'
-      +'<div class="o-sumnote">Upp till '+kr(grannar*GRANNRABATT)+' av, '+kr(GRANNRABATT)+' för varje person som beställer. Ditt pris här ändras inte förrän det hänt.</div>';
     $("sumRows").innerHTML=rows;
     var pott=window.ampyPottext("grön teknik", harRot);
     $("sumPott").textContent=pott;

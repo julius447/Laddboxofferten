@@ -311,7 +311,7 @@
                 <ul class="o-ref-steg">
                   <li>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13.5a4 4 0 0 0 5.7.1l3-3a4 4 0 0 0-5.7-5.7l-1.7 1.7"/><path d="M14 10.5a4 4 0 0 0-5.7-.1l-3 3a4 4 0 0 0 5.7 5.7l1.7-1.7"/></svg>
-                    <span>Skicka en inbjudan till vem du vill</span>
+                    <span>Dela din länk med vem du vill</span>
                   </li>
                   <li>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 3.5l8.5 7"/><path d="M5.5 9.9V20h13V9.9"/><rect x="10" y="13" width="4" height="7" rx="1"/></svg>
@@ -323,17 +323,18 @@
                   </li>
                 </ul>
                 <div class="o-ref-falt">
-                  <span class="o-ref-etikett">Skicka inbjudningar</span>
-                  <p class="t-micro o-ref-hjalp" id="refHjalp">Tryck enter efter varje adress. Inget skickas förrän du trycker på knappen.</p>
-                  <label class="o-dold" for="refMejl">Mejladress till den du bjuder in</label>
-                  <div class="o-chips" id="refChips">
-                    <input type="email" id="refMejl" placeholder="namn@exempel.se" autocomplete="off" aria-describedby="refHjalp refFel">
-                  </div>
-                  <p class="t-small o-ref-fel" id="refFel" role="status"></p>
+                  <span class="o-ref-etikett">Din inbjudningslänk</span>
+                  <p class="t-micro o-ref-hjalp" id="refHjalp">Kopiera länken och skicka den till vem du vill. Personen fyller i sina uppgifter själv.</p>
+                  <p class="o-ref-lankruta">
+                    <a id="refLank" href="https://ampy.se/granne/a7f3c2"
+                       data-oa="rekommendation.lank" data-oa-href="rekommendation.lank"
+                       target="_blank" rel="noopener">ampy.se/granne/a7f3c2</a>
+                  </p>
                   <div class="o-ref-rad">
-                    <button type="button" class="o-ref-knapp mork" id="refSkicka" disabled>Skicka inbjudan</button>
+                    <button type="button" class="o-ref-knapp mork" id="refKopiera" hidden>Kopiera länk</button>
+                    <button type="button" class="o-ref-knapp ljus" id="refDela" hidden>Dela</button>
                   </div>
-                  <ul class="o-ref-lista" id="refLista"></ul>
+                  <p class="o-ref-status o-dold" id="refStatus" role="status"></p>
                 </div>
               </div>
               <p class="t-micro o-ref-fin">Rabatten dras på fakturan när personen har beställt. Hoppar personen av behåller du ditt ordinarie pris.</p>
