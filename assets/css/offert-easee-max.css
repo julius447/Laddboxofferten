@@ -301,6 +301,7 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
   .offer div:has(> div > input[type="email"], > div > input[type="text"],
                  > div > input[type="tel"]){display:none !important;}
   .offer .o-ref-hjalp{display:none !important;}
+  .offer .o-ref-ikon{display:none !important;}
 }
 .o-utanjs{display:none;}
 @media screen{
@@ -557,14 +558,45 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-ref-falt{display:flex;flex-direction:column;gap:var(--s2);align-self:stretch;}
 .offer .o-ref-etikett{font-size:15px;font-weight:600;color:var(--ink);text-align:center;}
 .offer .o-ref-rad{display:flex;gap:var(--s2);margin-top:var(--s2);justify-content:center;}
-.offer .o-ref-lankruta{display:flex;margin:0;min-height:var(--z5);
-  box-sizing:border-box;background:var(--card);
-  border:1.5px solid var(--kant);border-radius:var(--r1);overflow-wrap:anywhere;}
-.offer .o-ref-lankruta a{flex:1;display:flex;align-items:center;justify-content:center;
-  min-height:var(--z5);padding:var(--s1) var(--s3);box-sizing:border-box;
-  text-align:center;font-size:15px;font-weight:600;color:var(--teal-ink);
-  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;}
-.offer .o-ref-lankruta a:focus-visible{outline:2px solid var(--teal-ink);outline-offset:-2px;}
+   RIKTNING A, agarens val 2 november. Tre renderades ur den byggda sidan:
+   A faltet, B pillret, C sommen.
+   ADRESSEN AR INTE EN LANK ATT KLICKA PA, DEN AR EN ADRESS ATT KOPIERA, och
+   den ska se ut som det. Forsta versionen lanade sig mot webblasarens
+   standardlank, alltsa teal och understruken. Agaren: "Texten ar aven gron
+   och understryken och saknar design finesse." Understrykningen sager
+   "jag navigerar nagonstans", och det ar precis vad trycket INTE langre gor.
+   Adressen star darfor i --ink som all annan text i huset, och teal gor det
+   den gor overallt annars: markerar handlingen, alltsa ikonen.
+   EN YTA, EN HANDLING. Den separata knappen "Kopiera lank" under rutan ar
+   borta. Tva kontroller som gor samma sak ar det "en gnutta konstiga" agaren
+   reagerade pa; nu ar rutan knappen och ikonen sager vilken knapp det ar.
+   Ikonen har en egen avdelare at vanster, sa den last som en del av faltet
+   och inte som en dekoration ovanpa det.
+   GOLVET LIGGER PA LANKEN, inte pa rutan: traffytan ar elementet som tar emot
+   klicket. Uppmatt av audit.js vid 375 innan det rattades: a#refLank 151 x 20
+   px i ett hus dar 44 ar golvet, pa tolv sidor. Nu stracker sig lanken over
+   hela rutan. */
+.offer .o-ref-lankruta{display:flex;margin:0;}
+.offer .o-ref-lankruta a{flex:1;display:flex;align-items:center;
+  min-height:48px;box-sizing:border-box;overflow:hidden;
+  background:var(--card);border:1px solid var(--line-2);border-radius:var(--r1);
+  color:var(--ink);font-size:15px;font-weight:600;letter-spacing:-.005em;
+  text-decoration:none;
+  transition:border-color .18s ease, background .18s ease;}
+.offer .o-ref-adress{flex:1;text-align:center;overflow-wrap:anywhere;
+  padding:var(--s1) var(--s3);}
+.offer .o-ref-ikon{flex:none;align-self:stretch;width:44px;
+  display:grid;place-items:center;color:var(--teal-ink);
+  border-left:1px solid var(--line-2);transition:color .18s ease;}
+.offer .o-ref-ikon svg{width:20px;height:20px;}
+.offer .o-ref-lankruta a:hover{background:#f7fbfa;border-color:var(--teal-ink);}
+.offer .o-ref-lankruta a:hover .o-ref-ikon{border-left-color:var(--teal-line);}
+.offer .o-ref-lankruta a:focus-visible{outline:2px solid var(--teal-ink);outline-offset:2px;}
+.offer .o-ref-lankruta.ar-klar a{border-color:var(--teal-ink);background:var(--teal-soft);}
+.offer .o-ref-lankruta.ar-klar .o-ref-ikon{border-left-color:var(--teal-line);}
+@media (prefers-reduced-motion:reduce){
+  .offer .o-ref-lankruta a,.offer .o-ref-ikon{transition:none;}
+}
 .offer .o-ref-hjalp{color:var(--faint);margin:0 0 var(--s2);text-align:center;}
 .offer .o-ref-status{color:var(--ink);font-weight:600;margin:0;text-align:center;}
 .offer .o-ref-fin{color:var(--faint);text-align:center;

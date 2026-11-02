@@ -16,16 +16,22 @@
     if (namn) givare.textContent = namn;
   })();
   (function(){
-    var lank  = document.getElementById("refLank"),
-        kopia = document.getElementById("refKopiera"),
+    var ruta  = document.querySelector(".o-ref-lankruta"),
+        lank  = document.getElementById("refLank"),
+        ikon  = document.getElementById("refIkon"),
+        hjalp = document.getElementById("refHjalp"),
         dela  = document.getElementById("refDela"),
         stat  = document.getElementById("refStatus");
-    if (!lank || !kopia) return;
-    var VILA     = "Kopiera länk",
-        KLAR     = "Kopierad",
-        NEKAD    = "Kopieringen gick inte. Markera adressen och kopiera den själv.",
-        HORD     = "Länken är kopierad.",
-        timer    = null;
+    if (!ruta || !lank) return;
+    var NEKAD = "Kopieringen gick inte. Markera adressen och kopiera den själv.",
+        HORD  = "Länken är kopierad.",
+        HJALP_KOPIERA = "Tryck på länken för att kopiera den. "
+                      + "Personen du skickar den till fyller i sina uppgifter själv.",
+        KOPIA = ikon ? ikon.innerHTML : "",
+        BOCK  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"'
+              + ' stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
+              + '<path d="M4 12.5 9 17.5 20 6.5"/></svg>',
+        timer = null;
     function adress(){ return lank.getAttribute("href") || (lank.textContent || "").trim(); }
     function sag(text, syns){
       if (!stat) return;
@@ -33,18 +39,19 @@
       stat.classList.toggle("o-dold", !syns);
     }
     function tillVila(){
-      kopia.textContent = VILA;
-      kopia.setAttribute("aria-label", VILA);
-      kopia.classList.remove("klar");
+      ruta.classList.remove("ar-klar");
+      if (ikon) { ikon.innerHTML = KOPIA; }
+      lank.setAttribute("aria-label", "Kopiera länken " + adress());
     }
     if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-      kopia.hidden = false;
+      if (hjalp) { hjalp.textContent = HJALP_KOPIERA; }
       tillVila();
-      kopia.addEventListener("click", function(){
+      lank.addEventListener("click", function(ev){
+        ev.preventDefault();
         navigator.clipboard.writeText(adress()).then(function(){
-          kopia.textContent = KLAR;
-          kopia.setAttribute("aria-label", KLAR);
-          kopia.classList.add("klar");
+          ruta.classList.add("ar-klar");
+          if (ikon) { ikon.innerHTML = BOCK; }
+          lank.setAttribute("aria-label", "Länken är kopierad: " + adress());
           sag(HORD, false);
           setTimeout(function(){ sag("", false); }, 500);
           clearTimeout(timer);
@@ -53,8 +60,8 @@
           sag(NEKAD, true);
           var r = document.createRange();
           r.selectNodeContents(lank);
-          var s = window.getSelection();
-          s.removeAllRanges(); s.addRange(r);
+          var sel = window.getSelection();
+          sel.removeAllRanges(); sel.addRange(r);
         });
       });
     }
