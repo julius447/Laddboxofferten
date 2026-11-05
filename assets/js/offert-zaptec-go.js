@@ -12,7 +12,7 @@
   var INGAR={"0": [], "1290": ["sense", "kabelhallare"], "4720": ["kw22", "perific", "kabel11", "kabel22", "kabelhallare"]};
   var PKGVARIANT={"1290": {"sense": "Zaptec Sense"}, "4720": {"perific": "Perific Max"}};
   var TID={"0":"","1500":"Prioritet, 3 till 5 dagar","2500":"Express, 24 till 72 timmar"};
-  var CEN={"5990": "Byte av elcentral, liten", "9750": "Byte av elcentral, medel", "17250": "Byte av elcentral, stor"};
+  var CEN={"5900": "Byte av elcentral, liten", "9750": "Byte av elcentral, medel", "17250": "Byte av elcentral, stor"};
   var kundval={};
   function rader(){ return [].slice.call(document.querySelectorAll(".o-rad")); }
   function radRuta(r){ return r.querySelector("input.add, input.intresse"); }

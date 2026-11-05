@@ -8,7 +8,7 @@
   var POTT=100000;
   var PERSONER=2;
   var GRANNRABATT=3000;
-  var CEN={"5990": "Byte av elcentral, liten central", "9750": "Byte av elcentral, medel central", "17250": "Byte av elcentral, stor central"};
+  var CEN={"5900": "Byte av elcentral, liten central", "9750": "Byte av elcentral, medel central", "17250": "Byte av elcentral, stor central"};
   var BOCK="<span class=\"o-bock\"><svg viewBox=\"0 0 12 12\" aria-hidden=\"true\"><path d=\"M2.6 6.45 4.7 8.65 9.4 3.85\"/></svg></span>";
   var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
   var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Montering och installation, egna elektriker", "Anslutning till elcentral och dina solceller", "Upp till 10 meter kabel, frakt hem till dig", "För- och färdiganmälan, driftsättning, test", "Kontrollmätning, genomgång av appen, 10 års produktgaranti"]};

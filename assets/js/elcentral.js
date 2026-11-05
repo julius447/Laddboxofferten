@@ -2,9 +2,9 @@
   "use strict";
   function $(id){ return document.getElementById(id); }
   function kr(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0") + "\u00a0kr"; }
-  var PKG={"5990": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp", "bildduk": "174.7", "grupper": 7}, "9750": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp", "bildduk": "134.1", "grupper": 20}, "17250": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp", "bildduk": "96", "grupper": 36}};
-  var TAK={"5990": 17, "9750": 34, "17250": null};
-  var RYMS={"5990": 13, "9750": 22, "17250": 20};
+  var PKG={"5900": {"namn": "Liten", "spec": "", "passar": "Passar till lägenheter eller mindre hus, där centralen matar det som redan finns.", "bildsrc": "assets/img/hager-liten.webp", "bildduk": "174.7", "grupper": 7}, "9750": {"namn": "Medel", "spec": "", "passar": "Passar till villor och radhus som de ser ut i dag, med plats kvar för det som kommer sedan.", "bildsrc": "assets/img/hager-mellan.webp", "bildduk": "134.1", "grupper": 20}, "17250": {"namn": "Stor", "spec": "", "passar": "Passar till hus som ska bära laddbox, värmepump och solceller utan att centralen rörs igen.", "bildsrc": "assets/img/hager-stor.webp", "bildduk": "96", "grupper": 36}};
+  var TAK={"5900": 17, "9750": 34, "17250": null};
+  var RYMS={"5900": 13, "9750": 22, "17250": 20};
   var TJANSTPOTT={"laddbox": "gt"};
   var GRANNRABATT=1000;
   var ORDNING = Object.keys(PKG).sort(function(a,b){ return a - b; });
