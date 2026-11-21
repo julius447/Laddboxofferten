@@ -117,6 +117,10 @@
     $("barBrutto").textContent=kr(brutto+rot);
     rensningsknappar();
   }
+  (function(){
+    var ja=document.querySelector('#ampyBc [data-seg="stod"] button[data-v="true"]');
+    if(ja && !ja.disabled) ja.click();
+  })();
   document.querySelectorAll('input[name="elcentralpkg"], input[name="laddboxpkg"], input.add').forEach(function(i){
     i.addEventListener("change", render);
   });

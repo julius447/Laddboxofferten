@@ -967,7 +967,8 @@ html:not(.js-pa) .offer .o-utanjs,
     background:#fff !important;color:var(--ink) !important;border:1px solid var(--kant) !important;}
 }
 @container (min-width: 1024px){
-  .offer .o-main > #kalkyl{grid-column:1;grid-row:5;}
+  .offer .o-main > #kalkyl{grid-column:1;grid-row:4;}
+  .offer .o-main > .ampy-testimonials{grid-row:5;}
   .offer .o-main > .o-fot{grid-row:6;}
 }
 .offer .o-ksteg .o-kstegunder{margin:var(--s5) 0 0;color:var(--ink);}
