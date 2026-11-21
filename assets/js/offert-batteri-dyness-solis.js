@@ -13,7 +13,6 @@
   var LBP={"4450": "Laddbox Bas, Zaptec Go", "5740": "Laddbox Plus, Zaptec Go", "9170": "Laddbox Premium, Zaptec Go"};
   var INGAR={"hard": [{"namn": "Batterimoduler {batteri}", "spec": "{kwh} kWh{moduler}"}, {"namn": "Hybridväxelriktare", "spec": "{vaxelriktare}"}, {"namn": "Säkringar och skydd som installationen kräver", "spec": ""}], "jobb": ["Montering och installation, egna elektriker", "Anslutning till elcentral och dina solceller", "Upp till 10 meter kabel, frakt hem till dig", "För- och färdiganmälan, driftsättning, test", "Kontrollmätning, genomgång av appen, 10 års produktgaranti"]};
   var KALKYL_BATTERI=null;
-  var PAKOPET=[];
   var ST=MODELL.storlekar, BAS=ST[FORVAL];
   function netto(b){ return b - Math.min(Math.floor(b/2), POTT); }
   function kwh(v){ return String(v).replace(".",","); }
@@ -58,7 +57,7 @@
     var cenInp=document.querySelector('input[name="elcentralpkg"]:checked');
     var cen=cenInp?+cenInp.value:0, lb=+val("laddboxpkg");
     var gtBrutto=s.brutto + 2*lb, rot=cen, rotNamn=[], valda=[], lagringRad=null;
-    if(cenInp && cen) rotNamn.push(CEN[String(cen)]);
+    if(cenInp) rotNamn.push(CEN[String(cen)]);
     rader().forEach(function(r){
       var inp=r.querySelector("input.add"); if(!inp) return;
       r.classList.toggle("vald", inp.checked);
@@ -67,8 +66,7 @@
       if(!inp.checked) return;
       var v=radVarde(r), namn=radNamn(r), arRot=inp.hasAttribute("data-rot");
       if(inp.getAttribute("data-grupp")==="lagring"){ lagringRad={namn:namn, pris:v}; return; }
-      var so=r.querySelector(".o-variant"), oo=so&&so.options[so.selectedIndex];
-      var bru=(oo&&oo.hasAttribute("data-brutto")) ? +oo.getAttribute("data-brutto") : +inp.getAttribute("data-brutto");
+      var bru=+inp.getAttribute("data-brutto");
       if(!arRot && !bru) throw new Error("tillaggsraden "+inp.getAttribute("data-grupp")+" saknar data-brutto");
       valda.push({namn:namn, pris:v, rot:arRot, brutto:bru});
       if(arRot){ rot+=v; rotNamn.push(namn); } else { gtBrutto+=bru; }
@@ -93,7 +91,6 @@
     if($("incList").innerHTML!==lista) $("incList").innerHTML=lista;
     var gtRader=netto(BAS.brutto);
     var rows='<div class="o-sumrow"><span>'+MODELL.namn+'</span><span class="kr">'+kr(netto(BAS.brutto))+'</span></div>';
-    PAKOPET.forEach(function(n){ rows+='<div class="o-sumrow sub"><span>'+n+'</span><span>På köpet</span></div>'; });
     if(lagringRad){ gtRader+=lagringRad.pris;
       rows+='<div class="o-sumrow sub"><span>'+lagringRad.namn+'</span><span class="kr">'+kr(lagringRad.pris)+'</span></div>'; }
     valda.forEach(function(v){
