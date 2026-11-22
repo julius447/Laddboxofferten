@@ -886,6 +886,7 @@ html:not(.js-pa) .offer .o-utanjs,
 .offer .o-prodtop--scen{--scen-ljus:#ffffff;--scen-topp:#f7faff;--scen-golv:#e9f0fa;
   flex-direction:column;align-items:stretch;gap:var(--s4);}
 .offer .o-prodscen{position:relative;margin:calc(-1 * var(--s5)) calc(-1 * var(--s5)) 0;overflow:hidden;
+  height:calc((100cqw - 2 * var(--s4)) * .64);
   height:round(nearest, calc((100cqw - 2 * var(--s4)) * .64), 8px);
   border-radius:calc(var(--r3) - 1px) calc(var(--r3) - 1px) 0 0;
   background:
