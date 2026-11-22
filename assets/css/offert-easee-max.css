@@ -558,24 +558,6 @@ input[type="radio"],input[type="checkbox"]{margin:0;}
 .offer .o-ref-falt{display:flex;flex-direction:column;gap:var(--s2);align-self:stretch;}
 .offer .o-ref-etikett{font-size:15px;font-weight:600;color:var(--ink);text-align:center;}
 .offer .o-ref-rad{display:flex;gap:var(--s2);margin-top:var(--s2);justify-content:center;}
-   RIKTNING A, agarens val 2 november. Tre renderades ur den byggda sidan:
-   A faltet, B pillret, C sommen.
-   ADRESSEN AR INTE EN LANK ATT KLICKA PA, DEN AR EN ADRESS ATT KOPIERA, och
-   den ska se ut som det. Forsta versionen lanade sig mot webblasarens
-   standardlank, alltsa teal och understruken. Agaren: "Texten ar aven gron
-   och understryken och saknar design finesse." Understrykningen sager
-   "jag navigerar nagonstans", och det ar precis vad trycket INTE langre gor.
-   Adressen star darfor i --ink som all annan text i huset, och teal gor det
-   den gor overallt annars: markerar handlingen, alltsa ikonen.
-   EN YTA, EN HANDLING. Den separata knappen "Kopiera lank" under rutan ar
-   borta. Tva kontroller som gor samma sak ar det "en gnutta konstiga" agaren
-   reagerade pa; nu ar rutan knappen och ikonen sager vilken knapp det ar.
-   Ikonen har en egen avdelare at vanster, sa den last som en del av faltet
-   och inte som en dekoration ovanpa det.
-   GOLVET LIGGER PA LANKEN, inte pa rutan: traffytan ar elementet som tar emot
-   klicket. Uppmatt av audit.js vid 375 innan det rattades: a#refLank 151 x 20
-   px i ett hus dar 44 ar golvet, pa tolv sidor. Nu stracker sig lanken over
-   hela rutan. */
 .offer .o-ref-lankruta{display:flex;margin:0;}
 .offer .o-ref-lankruta a{flex:1;display:flex;align-items:center;
   min-height:48px;box-sizing:border-box;overflow:hidden;
