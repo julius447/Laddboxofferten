@@ -901,6 +901,30 @@ html:not(.js-pa) .offer .o-utanjs,
   .offer .o-rader .o-rad > .o-radtext > :not(.o-radnamn):not(.o-radpris),
   .offer .o-rader .o-rad > .o-radtext > .o-radspec{margin-top:var(--s2);}
 }
+.offer .o-prodtop--scen{--scen-ljus:#ffffff;--scen-topp:#f7faff;--scen-golv:#e9f0fa;
+  flex-direction:column;align-items:stretch;gap:var(--s4);}
+.offer .o-prodscen{position:relative;margin:calc(-1 * var(--s5)) calc(-1 * var(--s5)) 0;overflow:hidden;
+  height:round(nearest, calc((100cqw - 2 * var(--s4)) * .64), 8px);
+  border-radius:calc(var(--r3) - 1px) calc(var(--r3) - 1px) 0 0;
+  background:
+    radial-gradient(62% 54% at 50% 44%, var(--scen-ljus) 0%, rgba(255,255,255,0) 100%),
+    linear-gradient(180deg, var(--scen-topp) 0%, var(--bg) 52%, var(--scen-golv) 100%);}
+.offer .o-prodscen img{position:absolute;z-index:1;left:50%;top:50%;width:auto;height:90%;
+  max-width:none;transform:translate(-50%,-50%);
+  filter:drop-shadow(0 8px 12px rgba(9,11,50,.08));}
+.offer .o-prodid{display:flex;flex-direction:column;gap:var(--s1);}
+.offer .o-prodtop--scen .o-prodname{font-size:24px;line-height:32px;letter-spacing:-.02em;}
+.offer .o-prodtop--scen .o-prodspec{font-size:15px;line-height:24px;margin-top:0;}
+@container (min-width: 520px){
+  .offer .o-prodscen{height:256px;}
+}
+@container (min-width: 1024px){
+  .offer .o-prodtop--scen{flex-direction:row;align-items:center;gap:var(--s5);}
+  .offer .o-prodscen{margin:0;flex:none;width:176px;height:auto;aspect-ratio:176 / 150;border-radius:var(--r2);}
+  .offer .o-prodscen img{width:90%;height:auto;}
+  .offer .o-prodtop--scen .o-prodname{font-size:20px;line-height:28px;}
+  .offer .o-prodtop--scen .o-prodspec{font-size:13px;line-height:20px;}
+}
 .offer .o-prodimg{background:var(--bg);position:relative;aspect-ratio:96 / 150;}
 .offer .o-prodimg.tom{border:1px solid var(--line-2);display:grid;place-items:center;padding:var(--s2);}
 .offer .o-prodimg__besked{font-size:11px;line-height:16px;font-weight:600;color:var(--faint);text-align:center;}
@@ -971,37 +995,13 @@ html:not(.js-pa) .offer .o-utanjs,
   .offer .o-main > .ampy-testimonials{grid-row:5;}
   .offer .o-main > .o-fot{grid-row:6;}
 }
-.offer .o-prodtop--scen{--scen-ljus:#ffffff;--scen-topp:#f7faff;--scen-golv:#e9f0fa;
-  flex-direction:column;align-items:stretch;gap:var(--s4);}
-.offer .o-prodscen{position:relative;margin:calc(-1 * var(--s5)) calc(-1 * var(--s5)) 0;overflow:hidden;
-  height:round(nearest, calc((100cqw - 2 * var(--s4)) * .64), 8px);
-  border-radius:calc(var(--r3) - 1px) calc(var(--r3) - 1px) 0 0;
-  background:
-    radial-gradient(62% 54% at 50% 44%, var(--scen-ljus) 0%, rgba(255,255,255,0) 100%),
-    linear-gradient(180deg, var(--scen-topp) 0%, var(--bg) 52%, var(--scen-golv) 100%);}
-.offer .o-prodscen::after{content:"";position:absolute;left:36%;right:12%;bottom:9%;height:8%;
-  background:radial-gradient(closest-side, rgba(9,11,50,.13), rgba(9,11,50,0));}
-.offer .o-prodscen img{position:absolute;z-index:1;left:50%;top:50%;width:auto;height:100%;
-  max-width:none;transform:translate(-50%,-50%);
-  filter:drop-shadow(0 8px 12px rgba(9,11,50,.08));}
-.offer .o-prodid{display:flex;flex-direction:column;gap:var(--s1);}
-.offer .o-prodtop--scen .o-prodname{font-size:24px;line-height:32px;letter-spacing:-.02em;}
-.offer .o-prodtop--scen .o-prodspec{font-size:15px;line-height:24px;margin-top:0;}
 @container (max-width: 1023px){
   .offer .o-heroingar .o-ingar--hw li.prod b{display:block;}
   .offer .o-heroingar .o-ingar--hw li.prod b + span{display:block;}
   .offer .o-heroingar .o-ingar--hw li.prod b + span::before{content:none;}
   .offer .o-heroingar .o-ingar--hw li{line-height:20px;}
 }
-@container (min-width: 520px){
-  .offer .o-prodscen{height:256px;}
-}
-@container (min-width: 1024px){
-  .offer .o-prodtop--scen{flex-direction:row;align-items:center;gap:var(--s5);}
-  .offer .o-prodscen{margin:0;flex:none;width:176px;height:auto;aspect-ratio:176 / 150;border-radius:var(--r2);}
-  .offer .o-prodscen img{width:90%;height:auto;}
-  .offer .o-prodscen::after{bottom:6%;}
-  .offer .o-prodtop--scen .o-prodname{font-size:20px;line-height:28px;}
-  .offer .o-prodtop--scen .o-prodspec{font-size:13px;line-height:20px;}
-}
+.offer .o-prodscen::after{content:"";position:absolute;left:36%;right:12%;bottom:9%;height:8%;
+  background:radial-gradient(closest-side, rgba(9,11,50,.13), rgba(9,11,50,0));}
+@container (min-width: 1024px){.offer .o-prodscen::after{bottom:6%;}}
 .offer{width:100%;}
