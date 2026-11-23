@@ -5,7 +5,8 @@ window.AMPY_BATTERY_DATA = {
    "id": "eway",
    "inverterKw": 10,
    "powerKwPerKwh": 0.65,
-   "name": "Eway",
+   "name": "Eway Pro",
+   "defaultKwh": 27.66,
    "tier": "Prisvärd",
    "image": "img/batteri-eway.webp",
    "pitch": "Mest lagring för pengarna, med robusta LFP-celler.",
@@ -15,49 +16,49 @@ window.AMPY_BATTERY_DATA = {
    "supportsStodtjanster": true,
    "chemistry": "LiFePO4",
    "slug": "/solcellsbatterier/eway",
+   "moduleKwh": 9.22,
    "variants": [
     {
-     "capacityKwh": 15.36,
-     "totalPrice": 114000,
-     "usableCapacityKwh": 14.59,
-     "kolumnI": 47000
+     "capacityKwh": 18.44,
+     "totalPrice": 120322,
+     "usableCapacityKwh": 17.52,
+     "kolumnI": 45161,
+     "tillagg": 15000
     },
     {
-     "capacityKwh": 23.04,
-     "totalPrice": 128000,
-     "usableCapacityKwh": 21.89,
-     "kolumnI": 54000
+     "capacityKwh": 27.66,
+     "totalPrice": 134884,
+     "usableCapacityKwh": 26.28,
+     "kolumnI": 52442,
+     "tillagg": 15000
     },
     {
-     "capacityKwh": 30.72,
-     "totalPrice": 140000,
-     "usableCapacityKwh": 29.18,
-     "kolumnI": 60000
+     "capacityKwh": 36.88,
+     "totalPrice": 151946,
+     "usableCapacityKwh": 35.04,
+     "kolumnI": 60973,
+     "tillagg": 15000
     },
     {
-     "capacityKwh": 38.4,
-     "totalPrice": 152000,
-     "usableCapacityKwh": 36.48,
-     "kolumnI": 66000
+     "capacityKwh": 46.1,
+     "totalPrice": 166506,
+     "usableCapacityKwh": 43.8,
+     "kolumnI": 68253,
+     "tillagg": 15000
     },
     {
-     "capacityKwh": 46.08,
-     "totalPrice": 168000,
-     "usableCapacityKwh": 43.78,
-     "kolumnI": 74000
+     "capacityKwh": 55.32,
+     "totalPrice": 182318,
+     "usableCapacityKwh": 52.55,
+     "kolumnI": 76159,
+     "tillagg": 15000
     },
     {
-     "capacityKwh": 53.76,
-     "totalPrice": 182000,
-     "usableCapacityKwh": 51.07,
-     "kolumnI": 81000
-    },
-    {
-     "capacityKwh": 63.4,
-     "inverterKw": 20,
-     "totalPrice": 210000,
-     "usableCapacityKwh": 60.23,
-     "kolumnI": 95000
+     "capacityKwh": 64.54,
+     "totalPrice": 196878,
+     "usableCapacityKwh": 61.31,
+     "kolumnI": 83439,
+     "tillagg": 15000
     }
    ]
   },
@@ -66,6 +67,7 @@ window.AMPY_BATTERY_DATA = {
    "inverterKw": 12,
    "powerKwPerKwh": 0.71,
    "name": "SAJ HS3",
+   "defaultKwh": 20,
    "tier": "Premium",
    "image": "img/batteri-saj.webp",
    "pitch": "Premiumsystem som byggs ut steg för steg när behovet växer.",
@@ -80,49 +82,57 @@ window.AMPY_BATTERY_DATA = {
      "capacityKwh": 5,
      "totalPrice": 100000,
      "usableCapacityKwh": 4.5,
-     "kolumnI": 40000
+     "kolumnI": 40000,
+     "tillagg": 10000
     },
     {
      "capacityKwh": 10,
      "totalPrice": 110000,
      "usableCapacityKwh": 9.0,
-     "kolumnI": 45000
+     "kolumnI": 45000,
+     "tillagg": 10000
     },
     {
      "capacityKwh": 15,
      "totalPrice": 124000,
      "usableCapacityKwh": 13.5,
-     "kolumnI": 52000
+     "kolumnI": 52000,
+     "tillagg": 10000
     },
     {
      "capacityKwh": 20,
      "totalPrice": 158000,
      "usableCapacityKwh": 18.0,
-     "kolumnI": 69000
+     "kolumnI": 69000,
+     "tillagg": 10000
     },
     {
      "capacityKwh": 25,
      "totalPrice": 186000,
      "usableCapacityKwh": 22.5,
-     "kolumnI": 83000
+     "kolumnI": 83000,
+     "tillagg": 10000
     },
     {
      "capacityKwh": 30,
      "totalPrice": 204000,
      "usableCapacityKwh": 27.0,
-     "kolumnI": 92000
+     "kolumnI": 92000,
+     "tillagg": 10000
     },
     {
      "capacityKwh": 35,
      "totalPrice": 230000,
      "usableCapacityKwh": 31.5,
-     "kolumnI": 105000
+     "kolumnI": 105000,
+     "tillagg": 10000
     },
     {
      "capacityKwh": 40,
      "totalPrice": 244000,
      "usableCapacityKwh": 36.0,
-     "kolumnI": 112000
+     "kolumnI": 112000,
+     "tillagg": 10000
     }
    ]
   }
@@ -260,14 +270,14 @@ window.AMPY_BATTERY_DATA = {
     format: { kr: kr, years: years, kwh: kwh },
     DEFAULT_INPUTS: {
       batteryId: 'eway',        
-      capacityKwh: 15.36,
+      capacityKwh: 27.66,
       region: 'SE3',
       hasSolar: true,
       applicants: 2,
       consumptionKwh: 20000,
       solarProductionKwh: 12000,
       hasEffekttariff: false,
-      stodtjanster: false       
+      stodtjanster: true        
     }
   };
 })(typeof window !== 'undefined' ? window : globalThis);
@@ -285,7 +295,7 @@ if (typeof module !== 'undefined') module.exports = (typeof window !== 'undefine
   var def = E.findBattery(D, root.dataset.battery) || D.BATTERIES[0];
   var wantKwh = parseFloat(String(root.dataset.kwh || '').replace(',', '.'));
   var defVar = def.variants.find(function (v) { return v.capacityKwh === wantKwh; }) || def.variants[Math.min(1, def.variants.length - 1)];
-  var S = { batteryId: def.id, capacityKwh: defVar.capacityKwh, region: D.defaultRegion || 'SE3', hasSolar: true, stod: false,
+  var S = { batteryId: def.id, capacityKwh: defVar.capacityKwh, region: D.defaultRegion || 'SE3', hasSolar: true, stod: true,   
     applicants: 2, consumption: D.ADVANCED_DEFAULTS.annualConsumptionKwh, solar: D.ADVANCED_DEFAULTS.solarProductionKwh, effekt: !!D.ADVANCED_DEFAULTS.hasEffekttariffDefault,
     advOpen: false };
   var REGION_NAMES = { SE1: 'Norra Sverige', SE2: 'Norra Mellansverige', SE3: 'Södra Mellansverige', SE4: 'Södra Sverige' };
@@ -359,9 +369,10 @@ if (typeof module !== 'undefined') module.exports = (typeof window !== 'undefine
     });
   }, function () { return S.batteryId; }, function (v) {
     var b = E.findBattery(D, v); if (!b) return;
-    var prev = battery(), frac = prev.variants.length > 1 ? prev.variants.findIndex(function (x) { return x.capacityKwh === S.capacityKwh; }) / (prev.variants.length - 1) : 0;
+    if (v === S.batteryId) return;
     S.batteryId = v;
-    S.capacityKwh = b.variants[Math.round(frac * (b.variants.length - 1))].capacityKwh;   
+    var dv = b.variants.find(function (x) { return x.capacityKwh === b.defaultKwh; }) || b.variants[Math.floor(b.variants.length / 2)];
+    S.capacityKwh = dv.capacityKwh;
     if (!b.supportsStodtjanster) S.stod = false;
     syncCap(); render();
   });
